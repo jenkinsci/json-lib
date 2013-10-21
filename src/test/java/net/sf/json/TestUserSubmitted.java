@@ -678,8 +678,8 @@ public class TestUserSubmitted extends TestCase {
       array.element("null", jsonConfig);
       array.element("undefined", jsonConfig);
       assertNotNull(array);
-      Assertions.assertEquals( JSONNull.getInstance(), array.get(0) );
-      Assertions.assertEquals( JSONNull.getInstance(), array.get(1) );
+      Assertions.assertEquals( "null", array.get(0) );
+      Assertions.assertEquals( "undefined", array.get(1) );
    }
    
    public void testJSONObject_JavascriptCompliant() {
