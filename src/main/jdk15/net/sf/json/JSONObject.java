@@ -39,23 +39,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-import java.beans.PropertyDescriptor;
-import java.io.IOException;
-import java.io.Writer;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Array;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.array.ObjectArrayMorpher;
 import net.sf.ezmorph.bean.BeanMorpher;
@@ -67,13 +50,22 @@ import net.sf.json.regexp.RegexpUtils;
 import net.sf.json.util.JSONTokener;
 import net.sf.json.util.JSONUtils;
 import net.sf.json.util.PropertyFilter;
-
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.Writer;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.*;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external
@@ -1668,7 +1660,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String,O
             return true;
          }
       }
-      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] is not a Boolean." );
+      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] does not exist." );
    }
 
    /**
@@ -1683,14 +1675,16 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String,O
       verifyIsNull();
       Object o = get( key );
       if( o != null ){
-         try{
-            return o instanceof Number ? ((Number) o).doubleValue()
-                  : Double.parseDouble( (String) o );
-         }catch( Exception e ){
-            throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] is not a number." );
+         try {
+             return o instanceof Number ? ((Number) o).doubleValue()
+                     : Double.parseDouble((String) o);
+         } catch (NumberFormatException e) {
+             throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] = \"" + o + "\" is not a number.", e);
+         } catch (ClassCastException e) {
+             throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] = " + o + " is not a number.", e);
          }
       }
-      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] is not a number." );
+      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] does not exist." );
    }
 
    /**
@@ -1708,7 +1702,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String,O
       if( o != null ){
          return o instanceof Number ? ((Number) o).intValue() : (int) getDouble( key );
       }
-      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] is not a number." );
+      throw new JSONException( "JSONObject[" + JSONUtils.quote( key ) + "] does not exist.");
    }
 
    /**
