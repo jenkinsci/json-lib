@@ -15,16 +15,7 @@
  */
 package net.sf.json;
 
-import java.beans.PropertyDescriptor;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-
 import junit.framework.TestCase;
-import net.sf.json.sample.GenericsBean;
-import net.sf.json.sample.GenericsBean.GenericsInternalBean;
-
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * @author Matt Small <msmall@wavemaker.com>

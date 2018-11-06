@@ -24,8 +24,6 @@ import junit.framework.TestCase;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
-import net.sf.json.JSONObject;
-import net.sf.json.JsonConfig;
 import net.sf.json.sample.AnnotationBean;
 import net.sf.json.sample.AnnotatedBean;
 import net.sf.json.sample.EnumBean;
