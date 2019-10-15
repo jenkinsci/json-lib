@@ -129,6 +129,7 @@ public class JSONSerializer {
     */
    private static JSON toJSON( String string, JsonConfig jsonConfig ) {
       JSON json = null;
+      string = string.trim();
       if( string.startsWith( "[" ) ){
          json = JSONArray.fromObject( string, jsonConfig );
       }else if( string.startsWith( "{" ) ){
