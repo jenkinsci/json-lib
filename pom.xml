@@ -327,11 +327,11 @@
   <distributionManagement>
     <repository>
       <id>maven.jenkins-ci.org</id>
-      <url>http://maven.jenkins-ci.org:8081/content/repositories/releases</url>
+      <url>https://maven.jenkins-ci.org:8081/content/repositories/releases</url>
     </repository>
     <snapshotRepository>
       <id>maven.jenkins-ci.org</id>
-      <url>http://maven.jenkins-ci.org:8081/content/repositories/snapshots</url>
+      <url>https://maven.jenkins-ci.org:8081/content/repositories/snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
@@ -340,7 +340,7 @@
       <pluginRepository>
          <id>codehaus-snapshot-plugins</id>
          <name>codehaus-shapshot-plugins</name>
-         <url>http://snapshots.repository.codehaus.org/</url>
+         <url>https://snapshots.repository.codehaus.org/</url>
          <snapshots>
             <enabled>true</enabled>
          </snapshots>
