@@ -22,7 +22,7 @@ import net.sf.json.JsonConfig;
  * Transforms a java.util.Date property into a JSONObject ideal for JsDate
  * conversion
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsDateJsonValueProcessor implements JsonValueProcessor {
 

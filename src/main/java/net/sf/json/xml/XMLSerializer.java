@@ -61,22 +61,22 @@ import org.apache.commons.logging.LogFactory;
  * <pre>
  * JSONObject json = JSONObject.fromObject("{\"name\":\"json\",\"bool\":true,\"int\":1}");
  * String xml = new XMLSerializer().write( json );
- * <xmp><o class="object">
- <name type="string">json</name>
- <bool type="boolean">true</bool>
- <int type="number">1</int>
- </o></xmp>
+ * &lt;xmp&gt;&lt;o class="object"&gt;
+ &lt;name type="string"&gt;json&lt;/name&gt;
+ &lt;bool type="boolean"&gt;true&lt;/bool&gt;
+ &lt;int type="number"&gt;1&lt;/int&gt;
+ &lt;/o&gt;&lt;/xmp&gt;
  * </pre><pre>
  * JSONArray json = JSONArray.fromObject("[1,2,3]");
  * String xml = new XMLSerializer().write( json );
- * <xmp><a class="array">
- <e type="number">1</e>
- <e type="number">2</e>
- <e type="number">3</e>
- </a></xmp>
+ * &lt;xmp&gt;&lt;a class="array"&gt;
+ &lt;e type="number"&gt;1&lt;/e&gt;
+ &lt;e type="number"&gt;2&lt;/e&gt;
+ &lt;e type="number"&gt;3&lt;/e&gt;
+ &lt;/a&gt;&lt;/xmp&gt;
  * </pre>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class XMLSerializer {
    private static final String[] EMPTY_ARRAY = new String[0];

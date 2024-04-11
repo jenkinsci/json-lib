@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
 /**
  * Provides useful methods for working with JSON and web.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class WebUtils {
    private static final WebHijackPreventionStrategy DEFAULT_WEB_HIJACK_PREVENTION_STRATEGY = WebHijackPreventionStrategy.INFINITE_LOOP;

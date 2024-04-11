@@ -568,7 +568,6 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     * </ul>
     *
     * @deprecated replaced by toCollection
-    * @see #toCollection(JSONArray,Class,Map)
     */
    public static List toList( JSONArray jsonArray, Class objectClass, Map classMap ) {
       JsonConfig jsonConfig = new JsonConfig();
@@ -1324,7 +1323,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
    /**
     * Remove an element, if present.
     *
-    * @param index the element.
+    * @param o the element.
     * @return this.
     */
    public JSONArray discard( Object o ) {

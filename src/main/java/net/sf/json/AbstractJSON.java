@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 /**
  * Base class for JSONObject and JSONArray.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 abstract class AbstractJSON implements JSON {
    private static class CycleSet extends ThreadLocal {

@@ -23,7 +23,7 @@ import junit.framework.TestCase;
 import net.sf.json.sample.JsonEventAdpater;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJSONArrayEvents extends TestCase {
    public static void main( String[] args ) {

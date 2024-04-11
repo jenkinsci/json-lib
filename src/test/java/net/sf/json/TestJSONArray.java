@@ -35,7 +35,7 @@ import net.sf.json.util.JSONTokener;
 import org.apache.commons.beanutils.DynaBean;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJSONArray extends TestCase {
    public static void main( String[] args ) {

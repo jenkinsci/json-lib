@@ -17,7 +17,7 @@
 package net.sf.json.util;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface PropertyFilter {
    /**

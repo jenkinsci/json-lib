@@ -25,7 +25,7 @@ import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJSONArrayStaticBuilders_Collection_DynaBean extends
       AbstractJSONArrayStaticBuildersTestCase {

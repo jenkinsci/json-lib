@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MappedBean extends HashMap {
    private static final long serialVersionUID = -3372716996620968313L;

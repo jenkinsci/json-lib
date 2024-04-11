@@ -20,7 +20,7 @@ import net.sf.json.JSONException;
 import net.sf.json.util.JsonEventListener;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsonEventAdpater implements JsonEventListener {
    private int arrayEnd = 0;

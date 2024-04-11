@@ -49,7 +49,7 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Utility class that helps configuring the serialization process.
  * 
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsonConfig {
    public static final DefaultValueProcessorMatcher DEFAULT_DEFAULT_VALUE_PROCESSOR_MATCHER = DefaultValueProcessorMatcher.DEFAULT;
@@ -273,7 +273,7 @@ public class JsonConfig {
     * will not raise an exception.
     *
     * <p>
-    * For example, given {"x":1, "y":2, "z":3} on the following <tt>Point</tt> class,
+    * For example, given {"x":1, "y":2, "z":3} on the following {@code Point} class,
     * {@link JSONObject#toBean()} would fail unless this flag is set to true, because
     * propety "x" in JSON has no corresponding Java counerpart.
     *
@@ -316,7 +316,7 @@ public class JsonConfig {
     * Returns null if none is registered.<br>
     * [JSON -&gt; Java]
     * 
-    * @param propertyType a class used for searching a PropertyNameProcessor.
+    * @param beanClass a class used for searching a PropertyNameProcessor.
     */
    public PropertyNameProcessor findJavaPropertyNameProcessor( Class beanClass ) {
       if( !javaPropertyNameProcessorMap.isEmpty() ) {
@@ -347,7 +347,7 @@ public class JsonConfig {
     * Returns null if none is registered.<br>
     * [Java -&gt; JSON]
     * 
-    * @param propertyType a class used for searching a PropertyNameProcessor.
+    * @param beanClass a class used for searching a PropertyNameProcessor.
     */
    public PropertyNameProcessor findJsonPropertyNameProcessor( Class beanClass ) {
       if( !jsonPropertyNameProcessorMap.isEmpty() ) {
@@ -450,7 +450,7 @@ public class JsonConfig {
     * Returns null if none is registered. <br>
     * [JSON -&gt; Java]
     * 
-    * @param propertyType a class used for searching a PropertyNameProcessor.
+    * @param beanClass a class used for searching a PropertyNameProcessor.
     * 
     * @deprecated use findJavaPropertyNameProcessor() instead
     */

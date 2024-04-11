@@ -24,7 +24,7 @@ import net.sf.json.sample.AnnotationBean;
 import net.sf.json.sample.JsonEnum;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJSONArrayJdk15 extends TestCase
 {

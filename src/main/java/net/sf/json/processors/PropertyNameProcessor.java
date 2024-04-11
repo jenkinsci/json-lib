@@ -20,7 +20,7 @@ package net.sf.json.processors;
 /**
  * Base interface for mutating property names of a Bean.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface PropertyNameProcessor {
    /**

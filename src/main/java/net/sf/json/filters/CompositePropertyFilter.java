@@ -23,7 +23,7 @@ import java.util.List;
 import net.sf.json.util.PropertyFilter;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class CompositePropertyFilter implements PropertyFilter {
    private List filters = new ArrayList();

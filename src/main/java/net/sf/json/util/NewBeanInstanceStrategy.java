@@ -27,7 +27,7 @@ import net.sf.json.JSONObject;
  * <li>DEFAULT - calls Class.newInstance().</li>
  * </ul>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public abstract class NewBeanInstanceStrategy {
    /** Calls Class.newInstance() */

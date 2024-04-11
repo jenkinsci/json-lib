@@ -23,7 +23,7 @@ import net.sf.json.util.JSONUtils;
 /**
  * Base implementation for DefaultDefaultValueProcessor.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class DefaultDefaultValueProcessor implements DefaultValueProcessor {
    public Object getDefaultValue( Class type ) {
