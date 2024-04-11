@@ -22,7 +22,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.util.NewBeanInstanceStrategy;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class UnstandardBeanInstanceStrategy extends NewBeanInstanceStrategy {
    public Object newInstance( Class target, JSONObject source ) throws InstantiationException,

@@ -22,7 +22,7 @@ import net.sf.json.JsonConfig;
 /**
  * Base interface for custom serialization per property.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface JsonValueProcessor {
    /**

@@ -33,7 +33,7 @@ import org.springframework.web.servlet.view.AbstractView;
 /**
  * A View that renders its model as a JSON object.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsonView extends AbstractView {
    /** Default content type. Overridable as bean property. */

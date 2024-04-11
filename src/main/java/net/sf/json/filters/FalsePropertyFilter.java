@@ -19,7 +19,7 @@ package net.sf.json.filters;
 import net.sf.json.util.PropertyFilter;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class FalsePropertyFilter implements PropertyFilter {
    public boolean apply( Object source, String name, Object value ) {

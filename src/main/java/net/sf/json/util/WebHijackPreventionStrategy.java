@@ -24,7 +24,7 @@ package net.sf.json.util;
  * <li>INFINITE_LOOP - prepends "while(1);"</li>
  * </ul>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public abstract class WebHijackPreventionStrategy {
    /** Wraps the string with /* *\/ */

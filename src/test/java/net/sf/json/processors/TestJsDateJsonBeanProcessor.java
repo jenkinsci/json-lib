@@ -24,7 +24,7 @@ import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJsDateJsonBeanProcessor extends TestCase {
    public static void main( String[] args ) {

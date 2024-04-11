@@ -43,7 +43,7 @@ import org.apache.commons.beanutils.DynaBean;
 /**
  * Provides useful methods on java objects and JSON values.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  * @version 7
  */
 public final class JSONUtils {
@@ -270,8 +270,7 @@ public final class JSONUtils {
 
    /**
     * Tests if obj is javaScript function.<br>
-    * Obj must be a non-null String and match <nowrap>"^function[ ]?\\(.*\\)[
-    * ]?\\{.*\\}$"</nowrap>
+    * Obj must be a non-null String and match "^function[ ]?\\(.*\\)[ ]?\\{.*\\}$"
     */
    public static boolean isFunction( Object obj ) {
       if( obj instanceof String ){
@@ -458,7 +457,7 @@ public final class JSONUtils {
 
    /**
     * Produce a string in double quotes with backslash sequences in all the
-    * right places. A backslash will be inserted within </, allowing JSON text
+    * right places. A backslash will be inserted within &lt;/, allowing JSON text
     * to be delivered in HTML. In JSON text, a string cannot contain a control
     * character or an unescaped quote or backslash.<br>
     *

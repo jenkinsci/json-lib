@@ -24,7 +24,7 @@ import java.util.Map;
 import net.sf.json.sample.ObjectBean;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class PropertyConstants {
    private static final String ARRAY = "parray";

@@ -19,7 +19,7 @@ package net.sf.json.xml;
 import junit.framework.TestSuite;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class AllTests extends TestSuite {
    public static TestSuite suite() throws Exception {

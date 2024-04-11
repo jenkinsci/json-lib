@@ -100,7 +100,7 @@ def books6 = builder.books {
 }
 </pre>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsonGroovyBuilder extends GroovyObjectSupport {
    private static final String JSON = "json";

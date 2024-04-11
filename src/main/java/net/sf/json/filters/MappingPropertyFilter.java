@@ -23,7 +23,7 @@ import java.util.Map;
 import net.sf.json.util.PropertyFilter;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public abstract class MappingPropertyFilter implements PropertyFilter {
    private Map filters = new HashMap();

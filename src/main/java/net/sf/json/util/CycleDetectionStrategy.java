@@ -30,7 +30,7 @@ import net.sf.json.JSONObject;
  * <li>LENIENT - will return an empty array or null object if a cycle is found.</li>
  * </ul>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public abstract class CycleDetectionStrategy {
    public static final JSONArray IGNORE_PROPERTY_ARR = new JSONArray();

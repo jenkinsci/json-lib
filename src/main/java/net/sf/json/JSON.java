@@ -24,7 +24,7 @@ import java.io.Serializable;
  * A JSON value may be a {@link JSONObject}, a {@link JSONArray} or a
  * {@link JSONNull}.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface JSON extends Serializable {
    /**

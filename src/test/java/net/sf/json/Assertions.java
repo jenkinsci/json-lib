@@ -22,7 +22,7 @@ import net.sf.ezmorph.test.ArrayAssertions;
 import net.sf.json.test.JSONAssert;
 
 /**
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class Assertions extends JSONAssert {
    public static void assertEquals( List expecteds, List actuals ) {
