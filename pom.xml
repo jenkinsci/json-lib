@@ -250,40 +250,10 @@
          <plugin>
             <artifactId>maven-compiler-plugin</artifactId>
             <configuration>
-               <source>1.5</source>
-               <target>1.5</target>
+               <source>1.8</source>
+               <target>1.8</target>
             </configuration>
          </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>build-helper-maven-plugin</artifactId>
-          <executions>
-            <execution>
-              <id>add-source</id>
-              <phase>generate-sources</phase>
-              <goals>
-                <goal>add-source</goal>
-              </goals>
-              <configuration>
-                <sources>
-                  <source>src/main/jdk15</source>
-                </sources>
-              </configuration>
-            </execution>
-            <execution>
-              <id>add-test-source</id>
-              <phase>generate-test-sources</phase>
-              <goals>
-                <goal>add-test-source</goal>
-              </goals>
-              <configuration>
-                <sources>
-                  <source>src/test/jdk15</source>
-                </sources>
-              </configuration>
-            </execution>
-          </executions>
-        </plugin>
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-site-plugin</artifactId>
