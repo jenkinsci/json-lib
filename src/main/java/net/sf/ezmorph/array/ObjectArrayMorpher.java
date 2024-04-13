@@ -27,7 +27,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Morphs an array to another array using a Morpher.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class ObjectArrayMorpher extends AbstractArrayMorpher
 {

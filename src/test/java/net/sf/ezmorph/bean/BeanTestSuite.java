@@ -24,7 +24,7 @@ import junit.textui.TestRunner;
 /**
  * Test suite for the EZMorph Object package.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class BeanTestSuite extends TestCase
 {

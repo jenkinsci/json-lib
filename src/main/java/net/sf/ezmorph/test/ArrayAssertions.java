@@ -24,7 +24,7 @@ import junit.framework.Assert;
  * Provides assertions on arrays (primitive and objects).<br>
  * All methods support multiple dimensional arrays.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class ArrayAssertions extends Assert
 {
@@ -197,8 +197,8 @@ public class ArrayAssertions extends Assert
     * Asserts that two objects are equal. If they are not an
     * AssertionFailedError is thrown.
     *
-    * @param expecteds
-    * @param actuals
+    * @param expected
+    * @param actual
     */
    public static void assertEquals( Object expected, Object actual )
    {
@@ -788,8 +788,8 @@ public class ArrayAssertions extends Assert
     * AssertionFailedError is thrown with the given message. *
     *
     * @param message
-    * @param expecteds
-    * @param actuals
+    * @param expected
+    * @param actual
     */
    public static void assertEquals( String message, Object expected, Object actual )
    {

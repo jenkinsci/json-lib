@@ -36,7 +36,7 @@ import net.sf.ezmorph.object.IdentityObjectMorpher;
  * {@link MorphUtils} may be used to register standard Morphers for primitive
  * types and primitive wrappers, as well as arrays of those types.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MorpherRegistry implements Serializable
 {
@@ -59,7 +59,7 @@ public class MorpherRegistry implements Serializable
    /**
     * Deregister all Morphers of a type.<br>
     *
-    * @param class the target type the Morphers morph to
+    * @param type the target type the Morphers morph to
     */
    public synchronized void clear( Class type )
    {

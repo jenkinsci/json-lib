@@ -43,9 +43,9 @@ import net.sf.ezmorph.primitive.LongMorpher;
 import net.sf.ezmorph.primitive.ShortMorpher;
 
 /**
- * Covenient class for registering standard morphers to a ConvertRegistry.<br
+ * Covenient class for registering standard morphers to a ConvertRegistry.<br>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MorphUtils
 {

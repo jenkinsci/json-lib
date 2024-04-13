@@ -27,7 +27,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 /**
  * Morphs to a BigDecimal.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class BigDecimalMorpher extends AbstractObjectMorpher
 {

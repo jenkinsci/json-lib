@@ -29,7 +29,7 @@ import net.sf.ezmorph.test.TestTestSuite;
 /**
  * Test suite for [ezmorph].
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class AllEZMorphTestSuite extends TestCase
 {

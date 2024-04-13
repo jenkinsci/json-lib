@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * MorphException; this may be changed by setting the Morpher to be lenient, in
  * that way it will ignore the property (the resulting value will be null).
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class BeanMorpher implements ObjectMorpher
 {

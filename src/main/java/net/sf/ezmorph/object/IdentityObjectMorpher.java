@@ -22,7 +22,7 @@ import net.sf.ezmorph.ObjectMorpher;
  * Morpher that performs no conversion.<br>
  * This morpher is a singleton.
  * 
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class IdentityObjectMorpher implements ObjectMorpher
 {

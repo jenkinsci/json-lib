@@ -32,7 +32,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * added to a MorpherRegistry as it may be too generic for some cases and may
  * result in unwanted transformations.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class SwitchingMorpher implements ObjectMorpher
 {

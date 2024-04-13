@@ -32,7 +32,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * instances of Number. Any key that is not defined will have zero (0) assigned
  * as its value.
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MapToDateMorpher extends AbstractObjectMorpher
 {

@@ -23,7 +23,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  * <code>Morpher.morph()</code> has failed to complete successfully.<br>
  * Based on common-beauntils ConversionException.<br>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MorphException extends NestableRuntimeException
 {

@@ -33,7 +33,7 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  * the default value is returned (if default value is configured).
  * </p>
  *
- * @author Andres Almiray <aalmiray@users.sourceforge.net>
+ * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class DateMorpher extends AbstractObjectMorpher
 {
