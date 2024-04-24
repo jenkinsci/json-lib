@@ -138,22 +138,27 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(MorphUtils.BIGDECIMAL_ZERO, actual);
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new BigDecimalMorpher();
         morpherWithDefaultValue = new BigDecimalMorpher(MorphUtils.BIGDECIMAL_ZERO);

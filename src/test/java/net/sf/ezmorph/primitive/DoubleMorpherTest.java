@@ -112,26 +112,32 @@ public class DoubleMorpherTest extends AbstractMorpherTestCase {
         assertEquals(expected, String.valueOf(actual));
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Double.TYPE;
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new DoubleMorpher();
         morpherWithDefaultValue = new DoubleMorpher(0);

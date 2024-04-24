@@ -1545,6 +1545,7 @@ public class TestJSONObject extends TestCase {
         assertTrue(jsonArray.getBoolean(2));
     }
 
+    @Override
     protected void setUp() throws Exception {
         jsonConfig = new JsonConfig();
     }
@@ -1569,6 +1570,7 @@ public class TestJSONObject extends TestCase {
     }
 
     public static class BeanAPropertyExclusionClassMatcher extends PropertyExclusionClassMatcher {
+        @Override
         public Object getMatch(Class target, Set set) {
             for (Iterator i = set.iterator(); i.hasNext(); ) {
                 Class c = (Class) i.next();
@@ -1581,6 +1583,7 @@ public class TestJSONObject extends TestCase {
     }
 
     public static class BeanAPropertyFilter implements PropertyFilter {
+        @Override
         public boolean apply(Object source, String name, Object value) {
             if ("bool".equals(name) || "integer".equals(name)) {
                 return true;
@@ -1590,6 +1593,7 @@ public class TestJSONObject extends TestCase {
     }
 
     public static class MappingPropertySetStrategy extends PropertySetStrategy {
+        @Override
         public void setProperty(Object bean, String key, Object value) throws JSONException {
             ((MappingBean) bean).addAttribute(key, value);
         }
@@ -1598,12 +1602,14 @@ public class TestJSONObject extends TestCase {
     public static class NumberDefaultValueProcessor implements DefaultValueProcessor {
         public static final Integer NUMBER = new Integer(42);
 
+        @Override
         public Object getDefaultValue(Class type) {
             return NUMBER;
         }
     }
 
     public static class NumberDefaultValueProcessorMatcher extends DefaultValueProcessorMatcher {
+        @Override
         public Object getMatch(Class target, Set set) {
             for (Iterator i = set.iterator(); i.hasNext(); ) {
                 Class c = (Class) i.next();
@@ -1616,6 +1622,7 @@ public class TestJSONObject extends TestCase {
     }
 
     public static class NumberPropertyFilter implements PropertyFilter {
+        @Override
         public boolean apply(Object source, String name, Object value) {
             if (value != null && Number.class.isAssignableFrom(value.getClass())) {
                 return true;
@@ -1625,6 +1632,7 @@ public class TestJSONObject extends TestCase {
     }
 
     public static class SwapPropertyNameProcessor implements PropertyNameProcessor {
+        @Override
         public String processPropertyName(Class beanClass, String name) {
             if (name.equals("bool")) {
                 return "string";

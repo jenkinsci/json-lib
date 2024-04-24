@@ -32,10 +32,12 @@ public class JsDateJsonValueProcessor implements JsonValueProcessor {
         processor = new JsDateJsonBeanProcessor();
     }
 
+    @Override
     public Object processArrayValue(Object value, JsonConfig jsonConfig) {
         return process(value, jsonConfig);
     }
 
+    @Override
     public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
         return process(value, jsonConfig);
     }

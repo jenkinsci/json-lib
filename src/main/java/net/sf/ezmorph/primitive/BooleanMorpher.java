@@ -40,6 +40,7 @@ public final class BooleanMorpher extends AbstractPrimitiveMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -71,6 +72,7 @@ public final class BooleanMorpher extends AbstractPrimitiveMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -124,6 +126,7 @@ public final class BooleanMorpher extends AbstractPrimitiveMorpher {
         throw new MorphException("Can't morph value: " + value);
     }
 
+    @Override
     public Class morphsTo() {
         return Boolean.TYPE;
     }

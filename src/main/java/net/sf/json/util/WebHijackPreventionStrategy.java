@@ -41,12 +41,14 @@ public abstract class WebHijackPreventionStrategy {
     public abstract String protect(String str);
 
     private static final class CommentWebHijackPreventionStrategy extends WebHijackPreventionStrategy {
+        @Override
         public String protect(String str) {
             return "/*" + str + "*/";
         }
     }
 
     private static final class InfiniteLoopWebHijackPreventionStrategy extends WebHijackPreventionStrategy {
+        @Override
         public String protect(String str) {
             return "while(1);" + str;
         }

@@ -270,18 +270,22 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             this.name = name;
         }
 
+        @Override
         public boolean isWritable() {
             return true;
         }
 
+        @Override
         public String name() {
             return name;
         }
 
+        @Override
         public Class getPropertyType() {
             return Object.class;
         }
 
+        @Override
         public void set(Object bean, Object value, JsonConfig jsonConfig) {
             ((Map) bean).put(name, value);
         }
@@ -294,18 +298,22 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             this.pd = pd;
         }
 
+        @Override
         public boolean isWritable() {
             return pd.getWriteMethod() != null;
         }
 
+        @Override
         public String name() {
             return pd.getName();
         }
 
+        @Override
         public Class getPropertyType() {
             return pd.getPropertyType();
         }
 
+        @Override
         public void set(Object bean, Object value, JsonConfig jsonConfig)
                 throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
             PropertyUtils.setSimpleProperty(bean, pd.getName(), value);
@@ -319,18 +327,22 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             this.f = f;
         }
 
+        @Override
         public boolean isWritable() {
             return true;
         }
 
+        @Override
         public Class getPropertyType() {
             return f.getType();
         }
 
+        @Override
         public String name() {
             return f.getName();
         }
 
+        @Override
         public void set(Object bean, Object value, JsonConfig jsonConfig)
                 throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
             f.set(bean, value);
@@ -349,18 +361,22 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             this.strategy = strategy;
         }
 
+        @Override
         public boolean isWritable() {
             return inner.isWritable();
         }
 
+        @Override
         public Class getPropertyType() {
             return inner.getPropertyType();
         }
 
+        @Override
         public String name() {
             return inner.name();
         }
 
+        @Override
         public void set(Object bean, Object value, JsonConfig jsonConfig)
                 throws InvocationTargetException, NoSuchMethodException, IllegalAccessException {
             strategy.setProperty(bean, name(), value, jsonConfig);
@@ -1537,10 +1553,12 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         }
     }
 
+    @Override
     public void clear() {
         properties.clear();
     }
 
+    @Override
     public int compareTo(Object obj) {
         if (obj != null && (obj instanceof JSONObject)) {
             JSONObject other = (JSONObject) obj;
@@ -1557,10 +1575,12 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return -1;
     }
 
+    @Override
     public boolean containsKey(Object key) {
         return properties.containsKey(key);
     }
 
+    @Override
     public boolean containsValue(Object value) {
         return containsValue(value, new JsonConfig());
     }
@@ -1778,10 +1798,12 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return this;
     }
 
+    @Override
     public Set entrySet() {
         return Collections.unmodifiableSet(properties.entrySet());
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -1881,6 +1903,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return true;
     }
 
+    @Override
     public Object get(Object key) {
         if (key instanceof String) {
             return get((String) key);
@@ -2041,6 +2064,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return this.properties.containsKey(key);
     }
 
+    @Override
     public int hashCode() {
         int hashcode = 19;
         if (isNullObject()) {
@@ -2055,10 +2079,12 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return hashcode;
     }
 
+    @Override
     public boolean isArray() {
         return false;
     }
 
+    @Override
     public boolean isEmpty() {
         // verifyIsNull();
         return this.properties.isEmpty();
@@ -2081,6 +2107,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return keySet().iterator();
     }
 
+    @Override
     public Set keySet() {
         return Collections.unmodifiableSet(properties.keySet());
     }
@@ -2307,6 +2334,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return o != null ? o.toString() : defaultValue;
     }
 
+    @Override
     public Object put(String key, Object value) {
         if (key == null) {
             throw new IllegalArgumentException("key is null.");
@@ -2316,6 +2344,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return previous;
     }
 
+    @Override
     public void putAll(Map map) {
         putAll(map, new JsonConfig());
     }
@@ -2338,6 +2367,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         }
     }
 
+    @Override
     public Object remove(Object key) {
         return properties.remove(key);
     }
@@ -2359,6 +2389,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *
      * @return The number of keys in the JSONObject.
      */
+    @Override
     public int size() {
         // verifyIsNull();
         return this.properties.size();
@@ -2397,6 +2428,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         brace)</small> and ending with <code>}</code>&nbsp;<small>(right
      *         brace)</small>.
      */
+    @Override
     public String toString() {
         if (isNullObject()) {
             return JSONNull.getInstance().toString();
@@ -2434,6 +2466,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
+    @Override
     public String toString(int indentFactor) {
         if (isNullObject()) {
             return JSONNull.getInstance().toString();
@@ -2457,6 +2490,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         and ending with <code>}</code>&nbsp;<small>(right brace)</small>.
      * @throws JSONException If the object contains an invalid number.
      */
+    @Override
     public String toString(int indentFactor, int indent) {
         if (isNullObject()) {
             return JSONNull.getInstance().toString();
@@ -2507,6 +2541,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return sb.toString();
     }
 
+    @Override
     public Collection values() {
         return Collections.unmodifiableCollection(properties.values());
     }
@@ -2519,6 +2554,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *
      * @throws JSONException
      */
+    @Override
     protected void write(Writer writer, WritingVisitor visitor) throws IOException {
         try {
             if (isNullObject()) {
@@ -2569,6 +2605,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         return this;
     }
 
+    @Override
     protected Object _processValue(Object value, JsonConfig jsonConfig) {
         if (value instanceof JSONTokener) {
             return _fromJSONTokener((JSONTokener) value, jsonConfig);

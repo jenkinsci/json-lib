@@ -99,26 +99,32 @@ public class ShortArrayMorpherTest extends AbstractArrayMorpherTestCase {
         }
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return short[].class;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new ShortArrayMorpher();
         morpherWithDefaultValue = new ShortArrayMorpher((short) 0);

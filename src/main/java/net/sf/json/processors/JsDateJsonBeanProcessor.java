@@ -44,6 +44,7 @@ public class JsDateJsonBeanProcessor implements JsonBeanProcessor {
     /**
      * Processes the input bean into a compatible JsDate.<br>
      */
+    @Override
     public JSONObject processBean(Object bean, JsonConfig jsonConfig) {
         JSONObject jsonObject = null;
         if (bean instanceof java.sql.Date) {

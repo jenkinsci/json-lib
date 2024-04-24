@@ -33,6 +33,7 @@ public class SetBean {
         this.attributes.add(value);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -50,6 +51,7 @@ public class SetBean {
         return attributes;
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -58,6 +60,7 @@ public class SetBean {
         this.attributes = attributes;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

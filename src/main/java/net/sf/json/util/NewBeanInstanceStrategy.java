@@ -47,6 +47,7 @@ public abstract class NewBeanInstanceStrategy {
         private static final Object[] EMPTY_ARGS = new Object[0];
         private static final Class[] EMPTY_PARAM_TYPES = new Class[0];
 
+        @Override
         public Object newInstance(Class target, JSONObject source)
                 throws InstantiationException, IllegalAccessException, SecurityException, NoSuchMethodException,
                         InvocationTargetException {

@@ -42,6 +42,7 @@ public class BeanC {
         this.beanB = beanB;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

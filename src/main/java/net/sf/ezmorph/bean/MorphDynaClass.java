@@ -37,6 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 public final class MorphDynaClass implements DynaClass, Serializable {
     private static final Comparator dynaPropertyComparator = new Comparator() {
+        @Override
         public int compare(Object a, Object b) {
             if (a instanceof DynaProperty && b instanceof DynaProperty) {
                 DynaProperty p1 = (DynaProperty) a;
@@ -51,7 +52,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
 
     private Map attributes;
     private Class beanClass;
-    private DynaProperty dynaProperties[];
+    private DynaProperty[] dynaProperties;
     private String name;
     private Map properties = new HashMap();
     private Class type;
@@ -91,6 +92,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         process();
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -119,10 +121,12 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         return builder.isEquals();
     }
 
+    @Override
     public DynaProperty[] getDynaProperties() {
         return dynaProperties;
     }
 
+    @Override
     public DynaProperty getDynaProperty(String propertyName) {
         if (propertyName == null) {
             throw new MorphException("Unnespecified bean property name");
@@ -130,10 +134,12 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         return (DynaProperty) properties.get(propertyName);
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder().append(name).append(type);
         for (int i = 0; i < dynaProperties.length; i++) {
@@ -143,6 +149,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         return builder.toHashCode();
     }
 
+    @Override
     public DynaBean newInstance() throws IllegalAccessException, InstantiationException {
         return newInstance(null);
     }
@@ -163,6 +170,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         return dynaBean;
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("name", this.name)

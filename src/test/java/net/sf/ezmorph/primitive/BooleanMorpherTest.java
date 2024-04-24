@@ -124,26 +124,32 @@ public class BooleanMorpherTest extends AbstractMorpherTestCase {
         assertTrue(((BooleanMorpher) getMorpher()).morph("on"));
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Boolean.TYPE;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new BooleanMorpher();
         morpherWithDefaultValue = new BooleanMorpher(true);

@@ -99,26 +99,32 @@ public class FloatArrayMorpherTest extends AbstractArrayMorpherTestCase {
         }
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return float[].class;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new FloatArrayMorpher();
         morpherWithDefaultValue = new FloatArrayMorpher(0);

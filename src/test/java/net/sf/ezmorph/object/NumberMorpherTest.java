@@ -385,22 +385,27 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertNull(morpher.morph(new Object()));
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new NumberMorpher(Integer.class);
         morpherWithDefaultValue = new NumberMorpher(Integer.class, new Integer(0));

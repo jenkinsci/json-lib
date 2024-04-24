@@ -48,6 +48,7 @@ public class CompositePropertyFilter implements PropertyFilter {
         }
     }
 
+    @Override
     public boolean apply(Object source, String name, Object value) {
         for (Iterator i = filters.iterator(); i.hasNext(); ) {
             PropertyFilter filter = (PropertyFilter) i.next();

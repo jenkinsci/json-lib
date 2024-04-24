@@ -33,6 +33,7 @@ public class MediaBean {
         this.title = title;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

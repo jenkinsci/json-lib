@@ -29,6 +29,7 @@ public class StartsWithJsonBeanProcessorMatcher extends JsonBeanProcessorMatcher
         this.pattern = pattern;
     }
 
+    @Override
     public Object getMatch(Class target, Set set) {
         if (target != null && set != null && target.getName().startsWith(pattern)) {
             for (Iterator i = set.iterator(); i.hasNext(); ) {

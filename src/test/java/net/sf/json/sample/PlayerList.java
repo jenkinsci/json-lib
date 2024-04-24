@@ -34,6 +34,7 @@ public class PlayerList {
         this.player = player;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

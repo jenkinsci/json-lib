@@ -49,10 +49,12 @@ public abstract class AbstractArrayMorpherTestCase extends TestCase {
 
     public void testEquals_different_morpher() {
         assertFalse(getMorpher().equals(new Morpher() {
+            @Override
             public Class morphsTo() {
                 return null;
             }
 
+            @Override
             public boolean supports(Class clazz) {
                 return false;
             }

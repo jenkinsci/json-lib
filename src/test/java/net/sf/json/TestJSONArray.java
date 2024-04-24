@@ -369,7 +369,6 @@ public class TestJSONArray extends TestCase {
 
     public void testElement_index_0_Array() {
         JSONArray array = JSONArray.fromObject("[null,null]");
-        ;
         int[] ints = {0, 2};
         array.element(0, ints);
         Assertions.assertEquals(JSONArray.fromObject(ints), array.getJSONArray(0));
@@ -377,7 +376,6 @@ public class TestJSONArray extends TestCase {
 
     public void testElement_index_0_Boolean() {
         JSONArray array = JSONArray.fromObject("[null,null]");
-        ;
         array.element(0, Boolean.TRUE);
         Assertions.assertTrue(array.getBoolean(0));
     }

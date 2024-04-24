@@ -43,6 +43,7 @@ public class MediaListBean {
         this.media2 = media2;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

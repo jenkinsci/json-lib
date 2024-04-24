@@ -31,6 +31,7 @@ public class TestJSONObjectStaticBuilders_PrimitiveBean extends AbstractJSONObje
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         PrimitiveBean bean = new PrimitiveBean();
         String[] props = getProperties();

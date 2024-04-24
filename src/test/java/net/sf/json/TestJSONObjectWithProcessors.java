@@ -140,6 +140,7 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertEquals(new Integer(Short.MAX_VALUE), jsonObject.get("value"));
     }
 
+    @Override
     protected void setUp() throws Exception {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2007);

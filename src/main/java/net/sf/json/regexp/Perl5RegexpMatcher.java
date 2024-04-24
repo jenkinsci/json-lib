@@ -49,6 +49,7 @@ public class Perl5RegexpMatcher implements RegexpMatcher {
         }
     }
 
+    @Override
     public String getGroupIfMatches(String str, int group) {
         PatternMatcher matcher = new Perl5Matcher();
         if (matcher.matches(str, pattern)) {
@@ -57,6 +58,7 @@ public class Perl5RegexpMatcher implements RegexpMatcher {
         return "";
     }
 
+    @Override
     public boolean matches(String str) {
         return new Perl5Matcher().matches(str, pattern);
     }

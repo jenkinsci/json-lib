@@ -89,22 +89,27 @@ public class CharacterObjectMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(new Character('A'), actual);
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new CharacterObjectMorpher();
         morpherWithDefaultValue = new CharacterObjectMorpher(new Character('A'));

@@ -102,6 +102,7 @@ public class TestJSONObjectEvents extends TestCase {
         assertEvents();
     }
 
+    @Override
     protected void setUp() throws Exception {
         jsonEventAdpater = new JsonEventAdpater();
         jsonConfig = new JsonConfig();
@@ -109,6 +110,7 @@ public class TestJSONObjectEvents extends TestCase {
         jsonConfig.enableEventTriggering();
     }
 
+    @Override
     protected void tearDown() throws Exception {
         jsonEventAdpater.reset();
     }

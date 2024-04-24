@@ -28,6 +28,7 @@ public class TestJSONObjectStaticBuilders_JSONObject extends AbstractJSONObjectS
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         String[] props = getProperties();
         JSONObject jsonObject = new JSONObject();

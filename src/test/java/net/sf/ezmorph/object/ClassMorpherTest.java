@@ -104,6 +104,7 @@ public class ClassMorpherTest extends TestCase {
     }
 
     public static class MyClass {
+        @Override
         public String toString() {
             return MyClass.class.getName();
         }

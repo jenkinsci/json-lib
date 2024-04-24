@@ -43,6 +43,7 @@ public final class ShortArrayMorpher extends AbstractArrayMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -74,6 +75,7 @@ public final class ShortArrayMorpher extends AbstractArrayMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -82,6 +84,7 @@ public final class ShortArrayMorpher extends AbstractArrayMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object array) {
         if (array == null) {
             return null;
@@ -113,6 +116,7 @@ public final class ShortArrayMorpher extends AbstractArrayMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return SHORT_ARRAY_CLASS;
     }

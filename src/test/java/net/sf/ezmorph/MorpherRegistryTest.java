@@ -292,10 +292,12 @@ public class MorpherRegistryTest extends TestCase {
     public void testRegistry_wacky_morpher() {
         morpherRegistry.registerMorpher(new Morpher() {
             // no mroph() method
+            @Override
             public Class morphsTo() {
                 return String.class;
             }
 
+            @Override
             public boolean supports(Class clazz) {
                 return true;
             }
@@ -309,6 +311,7 @@ public class MorpherRegistryTest extends TestCase {
         }
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpherRegistry = new MorpherRegistry();
     }

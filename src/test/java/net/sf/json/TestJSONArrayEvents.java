@@ -112,6 +112,7 @@ public class TestJSONArrayEvents extends TestCase {
         assertEvents();
     }
 
+    @Override
     protected void setUp() throws Exception {
         jsonEventAdpater = new JsonEventAdpater();
         jsonConfig = new JsonConfig();

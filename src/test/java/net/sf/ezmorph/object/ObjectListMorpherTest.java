@@ -110,10 +110,12 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
     public void testObjectListMorpher_illegalMorpher_noMorphMethod() {
         try {
             morpher = new ObjectListMorpher(new Morpher() {
+                @Override
                 public Class morphsTo() {
                     return Object.class;
                 }
 
+                @Override
                 public boolean supports(Class clazz) {
                     return false;
                 }
@@ -134,10 +136,12 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
     public void testObjectListMorpher_illegalMorpher_supportsList() {
         try {
             morpher = new ObjectListMorpher(new Morpher() {
+                @Override
                 public Class morphsTo() {
                     return List.class;
                 }
 
+                @Override
                 public boolean supports(Class clazz) {
                     return false;
                 }
@@ -147,22 +151,27 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
         }
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new ObjectListMorpher(new NumberMorpher(Integer.class));
         morpherWithDefaultValue =

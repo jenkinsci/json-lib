@@ -12,6 +12,7 @@ public class PrefixerPropertyNameProcessor implements PropertyNameProcessor {
         this.prefix = prefix;
     }
 
+    @Override
     public String processPropertyName(Class beanClass, String name) {
         return prefix + name;
     }

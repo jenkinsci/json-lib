@@ -27,6 +27,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class BeanB {
     private boolean bool = true;
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -40,6 +41,7 @@ public class BeanB {
         return EqualsBuilder.reflectionEquals(this, obj);
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -52,6 +54,7 @@ public class BeanB {
         this.bool = bool;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

@@ -44,6 +44,7 @@ public class IdBean {
             this.value = value;
         }
 
+        @Override
         public boolean equals(Object obj) {
             if (obj == this) {
                 return true;
@@ -62,6 +63,7 @@ public class IdBean {
             return value;
         }
 
+        @Override
         public int hashCode() {
             return getClass().hashCode() + (int) value;
         }
@@ -72,6 +74,7 @@ public class IdBean {
     }
 
     public static class IdMorpher extends AbstractObjectMorpher {
+        @Override
         public Object morph(Object value) {
             if (value != null) {
                 if (value instanceof Number) {
@@ -83,6 +86,7 @@ public class IdBean {
             return null;
         }
 
+        @Override
         public Class morphsTo() {
             return IdBean.Id.class;
         }

@@ -30,6 +30,7 @@ public class OrPropertyFilter implements PropertyFilter {
         this.filter2 = filter2;
     }
 
+    @Override
     public boolean apply(Object source, String name, Object value) {
         if ((filter1 != null && filter1.apply(source, name, value))
                 || (filter2 != null && filter2.apply(source, name, value))) {

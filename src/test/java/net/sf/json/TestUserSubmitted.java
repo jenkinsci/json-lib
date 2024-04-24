@@ -904,29 +904,39 @@ public class TestUserSubmitted extends TestCase {
     }
     */
     public static class RunnableImpl implements Runnable {
+        @Override
         public void run() {}
     }
 
     public static class JsonErrorDetector implements JsonEventListener {
+        @Override
         public void onArrayEnd() {}
 
+        @Override
         public void onArrayStart() {}
 
+        @Override
         public void onElementAdded(int index, Object element) {}
 
+        @Override
         public void onError(JSONException jsone) {
             fail("An error occurs during JsonProcessing " + jsone.getMessage());
         }
 
+        @Override
         public void onObjectEnd() {}
 
+        @Override
         public void onObjectStart() {}
 
+        @Override
         public void onPropertySet(String key, Object value, boolean accumulated) {}
 
+        @Override
         public void onWarning(String warning) {}
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         jsonConfig = new JsonConfig();

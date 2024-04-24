@@ -71,6 +71,7 @@ public abstract class JavaIdentifierTransformer {
     }
 
     private static final class CamelCaseJavaIdentifierTransformer extends JavaIdentifierTransformer {
+        @Override
         public String transformToJavaIdentifier(String str) {
             if (str == null) {
                 return null;
@@ -100,18 +101,21 @@ public abstract class JavaIdentifierTransformer {
     }
 
     private static final class NoopJavaIdentifierTransformer extends JavaIdentifierTransformer {
+        @Override
         public String transformToJavaIdentifier(String str) {
             return str;
         }
     }
 
     private static final class StrictJavaIdentifierTransformer extends JavaIdentifierTransformer {
+        @Override
         public String transformToJavaIdentifier(String str) {
             throw new JSONException("'" + str + "' is not a valid Java identifier.");
         }
     }
 
     private static final class UnderscoreJavaIdentifierTransformer extends JavaIdentifierTransformer {
+        @Override
         public String transformToJavaIdentifier(String str) {
             if (str == null) {
                 return null;
@@ -142,6 +146,7 @@ public abstract class JavaIdentifierTransformer {
     }
 
     private static final class WhiteSpaceJavaIdentifierTransformer extends JavaIdentifierTransformer {
+        @Override
         public String transformToJavaIdentifier(String str) {
             if (str == null) {
                 return null;

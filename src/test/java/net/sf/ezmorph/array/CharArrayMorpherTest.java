@@ -99,26 +99,32 @@ public class CharArrayMorpherTest extends AbstractArrayMorpherTestCase {
         }
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return char[].class;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new CharArrayMorpher();
         morpherWithDefaultValue = new CharArrayMorpher('A');

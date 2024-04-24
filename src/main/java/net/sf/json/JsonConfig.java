@@ -193,6 +193,7 @@ public class JsonConfig {
      *
      * @deprecated use clearJavaPropertyNameProcessors() instead
      */
+    @Deprecated
     public void clearPropertyNameProcessors() {
         clearJavaPropertyNameProcessors();
     }
@@ -455,6 +456,7 @@ public class JsonConfig {
      *
      * @deprecated use findJavaPropertyNameProcessor() instead
      */
+    @Deprecated
     public PropertyNameProcessor findPropertyNameProcessor(Class beanClass) {
         return findJavaPropertyNameProcessor(beanClass);
     }
@@ -670,6 +672,7 @@ public class JsonConfig {
      *
      * @deprecated use getJavaPropertyNameProcessorMatcher() instead
      */
+    @Deprecated
     public PropertyNameProcessorMatcher getPropertyNameProcessorMatcher() {
         return getJavaPropertyNameProcessorMatcher();
     }
@@ -942,6 +945,7 @@ public class JsonConfig {
      *
      * @deprecated use registerJavaPropertyNameProcessor() instead
      */
+    @Deprecated
     public void registerPropertyNameProcessor(Class target, PropertyNameProcessor propertyNameProcessor) {
         registerJavaPropertyNameProcessor(target, propertyNameProcessor);
     }
@@ -1308,6 +1312,7 @@ public class JsonConfig {
      *
      * @deprecated use setJavaPropertyNameProcessorMatcher() instead
      */
+    @Deprecated
     public void setPropertyNameProcessorMatcher(PropertyNameProcessorMatcher propertyNameProcessorMatcher) {
         setJavaPropertyNameProcessorMatcher(propertyNameProcessorMatcher);
     }
@@ -1478,6 +1483,7 @@ public class JsonConfig {
      *
      * @deprecated use unregisterJavaPropertyNameProcessor() instead
      */
+    @Deprecated
     public void unregisterPropertyNameProcessor(Class target) {
         unregisterJavaPropertyNameProcessor(target);
     }

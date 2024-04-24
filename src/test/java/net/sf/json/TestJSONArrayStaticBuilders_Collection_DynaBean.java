@@ -35,6 +35,7 @@ public class TestJSONArrayStaticBuilders_Collection_DynaBean extends AbstractJSO
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         Map map = new HashMap();
         String[] props = getProperties();

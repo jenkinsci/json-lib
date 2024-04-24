@@ -57,6 +57,7 @@ public abstract class AbstractObjectMorpher implements ObjectMorpher {
      * @param clazz the source Class
      * @return true if clazz is supported by this morpher, false otherwise.
      */
+    @Override
     public boolean supports(Class clazz) {
         return !clazz.isArray();
     }

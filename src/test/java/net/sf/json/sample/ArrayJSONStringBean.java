@@ -33,6 +33,7 @@ public class ArrayJSONStringBean implements JSONString {
         this.value = value;
     }
 
+    @Override
     public String toJSONString() {
         return ArrayUtils.toString(value.split(",")).replace('{', '[').replace('}', ']');
     }

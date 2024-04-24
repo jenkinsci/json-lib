@@ -51,6 +51,7 @@ public abstract class AbstractArrayMorpher implements ObjectMorpher {
         this.useDefault = useDefault;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return clazz.isArray();
     }

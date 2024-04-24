@@ -83,6 +83,7 @@ public class JSONFunction implements Serializable {
         }
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -130,6 +131,7 @@ public class JSONFunction implements Serializable {
         return text;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         for (int i = 0; i < params.length; i++) {
@@ -142,6 +144,7 @@ public class JSONFunction implements Serializable {
     /**
      * Returns the string representation of this function.
      */
+    @Override
     public String toString() {
         StringBuffer b = new StringBuffer("function(");
         if (params.length > 0) {

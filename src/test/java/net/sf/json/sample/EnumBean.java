@@ -25,7 +25,7 @@ import java.util.Set;
 public class EnumBean {
     private JsonEnum jsonEnum;
     private String string;
-    private Set<JsonEnum> enums = new HashSet<JsonEnum>();
+    private Set<JsonEnum> enums = new HashSet<>();
 
     public JsonEnum getJsonEnum() {
         return jsonEnum;

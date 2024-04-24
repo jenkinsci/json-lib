@@ -1353,6 +1353,7 @@ public class XMLSerializer {
             super(out, encoding);
         }
 
+        @Override
         protected void write(Text text) throws IOException {
             String value = text.getValue();
             if (value.startsWith("<![CDATA[") && value.endsWith("]]>")) {
@@ -1366,6 +1367,7 @@ public class XMLSerializer {
             }
         }
 
+        @Override
         protected void writeEmptyElementTag(Element element) throws IOException {
             if (element instanceof CustomElement && isNamespaceLenient()) {
                 writeTagBeginning((CustomElement) element);
@@ -1375,6 +1377,7 @@ public class XMLSerializer {
             }
         }
 
+        @Override
         protected void writeEndTag(Element element) throws IOException {
             if (element instanceof CustomElement && isNamespaceLenient()) {
                 writeRaw("</");
@@ -1385,12 +1388,14 @@ public class XMLSerializer {
             }
         }
 
+        @Override
         protected void writeNamespaceDeclaration(String prefix, String uri) throws IOException {
             if (!StringUtils.isBlank(uri)) {
                 super.writeNamespaceDeclaration(prefix, uri);
             }
         }
 
+        @Override
         protected void writeStartTag(Element element) throws IOException {
             if (element instanceof CustomElement && isNamespaceLenient()) {
                 writeTagBeginning((CustomElement) element);

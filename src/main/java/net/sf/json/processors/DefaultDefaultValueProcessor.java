@@ -26,6 +26,7 @@ import net.sf.json.util.JSONUtils;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class DefaultDefaultValueProcessor implements DefaultValueProcessor {
+    @Override
     public Object getDefaultValue(Class type) {
         if (JSONUtils.isArray(type)) {
             return new JSONArray();

@@ -33,6 +33,7 @@ public class TestJSONObjectStaticBuilders_DynaBean extends AbstractJSONObjectSta
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         Map map = new HashMap();
         String[] props = getProperties();

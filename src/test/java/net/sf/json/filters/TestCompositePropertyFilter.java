@@ -39,6 +39,7 @@ public class TestCompositePropertyFilter extends TestCase {
         assertTrue(filter.apply(null, null, null));
     }
 
+    @Override
     protected void setUp() throws Exception {
         filter = new CompositePropertyFilter();
     }

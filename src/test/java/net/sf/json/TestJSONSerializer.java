@@ -240,6 +240,7 @@ public class TestJSONSerializer extends TestCase {
         Assertions.assertEquals(JSONObject.fromObject("{\"name\":\"json\"}"), (JSONObject) json);
     }
 
+    @Override
     protected void setUp() throws Exception {
         jsonConfig = new JsonConfig();
     }

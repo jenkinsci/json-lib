@@ -63,10 +63,12 @@ public abstract class CycleDetectionStrategy {
     public abstract JSONObject handleRepeatedReferenceAsObject(Object reference);
 
     private static final class LenientCycleDetectionStrategy extends CycleDetectionStrategy {
+        @Override
         public JSONArray handleRepeatedReferenceAsArray(Object reference) {
             return new JSONArray();
         }
 
+        @Override
         public JSONObject handleRepeatedReferenceAsObject(Object reference) {
             return new JSONObject(true);
         }
@@ -79,20 +81,24 @@ public abstract class CycleDetectionStrategy {
      * @author small
      */
     private static final class LenientNoRefCycleDetectionStrategy extends CycleDetectionStrategy {
+        @Override
         public JSONArray handleRepeatedReferenceAsArray(Object reference) {
             return IGNORE_PROPERTY_ARR;
         }
 
+        @Override
         public JSONObject handleRepeatedReferenceAsObject(Object reference) {
             return IGNORE_PROPERTY_OBJ;
         }
     }
 
     private static final class StrictCycleDetectionStrategy extends CycleDetectionStrategy {
+        @Override
         public JSONArray handleRepeatedReferenceAsArray(Object reference) {
             throw new JSONException("There is a cycle in the hierarchy!");
         }
 
+        @Override
         public JSONObject handleRepeatedReferenceAsObject(Object reference) {
             throw new JSONException("There is a cycle in the hierarchy!");
         }
