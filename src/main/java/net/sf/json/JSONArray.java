@@ -1211,7 +1211,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * Construct an empty JSONArray.
      */
     public JSONArray() {
-        this.elements = new ArrayList<Object>();
+        this.elements = new ArrayList<>();
     }
 
     @Override

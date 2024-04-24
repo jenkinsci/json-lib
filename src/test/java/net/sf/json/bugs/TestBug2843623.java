@@ -9,7 +9,7 @@ import net.sf.json.JsonConfig;
 public class TestBug2843623 extends TestCase {
     public void testSample() {
         Container orig = new Container();
-        List<String> strings = new ArrayList<String>();
+        List<String> strings = new ArrayList<>();
         strings.add("one");
         strings.add("two");
         strings.add("three");
@@ -23,7 +23,7 @@ public class TestBug2843623 extends TestCase {
     }
 
     public static class Container {
-        private List<String> myList = new ArrayList<String>();
+        private List<String> myList = new ArrayList<>();
 
         public List<String> getMyList() {
             return myList;
