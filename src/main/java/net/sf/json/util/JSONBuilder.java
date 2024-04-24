@@ -73,7 +73,7 @@ public class JSONBuilder {
     /**
      * The object/array stack.
      */
-    private char stack[];
+    private char[] stack;
 
     /**
      * The stack top index. A value of 0 indicates that the stack is empty.

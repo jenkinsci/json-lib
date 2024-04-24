@@ -52,7 +52,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
 
     private Map attributes;
     private Class beanClass;
-    private DynaProperty dynaProperties[];
+    private DynaProperty[] dynaProperties;
     private String name;
     private Map properties = new HashMap();
     private Class type;
