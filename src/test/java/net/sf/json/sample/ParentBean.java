@@ -20,14 +20,14 @@ package net.sf.json.sample;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class ParentBean extends ValueBean {
-   private ChildBean child;
+    private ChildBean child;
 
-   public ChildBean getChild() {
-      return child;
-   }
+    public ChildBean getChild() {
+        return child;
+    }
 
-   public void setChild( ChildBean child ) {
-      this.child = child;
-      child.setParent( this );
-   }
+    public void setChild(ChildBean child) {
+        this.child = child;
+        child.setParent(this);
+    }
 }

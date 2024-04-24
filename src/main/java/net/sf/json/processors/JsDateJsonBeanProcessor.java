@@ -18,7 +18,6 @@ package net.sf.json.processors;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 
@@ -27,42 +26,43 @@ import net.sf.json.JsonConfig;
  * Example:<br>
  *
  * <pre>
- {
- "minutes": 13,
- "seconds": 14,
- "hours": 12,
- "month": 5,
- "year": 2007,
- "day": 17,
- "milliseconds": 150
- }
- </pre>
+ * {
+ * "minutes": 13,
+ * "seconds": 14,
+ * "hours": 12,
+ * "month": 5,
+ * "year": 2007,
+ * "day": 17,
+ * "milliseconds": 150
+ * }
+ * </pre>
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class JsDateJsonBeanProcessor implements JsonBeanProcessor {
 
-   /**
-    * Processes the input bean into a compatible JsDate.<br>
-    */
-   public JSONObject processBean( Object bean, JsonConfig jsonConfig ) {
-      JSONObject jsonObject = null;
-      if( bean instanceof java.sql.Date ){
-         bean = new Date( ((java.sql.Date) bean).getTime() );
-      }
-      if( bean instanceof Date ){
-         Calendar c = Calendar.getInstance();
-         c.setTime( (Date) bean );
-         jsonObject = new JSONObject().element( "year", c.get( Calendar.YEAR ) )
-               .element( "month", c.get( Calendar.MONTH ) )
-               .element( "day", c.get( Calendar.DAY_OF_MONTH ) )
-               .element( "hours", c.get( Calendar.HOUR_OF_DAY ) )
-               .element( "minutes", c.get( Calendar.MINUTE ) )
-               .element( "seconds", c.get( Calendar.SECOND ) )
-               .element( "milliseconds", c.get( Calendar.MILLISECOND ) );
-      }else{
-         jsonObject = new JSONObject( true );
-      }
-      return jsonObject;
-   }
+    /**
+     * Processes the input bean into a compatible JsDate.<br>
+     */
+    public JSONObject processBean(Object bean, JsonConfig jsonConfig) {
+        JSONObject jsonObject = null;
+        if (bean instanceof java.sql.Date) {
+            bean = new Date(((java.sql.Date) bean).getTime());
+        }
+        if (bean instanceof Date) {
+            Calendar c = Calendar.getInstance();
+            c.setTime((Date) bean);
+            jsonObject = new JSONObject()
+                    .element("year", c.get(Calendar.YEAR))
+                    .element("month", c.get(Calendar.MONTH))
+                    .element("day", c.get(Calendar.DAY_OF_MONTH))
+                    .element("hours", c.get(Calendar.HOUR_OF_DAY))
+                    .element("minutes", c.get(Calendar.MINUTE))
+                    .element("seconds", c.get(Calendar.SECOND))
+                    .element("milliseconds", c.get(Calendar.MILLISECOND));
+        } else {
+            jsonObject = new JSONObject(true);
+        }
+        return jsonObject;
+    }
 }

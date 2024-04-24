@@ -23,42 +23,37 @@ import java.util.Locale;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractIntegerMorpher extends AbstractPrimitiveMorpher
-{
-   public AbstractIntegerMorpher()
-   {
-      super();
-   }
+public abstract class AbstractIntegerMorpher extends AbstractPrimitiveMorpher {
+    public AbstractIntegerMorpher() {
+        super();
+    }
 
-   /**
-    * @param useDefault if morph() should return a default value if the value to
-    *        be morphed is null
-    */
-   public AbstractIntegerMorpher( boolean useDefault )
-   {
-      super( useDefault );
-   }
+    /**
+     * @param useDefault if morph() should return a default value if the value to
+     *        be morphed is null
+     */
+    public AbstractIntegerMorpher(boolean useDefault) {
+        super(useDefault);
+    }
 
-   /**
-    * Trims the String from the begining to the first "."
-    */
-   protected String getIntegerValue( Object obj )
-   {
-      // use en_US Locale
-      Locale defaultLocale = Locale.getDefault();
-      String str = null;
-      try{
-         Locale.setDefault( Locale.US );
-         str = String.valueOf( obj );
-      }
-      finally{
-         Locale.setDefault( defaultLocale );
-      }
+    /**
+     * Trims the String from the begining to the first "."
+     */
+    protected String getIntegerValue(Object obj) {
+        // use en_US Locale
+        Locale defaultLocale = Locale.getDefault();
+        String str = null;
+        try {
+            Locale.setDefault(Locale.US);
+            str = String.valueOf(obj);
+        } finally {
+            Locale.setDefault(defaultLocale);
+        }
 
-      int index = str.indexOf( "." );
-      if( index != -1 ){
-         str = str.substring( 0, index );
-      }
-      return str;
-   }
+        int index = str.indexOf(".");
+        if (index != -1) {
+            str = str.substring(0, index);
+        }
+        return str;
+    }
 }

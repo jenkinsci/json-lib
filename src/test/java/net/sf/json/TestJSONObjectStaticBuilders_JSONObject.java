@@ -19,28 +19,27 @@ package net.sf.json;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectStaticBuilders_JSONObject extends
-      AbstractJSONObjectStaticBuildersTestCase {
-   public static void main( String[] args ) {
-      junit.textui.TestRunner.run( TestJSONObjectStaticBuilders_JSONObject.class );
-   }
+public class TestJSONObjectStaticBuilders_JSONObject extends AbstractJSONObjectStaticBuildersTestCase {
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_JSONObject.class);
+    }
 
-   public TestJSONObjectStaticBuilders_JSONObject( String name ) {
-      super( name );
-   }
+    public TestJSONObjectStaticBuilders_JSONObject(String name) {
+        super(name);
+    }
 
-   protected Object getSource() {
-      String[] props = getProperties();
-      JSONObject jsonObject = new JSONObject();
-      try{
-         for( int i = 0; i < props.length; i++ ){
-            jsonObject.element( props[i], PropertyConstants.getPropertyValue( props[i] ) );
-         }
-         jsonObject.element( "pexcluded", "" );
-      }catch( Exception e ){
-         throw new RuntimeException( e );
-      }
+    protected Object getSource() {
+        String[] props = getProperties();
+        JSONObject jsonObject = new JSONObject();
+        try {
+            for (int i = 0; i < props.length; i++) {
+                jsonObject.element(props[i], PropertyConstants.getPropertyValue(props[i]));
+            }
+            jsonObject.element("pexcluded", "");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
 
-      return jsonObject;
-   }
+        return jsonObject;
+    }
 }

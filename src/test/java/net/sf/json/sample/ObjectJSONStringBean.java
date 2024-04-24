@@ -22,30 +22,31 @@ import net.sf.json.JSONString;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class ObjectJSONStringBean implements JSONString {
-   private int id;
-   private String name;
+    private int id;
+    private String name;
 
-   public int getId() {
-      return id;
-   }
+    public int getId() {
+        return id;
+    }
 
-   public String getName() {
-      return name;
-   }
+    public String getName() {
+        return name;
+    }
 
-   public void setId( int id ) {
-      this.id = id;
-   }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-   public void setName( String name ) {
-      this.name = name;
-   }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-   public String toJSONString() {
-      return new StringBuffer().append( "{" )
-            .append( "\"name\":\"" )
-            .append( (name == null) ? "" : name )
-            .append( "\"}" )
-            .toString();
-   }
+    public String toJSONString() {
+        return new StringBuffer()
+                .append("{")
+                .append("\"name\":\"")
+                .append((name == null) ? "" : name)
+                .append("\"}")
+                .toString();
+    }
 }

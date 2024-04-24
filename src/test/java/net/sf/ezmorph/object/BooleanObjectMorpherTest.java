@@ -25,112 +25,94 @@ import net.sf.ezmorph.Morpher;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BooleanObjectMorpherTest extends AbstractObjectMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class BooleanObjectMorpherTest extends AbstractObjectMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( BooleanObjectMorpherTest.class );
-      suite.setName( "BooleanObjectMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(BooleanObjectMorpherTest.class);
+        suite.setName("BooleanObjectMorpher Tests");
+        return suite;
+    }
 
-   private BooleanObjectMorpher anotherMorpher;
-   private BooleanObjectMorpher anotherMorpherWithDefaultValue;
-   private BooleanObjectMorpher morpher;
-   private BooleanObjectMorpher morpherWithDefaultValue;
+    private BooleanObjectMorpher anotherMorpher;
+    private BooleanObjectMorpher anotherMorpherWithDefaultValue;
+    private BooleanObjectMorpher morpher;
+    private BooleanObjectMorpher morpherWithDefaultValue;
 
-   public BooleanObjectMorpherTest( String name )
-   {
-      super( name );
-   }
+    public BooleanObjectMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testBooleanMorph_noConversion()
-   {
-      Boolean actual = (Boolean) new BooleanObjectMorpher( Boolean.TRUE ).morph( Boolean.TRUE );
-      assertEquals( Boolean.TRUE, actual );
-   }
+    public void testBooleanMorph_noConversion() {
+        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(Boolean.TRUE);
+        assertEquals(Boolean.TRUE, actual);
+    }
 
-   public void testBooleanMorph_throwException()
-   {
-      try{
-         new BooleanObjectMorpher().morph( "A" );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testBooleanMorph_throwException() {
+        try {
+            new BooleanObjectMorpher().morph("A");
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testBooleanMorph_throwException_null()
-   {
-      try{
-         new BooleanObjectMorpher().morph( null );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testBooleanMorph_throwException_null() {
+        try {
+            new BooleanObjectMorpher().morph(null);
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testBooleanMorph_useDefault()
-   {
-      String expected = String.valueOf( "A" );
-      Boolean actual = (Boolean) new BooleanObjectMorpher( Boolean.TRUE ).morph( expected );
-      assertEquals( Boolean.TRUE, actual );
-   }
+    public void testBooleanMorph_useDefault() {
+        String expected = String.valueOf("A");
+        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(expected);
+        assertEquals(Boolean.TRUE, actual);
+    }
 
-   public void testBooleanMorph_useDefault_null()
-   {
-      Boolean actual = (Boolean) new BooleanObjectMorpher( Boolean.TRUE ).morph( null );
-      assertEquals( Boolean.TRUE, actual );
-   }
+    public void testBooleanMorph_useDefault_null() {
+        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(null);
+        assertEquals(Boolean.TRUE, actual);
+    }
 
-   public void testBooleanMorphStringValues_false()
-   {
-      assertEquals( Boolean.FALSE, new BooleanObjectMorpher().morph( "false" ) );
-      assertEquals( Boolean.FALSE, new BooleanObjectMorpher().morph( "no" ) );
-      assertEquals( Boolean.FALSE, new BooleanObjectMorpher().morph( "off" ) );
-   }
+    public void testBooleanMorphStringValues_false() {
+        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("false"));
+        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("no"));
+        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("off"));
+    }
 
-   public void testBooleanMorphStringValues_true()
-   {
-      assertEquals( Boolean.TRUE, new BooleanObjectMorpher().morph( "true" ) );
-      assertEquals( Boolean.TRUE, new BooleanObjectMorpher().morph( "yes" ) );
-      assertEquals( Boolean.TRUE, new BooleanObjectMorpher().morph( "on" ) );
-   }
+    public void testBooleanMorphStringValues_true() {
+        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("true"));
+        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("yes"));
+        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("on"));
+    }
 
-   protected Morpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected Morpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected Morpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected Morpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected Morpher getMorpher()
-   {
-      return morpher;
-   }
+    protected Morpher getMorpher() {
+        return morpher;
+    }
 
-   protected Morpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected Morpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new BooleanObjectMorpher();
-      morpherWithDefaultValue = new BooleanObjectMorpher( Boolean.TRUE );
-      anotherMorpher = new BooleanObjectMorpher();
-      anotherMorpherWithDefaultValue = new BooleanObjectMorpher( Boolean.FALSE );
-   }
+    protected void setUp() throws Exception {
+        morpher = new BooleanObjectMorpher();
+        morpherWithDefaultValue = new BooleanObjectMorpher(Boolean.TRUE);
+        anotherMorpher = new BooleanObjectMorpher();
+        anotherMorpherWithDefaultValue = new BooleanObjectMorpher(Boolean.FALSE);
+    }
 }

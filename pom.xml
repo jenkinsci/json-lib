@@ -142,6 +142,7 @@
     <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
     <!-- TODO fix existing violations -->
     <spotbugs.skip>true</spotbugs.skip>
+    <spotless.check.skip>false</spotless.check.skip>
   </properties>
 
   <dependencies>

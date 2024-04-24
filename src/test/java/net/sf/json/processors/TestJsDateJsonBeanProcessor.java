@@ -18,7 +18,6 @@ package net.sf.json.processors;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import junit.framework.TestCase;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -27,60 +26,59 @@ import net.sf.json.JsonConfig;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJsDateJsonBeanProcessor extends TestCase {
-   public static void main( String[] args ) {
-      junit.textui.TestRunner.run( TestJsDateJsonBeanProcessor.class );
-   }
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(TestJsDateJsonBeanProcessor.class);
+    }
 
-   private JsDateJsonBeanProcessor processor;
+    private JsDateJsonBeanProcessor processor;
 
-   public TestJsDateJsonBeanProcessor( String testName ) {
-      super( testName );
-   }
+    public TestJsDateJsonBeanProcessor(String testName) {
+        super(testName);
+    }
 
-   public void testProcessBean() {
-      Calendar c = Calendar.getInstance();
-      c.set( Calendar.YEAR, 2007 );
-      c.set( Calendar.MONTH, 5 );
-      c.set( Calendar.DAY_OF_MONTH, 17 );
-      c.set( Calendar.HOUR_OF_DAY, 12 );
-      c.set( Calendar.MINUTE, 13 );
-      c.set( Calendar.SECOND, 14 );
-      c.set( Calendar.MILLISECOND, 150 );
-      Date date = c.getTime();
-      JSONObject jsonObject = processor.processBean( date, new JsonConfig() );
-      assertNotNull( jsonObject );
-      assertEquals( 2007, jsonObject.getInt( "year" ) );
-      assertEquals( 5, jsonObject.getInt( "month" ) );
-      assertEquals( 17, jsonObject.getInt( "day" ) );
-      assertEquals( 12, jsonObject.getInt( "hours" ) );
-      assertEquals( 13, jsonObject.getInt( "minutes" ) );
-      assertEquals( 14, jsonObject.getInt( "seconds" ) );
-      assertEquals( 150, jsonObject.getInt( "milliseconds" ) );
-   }
+    public void testProcessBean() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2007);
+        c.set(Calendar.MONTH, 5);
+        c.set(Calendar.DAY_OF_MONTH, 17);
+        c.set(Calendar.HOUR_OF_DAY, 12);
+        c.set(Calendar.MINUTE, 13);
+        c.set(Calendar.SECOND, 14);
+        c.set(Calendar.MILLISECOND, 150);
+        Date date = c.getTime();
+        JSONObject jsonObject = processor.processBean(date, new JsonConfig());
+        assertNotNull(jsonObject);
+        assertEquals(2007, jsonObject.getInt("year"));
+        assertEquals(5, jsonObject.getInt("month"));
+        assertEquals(17, jsonObject.getInt("day"));
+        assertEquals(12, jsonObject.getInt("hours"));
+        assertEquals(13, jsonObject.getInt("minutes"));
+        assertEquals(14, jsonObject.getInt("seconds"));
+        assertEquals(150, jsonObject.getInt("milliseconds"));
+    }
 
-   public void testProcessBean_sqlDate() {
-      Calendar c = Calendar.getInstance();
-      c.set( Calendar.YEAR, 2007 );
-      c.set( Calendar.MONTH, 5 );
-      c.set( Calendar.DAY_OF_MONTH, 17 );
-      c.set( Calendar.HOUR_OF_DAY, 12 );
-      c.set( Calendar.MINUTE, 13 );
-      c.set( Calendar.SECOND, 14 );
-      c.set( Calendar.MILLISECOND, 150 );
-      Date date = c.getTime();
-      JSONObject jsonObject = processor.processBean( new java.sql.Date( date.getTime() ),
-            new JsonConfig() );
-      assertNotNull( jsonObject );
-      assertEquals( 2007, jsonObject.getInt( "year" ) );
-      assertEquals( 5, jsonObject.getInt( "month" ) );
-      assertEquals( 17, jsonObject.getInt( "day" ) );
-      assertEquals( 12, jsonObject.getInt( "hours" ) );
-      assertEquals( 13, jsonObject.getInt( "minutes" ) );
-      assertEquals( 14, jsonObject.getInt( "seconds" ) );
-      assertEquals( 150, jsonObject.getInt( "milliseconds" ) );
-   }
+    public void testProcessBean_sqlDate() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, 2007);
+        c.set(Calendar.MONTH, 5);
+        c.set(Calendar.DAY_OF_MONTH, 17);
+        c.set(Calendar.HOUR_OF_DAY, 12);
+        c.set(Calendar.MINUTE, 13);
+        c.set(Calendar.SECOND, 14);
+        c.set(Calendar.MILLISECOND, 150);
+        Date date = c.getTime();
+        JSONObject jsonObject = processor.processBean(new java.sql.Date(date.getTime()), new JsonConfig());
+        assertNotNull(jsonObject);
+        assertEquals(2007, jsonObject.getInt("year"));
+        assertEquals(5, jsonObject.getInt("month"));
+        assertEquals(17, jsonObject.getInt("day"));
+        assertEquals(12, jsonObject.getInt("hours"));
+        assertEquals(13, jsonObject.getInt("minutes"));
+        assertEquals(14, jsonObject.getInt("seconds"));
+        assertEquals(150, jsonObject.getInt("milliseconds"));
+    }
 
-   protected void setUp() throws Exception {
-      processor = new JsDateJsonBeanProcessor();
-   }
+    protected void setUp() throws Exception {
+        processor = new JsDateJsonBeanProcessor();
+    }
 }

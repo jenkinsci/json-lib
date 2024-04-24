@@ -24,41 +24,35 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BeanB
-{
-   private boolean bool = true;
+public class BeanB {
+    private boolean bool = true;
 
-   public boolean equals( Object obj )
-   {
-      if( obj == this ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
-      if( !BeanB.class.isAssignableFrom( obj.getClass() ) ){
-         return false;
-      }
-      return EqualsBuilder.reflectionEquals( this, obj );
-   }
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!BeanB.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-   public int hashCode()
-   {
-      return HashCodeBuilder.reflectionHashCode( this );
-   }
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-   public boolean isBool()
-   {
-      return bool;
-   }
+    public boolean isBool() {
+        return bool;
+    }
 
-   public void setBool( boolean bool )
-   {
-      this.bool = bool;
-   }
+    public void setBool(boolean bool) {
+        this.bool = bool;
+    }
 
-   public String toString()
-   {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

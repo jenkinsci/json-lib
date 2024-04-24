@@ -17,7 +17,6 @@
 package net.sf.json.sample;
 
 import java.util.ArrayList;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -25,17 +24,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class PlayerList {
-   private ArrayList player;
+    private ArrayList player;
 
-   public ArrayList getPlayer() {
-      return player;
-   }
+    public ArrayList getPlayer() {
+        return player;
+    }
 
-   public void setPlayer( ArrayList player ) {
-      this.player = player;
-   }
+    public void setPlayer(ArrayList player) {
+        this.player = player;
+    }
 
-   public String toString() {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

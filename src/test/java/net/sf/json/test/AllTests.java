@@ -22,12 +22,12 @@ import junit.framework.TestSuite;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class AllTests extends TestSuite {
-   public static TestSuite suite() throws Exception {
-      TestSuite suite = new TestSuite();
-      suite.setName( "test" );
+    public static TestSuite suite() throws Exception {
+        TestSuite suite = new TestSuite();
+        suite.setName("test");
 
-      suite.addTest( new TestSuite( TestJSONAssert.class ) );
+        suite.addTest(new TestSuite(TestJSONAssert.class));
 
-      return suite;
-   }
+        return suite;
+    }
 }

@@ -19,49 +19,48 @@ package net.sf.json.filters;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import net.sf.json.util.PropertyFilter;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class CompositePropertyFilter implements PropertyFilter {
-   private List filters = new ArrayList();
+    private List filters = new ArrayList();
 
-   public CompositePropertyFilter() {
-      this( null );
-   }
+    public CompositePropertyFilter() {
+        this(null);
+    }
 
-   public CompositePropertyFilter( List filters ) {
-      if( filters != null ){
-         for( Iterator i = filters.iterator(); i.hasNext(); ){
-            Object filter = i.next();
-            if( filter instanceof PropertyFilter ){
-               this.filters.add( filter );
+    public CompositePropertyFilter(List filters) {
+        if (filters != null) {
+            for (Iterator i = filters.iterator(); i.hasNext(); ) {
+                Object filter = i.next();
+                if (filter instanceof PropertyFilter) {
+                    this.filters.add(filter);
+                }
             }
-         }
-      }
-   }
+        }
+    }
 
-   public void addPropertyFilter( PropertyFilter filter ) {
-      if( filter != null ){
-         filters.add( filter );
-      }
-   }
+    public void addPropertyFilter(PropertyFilter filter) {
+        if (filter != null) {
+            filters.add(filter);
+        }
+    }
 
-   public boolean apply( Object source, String name, Object value ) {
-      for( Iterator i = filters.iterator(); i.hasNext(); ){
-         PropertyFilter filter = (PropertyFilter) i.next();
-         if( filter.apply( source, name, value ) ){
-            return true;
-         }
-      }
-      return false;
-   }
+    public boolean apply(Object source, String name, Object value) {
+        for (Iterator i = filters.iterator(); i.hasNext(); ) {
+            PropertyFilter filter = (PropertyFilter) i.next();
+            if (filter.apply(source, name, value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
-   public void removePropertyFilter( PropertyFilter filter ) {
-      if( filter != null ){
-         filters.remove( filter );
-      }
-   }
+    public void removePropertyFilter(PropertyFilter filter) {
+        if (filter != null) {
+            filters.remove(filter);
+        }
+    }
 }

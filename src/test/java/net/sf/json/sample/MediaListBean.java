@@ -17,7 +17,6 @@
 package net.sf.json.sample;
 
 import java.util.List;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -25,26 +24,26 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MediaListBean {
-   private Object media;
-   private List media2;
+    private Object media;
+    private List media2;
 
-   public Object getMedia() {
-      return media;
-   }
+    public Object getMedia() {
+        return media;
+    }
 
-   public List getMedia2() {
-      return media2;
-   }
+    public List getMedia2() {
+        return media2;
+    }
 
-   public void setMedia( Object media ) {
-      this.media = media;
-   }
+    public void setMedia(Object media) {
+        this.media = media;
+    }
 
-   public void setMedia2( List media2 ) {
-      this.media2 = media2;
-   }
+    public void setMedia2(List media2) {
+        this.media2 = media2;
+    }
 
-   public String toString() {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

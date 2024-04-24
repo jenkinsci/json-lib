@@ -23,17 +23,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class BeanB extends BeanA {
-   private int[] intarray = new int[] { 1, 2, 3 };
+    private int[] intarray = new int[] {1, 2, 3};
 
-   public int[] getIntarray() {
-      return intarray;
-   }
+    public int[] getIntarray() {
+        return intarray;
+    }
 
-   public void setIntarray( int[] intarray ) {
-      this.intarray = intarray;
-   }
+    public void setIntarray(int[] intarray) {
+        this.intarray = intarray;
+    }
 
-   public String toString() {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

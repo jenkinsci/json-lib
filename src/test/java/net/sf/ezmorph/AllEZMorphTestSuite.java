@@ -31,37 +31,33 @@ import net.sf.ezmorph.test.TestTestSuite;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class AllEZMorphTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class AllEZMorphTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph (all) Tests" );
-      suite.addTest( MorphTestSuite.suite() );
-      suite.addTest( ArrayTestSuite.suite() );
-      suite.addTest( ObjectTestSuite.suite() );
-      suite.addTest( BeanTestSuite.suite() );
-      suite.addTest( PrimitiveTestSuite.suite() );
-      suite.addTest( TestTestSuite.suite() );
-      return suite;
-   }
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph (all) Tests");
+        suite.addTest(MorphTestSuite.suite());
+        suite.addTest(ArrayTestSuite.suite());
+        suite.addTest(ObjectTestSuite.suite());
+        suite.addTest(BeanTestSuite.suite());
+        suite.addTest(PrimitiveTestSuite.suite());
+        suite.addTest(TestTestSuite.suite());
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public AllEZMorphTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public AllEZMorphTestSuite(String name) {
+        super(name);
+    }
 }

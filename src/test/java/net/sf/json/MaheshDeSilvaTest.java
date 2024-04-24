@@ -1,8 +1,7 @@
 package net.sf.json;
 
-import junit.framework.TestCase;
-
 import java.util.Arrays;
+import junit.framework.TestCase;
 
 /**
  * This came via e-mail.
@@ -31,20 +30,20 @@ import java.util.Arrays;
  * @author Mahesh De Silva
  */
 public class MaheshDeSilvaTest extends TestCase {
-   public void testShouldHandleNullStringInJsonFormattedString() {
-      String jsonTest = "[\"null\",\"aValue\"]";
-      assertTrue(jsonTest.contains("\"null\""));
-      assertFalse(jsonTest.contains("\"\\\"null\\\"\""));
-      String convertedBack = JSONSerializer.toJSON(jsonTest).toString();
-      assertFalse(convertedBack.contains("\"\\\"null\\\"\""));
-   }
+    public void testShouldHandleNullStringInJsonFormattedString() {
+        String jsonTest = "[\"null\",\"aValue\"]";
+        assertTrue(jsonTest.contains("\"null\""));
+        assertFalse(jsonTest.contains("\"\\\"null\\\"\""));
+        String convertedBack = JSONSerializer.toJSON(jsonTest).toString();
+        assertFalse(convertedBack.contains("\"\\\"null\\\"\""));
+    }
 
-   public void testShouldHandleNullStringLiteral() {
-      JSONArray jsonArray1 = JSONArray.fromObject(Arrays.asList(null, "b"));
-      JSONArray jsonArray2 = JSONArray.fromObject(Arrays.asList(JSONNull.getInstance(), "b"));
-      JSONArray jsonArray3 = JSONArray.fromObject(Arrays.asList("null", "b"));
-      assertEquals("[null,\"b\"]", jsonArray1.toString());
-      assertEquals("[null,\"b\"]", jsonArray2.toString());
-      assertEquals("[\"null\",\"b\"]", jsonArray3.toString());
-   }
+    public void testShouldHandleNullStringLiteral() {
+        JSONArray jsonArray1 = JSONArray.fromObject(Arrays.asList(null, "b"));
+        JSONArray jsonArray2 = JSONArray.fromObject(Arrays.asList(JSONNull.getInstance(), "b"));
+        JSONArray jsonArray3 = JSONArray.fromObject(Arrays.asList("null", "b"));
+        assertEquals("[null,\"b\"]", jsonArray1.toString());
+        assertEquals("[null,\"b\"]", jsonArray2.toString());
+        assertEquals("[\"null\",\"b\"]", jsonArray3.toString());
+    }
 }

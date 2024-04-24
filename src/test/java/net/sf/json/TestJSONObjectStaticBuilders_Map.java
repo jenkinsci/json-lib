@@ -23,21 +23,21 @@ import java.util.Map;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestJSONObjectStaticBuilders_Map extends AbstractJSONObjectStaticBuildersTestCase {
-   public static void main( String[] args ) {
-      junit.textui.TestRunner.run( TestJSONObjectStaticBuilders_Map.class );
-   }
+    public static void main(String[] args) {
+        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_Map.class);
+    }
 
-   public TestJSONObjectStaticBuilders_Map( String name ) {
-      super( name );
-   }
+    public TestJSONObjectStaticBuilders_Map(String name) {
+        super(name);
+    }
 
-   protected Object getSource() {
-      Map map = new HashMap();
-      String[] props = getProperties();
-      for( int i = 0; i < props.length; i++ ){
-         map.put( props[i], PropertyConstants.getPropertyValue( props[i] ) );
-      }
-      map.put( "pexcluded", "" );
-      return map;
-   }
+    protected Object getSource() {
+        Map map = new HashMap();
+        String[] props = getProperties();
+        for (int i = 0; i < props.length; i++) {
+            map.put(props[i], PropertyConstants.getPropertyValue(props[i]));
+        }
+        map.put("pexcluded", "");
+        return map;
+    }
 }

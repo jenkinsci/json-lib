@@ -24,41 +24,35 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class WrapperB
-{
-   private String bool = "true";
+public class WrapperB {
+    private String bool = "true";
 
-   public boolean equals( Object obj )
-   {
-      if( obj == this ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
-      if( !WrapperB.class.isAssignableFrom( obj.getClass() ) ){
-         return false;
-      }
-      return EqualsBuilder.reflectionEquals( this, obj );
-   }
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!WrapperB.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-   public String getBool()
-   {
-      return bool;
-   }
+    public String getBool() {
+        return bool;
+    }
 
-   public int hashCode()
-   {
-      return HashCodeBuilder.reflectionHashCode( this );
-   }
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-   public void setBool( String bool )
-   {
-      this.bool = bool;
-   }
+    public void setBool(String bool) {
+        this.bool = bool;
+    }
 
-   public String toString()
-   {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

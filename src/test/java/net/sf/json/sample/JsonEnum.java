@@ -20,5 +20,6 @@ package net.sf.json.sample;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public enum JsonEnum {
-   ARRAY, OBJECT
+    ARRAY,
+    OBJECT
 }

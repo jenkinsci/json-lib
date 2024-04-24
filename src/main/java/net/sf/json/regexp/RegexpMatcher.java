@@ -18,21 +18,21 @@ package net.sf.json.regexp;
 
 /**
  * Abstraction for regexp handling.
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface RegexpMatcher {
-   /**
-    * Returns the specified group if the string matches the Pattern.<br>
-    * The Pattern will be managed internally by the RegexpMatcher
-    * implementation.
-    */
-   String getGroupIfMatches( String str, int group );
+    /**
+     * Returns the specified group if the string matches the Pattern.<br>
+     * The Pattern will be managed internally by the RegexpMatcher
+     * implementation.
+     */
+    String getGroupIfMatches(String str, int group);
 
-   /**
-    * Returns true is the string macthes the Pattern.<br>
-    * The Pattern will be managed internally by the RegexpMatcher
-    * implementation.
-    */
-   boolean matches( String str );
+    /**
+     * Returns true is the string macthes the Pattern.<br>
+     * The Pattern will be managed internally by the RegexpMatcher
+     * implementation.
+     */
+    boolean matches(String str);
 }

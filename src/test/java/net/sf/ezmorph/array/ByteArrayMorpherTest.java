@@ -25,124 +25,104 @@ import net.sf.ezmorph.test.ArrayAssertions;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ByteArrayMorpherTest extends AbstractArrayMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class ByteArrayMorpherTest extends AbstractArrayMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( ByteArrayMorpherTest.class );
-      suite.setName( "ByteArrayMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(ByteArrayMorpherTest.class);
+        suite.setName("ByteArrayMorpher Tests");
+        return suite;
+    }
 
-   private ByteArrayMorpher anotherMorpher;
-   private ByteArrayMorpher anotherMorpherWithDefaultValue;
-   private ByteArrayMorpher morpher;
-   private ByteArrayMorpher morpherWithDefaultValue;
+    private ByteArrayMorpher anotherMorpher;
+    private ByteArrayMorpher anotherMorpherWithDefaultValue;
+    private ByteArrayMorpher morpher;
+    private ByteArrayMorpher morpherWithDefaultValue;
 
-   public ByteArrayMorpherTest( String name )
-   {
-      super( name );
-   }
+    public ByteArrayMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testMorph_byteArray()
-   {
-      byte[] expected = { 1, 2, 3 };
-      byte[] actual = (byte[]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_byteArray() {
+        byte[] expected = {1, 2, 3};
+        byte[] actual = (byte[]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_byteArray_threedims()
-   {
-      byte[][][] expected = { { { 1 }, { 2 } }, { { 3 }, { 4 } } };
-      byte[][][] actual = (byte[][][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_byteArray_threedims() {
+        byte[][][] expected = {{{1}, {2}}, {{3}, {4}}};
+        byte[][][] actual = (byte[][][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_byteArray_twodims()
-   {
-      byte[][] expected = { { 1, 2, 3 }, { 4, 5, 6 } };
-      byte[][] actual = (byte[][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_byteArray_twodims() {
+        byte[][] expected = {{1, 2, 3}, {4, 5, 6}};
+        byte[][] actual = (byte[][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_illegalArgument()
-   {
-      try{
-         // argument is not an array
-         morpher.morph( "" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testMorph_illegalArgument() {
+        try {
+            // argument is not an array
+            morpher.morph("");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testMorph_null()
-   {
-      assertNull( morpher.morph( null ) );
-   }
+    public void testMorph_null() {
+        assertNull(morpher.morph(null));
+    }
 
-   public void testMorph_strings()
-   {
-      String[] expected = { "1", "2", "3.3" };
-      byte[] actual = (byte[]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( new byte[] { 1, 2, 3 }, actual );
-   }
+    public void testMorph_strings() {
+        String[] expected = {"1", "2", "3.3"};
+        byte[] actual = (byte[]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(new byte[] {1, 2, 3}, actual);
+    }
 
-   public void testMorph_strings_twodims()
-   {
-      String[][] expected = { { "1", "2", "3.3" }, { "4", "5", "6.6" } };
-      byte[][] actual = (byte[][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( new byte[][] { { 1, 2, 3 }, { 4, 5, 6 } }, actual );
-   }
+    public void testMorph_strings_twodims() {
+        String[][] expected = {{"1", "2", "3.3"}, {"4", "5", "6.6"}};
+        byte[][] actual = (byte[][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(new byte[][] {{1, 2, 3}, {4, 5, 6}}, actual);
+    }
 
-   public void testMorph_throwException()
-   {
-      try{
-         new ByteArrayMorpher().morph( new String[] { null } );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testMorph_throwException() {
+        try {
+            new ByteArrayMorpher().morph(new String[] {null});
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   protected AbstractArrayMorpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected AbstractArrayMorpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected AbstractArrayMorpher getMorpher()
-   {
-      return morpher;
-   }
+    protected AbstractArrayMorpher getMorpher() {
+        return morpher;
+    }
 
-   protected AbstractArrayMorpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected AbstractArrayMorpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected Class getMorphsToClass()
-   {
-      return byte[].class;
-   }
+    protected Class getMorphsToClass() {
+        return byte[].class;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new ByteArrayMorpher();
-      morpherWithDefaultValue = new ByteArrayMorpher( (byte) 0 );
-      anotherMorpher = new ByteArrayMorpher();
-      anotherMorpherWithDefaultValue = new ByteArrayMorpher( (byte) 1 );
-   }
+    protected void setUp() throws Exception {
+        morpher = new ByteArrayMorpher();
+        morpherWithDefaultValue = new ByteArrayMorpher((byte) 0);
+        anotherMorpher = new ByteArrayMorpher();
+        anotherMorpherWithDefaultValue = new ByteArrayMorpher((byte) 1);
+    }
 }

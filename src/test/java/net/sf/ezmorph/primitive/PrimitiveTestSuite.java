@@ -22,43 +22,39 @@ import junit.textui.TestRunner;
 
 /**
  * Test suite for the EZMorph Primitive package.
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class PrimitiveTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class PrimitiveTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph-Primitive Tests" );
-      suite.addTest( BooleanMorpherTest.suite() );
-      suite.addTest( CharMorpherTest.suite() );
-      suite.addTest( ByteMorpherTest.suite() );
-      suite.addTest( ShortMorpherTest.suite() );
-      suite.addTest( IntMorpherTest.suite() );
-      suite.addTest( LongMorpherTest.suite() );
-      suite.addTest( FloatMorpherTest.suite() );
-      suite.addTest( DoubleMorpherTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph-Primitive Tests");
+        suite.addTest(BooleanMorpherTest.suite());
+        suite.addTest(CharMorpherTest.suite());
+        suite.addTest(ByteMorpherTest.suite());
+        suite.addTest(ShortMorpherTest.suite());
+        suite.addTest(IntMorpherTest.suite());
+        suite.addTest(LongMorpherTest.suite());
+        suite.addTest(FloatMorpherTest.suite());
+        suite.addTest(DoubleMorpherTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public PrimitiveTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public PrimitiveTestSuite(String name) {
+        super(name);
+    }
 }

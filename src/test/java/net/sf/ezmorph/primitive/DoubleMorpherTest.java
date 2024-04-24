@@ -25,139 +25,117 @@ import net.sf.ezmorph.Morpher;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class DoubleMorpherTest extends AbstractMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class DoubleMorpherTest extends AbstractMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( DoubleMorpherTest.class );
-      suite.setName( "DoubleMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(DoubleMorpherTest.class);
+        suite.setName("DoubleMorpher Tests");
+        return suite;
+    }
 
-   private Morpher anotherMorpher;
-   private Morpher anotherMorpherWithDefaultValue;
-   private Morpher morpher;
-   private Morpher morpherWithDefaultValue;
+    private Morpher anotherMorpher;
+    private Morpher anotherMorpherWithDefaultValue;
+    private Morpher morpher;
+    private Morpher morpherWithDefaultValue;
 
-   public DoubleMorpherTest( String name )
-   {
-      super( name );
-   }
+    public DoubleMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testDoubleMorph_throwException()
-   {
-      try{
-         ((DoubleMorpher) getMorpher()).morph( String.valueOf( "A" ) );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testDoubleMorph_throwException() {
+        try {
+            ((DoubleMorpher) getMorpher()).morph(String.valueOf("A"));
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testDoubleMorph_throwException_null()
-   {
-      try{
-         ((DoubleMorpher) getMorpher()).morph( null );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testDoubleMorph_throwException_null() {
+        try {
+            ((DoubleMorpher) getMorpher()).morph(null);
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testDoubleMorph_useDefault()
-   {
-      String expected = String.valueOf( "A" );
-      double actual = ((DoubleMorpher) getMorpherWithDefaultValue()).morph( expected );
-      assertEquals( 0d, actual, 0d );
-   }
+    public void testDoubleMorph_useDefault() {
+        String expected = String.valueOf("A");
+        double actual = ((DoubleMorpher) getMorpherWithDefaultValue()).morph(expected);
+        assertEquals(0d, actual, 0d);
+    }
 
-   public void testDoubleMorph_useDefault_null()
-   {
-      double actual = ((DoubleMorpher) getMorpherWithDefaultValue()).morph( null );
-      assertEquals( 0d, actual, 0d );
-   }
+    public void testDoubleMorph_useDefault_null() {
+        double actual = ((DoubleMorpher) getMorpherWithDefaultValue()).morph(null);
+        assertEquals(0d, actual, 0d);
+    }
 
-   public void testDoubleMorphDecimalValue_Number()
-   {
-      Double expected = new Double( 3.1416d );
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( 3.1416d, actual, 0d );
-   }
+    public void testDoubleMorphDecimalValue_Number() {
+        Double expected = new Double(3.1416d);
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(3.1416d, actual, 0d);
+    }
 
-   public void testDoubleMorphDecimalValue_String()
-   {
-      String expected = "3.1416";
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( 3.1416d, actual, 0d );
-   }
+    public void testDoubleMorphDecimalValue_String() {
+        String expected = "3.1416";
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(3.1416d, actual, 0d);
+    }
 
-   public void testDoubleMorphMaxValue_Number()
-   {
-      Double expected = new Double( Double.MAX_VALUE );
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( expected.doubleValue(), actual, 0d );
-   }
+    public void testDoubleMorphMaxValue_Number() {
+        Double expected = new Double(Double.MAX_VALUE);
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(expected.doubleValue(), actual, 0d);
+    }
 
-   public void testDoubleMorphMaxValue_String()
-   {
-      String expected = String.valueOf( new Double( Double.MAX_VALUE ) );
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( expected, String.valueOf( actual ) );
-   }
+    public void testDoubleMorphMaxValue_String() {
+        String expected = String.valueOf(new Double(Double.MAX_VALUE));
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(expected, String.valueOf(actual));
+    }
 
-   public void testDoubleMorphMinValue_Number()
-   {
-      Double expected = new Double( Double.MIN_VALUE );
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( expected.doubleValue(), actual, 0d );
-   }
+    public void testDoubleMorphMinValue_Number() {
+        Double expected = new Double(Double.MIN_VALUE);
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(expected.doubleValue(), actual, 0d);
+    }
 
-   public void testDoubleMorphMinValue_String()
-   {
-      String expected = String.valueOf( new Double( Double.MIN_VALUE ) );
-      double actual = ((DoubleMorpher) getMorpher()).morph( expected );
-      assertEquals( expected, String.valueOf( actual ) );
-   }
+    public void testDoubleMorphMinValue_String() {
+        String expected = String.valueOf(new Double(Double.MIN_VALUE));
+        double actual = ((DoubleMorpher) getMorpher()).morph(expected);
+        assertEquals(expected, String.valueOf(actual));
+    }
 
-   protected Morpher getMorpher()
-   {
-      return morpher;
-   }
+    protected Morpher getMorpher() {
+        return morpher;
+    }
 
-   protected Morpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected Morpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected Class getMorphsToClass()
-   {
-      return Double.TYPE;
-   }
+    protected Class getMorphsToClass() {
+        return Double.TYPE;
+    }
 
-   protected Morpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected Morpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected Morpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected Morpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new DoubleMorpher();
-      morpherWithDefaultValue = new DoubleMorpher( 0 );
-      anotherMorpher = new DoubleMorpher();
-      anotherMorpherWithDefaultValue = new DoubleMorpher( 1 );
-   }
+    protected void setUp() throws Exception {
+        morpher = new DoubleMorpher();
+        morpherWithDefaultValue = new DoubleMorpher(0);
+        anotherMorpher = new DoubleMorpher();
+        anotherMorpherWithDefaultValue = new DoubleMorpher(1);
+    }
 }

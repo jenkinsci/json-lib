@@ -22,44 +22,40 @@ import junit.textui.TestRunner;
 
 /**
  * Test suite for the EZMorph Test package.
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class TestTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph-Test Tests" );
-      suite.addTest( ArrayAssertionsTest.suite() );
-      suite.addTest( BooleanArrayAssertionsTest.suite() );
-      suite.addTest( ByteArrayAssertionsTest.suite() );
-      suite.addTest( ShortArrayAssertionsTest.suite() );
-      suite.addTest( IntArrayAssertionsTest.suite() );
-      suite.addTest( LongArrayAssertionsTest.suite() );
-      suite.addTest( FloatArrayAssertionsTest.suite() );
-      suite.addTest( DoubleArrayAssertionsTest.suite() );
-      suite.addTest( CharArrayAssertionsTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph-Test Tests");
+        suite.addTest(ArrayAssertionsTest.suite());
+        suite.addTest(BooleanArrayAssertionsTest.suite());
+        suite.addTest(ByteArrayAssertionsTest.suite());
+        suite.addTest(ShortArrayAssertionsTest.suite());
+        suite.addTest(IntArrayAssertionsTest.suite());
+        suite.addTest(LongArrayAssertionsTest.suite());
+        suite.addTest(FloatArrayAssertionsTest.suite());
+        suite.addTest(DoubleArrayAssertionsTest.suite());
+        suite.addTest(CharArrayAssertionsTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public TestTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public TestTestSuite(String name) {
+        super(name);
+    }
 }

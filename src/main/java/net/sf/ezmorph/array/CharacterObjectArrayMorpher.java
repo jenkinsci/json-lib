@@ -17,10 +17,8 @@
 package net.sf.ezmorph.array;
 
 import java.lang.reflect.Array;
-
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.primitive.CharMorpher;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -29,111 +27,102 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher
-{
-   private static final Class CHARACTER_OBJECT_ARRAY_CLASS = Character[].class;
-   private Character defaultValue;
+public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher {
+    private static final Class CHARACTER_OBJECT_ARRAY_CLASS = Character[].class;
+    private Character defaultValue;
 
-   public CharacterObjectArrayMorpher()
-   {
-      super( false );
-   }
+    public CharacterObjectArrayMorpher() {
+        super(false);
+    }
 
-   /**
-    * @param defaultValue return value if the value to be morphed is null
-    */
-   public CharacterObjectArrayMorpher( Character defaultValue )
-   {
-      super( true );
-      this.defaultValue = defaultValue;
-   }
+    /**
+     * @param defaultValue return value if the value to be morphed is null
+     */
+    public CharacterObjectArrayMorpher(Character defaultValue) {
+        super(true);
+        this.defaultValue = defaultValue;
+    }
 
-   public boolean equals( Object obj )
-   {
-      if( this == obj ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
 
-      if( !(obj instanceof CharacterObjectArrayMorpher) ){
-         return false;
-      }
+        if (!(obj instanceof CharacterObjectArrayMorpher)) {
+            return false;
+        }
 
-      CharacterObjectArrayMorpher other = (CharacterObjectArrayMorpher) obj;
-      EqualsBuilder builder = new EqualsBuilder();
-      if( isUseDefault() && other.isUseDefault() ){
-         builder.append( getDefaultValue(), other.getDefaultValue() );
-         return builder.isEquals();
-      }else if( !isUseDefault() && !other.isUseDefault() ){
-         return builder.isEquals();
-      }else{
-         return false;
-      }
-   }
+        CharacterObjectArrayMorpher other = (CharacterObjectArrayMorpher) obj;
+        EqualsBuilder builder = new EqualsBuilder();
+        if (isUseDefault() && other.isUseDefault()) {
+            builder.append(getDefaultValue(), other.getDefaultValue());
+            return builder.isEquals();
+        } else if (!isUseDefault() && !other.isUseDefault()) {
+            return builder.isEquals();
+        } else {
+            return false;
+        }
+    }
 
-   public Character getDefaultValue()
-   {
-      return defaultValue;
-   }
+    public Character getDefaultValue() {
+        return defaultValue;
+    }
 
-   public int hashCode()
-   {
-      HashCodeBuilder builder = new HashCodeBuilder();
-      if( isUseDefault() ){
-         builder.append( getDefaultValue() );
-      }
-      return builder.toHashCode();
-   }
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        if (isUseDefault()) {
+            builder.append(getDefaultValue());
+        }
+        return builder.toHashCode();
+    }
 
-   public Object morph( Object array )
-   {
-      if( array == null ){
-         return null;
-      }
+    public Object morph(Object array) {
+        if (array == null) {
+            return null;
+        }
 
-      if( CHARACTER_OBJECT_ARRAY_CLASS.isAssignableFrom( array.getClass() ) ){
-         // no conversion needed
-         return (Character[]) array;
-      }
+        if (CHARACTER_OBJECT_ARRAY_CLASS.isAssignableFrom(array.getClass())) {
+            // no conversion needed
+            return (Character[]) array;
+        }
 
-      if( array.getClass()
-            .isArray() ){
-         int length = Array.getLength( array );
-         int dims = getDimensions( array.getClass() );
-         int[] dimensions = createDimensions( dims, length );
-         Object result = Array.newInstance( Character.class, dimensions );
-         if( dims == 1 ){
-            CharMorpher morpher = null;
-            if( isUseDefault() ){
-               if( defaultValue == null ){
-                  for( int index = 0; index < length; index++ ){
-                     Array.set( result, index, null );
-                  }
-                  return result;
-               }else{
-                  morpher = new CharMorpher( defaultValue.charValue() );
-               }
-            }else{
-               morpher = new CharMorpher();
+        if (array.getClass().isArray()) {
+            int length = Array.getLength(array);
+            int dims = getDimensions(array.getClass());
+            int[] dimensions = createDimensions(dims, length);
+            Object result = Array.newInstance(Character.class, dimensions);
+            if (dims == 1) {
+                CharMorpher morpher = null;
+                if (isUseDefault()) {
+                    if (defaultValue == null) {
+                        for (int index = 0; index < length; index++) {
+                            Array.set(result, index, null);
+                        }
+                        return result;
+                    } else {
+                        morpher = new CharMorpher(defaultValue.charValue());
+                    }
+                } else {
+                    morpher = new CharMorpher();
+                }
+                for (int index = 0; index < length; index++) {
+                    Array.set(result, index, new Character(morpher.morph(Array.get(array, index))));
+                }
+            } else {
+                for (int index = 0; index < length; index++) {
+                    Array.set(result, index, morph(Array.get(array, index)));
+                }
             }
-            for( int index = 0; index < length; index++ ){
-               Array.set( result, index, new Character( morpher.morph( Array.get( array, index ) ) ) );
-            }
-         }else{
-            for( int index = 0; index < length; index++ ){
-               Array.set( result, index, morph( Array.get( array, index ) ) );
-            }
-         }
-         return result;
-      }else{
-         throw new MorphException( "argument is not an array: " + array.getClass() );
-      }
-   }
+            return result;
+        } else {
+            throw new MorphException("argument is not an array: " + array.getClass());
+        }
+    }
 
-   public Class morphsTo()
-   {
-      return CHARACTER_OBJECT_ARRAY_CLASS;
-   }
+    public Class morphsTo() {
+        return CHARACTER_OBJECT_ARRAY_CLASS;
+    }
 }

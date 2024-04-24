@@ -25,104 +25,87 @@ import net.sf.ezmorph.Morpher;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class CharMorpherTest extends AbstractMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class CharMorpherTest extends AbstractMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( CharMorpherTest.class );
-      suite.setName( "CharMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(CharMorpherTest.class);
+        suite.setName("CharMorpher Tests");
+        return suite;
+    }
 
-   private Morpher anotherMorpher;
-   private Morpher anotherMorpherWithDefaultValue;
-   private Morpher morpher;
-   private Morpher morpherWithDefaultValue;
+    private Morpher anotherMorpher;
+    private Morpher anotherMorpherWithDefaultValue;
+    private Morpher morpher;
+    private Morpher morpherWithDefaultValue;
 
-   public CharMorpherTest( String name )
-   {
-      super( name );
-   }
+    public CharMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testCharMorph()
-   {
-      String expected = String.valueOf( "A" );
-      char actual = ((CharMorpher) getMorpher()).morph( expected );
-      assertEquals( 'A', actual );
-   }
+    public void testCharMorph() {
+        String expected = String.valueOf("A");
+        char actual = ((CharMorpher) getMorpher()).morph(expected);
+        assertEquals('A', actual);
+    }
 
-   public void testCharMorph_throwException_emptyString()
-   {
-      try{
-         ((CharMorpher) getMorpher()).morph( "" );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testCharMorph_throwException_emptyString() {
+        try {
+            ((CharMorpher) getMorpher()).morph("");
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testCharMorph_throwException_null()
-   {
-      try{
-         ((CharMorpher) getMorpher()).morph( null );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testCharMorph_throwException_null() {
+        try {
+            ((CharMorpher) getMorpher()).morph(null);
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testCharMorph_useDefault()
-   {
-      String expected = String.valueOf( "" );
-      char actual = new CharMorpher( 'A' ).morph( expected );
-      assertEquals( 'A', actual );
-   }
+    public void testCharMorph_useDefault() {
+        String expected = String.valueOf("");
+        char actual = new CharMorpher('A').morph(expected);
+        assertEquals('A', actual);
+    }
 
-   public void testCharMorph_useDefault_null()
-   {
-      char actual = new CharMorpher( 'A' ).morph( null );
-      assertEquals( 'A', actual );
-   }
+    public void testCharMorph_useDefault_null() {
+        char actual = new CharMorpher('A').morph(null);
+        assertEquals('A', actual);
+    }
 
-   protected Morpher getMorpher()
-   {
-      return morpher;
-   }
+    protected Morpher getMorpher() {
+        return morpher;
+    }
 
-   protected Morpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected Morpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected Class getMorphsToClass()
-   {
-      return Character.TYPE;
-   }
+    protected Class getMorphsToClass() {
+        return Character.TYPE;
+    }
 
-   protected Morpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected Morpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected Morpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected Morpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new CharMorpher();
-      morpherWithDefaultValue = new CharMorpher( 'A' );
-      anotherMorpher = new CharMorpher();
-      anotherMorpherWithDefaultValue = new CharMorpher( 'B' );
-   }
+    protected void setUp() throws Exception {
+        morpher = new CharMorpher();
+        morpherWithDefaultValue = new CharMorpher('A');
+        anotherMorpher = new CharMorpher();
+        anotherMorpherWithDefaultValue = new CharMorpher('B');
+    }
 }

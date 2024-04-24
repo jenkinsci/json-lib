@@ -23,36 +23,32 @@ import junit.textui.TestRunner;
 
 /**
  * Test suite for the EZMorph package.
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MorphTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class MorphTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph Tests" );
-      suite.addTest( MorpherRegistryTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph Tests");
+        suite.addTest(MorpherRegistryTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public MorphTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public MorphTestSuite(String name) {
+        super(name);
+    }
 }

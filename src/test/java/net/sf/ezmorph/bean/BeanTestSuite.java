@@ -26,35 +26,31 @@ import junit.textui.TestRunner;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BeanTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class BeanTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph-Bean Tests" );
-      suite.addTest( BeanMorpherTest.suite() );
-      suite.addTest( MorphDynaClassTest.suite() );
-      suite.addTest( MorphDynaBeanTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph-Bean Tests");
+        suite.addTest(BeanMorpherTest.suite());
+        suite.addTest(MorphDynaClassTest.suite());
+        suite.addTest(MorphDynaBeanTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public BeanTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public BeanTestSuite(String name) {
+        super(name);
+    }
 }

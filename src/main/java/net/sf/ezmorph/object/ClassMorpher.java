@@ -25,61 +25,51 @@ import net.sf.ezmorph.ObjectMorpher;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class ClassMorpher implements ObjectMorpher
-{
-   private static final ClassMorpher INSTANCE = new ClassMorpher();
+public final class ClassMorpher implements ObjectMorpher {
+    private static final ClassMorpher INSTANCE = new ClassMorpher();
 
-   /**
-    * Returns the singleton instance
-    */
-   public static ClassMorpher getInstance()
-   {
-      return INSTANCE;
-   }
+    /**
+     * Returns the singleton instance
+     */
+    public static ClassMorpher getInstance() {
+        return INSTANCE;
+    }
 
-   private ClassMorpher()
-   {
-   }
+    private ClassMorpher() {}
 
-   public boolean equals( Object obj )
-   {
-      return INSTANCE == obj;
-   }
+    public boolean equals(Object obj) {
+        return INSTANCE == obj;
+    }
 
-   public int hashCode()
-   {
-      return 42 + getClass().hashCode();
-   }
+    public int hashCode() {
+        return 42 + getClass().hashCode();
+    }
 
-   public Object morph( Object value )
-   {
-      if( value == null ){
-         return null;
-      }
+    public Object morph(Object value) {
+        if (value == null) {
+            return null;
+        }
 
-      if( value instanceof Class ){
-         return (Class) value;
-      }
+        if (value instanceof Class) {
+            return (Class) value;
+        }
 
-      if( "null".equals( value ) ){
-         return null;
-      }
+        if ("null".equals(value)) {
+            return null;
+        }
 
-      try{
-         return Class.forName( value.toString() );
-      }
-      catch( Exception e ){
-         throw new MorphException( e );
-      }
-   }
+        try {
+            return Class.forName(value.toString());
+        } catch (Exception e) {
+            throw new MorphException(e);
+        }
+    }
 
-   public Class morphsTo()
-   {
-      return Class.class;
-   }
+    public Class morphsTo() {
+        return Class.class;
+    }
 
-   public boolean supports( Class clazz )
-   {
-      return true;
-   }
+    public boolean supports(Class clazz) {
+        return true;
+    }
 }

@@ -25,56 +25,47 @@ import net.sf.ezmorph.ObjectMorpher;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class StringMorpher implements ObjectMorpher
-{
-   private static final StringMorpher INSTANCE = new StringMorpher();
+public final class StringMorpher implements ObjectMorpher {
+    private static final StringMorpher INSTANCE = new StringMorpher();
 
-   /**
-    * Returns the singleton instance
-    */
-   public static StringMorpher getInstance()
-   {
-      return INSTANCE;
-   }
+    /**
+     * Returns the singleton instance
+     */
+    public static StringMorpher getInstance() {
+        return INSTANCE;
+    }
 
-   private StringMorpher()
-   {
-   }
+    private StringMorpher() {}
 
-   public boolean equals( Object obj )
-   {
-      return INSTANCE == obj;
-   }
+    public boolean equals(Object obj) {
+        return INSTANCE == obj;
+    }
 
-   public int hashCode()
-   {
-      return 42 + getClass().hashCode();
-   }
+    public int hashCode() {
+        return 42 + getClass().hashCode();
+    }
 
-   public Object morph( Object value )
-   {
-      if( value == null ){
-         return null;
-      }
+    public Object morph(Object value) {
+        if (value == null) {
+            return null;
+        }
 
-      if( !supports( value.getClass() ) ){
-         throw new MorphException( "Class not supported. " + value.getClass() );
-      }
+        if (!supports(value.getClass())) {
+            throw new MorphException("Class not supported. " + value.getClass());
+        }
 
-      if( String.class.isAssignableFrom( value.getClass() ) ){
-         return (String) value;
-      }
+        if (String.class.isAssignableFrom(value.getClass())) {
+            return (String) value;
+        }
 
-      return String.valueOf( value );
-   }
+        return String.valueOf(value);
+    }
 
-   public Class morphsTo()
-   {
-      return String.class;
-   }
+    public Class morphsTo() {
+        return String.class;
+    }
 
-   public boolean supports( Class clazz )
-   {
-      return !clazz.isArray();
-   }
+    public boolean supports(Class clazz) {
+        return !clazz.isArray();
+    }
 }

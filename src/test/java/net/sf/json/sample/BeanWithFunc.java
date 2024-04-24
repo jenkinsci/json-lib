@@ -22,21 +22,21 @@ import net.sf.json.JSONFunction;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class BeanWithFunc {
-   private JSONFunction function;
+    private JSONFunction function;
 
-   public BeanWithFunc( JSONFunction function ) {
-      this.function = function;
-   }
+    public BeanWithFunc(JSONFunction function) {
+        this.function = function;
+    }
 
-   public BeanWithFunc( String function ) {
-      this.function = new JSONFunction( function );
-   }
+    public BeanWithFunc(String function) {
+        this.function = new JSONFunction(function);
+    }
 
-   public JSONFunction getFunction() {
-      return function;
-   }
+    public JSONFunction getFunction() {
+        return function;
+    }
 
-   public void setFunction( JSONFunction function ) {
-      this.function = function;
-   }
+    public void setFunction(JSONFunction function) {
+        this.function = function;
+    }
 }
