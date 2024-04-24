@@ -36,6 +36,7 @@ import org.apache.commons.logging.LogFactory;
  */
 abstract class AbstractJSON implements JSON {
     private static class CycleSet extends ThreadLocal {
+        @Override
         protected Object initialValue() {
             return new SoftReference(new HashSet());
         }
@@ -249,11 +250,13 @@ abstract class AbstractJSON implements JSON {
         return cycleSet.getSet();
     }
 
+    @Override
     public final Writer write(Writer writer) throws IOException {
         write(writer, NORMAL);
         return writer;
     }
 
+    @Override
     public final Writer writeCanonical(Writer writer) throws IOException {
         write(writer, CANONICAL);
         return writer;
@@ -270,28 +273,34 @@ abstract class AbstractJSON implements JSON {
     }
 
     private static final WritingVisitor NORMAL = new WritingVisitor() {
+        @Override
         public Collection keySet(JSONObject o) {
             return o.keySet();
         }
 
+        @Override
         public void on(JSON o, Writer w) throws IOException {
             o.write(w);
         }
 
+        @Override
         public void on(Object value, Writer w) throws IOException {
             w.write(JSONUtils.valueToString(value));
         }
     };
 
     private static final WritingVisitor CANONICAL = new WritingVisitor() {
+        @Override
         public Collection keySet(JSONObject o) {
             return new TreeSet(o.keySet()); // sort them alphabetically
         }
 
+        @Override
         public void on(JSON o, Writer w) throws IOException {
             o.writeCanonical(w);
         }
 
+        @Override
         public void on(Object value, Writer w) throws IOException {
             w.write(JSONUtils.valueToCanonicalString(value));
         }

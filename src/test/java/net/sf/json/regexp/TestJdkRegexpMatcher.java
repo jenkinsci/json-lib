@@ -28,6 +28,7 @@ public class TestJdkRegexpMatcher extends AbstractRegexpMatcherTestCase {
         super(name);
     }
 
+    @Override
     protected RegexpMatcher getRegexpMatcher(String pattern) {
         return new JdkRegexpMatcher(pattern);
     }

@@ -44,6 +44,7 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -75,6 +76,7 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         return (Date) defaultValue.clone();
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -83,6 +85,7 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return null;
@@ -116,6 +119,7 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         return c.getTime();
     }
 
+    @Override
     public Class morphsTo() {
         return Date.class;
     }
@@ -129,6 +133,7 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         this.defaultValue = (Date) defaultValue.clone();
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return clazz != null && Map.class.isAssignableFrom(clazz);
     }

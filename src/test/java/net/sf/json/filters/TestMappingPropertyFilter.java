@@ -40,6 +40,7 @@ public class TestMappingPropertyFilter extends TestCase {
     }
 
     public static class SampleMappingPropertyFilter extends MappingPropertyFilter {
+        @Override
         protected boolean keyMatches(Object key, Object source, String name, Object value) {
             return ((Class) key).isAssignableFrom(source.getClass()) && source instanceof Number;
         }

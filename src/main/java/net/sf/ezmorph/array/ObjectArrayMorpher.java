@@ -46,6 +46,7 @@ public final class ObjectArrayMorpher extends AbstractArrayMorpher {
         setMorpher(morpher);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -62,10 +63,12 @@ public final class ObjectArrayMorpher extends AbstractArrayMorpher {
         return morpher.equals(other.morpher);
     }
 
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(morpher).toHashCode();
     }
 
+    @Override
     public Object morph(Object array) {
         if (array == null) {
             return null;
@@ -104,10 +107,12 @@ public final class ObjectArrayMorpher extends AbstractArrayMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return targetArrayClass;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         if (clazz != null && !clazz.isArray()) {
             return false;

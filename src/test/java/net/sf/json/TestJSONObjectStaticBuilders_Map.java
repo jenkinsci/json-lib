@@ -31,6 +31,7 @@ public class TestJSONObjectStaticBuilders_Map extends AbstractJSONObjectStaticBu
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         Map map = new HashMap();
         String[] props = getProperties();

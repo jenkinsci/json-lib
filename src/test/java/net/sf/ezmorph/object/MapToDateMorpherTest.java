@@ -101,22 +101,27 @@ public class MapToDateMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new MapToDateMorpher();
         morpherWithDefaultValue = new MapToDateMorpher(new Date());

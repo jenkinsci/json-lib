@@ -28,6 +28,7 @@ public class NotPropertyFilter implements PropertyFilter {
         this.filter = filter;
     }
 
+    @Override
     public boolean apply(Object source, String name, Object value) {
         if (filter != null) {
             return !filter.apply(source, name, value);

@@ -79,6 +79,7 @@ public class TestJSONObjectAsMap extends TestCase {
         assertFalse(jsonObject.has("func"));
     }
 
+    @Override
     protected void setUp() throws Exception {
         jsonObject = new JSONObject()
                 .element("int", "1")

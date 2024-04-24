@@ -71,6 +71,7 @@ public class JSONStringer extends JSONBuilder {
      *
      * @return The JSON text.
      */
+    @Override
     public String toString() {
         return this.mode == 'd' ? this.writer.toString() : null;
     }

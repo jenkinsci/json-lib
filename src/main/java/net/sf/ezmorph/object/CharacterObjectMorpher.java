@@ -40,6 +40,7 @@ public final class CharacterObjectMorpher extends AbstractObjectMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -71,6 +72,7 @@ public final class CharacterObjectMorpher extends AbstractObjectMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -79,6 +81,7 @@ public final class CharacterObjectMorpher extends AbstractObjectMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             if (isUseDefault()) {
@@ -104,6 +107,7 @@ public final class CharacterObjectMorpher extends AbstractObjectMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return Character.class;
     }

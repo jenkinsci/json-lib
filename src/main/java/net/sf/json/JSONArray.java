@@ -535,6 +535,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @deprecated replaced by toCollection
      * @see #toCollection(JSONArray)
      */
+    @Deprecated
     public static List toList(JSONArray jsonArray) {
         return toList(jsonArray, new JsonConfig());
     }
@@ -545,6 +546,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @deprecated replaced by toCollection
      * @see #toCollection(JSONArray,Class)
      */
+    @Deprecated
     public static List toList(JSONArray jsonArray, Class objectClass) {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setRootClass(objectClass);
@@ -564,6 +566,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *
      * @deprecated replaced by toCollection
      */
+    @Deprecated
     public static List toList(JSONArray jsonArray, Class objectClass, Map classMap) {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setRootClass(objectClass);
@@ -577,6 +580,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @deprecated replaced by toCollection
      * @see #toCollection(JSONArray,JsonConfig)
      */
+    @Deprecated
     public static List toList(JSONArray jsonArray, JsonConfig jsonConfig) {
         if (jsonArray.size() == 0) {
             return new ArrayList();
@@ -1210,6 +1214,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         this.elements = new ArrayList<Object>();
     }
 
+    @Override
     public void add(int index, Object value) {
         add(index, value, new JsonConfig());
     }
@@ -1218,6 +1223,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         this.elements.add(index, processValue(value, jsonConfig));
     }
 
+    @Override
     public boolean add(Object value) {
         return add(value, new JsonConfig());
     }
@@ -1227,6 +1233,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return true;
     }
 
+    @Override
     public boolean addAll(Collection collection) {
         return addAll(collection, new JsonConfig());
     }
@@ -1241,6 +1248,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return true;
     }
 
+    @Override
     public boolean addAll(int index, Collection collection) {
         return addAll(index, collection, new JsonConfig());
     }
@@ -1256,10 +1264,12 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return true;
     }
 
+    @Override
     public void clear() {
         elements.clear();
     }
 
+    @Override
     public int compareTo(Object obj) {
         if (obj != null && (obj instanceof JSONArray)) {
             JSONArray other = (JSONArray) obj;
@@ -1276,6 +1286,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return -1;
     }
 
+    @Override
     public boolean contains(Object o) {
         return contains(o, new JsonConfig());
     }
@@ -1284,6 +1295,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return elements.contains(processValue(o, jsonConfig));
     }
 
+    @Override
     public boolean containsAll(Collection collection) {
         return containsAll(collection, new JsonConfig());
     }
@@ -1742,6 +1754,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return this;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -1845,6 +1858,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @param index The index must be between 0 and size() - 1.
      * @return An object value.
      */
+    @Override
     public Object get(int index) {
         /*
          * Object o = opt( index ); if( o == null ){ throw new JSONException(
@@ -1976,6 +1990,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         throw new JSONException("JSONArray[" + index + "] not found.");
     }
 
+    @Override
     public int hashCode() {
         int hashcode = 29;
 
@@ -1986,14 +2001,17 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return hashcode;
     }
 
+    @Override
     public int indexOf(Object o) {
         return elements.indexOf(o);
     }
 
+    @Override
     public boolean isArray() {
         return true;
     }
 
+    @Override
     public boolean isEmpty() {
         return this.elements.isEmpty();
     }
@@ -2005,6 +2023,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     /**
      * Returns an Iterator for this JSONArray
      */
+    @Override
     public Iterator iterator() {
         return new JSONArrayListIterator();
     }
@@ -2045,14 +2064,17 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return sb.toString();
     }
 
+    @Override
     public int lastIndexOf(Object o) {
         return elements.lastIndexOf(o);
     }
 
+    @Override
     public ListIterator listIterator() {
         return listIterator(0);
     }
 
+    @Override
     public ListIterator listIterator(int index) {
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("Index: " + index);
@@ -2237,14 +2259,17 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return o != null ? o.toString() : defaultValue;
     }
 
+    @Override
     public Object remove(int index) {
         return elements.remove(index);
     }
 
+    @Override
     public boolean remove(Object o) {
         return elements.remove(o);
     }
 
+    @Override
     public boolean removeAll(Collection collection) {
         return removeAll(collection, new JsonConfig());
     }
@@ -2253,6 +2278,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return elements.removeAll(fromObject(collection, jsonConfig));
     }
 
+    @Override
     public boolean retainAll(Collection collection) {
         return retainAll(collection, new JsonConfig());
     }
@@ -2261,6 +2287,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return elements.retainAll(fromObject(collection, jsonConfig));
     }
 
+    @Override
     public Object set(int index, Object value) {
         return set(index, value, new JsonConfig());
     }
@@ -2280,10 +2307,12 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *
      * @return The length (or size).
      */
+    @Override
     public int size() {
         return this.elements.size();
     }
 
+    @Override
     public List subList(int fromIndex, int toIndex) {
         return elements.subList(fromIndex, toIndex);
     }
@@ -2291,10 +2320,12 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     /**
      * Produce an Object[] with the contents of this JSONArray.
      */
+    @Override
     public Object[] toArray() {
         return this.elements.toArray();
     }
 
+    @Override
     public Object[] toArray(Object[] array) {
         return elements.toArray(array);
     }
@@ -2331,6 +2362,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @return a printable, displayable, transmittable representation of the
      *         array.
      */
+    @Override
     public String toString() {
         try {
             return '[' + join(",") + ']';
@@ -2351,6 +2383,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *         bracket)</small>.
      * @throws JSONException
      */
+    @Override
     public String toString(int indentFactor) {
         if (indentFactor == 0) {
             return this.toString();
@@ -2369,6 +2402,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *         array.
      * @throws JSONException
      */
+    @Override
     public String toString(int indentFactor, int indent) {
         int len = size();
         if (len == 0) {
@@ -2405,6 +2439,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return sb.toString();
     }
 
+    @Override
     protected void write(Writer writer, WritingVisitor visitor) throws IOException {
         boolean b = false;
         int len = size();
@@ -2449,6 +2484,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         return this;
     }
 
+    @Override
     protected Object _processValue(Object value, JsonConfig jsonConfig) {
         if (value instanceof JSONTokener) {
             return _fromJSONTokener((JSONTokener) value, jsonConfig);
@@ -2496,10 +2532,12 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             currentIndex = index;
         }
 
+        @Override
         public boolean hasNext() {
             return currentIndex != size();
         }
 
+        @Override
         public Object next() {
             try {
                 Object next = get(currentIndex);
@@ -2510,6 +2548,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             }
         }
 
+        @Override
         public void remove() {
             if (lastIndex == -1) {
                 throw new IllegalStateException();
@@ -2525,10 +2564,12 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             }
         }
 
+        @Override
         public boolean hasPrevious() {
             return currentIndex != 0;
         }
 
+        @Override
         public Object previous() {
             try {
                 int index = currentIndex - 1;
@@ -2540,14 +2581,17 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             }
         }
 
+        @Override
         public int nextIndex() {
             return currentIndex;
         }
 
+        @Override
         public int previousIndex() {
             return currentIndex - 1;
         }
 
+        @Override
         public void set(Object obj) {
             if (lastIndex == -1) {
                 throw new IllegalStateException();
@@ -2560,6 +2604,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             }
         }
 
+        @Override
         public void add(Object obj) {
             try {
                 JSONArray.this.add(currentIndex++, obj);

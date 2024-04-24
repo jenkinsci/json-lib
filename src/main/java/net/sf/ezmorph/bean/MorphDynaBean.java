@@ -50,6 +50,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         setMorpherRegistry(morpherRegistry);
     }
 
+    @Override
     public boolean contains(String name, String key) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -66,6 +67,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return ((Map) value).containsKey(key);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -89,6 +91,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return builder.isEquals();
     }
 
+    @Override
     public Object get(String name) {
         Object value = dynaValues.get(name);
 
@@ -104,6 +107,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         }
     }
 
+    @Override
     public Object get(String name, int index) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -123,6 +127,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return value;
     }
 
+    @Override
     public Object get(String name, String key) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -139,6 +144,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return ((Map) value).get(key);
     }
 
+    @Override
     public DynaClass getDynaClass() {
         return this.dynaClass;
     }
@@ -147,6 +153,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return morpherRegistry;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder().append(dynaClass);
         DynaProperty[] props = dynaClass.getDynaProperties();
@@ -157,6 +164,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         return builder.toHashCode();
     }
 
+    @Override
     public void remove(String name, String key) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -173,6 +181,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         ((Map) value).remove(key);
     }
 
+    @Override
     public void set(String name, int index, Object value) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -210,6 +219,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         }
     }
 
+    @Override
     public void set(String name, Object value) {
         DynaProperty property = getDynaProperty(name);
 
@@ -220,6 +230,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         dynaValues.put(name, value);
     }
 
+    @Override
     public void set(String name, String key, Object value) {
         DynaProperty dynaProperty = getDynaProperty(name);
 
@@ -251,6 +262,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         }
     }
 
+    @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
                 .append(dynaValues)

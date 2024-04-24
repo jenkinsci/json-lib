@@ -205,6 +205,7 @@ public class TestJSONObjectJdk15 extends TestCase {
         assertFalse(json.has("string3"));
     }
 
+    @Override
     protected void setUp() throws Exception {
         Morpher morpher = JSONUtils.getMorpherRegistry().getMorpherFor(JsonEnum.class);
         JSONUtils.getMorpherRegistry().deregisterMorpher(morpher);

@@ -39,10 +39,12 @@ public abstract class PropertySetStrategy {
     }
 
     private static final class DefaultPropertySetStrategy extends PropertySetStrategy {
+        @Override
         public void setProperty(Object bean, String key, Object value) throws JSONException {
             setProperty(bean, key, value, new JsonConfig());
         }
 
+        @Override
         public void setProperty(Object bean, String key, Object value, JsonConfig jsonConfig) throws JSONException {
             if (bean instanceof Map) {
                 ((Map) bean).put(key, value);

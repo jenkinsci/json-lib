@@ -40,6 +40,7 @@ public final class DoubleMorpher extends AbstractDecimalMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -71,6 +72,7 @@ public final class DoubleMorpher extends AbstractDecimalMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -111,6 +113,7 @@ public final class DoubleMorpher extends AbstractDecimalMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return Double.TYPE;
     }

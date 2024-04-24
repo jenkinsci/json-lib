@@ -24,10 +24,12 @@ import net.sf.json.util.JSONUtils;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class IdentityJsonValueProcessor implements JsonValueProcessor {
+    @Override
     public Object processArrayValue(Object value, JsonConfig jsonConfig) {
         return process(value, jsonConfig);
     }
 
+    @Override
     public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
         return process(value, jsonConfig);
     }

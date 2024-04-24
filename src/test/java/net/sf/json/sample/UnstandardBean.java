@@ -34,6 +34,7 @@ public class UnstandardBean {
         this.id = id;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -59,6 +60,7 @@ public class UnstandardBean {
         return string;
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -79,6 +81,7 @@ public class UnstandardBean {
         this.string = string;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

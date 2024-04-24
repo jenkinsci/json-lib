@@ -39,6 +39,7 @@ public final class ShortMorpher extends AbstractIntegerMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -70,6 +71,7 @@ public final class ShortMorpher extends AbstractIntegerMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -110,6 +112,7 @@ public final class ShortMorpher extends AbstractIntegerMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return Short.TYPE;
     }

@@ -36,22 +36,27 @@ public final class IdentityObjectMorpher implements ObjectMorpher {
 
     private IdentityObjectMorpher() {}
 
+    @Override
     public boolean equals(Object obj) {
         return INSTANCE == obj;
     }
 
+    @Override
     public int hashCode() {
         return 42 + getClass().hashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         return value;
     }
 
+    @Override
     public Class morphsTo() {
         return Object.class;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return true;
     }

@@ -39,6 +39,7 @@ public class JdkRegexpMatcher implements RegexpMatcher {
         }
     }
 
+    @Override
     public String getGroupIfMatches(String str, int group) {
         Matcher matcher = pattern.matcher(str);
         if (matcher.matches()) {
@@ -47,6 +48,7 @@ public class JdkRegexpMatcher implements RegexpMatcher {
         return "";
     }
 
+    @Override
     public boolean matches(String str) {
         return pattern.matcher(str).matches();
     }

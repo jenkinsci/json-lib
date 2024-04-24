@@ -33,6 +33,7 @@ public class Player {
         this.mediaList = mediaList;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

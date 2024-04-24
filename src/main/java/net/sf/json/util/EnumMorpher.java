@@ -34,6 +34,7 @@ public class EnumMorpher implements ObjectMorpher {
         this.enumClass = enumClass;
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return enumClass.cast(null);
@@ -41,10 +42,12 @@ public class EnumMorpher implements ObjectMorpher {
         return Enum.valueOf(enumClass, String.valueOf(value));
     }
 
+    @Override
     public Class morphsTo() {
         return enumClass;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return String.class.isAssignableFrom(clazz);
     }

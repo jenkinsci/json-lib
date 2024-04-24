@@ -126,6 +126,7 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
         this.jsonConfig = jsonConfig;
     }
 
+    @Override
     public Object getProperty(String name) {
         if (!stack.isEmpty()) {
             Object top = stack.peek();
@@ -144,6 +145,7 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
         }
     }
 
+    @Override
     public Object invokeMethod(String name, Object arg) {
         if (JSON.equals(name) && stack.isEmpty()) {
             return createObject(name, arg);
@@ -194,6 +196,7 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
         return current;
     }
 
+    @Override
     public void setProperty(String name, Object value) {
         if (value instanceof GString) {
             value = value.toString();

@@ -64,34 +64,42 @@ public class JsonEventAdpater implements JsonEventListener {
         return warning;
     }
 
+    @Override
     public void onArrayEnd() {
         arrayEnd++;
     }
 
+    @Override
     public void onArrayStart() {
         arrayStart++;
     }
 
+    @Override
     public void onElementAdded(int index, Object element) {
         elementAdded++;
     }
 
+    @Override
     public void onError(JSONException jsone) {
         error++;
     }
 
+    @Override
     public void onObjectEnd() {
         objectEnd++;
     }
 
+    @Override
     public void onObjectStart() {
         objectStart++;
     }
 
+    @Override
     public void onPropertySet(String key, Object value, boolean accumulated) {
         propertySet++;
     }
 
+    @Override
     public void onWarning(String warning) {
         this.warning++;
     }

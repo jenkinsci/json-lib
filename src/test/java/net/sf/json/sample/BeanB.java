@@ -33,6 +33,7 @@ public class BeanB extends BeanA {
         this.intarray = intarray;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

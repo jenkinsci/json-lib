@@ -115,6 +115,7 @@ public final class DateMorpher extends AbstractObjectMorpher {
         this.lenient = lenient;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -149,6 +150,7 @@ public final class DateMorpher extends AbstractObjectMorpher {
         return (Date) defaultValue.clone();
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(formats);
@@ -160,6 +162,7 @@ public final class DateMorpher extends AbstractObjectMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return null;
@@ -198,6 +201,7 @@ public final class DateMorpher extends AbstractObjectMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return Date.class;
     }
@@ -211,6 +215,7 @@ public final class DateMorpher extends AbstractObjectMorpher {
         this.defaultValue = (Date) defaultValue.clone();
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return String.class.isAssignableFrom(clazz);
     }

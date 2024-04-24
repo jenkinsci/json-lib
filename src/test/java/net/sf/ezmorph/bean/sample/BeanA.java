@@ -29,6 +29,7 @@ public class BeanA {
     private int integer = 42;
     private String string = "morph";
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -50,6 +51,7 @@ public class BeanA {
         return string;
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -70,6 +72,7 @@ public class BeanA {
         this.string = string;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

@@ -257,6 +257,7 @@ public class MorphDynaBeanTest extends TestCase {
         }
     }
 
+    @Override
     protected void setUp() throws Exception {
         Map properties = new HashMap();
         properties.put("byte", Byte.class);

@@ -33,6 +33,7 @@ public class BeanB1763699 {
         this.str = str;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

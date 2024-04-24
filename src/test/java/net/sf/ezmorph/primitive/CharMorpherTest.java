@@ -82,26 +82,32 @@ public class CharMorpherTest extends AbstractMorpherTestCase {
         assertEquals('A', actual);
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Character.TYPE;
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new CharMorpher();
         morpherWithDefaultValue = new CharMorpher('A');

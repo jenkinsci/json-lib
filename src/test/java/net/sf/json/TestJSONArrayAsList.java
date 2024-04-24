@@ -127,6 +127,7 @@ public class TestJSONArrayAsList extends TestCase {
      * public void testToArray() { } public void testToArray_array() { }
      */
 
+    @Override
     protected void setUp() throws Exception {
         jsonArray = new JSONArray()
                 .element("1")

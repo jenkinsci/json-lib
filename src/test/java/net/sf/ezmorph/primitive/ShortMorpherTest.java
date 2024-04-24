@@ -117,26 +117,32 @@ public class ShortMorpherTest extends AbstractMorpherTestCase {
         assertEquals(expected, String.valueOf(actual));
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Short.TYPE;
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new ShortMorpher();
         morpherWithDefaultValue = new ShortMorpher((short) 0);

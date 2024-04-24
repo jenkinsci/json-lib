@@ -112,6 +112,7 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         setDefaultValue(defaultValue);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -144,6 +145,7 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         builder.append(type);
@@ -153,6 +155,7 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value != null && type.isAssignableFrom(value.getClass())) {
             // no conversion needed
@@ -189,6 +192,7 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return type;
     }

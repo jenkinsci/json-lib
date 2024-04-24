@@ -28,30 +28,37 @@ public class TestJSONNullAsJSON extends AbstractJSONTest {
         super(name);
     }
 
+    @Override
     protected int getIndent() {
         return 2;
     }
 
+    @Override
     protected int getIndentFactor() {
         return 2;
     }
 
+    @Override
     protected Object[] getIsArrayExpectations() {
         return new Object[] {Boolean.FALSE, JSONNull.getInstance()};
     }
 
+    @Override
     protected Object[] getToStringExpectations1() {
         return new Object[] {"null", JSONNull.getInstance()};
     }
 
+    @Override
     protected Object[] getToStringExpectations2() {
         return new Object[] {"null", JSONNull.getInstance()};
     }
 
+    @Override
     protected Object[] getToStringExpectations3() {
         return new Object[] {"  null", JSONNull.getInstance()};
     }
 
+    @Override
     protected Object[] getWriteExpectations() {
         return new Object[] {"null", JSONNull.getInstance()};
     }

@@ -71,6 +71,7 @@ public final class BeanMorpher implements ObjectMorpher {
         this.lenient = lenient;
     }
 
+    @Override
     public Object morph(Object sourceBean) {
         if (sourceBean == null) {
             return null;
@@ -129,10 +130,12 @@ public final class BeanMorpher implements ObjectMorpher {
         return targetBean;
     }
 
+    @Override
     public Class morphsTo() {
         return beanClass;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return !clazz.isArray();
     }

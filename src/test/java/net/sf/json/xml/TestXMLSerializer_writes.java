@@ -274,6 +274,7 @@ public class TestXMLSerializer_writes extends XMLTestCase {
         assertXMLEqual(expected, xml);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         xmlSerializer = new XMLSerializer();

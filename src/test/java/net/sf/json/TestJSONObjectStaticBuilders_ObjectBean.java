@@ -31,6 +31,7 @@ public class TestJSONObjectStaticBuilders_ObjectBean extends AbstractJSONObjectS
         super(name);
     }
 
+    @Override
     protected Object getSource() {
         ObjectBean bean = new ObjectBean();
         String[] props = getProperties();

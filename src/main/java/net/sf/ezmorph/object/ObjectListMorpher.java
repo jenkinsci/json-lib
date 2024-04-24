@@ -52,6 +52,7 @@ public final class ObjectListMorpher extends AbstractObjectMorpher {
         setMorpher(morpher);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -68,10 +69,12 @@ public final class ObjectListMorpher extends AbstractObjectMorpher {
         return morpher.equals(other.morpher);
     }
 
+    @Override
     public int hashCode() {
         return new HashCodeBuilder().append(morpher).toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return null;
@@ -107,10 +110,12 @@ public final class ObjectListMorpher extends AbstractObjectMorpher {
         return list;
     }
 
+    @Override
     public Class morphsTo() {
         return List.class;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return clazz != null && List.class.isAssignableFrom(clazz);
     }

@@ -27,6 +27,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public class ValueBean {
     private int value;
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -44,6 +45,7 @@ public class ValueBean {
         return value;
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -52,6 +54,7 @@ public class ValueBean {
         this.value = value;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

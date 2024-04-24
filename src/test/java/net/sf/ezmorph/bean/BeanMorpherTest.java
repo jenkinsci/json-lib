@@ -407,6 +407,7 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(0d, beanD.getDecimal(), 0d);
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpherRegistry = new MorpherRegistry();
         MorphUtils.registerStandardMorphers(morpherRegistry);

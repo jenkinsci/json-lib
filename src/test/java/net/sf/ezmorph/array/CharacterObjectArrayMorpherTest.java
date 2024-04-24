@@ -124,26 +124,32 @@ public class CharacterObjectArrayMorpherTest extends AbstractArrayMorpherTestCas
         ArrayAssertions.assertEquals(new Character[][] {{new Character('A')}, {new Character('B')}}, actual);
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected AbstractArrayMorpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Character[].class;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new CharacterObjectArrayMorpher();
         morpherWithDefaultValue = new CharacterObjectArrayMorpher(new Character('A'));

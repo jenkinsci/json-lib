@@ -50,6 +50,7 @@ public abstract class MappingPropertyFilter implements PropertyFilter {
         }
     }
 
+    @Override
     public boolean apply(Object source, String name, Object value) {
         for (Iterator i = filters.entrySet().iterator(); i.hasNext(); ) {
             Map.Entry entry = (Map.Entry) i.next();

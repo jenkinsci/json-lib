@@ -117,26 +117,32 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
         assertEquals(expected, String.valueOf(actual));
     }
 
+    @Override
     protected Morpher getMorpher() {
         return morpher;
     }
 
+    @Override
     protected Morpher getMorpherWithDefaultValue() {
         return morpherWithDefaultValue;
     }
 
+    @Override
     protected Class getMorphsToClass() {
         return Float.TYPE;
     }
 
+    @Override
     protected Morpher getAnotherMorpher() {
         return anotherMorpher;
     }
 
+    @Override
     protected Morpher getAnotherMorpherWithDefaultValue() {
         return anotherMorpherWithDefaultValue;
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new FloatMorpher();
         morpherWithDefaultValue = new FloatMorpher(0);

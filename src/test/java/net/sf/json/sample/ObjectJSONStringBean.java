@@ -41,6 +41,7 @@ public class ObjectJSONStringBean implements JSONString {
         this.name = name;
     }
 
+    @Override
     public String toJSONString() {
         return new StringBuffer()
                 .append("{")

@@ -40,6 +40,7 @@ public final class CharMorpher extends AbstractPrimitiveMorpher {
         this.defaultValue = defaultValue;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -71,6 +72,7 @@ public final class CharMorpher extends AbstractPrimitiveMorpher {
         return defaultValue;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
@@ -110,6 +112,7 @@ public final class CharMorpher extends AbstractPrimitiveMorpher {
         }
     }
 
+    @Override
     public Class morphsTo() {
         return Character.TYPE;
     }

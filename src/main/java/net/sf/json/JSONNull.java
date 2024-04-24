@@ -49,6 +49,7 @@ public final class JSONNull implements JSON {
      * @return true if the object parameter is the JSONObject.NULL object or
      *         null.
      */
+    @Override
     public boolean equals(Object object) {
         return object == null
                 || object == this
@@ -56,18 +57,22 @@ public final class JSONNull implements JSON {
                 || (object instanceof JSONObject && ((JSONObject) object).isNullObject());
     }
 
+    @Override
     public int hashCode() {
         return 37 + "null".hashCode();
     }
 
+    @Override
     public boolean isArray() {
         return false;
     }
 
+    @Override
     public boolean isEmpty() {
         throw new JSONException("Object is null");
     }
 
+    @Override
     public int size() {
         throw new JSONException("Object is null");
     }
@@ -77,14 +82,17 @@ public final class JSONNull implements JSON {
      *
      * @return The string "null".
      */
+    @Override
     public String toString() {
         return "null";
     }
 
+    @Override
     public String toString(int indentFactor) {
         return toString();
     }
 
+    @Override
     public String toString(int indentFactor, int indent) {
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < indent; i += 1) {
@@ -94,11 +102,13 @@ public final class JSONNull implements JSON {
         return sb.toString();
     }
 
+    @Override
     public Writer write(Writer writer) throws IOException {
         writer.write(toString());
         return writer;
     }
 
+    @Override
     public Writer writeCanonical(Writer w) throws IOException {
         return write(w);
     }

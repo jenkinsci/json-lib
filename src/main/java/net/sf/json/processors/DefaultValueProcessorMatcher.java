@@ -40,6 +40,7 @@ public abstract class DefaultValueProcessorMatcher {
     public abstract Object getMatch(Class target, Set set);
 
     private static final class DefaultDefaultValueProcessorMatcher extends DefaultValueProcessorMatcher {
+        @Override
         public Object getMatch(Class target, Set set) {
             if (target != null && set != null && set.contains(target)) {
                 return target;

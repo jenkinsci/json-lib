@@ -64,10 +64,12 @@ public class ObjectArrayMorpherTest extends TestCase {
 
     public void testEquals_different_morpher() {
         assertFalse(getMorpher().equals(new Morpher() {
+            @Override
             public Class morphsTo() {
                 return null;
             }
 
+            @Override
             public boolean supports(Class clazz) {
                 return false;
             }
@@ -141,10 +143,12 @@ public class ObjectArrayMorpherTest extends TestCase {
     public void testObjectArrayMorpher_illegalMorpher_noMorphMethod() {
         try {
             morpher = new ObjectArrayMorpher(new Morpher() {
+                @Override
                 public Class morphsTo() {
                     return Object.class;
                 }
 
+                @Override
                 public boolean supports(Class clazz) {
                     return false;
                 }
@@ -165,10 +169,12 @@ public class ObjectArrayMorpherTest extends TestCase {
     public void testObjectArrayMorpher_illegalMorpher_supportsArray() {
         try {
             morpher = new ObjectArrayMorpher(new Morpher() {
+                @Override
                 public Class morphsTo() {
                     return Object[].class;
                 }
 
+                @Override
                 public boolean supports(Class clazz) {
                     return false;
                 }
@@ -178,6 +184,7 @@ public class ObjectArrayMorpherTest extends TestCase {
         }
     }
 
+    @Override
     protected void setUp() throws Exception {
         morpher = new ObjectArrayMorpher(StringMorpher.getInstance());
         anotherMorpher = new ObjectArrayMorpher(IdentityObjectMorpher.getInstance());

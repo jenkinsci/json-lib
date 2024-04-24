@@ -44,6 +44,7 @@ public class SwitchingMorpher implements ObjectMorpher {
         this.classMap.putAll(classMap);
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
@@ -72,6 +73,7 @@ public class SwitchingMorpher implements ObjectMorpher {
         return true;
     }
 
+    @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
         for (Iterator entries = classMap.entrySet().iterator(); entries.hasNext(); ) {
@@ -82,6 +84,7 @@ public class SwitchingMorpher implements ObjectMorpher {
         return builder.toHashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return null;
@@ -91,10 +94,12 @@ public class SwitchingMorpher implements ObjectMorpher {
         return morpherRegistry.morph(target, value);
     }
 
+    @Override
     public Class morphsTo() {
         return Object.class;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return true;
     }

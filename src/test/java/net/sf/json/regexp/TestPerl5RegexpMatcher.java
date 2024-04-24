@@ -28,6 +28,7 @@ public class TestPerl5RegexpMatcher extends AbstractRegexpMatcherTestCase {
         super(name);
     }
 
+    @Override
     protected RegexpMatcher getRegexpMatcher(String pattern) {
         return new Perl5RegexpMatcher(pattern);
     }

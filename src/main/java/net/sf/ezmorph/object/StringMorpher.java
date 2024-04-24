@@ -37,14 +37,17 @@ public final class StringMorpher implements ObjectMorpher {
 
     private StringMorpher() {}
 
+    @Override
     public boolean equals(Object obj) {
         return INSTANCE == obj;
     }
 
+    @Override
     public int hashCode() {
         return 42 + getClass().hashCode();
     }
 
+    @Override
     public Object morph(Object value) {
         if (value == null) {
             return null;
@@ -61,10 +64,12 @@ public final class StringMorpher implements ObjectMorpher {
         return String.valueOf(value);
     }
 
+    @Override
     public Class morphsTo() {
         return String.class;
     }
 
+    @Override
     public boolean supports(Class clazz) {
         return !clazz.isArray();
     }

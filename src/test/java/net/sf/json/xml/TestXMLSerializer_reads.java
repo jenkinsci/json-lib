@@ -503,6 +503,7 @@ public class TestXMLSerializer_reads extends TestCase {
         JSONAssert.assertEquals(expected, actual);
     }
 
+    @Override
     protected void setUp() throws Exception {
         super.setUp();
         xmlSerializer = new XMLSerializer();

@@ -22,6 +22,7 @@ import net.sf.json.util.PropertyFilter;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TruePropertyFilter implements PropertyFilter {
+    @Override
     public boolean apply(Object source, String name, Object value) {
         return true;
     }

@@ -74,6 +74,7 @@ public class SwitchingMorpherTest extends TestCase {
         assertNull(morpher.morph(null));
     }
 
+    @Override
     protected void setUp() throws Exception {
         Map classMap = new HashMap();
         classMap.put(WrapperA.class, BeanA.class);

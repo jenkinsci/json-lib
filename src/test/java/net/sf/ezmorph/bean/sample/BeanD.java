@@ -29,6 +29,7 @@ public class BeanD {
     private double decimal = 0d;
     private int integer = 42;
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
@@ -50,6 +51,7 @@ public class BeanD {
         return integer;
     }
 
+    @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
     }
@@ -70,6 +72,7 @@ public class BeanD {
         this.integer = integer;
     }
 
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
