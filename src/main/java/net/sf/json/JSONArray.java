@@ -401,9 +401,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         } else {
             try {
                 collection = (Collection) collectionType.newInstance();
-            } catch (InstantiationException e) {
-                throw new JSONException(e);
-            } catch (IllegalAccessException e) {
+            } catch (InstantiationException | IllegalAccessException e) {
                 throw new JSONException(e);
             }
         }
