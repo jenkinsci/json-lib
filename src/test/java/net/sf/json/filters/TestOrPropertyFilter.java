@@ -20,7 +20,7 @@ import junit.framework.TestCase;
 import net.sf.json.util.PropertyFilter;
 
 /**
- * @author Orres Almiray <aalmiray@users.sourceforge.net>
+ * @author Orres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TestOrPropertyFilter extends TestCase {
    public static void main( String[] args ) {
