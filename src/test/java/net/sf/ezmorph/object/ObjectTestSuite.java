@@ -26,44 +26,40 @@ import junit.textui.TestRunner;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ObjectTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class ObjectTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph-Object Tests" );
-      suite.addTest( BooleanObjectMorpherTest.suite() );
-      suite.addTest( CharacterObjectMorpherTest.suite() );
-      suite.addTest( DateMorpherTest.suite() );
-      suite.addTest( IdentityObjectMorpherTest.suite() );
-      suite.addTest( BigDecimalMorpherTest.suite() );
-      suite.addTest( BigIntegerMorpherTest.suite() );
-      suite.addTest( NumberMorpherTest.suite() );
-      suite.addTest( StringMorpherTest.suite() );
-      suite.addTest( ClassMorpherTest.suite() );
-      suite.addTest( MapToDateMorpherTest.suite() );
-      suite.addTest( ObjectListMorpherTest.suite() );
-      suite.addTest( SwitchingMorpherTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph-Object Tests");
+        suite.addTest(BooleanObjectMorpherTest.suite());
+        suite.addTest(CharacterObjectMorpherTest.suite());
+        suite.addTest(DateMorpherTest.suite());
+        suite.addTest(IdentityObjectMorpherTest.suite());
+        suite.addTest(BigDecimalMorpherTest.suite());
+        suite.addTest(BigIntegerMorpherTest.suite());
+        suite.addTest(NumberMorpherTest.suite());
+        suite.addTest(StringMorpherTest.suite());
+        suite.addTest(ClassMorpherTest.suite());
+        suite.addTest(MapToDateMorpherTest.suite());
+        suite.addTest(ObjectListMorpherTest.suite());
+        suite.addTest(SwitchingMorpherTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public ObjectTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public ObjectTestSuite(String name) {
+        super(name);
+    }
 }

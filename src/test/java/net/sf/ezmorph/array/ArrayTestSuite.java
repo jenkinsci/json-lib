@@ -23,46 +23,42 @@ import junit.textui.TestRunner;
 
 /**
  * Test suite for the EZMorph Array package.
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ArrayTestSuite extends TestCase
-{
-   /**
-    * Command-line interface.
-    */
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class ArrayTestSuite extends TestCase {
+    /**
+     * Command-line interface.
+     */
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   /**
-    * Get the suite of tests
-    */
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite();
-      suite.setName( "EZMorph-Array Tests" );
-      suite.addTest( BooleanArrayMorpherTest.suite() );
-      suite.addTest( CharArrayMorpherTest.suite() );
-      suite.addTest( ByteArrayMorpherTest.suite() );
-      suite.addTest( ShortArrayMorpherTest.suite() );
-      suite.addTest( IntArrayMorpherTest.suite() );
-      suite.addTest( LongArrayMorpherTest.suite() );
-      suite.addTest( FloatArrayMorpherTest.suite() );
-      suite.addTest( DoubleArrayMorpherTest.suite() );
-      suite.addTest( ObjectArrayMorpherTest.suite() );
-      suite.addTest( BooleanObjectArrayMorpherTest.suite() );
-      suite.addTest( CharacterObjectArrayMorpherTest.suite() );
+    /**
+     * Get the suite of tests
+     */
+    public static Test suite() {
+        TestSuite suite = new TestSuite();
+        suite.setName("EZMorph-Array Tests");
+        suite.addTest(BooleanArrayMorpherTest.suite());
+        suite.addTest(CharArrayMorpherTest.suite());
+        suite.addTest(ByteArrayMorpherTest.suite());
+        suite.addTest(ShortArrayMorpherTest.suite());
+        suite.addTest(IntArrayMorpherTest.suite());
+        suite.addTest(LongArrayMorpherTest.suite());
+        suite.addTest(FloatArrayMorpherTest.suite());
+        suite.addTest(DoubleArrayMorpherTest.suite());
+        suite.addTest(ObjectArrayMorpherTest.suite());
+        suite.addTest(BooleanObjectArrayMorpherTest.suite());
+        suite.addTest(CharacterObjectArrayMorpherTest.suite());
 
-      return suite;
-   }
+        return suite;
+    }
 
-   /**
-    * Construct a new instance.
-    */
-   public ArrayTestSuite( String name )
-   {
-      super( name );
-   }
+    /**
+     * Construct a new instance.
+     */
+    public ArrayTestSuite(String name) {
+        super(name);
+    }
 }

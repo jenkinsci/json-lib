@@ -25,60 +25,55 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MorphException extends NestableRuntimeException
-{
-   private static final long serialVersionUID = -540093801787033824L;
+public class MorphException extends NestableRuntimeException {
+    private static final long serialVersionUID = -540093801787033824L;
 
-   // ----------------------------------------------------------- Constructors
+    // ----------------------------------------------------------- Constructors
 
-   /**
-    * The root cause of this <code>ConversionException</code>, compatible
-    * with JDK 1.4's extensions to <code>java.lang.Throwable</code>.
-    */
-   protected Throwable cause = null;
+    /**
+     * The root cause of this <code>ConversionException</code>, compatible
+     * with JDK 1.4's extensions to <code>java.lang.Throwable</code>.
+     */
+    protected Throwable cause = null;
 
-   /**
-    * Construct a new exception with the specified message.
-    *
-    * @param message The message describing this exception
-    */
-   public MorphException( String message )
-   {
-      super( message );
-   }
+    /**
+     * Construct a new exception with the specified message.
+     *
+     * @param message The message describing this exception
+     */
+    public MorphException(String message) {
+        super(message);
+    }
 
-   /**
-    * Construct a new exception with the specified message and root cause.
-    *
-    * @param message The message describing this exception
-    * @param cause The root cause of this exception
-    */
-   public MorphException( String message, Throwable cause )
-   {
-      super( message );
-      this.cause = cause;
-   }
+    /**
+     * Construct a new exception with the specified message and root cause.
+     *
+     * @param message The message describing this exception
+     * @param cause The root cause of this exception
+     */
+    public MorphException(String message, Throwable cause) {
+        super(message);
+        this.cause = cause;
+    }
 
-   // ------------------------------------------------------------- Properties
+    // ------------------------------------------------------------- Properties
 
-   /**
-    * Construct a new exception with the specified root cause.
-    *
-    * @param cause The root cause of this exception
-    */
-   public MorphException( Throwable cause )
-   {
-      super( cause.getMessage() );
-      this.cause = cause;
-   }
+    /**
+     * Construct a new exception with the specified root cause.
+     *
+     * @param cause The root cause of this exception
+     */
+    public MorphException(Throwable cause) {
+        super(cause.getMessage());
+        this.cause = cause;
+    }
 
-   /**
-    * Returns the cause of this exception.
-    *
-    * @return a Throwable that represents the cause of this exception
-    */
-   public Throwable getCause()
-   {
-      return this.cause;
-   }
+    /**
+     * Returns the cause of this exception.
+     *
+     * @return a Throwable that represents the cause of this exception
+     */
+    public Throwable getCause() {
+        return this.cause;
+    }
 }

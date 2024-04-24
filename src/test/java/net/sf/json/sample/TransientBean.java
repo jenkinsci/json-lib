@@ -20,13 +20,13 @@ package net.sf.json.sample;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class TransientBean extends ValueBean {
-   private transient int transientValue;
+    private transient int transientValue;
 
-   public int getTransientValue() {
-      return transientValue;
-   }
+    public int getTransientValue() {
+        return transientValue;
+    }
 
-   public void setTransientValue( int transientValue ) {
-      this.transientValue = transientValue;
-   }
+    public void setTransientValue(int transientValue) {
+        this.transientValue = transientValue;
+    }
 }

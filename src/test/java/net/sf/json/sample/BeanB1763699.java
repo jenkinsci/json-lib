@@ -23,17 +23,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class BeanB1763699 {
-   private String str;
+    private String str;
 
-   public String getStr() {
-      return str;
-   }
+    public String getStr() {
+        return str;
+    }
 
-   public void setStr( String str ) {
-      this.str = str;
-   }
+    public void setStr(String str) {
+        this.str = str;
+    }
 
-   public String toString() {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

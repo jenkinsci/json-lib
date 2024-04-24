@@ -22,14 +22,14 @@ import junit.framework.TestSuite;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class AllTests extends TestSuite {
-   public static TestSuite suite() throws Exception {
-      TestSuite suite = new TestSuite();
-      suite.setName( "xml" );
+    public static TestSuite suite() throws Exception {
+        TestSuite suite = new TestSuite();
+        suite.setName("xml");
 
-      suite.addTest( new TestSuite( TestXMLSerializer_reads.class ) );
-      suite.addTest( new TestSuite( TestXMLSerializer_writes.class ) );
-      suite.addTest( new TestSuite( TestUserSubmitted.class ) );
+        suite.addTest(new TestSuite(TestXMLSerializer_reads.class));
+        suite.addTest(new TestSuite(TestXMLSerializer_writes.class));
+        suite.addTest(new TestSuite(TestUserSubmitted.class));
 
-      return suite;
-   }
+        return suite;
+    }
 }

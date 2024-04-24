@@ -20,17 +20,14 @@ package net.sf.json.sample;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 @JsonAnnotation("json")
-public class AnnotationBean
-{
-   private String string;
+public class AnnotationBean {
+    private String string;
 
-   public String getString()
-   {
-      return string;
-   }
+    public String getString() {
+        return string;
+    }
 
-   public void setString( String string )
-   {
-      this.string = string;
-   }
+    public void setString(String string) {
+        this.string = string;
+    }
 }

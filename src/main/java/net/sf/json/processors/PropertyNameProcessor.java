@@ -16,19 +16,18 @@
 
 package net.sf.json.processors;
 
-
 /**
  * Base interface for mutating property names of a Bean.
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface PropertyNameProcessor {
-   /**
-    * Processes the property name.
-    *
-    * @param beanClass the input bean's class
-    * @param name the current property name
-    * @return an updated property name
-    */
-   String processPropertyName( Class beanClass, String name );
+    /**
+     * Processes the property name.
+     *
+     * @param beanClass the input bean's class
+     * @param name the current property name
+     * @return an updated property name
+     */
+    String processPropertyName(Class beanClass, String name);
 }

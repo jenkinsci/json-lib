@@ -16,45 +16,38 @@
 
 package net.sf.json.sample;
 
-import java.util.Set;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class EnumBean
-{
-   private JsonEnum jsonEnum;
-   private String string;
-   private Set<JsonEnum> enums = new HashSet<JsonEnum>();
+public class EnumBean {
+    private JsonEnum jsonEnum;
+    private String string;
+    private Set<JsonEnum> enums = new HashSet<JsonEnum>();
 
-   public JsonEnum getJsonEnum()
-   {
-      return jsonEnum;
-   }
+    public JsonEnum getJsonEnum() {
+        return jsonEnum;
+    }
 
-   public String getString()
-   {
-      return string;
-   }
+    public String getString() {
+        return string;
+    }
 
-   public Set<JsonEnum> getEnums()
-   {
-      return enums;
-   }
+    public Set<JsonEnum> getEnums() {
+        return enums;
+    }
 
-   public void setJsonEnum( JsonEnum jsonEnum )
-   {
-      this.jsonEnum = jsonEnum;
-   }
+    public void setJsonEnum(JsonEnum jsonEnum) {
+        this.jsonEnum = jsonEnum;
+    }
 
-   public void setString( String string )
-   {
-      this.string = string;
-   }
+    public void setString(String string) {
+        this.string = string;
+    }
 
-   public void setEnums( Set<JsonEnum> enums )
-   {
-      this.enums = enums;
-   }
+    public void setEnums(Set<JsonEnum> enums) {
+        this.enums = enums;
+    }
 }

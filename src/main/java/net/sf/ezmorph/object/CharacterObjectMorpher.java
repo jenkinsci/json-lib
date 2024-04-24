@@ -17,7 +17,6 @@
 package net.sf.ezmorph.object;
 
 import net.sf.ezmorph.MorphException;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -26,94 +25,86 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class CharacterObjectMorpher extends AbstractObjectMorpher
-{
-   private Character defaultValue;
+public final class CharacterObjectMorpher extends AbstractObjectMorpher {
+    private Character defaultValue;
 
-   public CharacterObjectMorpher()
-   {
-      super();
-   }
+    public CharacterObjectMorpher() {
+        super();
+    }
 
-   /**
-    * @param defaultValue return value if the value to be morphed is null
-    */
-   public CharacterObjectMorpher( Character defaultValue )
-   {
-      super( true );
-      this.defaultValue = defaultValue;
-   }
+    /**
+     * @param defaultValue return value if the value to be morphed is null
+     */
+    public CharacterObjectMorpher(Character defaultValue) {
+        super(true);
+        this.defaultValue = defaultValue;
+    }
 
-   public boolean equals( Object obj )
-   {
-      if( this == obj ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
 
-      if( !(obj instanceof CharacterObjectMorpher) ){
-         return false;
-      }
+        if (!(obj instanceof CharacterObjectMorpher)) {
+            return false;
+        }
 
-      CharacterObjectMorpher other = (CharacterObjectMorpher) obj;
-      EqualsBuilder builder = new EqualsBuilder();
-      if( isUseDefault() && other.isUseDefault() ){
-         builder.append( getDefaultValue(), other.getDefaultValue() );
-         return builder.isEquals();
-      }else if( !isUseDefault() && !other.isUseDefault() ){
-         return builder.isEquals();
-      }else{
-         return false;
-      }
-   }
+        CharacterObjectMorpher other = (CharacterObjectMorpher) obj;
+        EqualsBuilder builder = new EqualsBuilder();
+        if (isUseDefault() && other.isUseDefault()) {
+            builder.append(getDefaultValue(), other.getDefaultValue());
+            return builder.isEquals();
+        } else if (!isUseDefault() && !other.isUseDefault()) {
+            return builder.isEquals();
+        } else {
+            return false;
+        }
+    }
 
-   /**
-    * Returns the default value for this Morpher.
-    */
-   public Character getDefaultValue()
-   {
-      return defaultValue;
-   }
+    /**
+     * Returns the default value for this Morpher.
+     */
+    public Character getDefaultValue() {
+        return defaultValue;
+    }
 
-   public int hashCode()
-   {
-      HashCodeBuilder builder = new HashCodeBuilder();
-      if( isUseDefault() ){
-         builder.append( getDefaultValue() );
-      }
-      return builder.toHashCode();
-   }
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        if (isUseDefault()) {
+            builder.append(getDefaultValue());
+        }
+        return builder.toHashCode();
+    }
 
-   public Object morph( Object value )
-   {
-      if( value == null ){
-         if( isUseDefault() ){
-            return defaultValue;
-         }else{
-            throw new MorphException( "value is null" );
-         }
-      }
-
-      if( value instanceof Character ){
-         return (Character) value;
-      }else{
-         String s = String.valueOf( value );
-         if( s.length() > 0 ){
-            return new Character( s.charAt( 0 ) );
-         }else{
-            if( isUseDefault() ){
-               return defaultValue;
-            }else{
-               throw new MorphException( "Can't morph value: " + value );
+    public Object morph(Object value) {
+        if (value == null) {
+            if (isUseDefault()) {
+                return defaultValue;
+            } else {
+                throw new MorphException("value is null");
             }
-         }
-      }
-   }
+        }
 
-   public Class morphsTo()
-   {
-      return Character.class;
-   }
+        if (value instanceof Character) {
+            return (Character) value;
+        } else {
+            String s = String.valueOf(value);
+            if (s.length() > 0) {
+                return new Character(s.charAt(0));
+            } else {
+                if (isUseDefault()) {
+                    return defaultValue;
+                } else {
+                    throw new MorphException("Can't morph value: " + value);
+                }
+            }
+        }
+    }
+
+    public Class morphsTo() {
+        return Character.class;
+    }
 }

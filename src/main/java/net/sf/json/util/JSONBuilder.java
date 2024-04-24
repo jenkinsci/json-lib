@@ -17,9 +17,7 @@ package net.sf.json.util;
 
 import java.io.IOException;
 import java.io.Writer;
-
 import net.sf.json.JSONException;
-
 
 /**
  * JSONBuilder provides a quick and convenient way of producing JSON text. The
@@ -58,266 +56,265 @@ import net.sf.json.JSONException;
  * @version 1
  */
 public class JSONBuilder {
-   private static final int MAXDEPTH = 20;
+    private static final int MAXDEPTH = 20;
 
-   /**
-    * The comma flag determines if a comma should be output before the next
-    * value.
-    */
-   private boolean comma;
+    /**
+     * The comma flag determines if a comma should be output before the next
+     * value.
+     */
+    private boolean comma;
 
-   /**
-    * The current mode. Values: 'a' (array), 'd' (done), 'i' (initial), 'k'
-    * (key), 'o' (object).
-    */
-   protected char mode;
+    /**
+     * The current mode. Values: 'a' (array), 'd' (done), 'i' (initial), 'k'
+     * (key), 'o' (object).
+     */
+    protected char mode;
 
-   /**
-    * The object/array stack.
-    */
-   private char stack[];
+    /**
+     * The object/array stack.
+     */
+    private char stack[];
 
-   /**
-    * The stack top index. A value of 0 indicates that the stack is empty.
-    */
-   private int top;
+    /**
+     * The stack top index. A value of 0 indicates that the stack is empty.
+     */
+    private int top;
 
-   /**
-    * The writer that will receive the output.
-    */
-   protected Writer writer;
+    /**
+     * The writer that will receive the output.
+     */
+    protected Writer writer;
 
-   /**
-    * Make a fresh JSONBuilder. It can be used to build one JSON text.
-    */
-   public JSONBuilder( Writer w ) {
-      this.comma = false;
-      this.mode = 'i';
-      this.stack = new char[MAXDEPTH];
-      this.top = 0;
-      this.writer = w;
-   }
+    /**
+     * Make a fresh JSONBuilder. It can be used to build one JSON text.
+     */
+    public JSONBuilder(Writer w) {
+        this.comma = false;
+        this.mode = 'i';
+        this.stack = new char[MAXDEPTH];
+        this.top = 0;
+        this.writer = w;
+    }
 
-   /**
-    * Append a value.
-    *
-    * @param s A string value.
-    * @return this
-    * @throws JSONException If the value is out of sequence.
-    */
-   private JSONBuilder append( String s ) {
-      if( s == null ){
-         throw new JSONException( "Null pointer" );
-      }
-      if( this.mode == 'o' || this.mode == 'a' ){
-         try{
-            if( this.comma && this.mode == 'a' ){
-               this.writer.write( ',' );
+    /**
+     * Append a value.
+     *
+     * @param s A string value.
+     * @return this
+     * @throws JSONException If the value is out of sequence.
+     */
+    private JSONBuilder append(String s) {
+        if (s == null) {
+            throw new JSONException("Null pointer");
+        }
+        if (this.mode == 'o' || this.mode == 'a') {
+            try {
+                if (this.comma && this.mode == 'a') {
+                    this.writer.write(',');
+                }
+                this.writer.write(s);
+            } catch (IOException e) {
+                throw new JSONException(e);
             }
-            this.writer.write( s );
-         }catch( IOException e ){
-            throw new JSONException( e );
-         }
-         if( this.mode == 'o' ){
-            this.mode = 'k';
-         }
-         this.comma = true;
-         return this;
-      }
-      throw new JSONException( "Value out of sequence." );
-   }
-
-   /**
-    * Begin appending a new array. All values until the balancing
-    * <code>endArray</code> will be appended to this array. The
-    * <code>endArray</code> method must be called to mark the array's end.
-    *
-    * @return this
-    * @throws JSONException If the nesting is too deep, or if the object is
-    *         started in the wrong place (for example as a key or after the end
-    *         of the outermost array or object).
-    */
-   public JSONBuilder array() {
-      if( this.mode == 'i' || this.mode == 'o' || this.mode == 'a' ){
-         this.push( 'a' );
-         this.append( "[" );
-         this.comma = false;
-         return this;
-      }
-      throw new JSONException( "Misplaced array." );
-   }
-
-   /**
-    * End something.
-    *
-    * @param m Mode
-    * @param c Closing character
-    * @return this
-    * @throws JSONException If unbalanced.
-    */
-   private JSONBuilder end( char m, char c ) {
-      if( this.mode != m ){
-         throw new JSONException( m == 'o' ? "Misplaced endObject." : "Misplaced endArray." );
-      }
-      this.pop( m );
-      try{
-         this.writer.write( c );
-      }catch( IOException e ){
-         throw new JSONException( e );
-      }
-      this.comma = true;
-      return this;
-   }
-
-   /**
-    * End an array. This method most be called to balance calls to
-    * <code>array</code>.
-    *
-    * @return this
-    * @throws JSONException If incorrectly nested.
-    */
-   public JSONBuilder endArray() {
-      return this.end( 'a', ']' );
-   }
-
-   /**
-    * End an object. This method most be called to balance calls to
-    * <code>object</code>.
-    *
-    * @return this
-    * @throws JSONException If incorrectly nested.
-    */
-   public JSONBuilder endObject() {
-      return this.end( 'k', '}' );
-   }
-
-   /**
-    * Append a key. The key will be associated with the next value. In an
-    * object, every value must be preceded by a key.
-    *
-    * @param s A key string.
-    * @return this
-    * @throws JSONException If the key is out of place. For example, keys do not
-    *         belong in arrays or if the key is null.
-    */
-   public JSONBuilder key( String s ) {
-      if( s == null ){
-         throw new JSONException( "Null key." );
-      }
-      if( this.mode == 'k' ){
-         try{
-            if( this.comma ){
-               this.writer.write( ',' );
+            if (this.mode == 'o') {
+                this.mode = 'k';
             }
-            this.writer.write( JSONUtils.quote( s ) );
-            this.writer.write( ':' );
-            this.comma = false;
-            this.mode = 'o';
+            this.comma = true;
             return this;
-         }catch( IOException e ){
-            throw new JSONException( e );
-         }
-      }
-      throw new JSONException( "Misplaced key." );
-   }
+        }
+        throw new JSONException("Value out of sequence.");
+    }
 
-   /**
-    * Begin appending a new object. All keys and values until the balancing
-    * <code>endObject</code> will be appended to this object. The
-    * <code>endObject</code> method must be called to mark the object's end.
-    *
-    * @return this
-    * @throws JSONException If the nesting is too deep, or if the object is
-    *         started in the wrong place (for example as a key or after the end
-    *         of the outermost array or object).
-    */
-   public JSONBuilder object() {
-      if( this.mode == 'i' ){
-         this.mode = 'o';
-      }
-      if( this.mode == 'o' || this.mode == 'a' ){
-         this.append( "{" );
-         this.push( 'k' );
-         this.comma = false;
-         return this;
-      }
-      throw new JSONException( "Misplaced object." );
+    /**
+     * Begin appending a new array. All values until the balancing
+     * <code>endArray</code> will be appended to this array. The
+     * <code>endArray</code> method must be called to mark the array's end.
+     *
+     * @return this
+     * @throws JSONException If the nesting is too deep, or if the object is
+     *         started in the wrong place (for example as a key or after the end
+     *         of the outermost array or object).
+     */
+    public JSONBuilder array() {
+        if (this.mode == 'i' || this.mode == 'o' || this.mode == 'a') {
+            this.push('a');
+            this.append("[");
+            this.comma = false;
+            return this;
+        }
+        throw new JSONException("Misplaced array.");
+    }
 
-   }
+    /**
+     * End something.
+     *
+     * @param m Mode
+     * @param c Closing character
+     * @return this
+     * @throws JSONException If unbalanced.
+     */
+    private JSONBuilder end(char m, char c) {
+        if (this.mode != m) {
+            throw new JSONException(m == 'o' ? "Misplaced endObject." : "Misplaced endArray.");
+        }
+        this.pop(m);
+        try {
+            this.writer.write(c);
+        } catch (IOException e) {
+            throw new JSONException(e);
+        }
+        this.comma = true;
+        return this;
+    }
 
-   /**
-    * Pop an array or object scope.
-    *
-    * @param c The scope to close.
-    * @throws JSONException If nesting is wrong.
-    */
-   private void pop( char c ) {
-      if( this.top <= 0 || this.stack[this.top - 1] != c ){
-         throw new JSONException( "Nesting error." );
-      }
-      this.top -= 1;
-      this.mode = this.top == 0 ? 'd' : this.stack[this.top - 1];
-   }
+    /**
+     * End an array. This method most be called to balance calls to
+     * <code>array</code>.
+     *
+     * @return this
+     * @throws JSONException If incorrectly nested.
+     */
+    public JSONBuilder endArray() {
+        return this.end('a', ']');
+    }
 
-   /**
-    * Push an array or object scope.
-    *
-    * @param c The scope to open.
-    * @throws JSONException If nesting is too deep.
-    */
-   private void push( char c ) {
-      if( this.top >= MAXDEPTH ){
-         throw new JSONException( "Nesting too deep." );
-      }
-      this.stack[this.top] = c;
-      this.mode = c;
-      this.top += 1;
-   }
+    /**
+     * End an object. This method most be called to balance calls to
+     * <code>object</code>.
+     *
+     * @return this
+     * @throws JSONException If incorrectly nested.
+     */
+    public JSONBuilder endObject() {
+        return this.end('k', '}');
+    }
 
-   /**
-    * Append either the value <code>true</code> or the value
-    * <code>false</code>.
-    *
-    * @param b A boolean.
-    * @return this
-    * @throws JSONException
-    */
-   public JSONBuilder value( boolean b ) {
-      return this.append( b ? "true" : "false" );
-   }
+    /**
+     * Append a key. The key will be associated with the next value. In an
+     * object, every value must be preceded by a key.
+     *
+     * @param s A key string.
+     * @return this
+     * @throws JSONException If the key is out of place. For example, keys do not
+     *         belong in arrays or if the key is null.
+     */
+    public JSONBuilder key(String s) {
+        if (s == null) {
+            throw new JSONException("Null key.");
+        }
+        if (this.mode == 'k') {
+            try {
+                if (this.comma) {
+                    this.writer.write(',');
+                }
+                this.writer.write(JSONUtils.quote(s));
+                this.writer.write(':');
+                this.comma = false;
+                this.mode = 'o';
+                return this;
+            } catch (IOException e) {
+                throw new JSONException(e);
+            }
+        }
+        throw new JSONException("Misplaced key.");
+    }
 
-   /**
-    * Append a double value.
-    *
-    * @param d A double.
-    * @return this
-    * @throws JSONException If the number is not finite.
-    */
-   public JSONBuilder value( double d ) {
-      return this.value( new Double( d ) );
-   }
+    /**
+     * Begin appending a new object. All keys and values until the balancing
+     * <code>endObject</code> will be appended to this object. The
+     * <code>endObject</code> method must be called to mark the object's end.
+     *
+     * @return this
+     * @throws JSONException If the nesting is too deep, or if the object is
+     *         started in the wrong place (for example as a key or after the end
+     *         of the outermost array or object).
+     */
+    public JSONBuilder object() {
+        if (this.mode == 'i') {
+            this.mode = 'o';
+        }
+        if (this.mode == 'o' || this.mode == 'a') {
+            this.append("{");
+            this.push('k');
+            this.comma = false;
+            return this;
+        }
+        throw new JSONException("Misplaced object.");
+    }
 
-   /**
-    * Append a long value.
-    *
-    * @param l A long.
-    * @return this
-    * @throws JSONException
-    */
-   public JSONBuilder value( long l ) {
-      return this.append( Long.toString( l ) );
-   }
+    /**
+     * Pop an array or object scope.
+     *
+     * @param c The scope to close.
+     * @throws JSONException If nesting is wrong.
+     */
+    private void pop(char c) {
+        if (this.top <= 0 || this.stack[this.top - 1] != c) {
+            throw new JSONException("Nesting error.");
+        }
+        this.top -= 1;
+        this.mode = this.top == 0 ? 'd' : this.stack[this.top - 1];
+    }
 
-   /**
-    * Append an object value.
-    *
-    * @param o The object to append. It can be null, or a Boolean, Number,
-    *        String, JSONObject, or JSONArray, or an object with a
-    *        toJSONString() method.
-    * @return this
-    * @throws JSONException If the value is out of sequence.
-    */
-   public JSONBuilder value( Object o ) {
-      return this.append( JSONUtils.valueToString( o ) );
-   }
+    /**
+     * Push an array or object scope.
+     *
+     * @param c The scope to open.
+     * @throws JSONException If nesting is too deep.
+     */
+    private void push(char c) {
+        if (this.top >= MAXDEPTH) {
+            throw new JSONException("Nesting too deep.");
+        }
+        this.stack[this.top] = c;
+        this.mode = c;
+        this.top += 1;
+    }
+
+    /**
+     * Append either the value <code>true</code> or the value
+     * <code>false</code>.
+     *
+     * @param b A boolean.
+     * @return this
+     * @throws JSONException
+     */
+    public JSONBuilder value(boolean b) {
+        return this.append(b ? "true" : "false");
+    }
+
+    /**
+     * Append a double value.
+     *
+     * @param d A double.
+     * @return this
+     * @throws JSONException If the number is not finite.
+     */
+    public JSONBuilder value(double d) {
+        return this.value(new Double(d));
+    }
+
+    /**
+     * Append a long value.
+     *
+     * @param l A long.
+     * @return this
+     * @throws JSONException
+     */
+    public JSONBuilder value(long l) {
+        return this.append(Long.toString(l));
+    }
+
+    /**
+     * Append an object value.
+     *
+     * @param o The object to append. It can be null, or a Boolean, Number,
+     *        String, JSONObject, or JSONArray, or an object with a
+     *        toJSONString() method.
+     * @return this
+     * @throws JSONException If the value is out of sequence.
+     */
+    public JSONBuilder value(Object o) {
+        return this.append(JSONUtils.valueToString(o));
+    }
 }

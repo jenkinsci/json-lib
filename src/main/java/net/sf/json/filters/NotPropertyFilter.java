@@ -22,16 +22,16 @@ import net.sf.json.util.PropertyFilter;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class NotPropertyFilter implements PropertyFilter {
-   private PropertyFilter filter;
+    private PropertyFilter filter;
 
-   public NotPropertyFilter( PropertyFilter filter ) {
-      this.filter = filter;
-   }
+    public NotPropertyFilter(PropertyFilter filter) {
+        this.filter = filter;
+    }
 
-   public boolean apply( Object source, String name, Object value ) {
-      if( filter != null ){
-         return !filter.apply( source, name, value );
-      }
-      return false;
-   }
+    public boolean apply(Object source, String name, Object value) {
+        if (filter != null) {
+            return !filter.apply(source, name, value);
+        }
+        return false;
+    }
 }

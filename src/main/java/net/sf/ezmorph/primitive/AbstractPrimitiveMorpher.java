@@ -23,42 +23,35 @@ import net.sf.ezmorph.Morpher;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractPrimitiveMorpher implements Morpher
-{
-   private boolean useDefault = false;
+public abstract class AbstractPrimitiveMorpher implements Morpher {
+    private boolean useDefault = false;
 
-   public AbstractPrimitiveMorpher()
-   {
+    public AbstractPrimitiveMorpher() {}
 
-   }
+    /**
+     * @param useDefault if morph() should return a default value if the value to
+     *        be morphed is null
+     */
+    public AbstractPrimitiveMorpher(boolean useDefault) {
+        this.useDefault = useDefault;
+    }
 
-   /**
-    * @param useDefault if morph() should return a default value if the value to
-    *        be morphed is null
-    */
-   public AbstractPrimitiveMorpher( boolean useDefault )
-   {
-      this.useDefault = useDefault;
-   }
+    /**
+     * Returns if this morpher will use a default value if the value to be
+     * morphed is null
+     */
+    public boolean isUseDefault() {
+        return useDefault;
+    }
 
-   /**
-    * Returns if this morpher will use a default value if the value to be
-    * morphed is null
-    */
-   public boolean isUseDefault()
-   {
-      return useDefault;
-   }
-
-   /**
-    * Returns true if the Morpher supports conversion from this Class.<br>
-    * Supports any type that is not an Array.
-    *
-    * @param clazz the source Class
-    * @return true if clazz is supported by this morpher, false otherwise.
-    */
-   public boolean supports( Class clazz )
-   {
-      return !clazz.isArray();
-   }
+    /**
+     * Returns true if the Morpher supports conversion from this Class.<br>
+     * Supports any type that is not an Array.
+     *
+     * @param clazz the source Class
+     * @return true if clazz is supported by this morpher, false otherwise.
+     */
+    public boolean supports(Class clazz) {
+        return !clazz.isArray();
+    }
 }

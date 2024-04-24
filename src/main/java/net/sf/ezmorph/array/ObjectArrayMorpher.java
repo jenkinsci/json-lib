@@ -18,10 +18,8 @@ package net.sf.ezmorph.array;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
-
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
-
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
@@ -29,129 +27,113 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class ObjectArrayMorpher extends AbstractArrayMorpher
-{
-   private Morpher morpher;
-   private Method morphMethod;
-   private Class target;
-   private Class targetArrayClass;
+public final class ObjectArrayMorpher extends AbstractArrayMorpher {
+    private Morpher morpher;
+    private Method morphMethod;
+    private Class target;
+    private Class targetArrayClass;
 
-   /**
-    * Creates a new ArrayMorpher which will use another Morpher for its inner
-    * type.<br>
-    * The inner morpher can not morph to an array. Multiple dimension arrays are
-    * already handled by this class.
-    *
-    * @param morpher the Morpher that will handle the array's inner type.
-    */
-   public ObjectArrayMorpher( Morpher morpher )
-   {
-      super( false );
-      setMorpher( morpher );
-   }
+    /**
+     * Creates a new ArrayMorpher which will use another Morpher for its inner
+     * type.<br>
+     * The inner morpher can not morph to an array. Multiple dimension arrays are
+     * already handled by this class.
+     *
+     * @param morpher the Morpher that will handle the array's inner type.
+     */
+    public ObjectArrayMorpher(Morpher morpher) {
+        super(false);
+        setMorpher(morpher);
+    }
 
-   public boolean equals( Object obj )
-   {
-      if( this == obj ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
 
-      if( !(obj instanceof ObjectArrayMorpher) ){
-         return false;
-      }
+        if (!(obj instanceof ObjectArrayMorpher)) {
+            return false;
+        }
 
-      ObjectArrayMorpher other = (ObjectArrayMorpher) obj;
-      return morpher.equals( other.morpher );
-   }
+        ObjectArrayMorpher other = (ObjectArrayMorpher) obj;
+        return morpher.equals(other.morpher);
+    }
 
-   public int hashCode()
-   {
-      return new HashCodeBuilder().append( morpher )
-            .toHashCode();
-   }
+    public int hashCode() {
+        return new HashCodeBuilder().append(morpher).toHashCode();
+    }
 
-   public Object morph( Object array )
-   {
-      if( array == null ){
-         return null;
-      }
+    public Object morph(Object array) {
+        if (array == null) {
+            return null;
+        }
 
-      if( array.getClass()
-            .isArray() ){
-         int length = Array.getLength( array );
-         int dims = getDimensions( array.getClass() );
-         int[] dimensions = createDimensions( dims, length );
-         Object result = Array.newInstance( this.target, dimensions );
+        if (array.getClass().isArray()) {
+            int length = Array.getLength(array);
+            int dims = getDimensions(array.getClass());
+            int[] dimensions = createDimensions(dims, length);
+            Object result = Array.newInstance(this.target, dimensions);
 
-         if( dims == 1 ){
-            for( int index = 0; index < length; index++ ){
-               try{
-                  Object value = Array.get( array, index );
-                  if( value != null && !morpher.supports( value.getClass() ) ){
-                     throw new MorphException( value.getClass() + " is not supported" );
-                  }
-                  Object morphed = morphMethod.invoke( morpher, new Object[] { value } );
-                  Array.set( result, index, morphed );
-               }
-               catch( MorphException me ){
-                  throw me;
-               }
-               catch( Exception e ){
-                  throw new MorphException( e );
-               }
+            if (dims == 1) {
+                for (int index = 0; index < length; index++) {
+                    try {
+                        Object value = Array.get(array, index);
+                        if (value != null && !morpher.supports(value.getClass())) {
+                            throw new MorphException(value.getClass() + " is not supported");
+                        }
+                        Object morphed = morphMethod.invoke(morpher, new Object[] {value});
+                        Array.set(result, index, morphed);
+                    } catch (MorphException me) {
+                        throw me;
+                    } catch (Exception e) {
+                        throw new MorphException(e);
+                    }
+                }
+            } else {
+                for (int index = 0; index < length; index++) {
+                    Array.set(result, index, morph(Array.get(array, index)));
+                }
             }
-         }else{
-            for( int index = 0; index < length; index++ ){
-               Array.set( result, index, morph( Array.get( array, index ) ) );
-            }
-         }
 
-         return result;
-      }else{
-         throw new MorphException( "argument is not an array: " + array.getClass() );
-      }
-   }
+            return result;
+        } else {
+            throw new MorphException("argument is not an array: " + array.getClass());
+        }
+    }
 
-   public Class morphsTo()
-   {
-      return targetArrayClass;
-   }
+    public Class morphsTo() {
+        return targetArrayClass;
+    }
 
-   public boolean supports( Class clazz )
-   {
-      if( clazz != null && !clazz.isArray() ){
-         return false;
-      }
-      while( clazz.isArray() ){
-         clazz = clazz.getComponentType();
-      }
-      return morpher.supports( clazz );
-   }
+    public boolean supports(Class clazz) {
+        if (clazz != null && !clazz.isArray()) {
+            return false;
+        }
+        while (clazz.isArray()) {
+            clazz = clazz.getComponentType();
+        }
+        return morpher.supports(clazz);
+    }
 
-   private void setMorpher( Morpher morpher )
-   {
-      if( morpher == null ){
-         throw new IllegalArgumentException( "morpher can not be null" );
-      }
-      if( morpher.morphsTo()
-            .isArray() ){
-         throw new IllegalArgumentException( "morpher target class can not be an array" );
-      }
-      this.morpher = morpher;
-      this.targetArrayClass = Array.newInstance( morpher.morphsTo(), 1 )
-            .getClass();
-      this.target = morpher.morphsTo();
+    private void setMorpher(Morpher morpher) {
+        if (morpher == null) {
+            throw new IllegalArgumentException("morpher can not be null");
+        }
+        if (morpher.morphsTo().isArray()) {
+            throw new IllegalArgumentException("morpher target class can not be an array");
+        }
+        this.morpher = morpher;
+        this.targetArrayClass = Array.newInstance(morpher.morphsTo(), 1).getClass();
+        this.target = morpher.morphsTo();
 
-      // cache the morph method
-      try{
-         morphMethod = morpher.getClass()
-               .getDeclaredMethod( "morph", new Class[] { Object.class } );
-      }
-      catch( NoSuchMethodException nsme ){
-         throw new IllegalArgumentException( nsme.getMessage() );
-      }
-   }
+        // cache the morph method
+        try {
+            morphMethod = morpher.getClass().getDeclaredMethod("morph", new Class[] {Object.class});
+        } catch (NoSuchMethodException nsme) {
+            throw new IllegalArgumentException(nsme.getMessage());
+        }
+    }
 }

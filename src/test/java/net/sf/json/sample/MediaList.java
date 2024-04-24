@@ -17,7 +17,6 @@
 package net.sf.json.sample;
 
 import java.util.ArrayList;
-
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
@@ -25,17 +24,17 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class MediaList {
-   private ArrayList media;
+    private ArrayList media;
 
-   public ArrayList getMedia() {
-      return media;
-   }
+    public ArrayList getMedia() {
+        return media;
+    }
 
-   public void setMedia( ArrayList media ) {
-      this.media = media;
-   }
+    public void setMedia(ArrayList media) {
+        this.media = media;
+    }
 
-   public String toString() {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

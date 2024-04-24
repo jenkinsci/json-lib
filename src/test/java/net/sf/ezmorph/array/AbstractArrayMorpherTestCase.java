@@ -25,90 +25,77 @@ import net.sf.ezmorph.Morpher;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractArrayMorpherTestCase extends TestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public abstract class AbstractArrayMorpherTestCase extends TestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( AbstractArrayMorpherTestCase.class );
-      suite.setName( "AbstractArrayMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(AbstractArrayMorpherTestCase.class);
+        suite.setName("AbstractArrayMorpher Tests");
+        return suite;
+    }
 
-   public AbstractArrayMorpherTestCase( String name )
-   {
-      super( name );
-   }
+    public AbstractArrayMorpherTestCase(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testEquals_another_Morpher()
-   {
-      assertFalse( getMorpherWithDefaultValue().equals( getAnotherMorpherWithDefaultValue() ) );
-      assertTrue( getMorpher().equals( getAnotherMorpher() ) );
-   }
+    public void testEquals_another_Morpher() {
+        assertFalse(getMorpherWithDefaultValue().equals(getAnotherMorpherWithDefaultValue()));
+        assertTrue(getMorpher().equals(getAnotherMorpher()));
+    }
 
-   public void testEquals_different_morpher()
-   {
-      assertFalse( getMorpher().equals( new Morpher(){
-         public Class morphsTo()
-         {
-            return null;
-         }
+    public void testEquals_different_morpher() {
+        assertFalse(getMorpher().equals(new Morpher() {
+            public Class morphsTo() {
+                return null;
+            }
 
-         public boolean supports( Class clazz )
-         {
-            return false;
-         }
-      } ) );
-   }
+            public boolean supports(Class clazz) {
+                return false;
+            }
+        }));
+    }
 
-   public void testEquals_morpher_withDefaultValue()
-   {
-      assertFalse( getMorpher().equals( getMorpherWithDefaultValue() ) );
-   }
+    public void testEquals_morpher_withDefaultValue() {
+        assertFalse(getMorpher().equals(getMorpherWithDefaultValue()));
+    }
 
-   public void testEquals_null()
-   {
-      assertFalse( getMorpher().equals( null ) );
-   }
+    public void testEquals_null() {
+        assertFalse(getMorpher().equals(null));
+    }
 
-   public void testEquals_same_morpher()
-   {
-      assertTrue( getMorpher().equals( getMorpher() ) );
-      assertTrue( getMorpherWithDefaultValue().equals( getMorpherWithDefaultValue() ) );
-   }
+    public void testEquals_same_morpher() {
+        assertTrue(getMorpher().equals(getMorpher()));
+        assertTrue(getMorpherWithDefaultValue().equals(getMorpherWithDefaultValue()));
+    }
 
-   public void testHashCode_morpher_withDefaultValue()
-   {
-      assertTrue( getMorpher().hashCode() != getMorpherWithDefaultValue().hashCode() );
-   }
+    public void testHashCode_morpher_withDefaultValue() {
+        assertTrue(getMorpher().hashCode() != getMorpherWithDefaultValue().hashCode());
+    }
 
-   public void testHashCode_same_morpher()
-   {
-      assertEquals( getMorpher().hashCode(), getMorpher().hashCode() );
-      assertEquals( getMorpherWithDefaultValue().hashCode(),
-            getMorpherWithDefaultValue().hashCode() );
-   }
+    public void testHashCode_same_morpher() {
+        assertEquals(getMorpher().hashCode(), getMorpher().hashCode());
+        assertEquals(
+                getMorpherWithDefaultValue().hashCode(),
+                getMorpherWithDefaultValue().hashCode());
+    }
 
-   public void testMorphsTo()
-   {
-      assertEquals( getMorphsToClass(), getMorpher().morphsTo() );
-   }
+    public void testMorphsTo() {
+        assertEquals(getMorphsToClass(), getMorpher().morphsTo());
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   protected abstract AbstractArrayMorpher getAnotherMorpher();
+    protected abstract AbstractArrayMorpher getAnotherMorpher();
 
-   protected abstract AbstractArrayMorpher getAnotherMorpherWithDefaultValue();
+    protected abstract AbstractArrayMorpher getAnotherMorpherWithDefaultValue();
 
-   protected abstract AbstractArrayMorpher getMorpher();
+    protected abstract AbstractArrayMorpher getMorpher();
 
-   protected abstract AbstractArrayMorpher getMorpherWithDefaultValue();
+    protected abstract AbstractArrayMorpher getMorpherWithDefaultValue();
 
-   protected abstract Class getMorphsToClass();
+    protected abstract Class getMorphsToClass();
 }

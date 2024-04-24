@@ -17,7 +17,6 @@
 package net.sf.ezmorph.primitive;
 
 import net.sf.ezmorph.MorphException;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -26,114 +25,106 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public final class BooleanMorpher extends AbstractPrimitiveMorpher
-{
-   private boolean defaultValue;
+public final class BooleanMorpher extends AbstractPrimitiveMorpher {
+    private boolean defaultValue;
 
-   public BooleanMorpher()
-   {
-      super();
-   }
+    public BooleanMorpher() {
+        super();
+    }
 
-   /**
-    * @param defaultValue return value if the value to be morphed is null
-    */
-   public BooleanMorpher( boolean defaultValue )
-   {
-      super( true );
-      this.defaultValue = defaultValue;
-   }
+    /**
+     * @param defaultValue return value if the value to be morphed is null
+     */
+    public BooleanMorpher(boolean defaultValue) {
+        super(true);
+        this.defaultValue = defaultValue;
+    }
 
-   public boolean equals( Object obj )
-   {
-      if( this == obj ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
-
-      if( !(obj instanceof BooleanMorpher) ){
-         return false;
-      }
-
-      BooleanMorpher other = (BooleanMorpher) obj;
-      EqualsBuilder builder = new EqualsBuilder();
-      if( isUseDefault() && other.isUseDefault() ){
-         builder.append( getDefaultValue(), other.getDefaultValue() );
-         return builder.isEquals();
-      }else if( !isUseDefault() && !other.isUseDefault() ){
-         return builder.isEquals();
-      }else{
-         return false;
-      }
-   }
-
-   /**
-    * Returns the default value for this Morpher.
-    */
-   public boolean getDefaultValue()
-   {
-      return defaultValue;
-   }
-
-   public int hashCode()
-   {
-      HashCodeBuilder builder = new HashCodeBuilder();
-      if( isUseDefault() ){
-         builder.append( getDefaultValue() );
-      }
-      return builder.toHashCode();
-   }
-
-   /**
-    * Morphs the input object into an output object of the supported type.
-    *
-    * @param value The input value to be morphed
-    * @exception MorphException if conversion cannot be performed successfully
-    */
-   public boolean morph( Object value )
-   {
-      if( value == null ){
-         if( isUseDefault() ){
-            return defaultValue;
-         }else{
-            throw new MorphException( "value is null" );
-         }
-      }
-
-      if( value instanceof Boolean ){
-         return ((Boolean) value).booleanValue();
-      }else if( value instanceof Number ){
-         if( value instanceof Double
-               && (Double.isInfinite( ((Number) value).doubleValue() ) || Double.isNaN( ((Number) value).doubleValue() )) ){
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
-         }
-         if( value instanceof Float
-               && (Float.isInfinite( ((Number) value).floatValue() ) || Float.isNaN( ((Number) value).floatValue() )) ){
-            return true;
-         }
-         long l = ((Number) value).longValue();
-         return l != 0;
-      }else{
-         String s = String.valueOf( value );
-
-         if( s.equalsIgnoreCase( "true" ) || s.equalsIgnoreCase( "yes" )
-               || s.equalsIgnoreCase( "on" ) ){
-            return true;
-         }else if( s.equalsIgnoreCase( "false" ) || s.equalsIgnoreCase( "no" )
-               || s.equalsIgnoreCase( "off" ) ){
+        }
+        if (obj == null) {
             return false;
-         }else if( isUseDefault() ){
-            return defaultValue;
-         }
-      }
+        }
 
-      throw new MorphException( "Can't morph value: " + value );
-   }
+        if (!(obj instanceof BooleanMorpher)) {
+            return false;
+        }
 
-   public Class morphsTo()
-   {
-      return Boolean.TYPE;
-   }
+        BooleanMorpher other = (BooleanMorpher) obj;
+        EqualsBuilder builder = new EqualsBuilder();
+        if (isUseDefault() && other.isUseDefault()) {
+            builder.append(getDefaultValue(), other.getDefaultValue());
+            return builder.isEquals();
+        } else if (!isUseDefault() && !other.isUseDefault()) {
+            return builder.isEquals();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Returns the default value for this Morpher.
+     */
+    public boolean getDefaultValue() {
+        return defaultValue;
+    }
+
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        if (isUseDefault()) {
+            builder.append(getDefaultValue());
+        }
+        return builder.toHashCode();
+    }
+
+    /**
+     * Morphs the input object into an output object of the supported type.
+     *
+     * @param value The input value to be morphed
+     * @exception MorphException if conversion cannot be performed successfully
+     */
+    public boolean morph(Object value) {
+        if (value == null) {
+            if (isUseDefault()) {
+                return defaultValue;
+            } else {
+                throw new MorphException("value is null");
+            }
+        }
+
+        if (value instanceof Boolean) {
+            return ((Boolean) value).booleanValue();
+        } else if (value instanceof Number) {
+            if (value instanceof Double
+                    && (Double.isInfinite(((Number) value).doubleValue())
+                            || Double.isNaN(((Number) value).doubleValue()))) {
+                return true;
+            }
+            if (value instanceof Float
+                    && (Float.isInfinite(((Number) value).floatValue())
+                            || Float.isNaN(((Number) value).floatValue()))) {
+                return true;
+            }
+            long l = ((Number) value).longValue();
+            return l != 0;
+        } else {
+            String s = String.valueOf(value);
+
+            if (s.equalsIgnoreCase("true") || s.equalsIgnoreCase("yes") || s.equalsIgnoreCase("on")) {
+                return true;
+            } else if (s.equalsIgnoreCase("false") || s.equalsIgnoreCase("no") || s.equalsIgnoreCase("off")) {
+                return false;
+            } else if (isUseDefault()) {
+                return defaultValue;
+            }
+        }
+
+        throw new MorphException("Can't morph value: " + value);
+    }
+
+    public Class morphsTo() {
+        return Boolean.TYPE;
+    }
 }

@@ -23,20 +23,19 @@ package net.sf.ezmorph;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public interface Morpher
-{
-   /**
-    * Returns the target Class for conversion.
-    *
-    * @return the target Class for conversion.
-    */
-   Class morphsTo();
+public interface Morpher {
+    /**
+     * Returns the target Class for conversion.
+     *
+     * @return the target Class for conversion.
+     */
+    Class morphsTo();
 
-   /**
-    * Returns true if the Morpher supports conversion from this Class.
-    *
-    * @param clazz the source Class
-    * @return true if clazz is supported by this morpher, false otherwise.
-    */
-   boolean supports( Class clazz );
+    /**
+     * Returns true if the Morpher supports conversion from this Class.
+     *
+     * @param clazz the source Class
+     * @return true if clazz is supported by this morpher, false otherwise.
+     */
+    boolean supports(Class clazz);
 }

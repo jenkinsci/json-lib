@@ -25,145 +25,122 @@ import net.sf.ezmorph.Morpher;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class LongMorpherTest extends AbstractMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class LongMorpherTest extends AbstractMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( LongMorpherTest.class );
-      suite.setName( "LongMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(LongMorpherTest.class);
+        suite.setName("LongMorpher Tests");
+        return suite;
+    }
 
-   private Morpher anotherMorpher;
-   private Morpher anotherMorpherWithDefaultValue;
-   private Morpher morpher;
-   private Morpher morpherWithDefaultValue;
+    private Morpher anotherMorpher;
+    private Morpher anotherMorpherWithDefaultValue;
+    private Morpher morpher;
+    private Morpher morpherWithDefaultValue;
 
-   public LongMorpherTest( String name )
-   {
-      super( name );
-   }
+    public LongMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testLongMorph_throwException()
-   {
-      try{
-         ((LongMorpher) getMorpher()).morph( String.valueOf( "A" ) );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testLongMorph_throwException() {
+        try {
+            ((LongMorpher) getMorpher()).morph(String.valueOf("A"));
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testLongMorph_throwException_null()
-   {
-      try{
-         ((LongMorpher) getMorpher()).morph( null );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testLongMorph_throwException_null() {
+        try {
+            ((LongMorpher) getMorpher()).morph(null);
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testLongMorph_useDefault()
-   {
-      String expected = String.valueOf( "A" );
-      long actual = ((LongMorpher) getMorpherWithDefaultValue()).morph( expected );
-      assertEquals( 0, actual );
-   }
+    public void testLongMorph_useDefault() {
+        String expected = String.valueOf("A");
+        long actual = ((LongMorpher) getMorpherWithDefaultValue()).morph(expected);
+        assertEquals(0, actual);
+    }
 
-   public void testLongMorph_useDefault_null()
-   {
-      long actual = ((LongMorpher) getMorpherWithDefaultValue()).morph( null );
-      assertEquals( 0, actual );
-   }
+    public void testLongMorph_useDefault_null() {
+        long actual = ((LongMorpher) getMorpherWithDefaultValue()).morph(null);
+        assertEquals(0, actual);
+    }
 
-   public void testLongMorphDecimalValue_Number()
-   {
-      Double expected = new Double( 3.1416d );
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( 3, actual );
-   }
+    public void testLongMorphDecimalValue_Number() {
+        Double expected = new Double(3.1416d);
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(3, actual);
+    }
 
-   public void testLongMorphDecimalValue_Number_outOfRange()
-   {
-      long actual = ((LongMorpher) getMorpher()).morph( new Double( Double.MAX_VALUE ) );
-      assertEquals( Long.MAX_VALUE, actual );
-   }
+    public void testLongMorphDecimalValue_Number_outOfRange() {
+        long actual = ((LongMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        assertEquals(Long.MAX_VALUE, actual);
+    }
 
-   public void testLongMorphDecimalValue_String()
-   {
-      String expected = "3.1416";
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( 3, actual );
-   }
+    public void testLongMorphDecimalValue_String() {
+        String expected = "3.1416";
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(3, actual);
+    }
 
-   public void testLongMorphMaxValue_Number()
-   {
-      Long expected = new Long( Long.MAX_VALUE );
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( expected.longValue(), actual );
-   }
+    public void testLongMorphMaxValue_Number() {
+        Long expected = new Long(Long.MAX_VALUE);
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(expected.longValue(), actual);
+    }
 
-   public void testLongMorphMaxValue_String()
-   {
-      String expected = String.valueOf( new Long( Long.MAX_VALUE ) );
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( expected, String.valueOf( actual ) );
-   }
+    public void testLongMorphMaxValue_String() {
+        String expected = String.valueOf(new Long(Long.MAX_VALUE));
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(expected, String.valueOf(actual));
+    }
 
-   public void testLongMorphMinValue_Number()
-   {
-      Long expected = new Long( Long.MIN_VALUE );
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( expected.longValue(), actual );
-   }
+    public void testLongMorphMinValue_Number() {
+        Long expected = new Long(Long.MIN_VALUE);
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(expected.longValue(), actual);
+    }
 
-   public void testLongMorphMinValue_String()
-   {
-      String expected = String.valueOf( new Long( Long.MIN_VALUE ) );
-      long actual = ((LongMorpher) getMorpher()).morph( expected );
-      assertEquals( expected, String.valueOf( actual ) );
-   }
+    public void testLongMorphMinValue_String() {
+        String expected = String.valueOf(new Long(Long.MIN_VALUE));
+        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        assertEquals(expected, String.valueOf(actual));
+    }
 
-   protected Morpher getMorpher()
-   {
-      return morpher;
-   }
+    protected Morpher getMorpher() {
+        return morpher;
+    }
 
-   protected Morpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected Morpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected Class getMorphsToClass()
-   {
-      return Long.TYPE;
-   }
+    protected Class getMorphsToClass() {
+        return Long.TYPE;
+    }
 
-   protected Morpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected Morpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected Morpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected Morpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new LongMorpher();
-      morpherWithDefaultValue = new LongMorpher( 0 );
-      anotherMorpher = new LongMorpher();
-      anotherMorpherWithDefaultValue = new LongMorpher( 1 );
-   }
+    protected void setUp() throws Exception {
+        morpher = new LongMorpher();
+        morpherWithDefaultValue = new LongMorpher(0);
+        anotherMorpher = new LongMorpher();
+        anotherMorpherWithDefaultValue = new LongMorpher(1);
+    }
 }

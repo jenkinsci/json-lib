@@ -24,18 +24,18 @@ import net.sf.json.util.JSONUtils;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class IdentityJsonValueProcessor implements JsonValueProcessor {
-   public Object processArrayValue( Object value, JsonConfig jsonConfig ) {
-      return process( value, jsonConfig );
-   }
+    public Object processArrayValue(Object value, JsonConfig jsonConfig) {
+        return process(value, jsonConfig);
+    }
 
-   public Object processObjectValue( String key, Object value, JsonConfig jsonConfig ) {
-      return process( value, jsonConfig );
-   }
+    public Object processObjectValue(String key, Object value, JsonConfig jsonConfig) {
+        return process(value, jsonConfig);
+    }
 
-   private Object process( Object value, JsonConfig jsonConfig ) {
-      if( JSONUtils.isNumber( value )) {
-         value = JSONUtils.transformNumber( (Number)value );
-      }
-      return value;
-   }
+    private Object process(Object value, JsonConfig jsonConfig) {
+        if (JSONUtils.isNumber(value)) {
+            value = JSONUtils.transformNumber((Number) value);
+        }
+        return value;
+    }
 }

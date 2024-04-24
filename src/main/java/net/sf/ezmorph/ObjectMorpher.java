@@ -18,16 +18,15 @@ package net.sf.ezmorph;
 
 /**
  * Marker interface for morphers that return an Object.<br>
- * 
+ *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public interface ObjectMorpher extends Morpher
-{
-   /**
-    * Morphs the input object into an output object of the supported type.
-    * 
-    * @param value The input value to be morphed
-    * @exception MorphException if conversion cannot be performed successfully
-    */
-   Object morph( Object value );
+public interface ObjectMorpher extends Morpher {
+    /**
+     * Morphs the input object into an output object of the supported type.
+     *
+     * @param value The input value to be morphed
+     * @exception MorphException if conversion cannot be performed successfully
+     */
+    Object morph(Object value);
 }

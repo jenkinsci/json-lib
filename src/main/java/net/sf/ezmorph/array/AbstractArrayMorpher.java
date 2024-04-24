@@ -17,7 +17,6 @@
 package net.sf.ezmorph.array;
 
 import java.lang.reflect.Array;
-
 import net.sf.ezmorph.ObjectMorpher;
 
 /**
@@ -25,63 +24,54 @@ import net.sf.ezmorph.ObjectMorpher;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractArrayMorpher implements ObjectMorpher
-{
-   private boolean useDefault = false;
+public abstract class AbstractArrayMorpher implements ObjectMorpher {
+    private boolean useDefault = false;
 
-   public AbstractArrayMorpher()
-   {
-   }
+    public AbstractArrayMorpher() {}
 
-   /**
-    * @param useDefault if morph() should return a default value if the value to
-    *        be morphed is null
-    */
-   public AbstractArrayMorpher( boolean useDefault )
-   {
-      this.useDefault = useDefault;
-   }
+    /**
+     * @param useDefault if morph() should return a default value if the value to
+     *        be morphed is null
+     */
+    public AbstractArrayMorpher(boolean useDefault) {
+        this.useDefault = useDefault;
+    }
 
-   /**
-    * Returns if this morpher will use a default value.
-    */
-   public boolean isUseDefault()
-   {
-      return useDefault;
-   }
+    /**
+     * Returns if this morpher will use a default value.
+     */
+    public boolean isUseDefault() {
+        return useDefault;
+    }
 
-   /**
-    * Sets if this morpher will use a default value.
-    */
-   public void setUseDefault( boolean useDefault )
-   {
-      this.useDefault = useDefault;
-   }
+    /**
+     * Sets if this morpher will use a default value.
+     */
+    public void setUseDefault(boolean useDefault) {
+        this.useDefault = useDefault;
+    }
 
-   public boolean supports( Class clazz )
-   {
-      return clazz.isArray();
-   }
+    public boolean supports(Class clazz) {
+        return clazz.isArray();
+    }
 
-   /**
-    * Creates an array representing the dimensions for comversion.
-    */
-   protected int[] createDimensions( int length, int initial )
-   {
-      Object dims = Array.newInstance( int.class, length );
-      Array.set( dims, 0, new Integer( initial ) );
-      return (int[]) dims;
-   }
+    /**
+     * Creates an array representing the dimensions for comversion.
+     */
+    protected int[] createDimensions(int length, int initial) {
+        Object dims = Array.newInstance(int.class, length);
+        Array.set(dims, 0, new Integer(initial));
+        return (int[]) dims;
+    }
 
-   /**
-    * Returns the number of dimensions in an array class.
-    */
-   protected int getDimensions( Class arrayClass )
-   {
-      if( arrayClass == null || !arrayClass.isArray() ){
-         return 0;
-      }
+    /**
+     * Returns the number of dimensions in an array class.
+     */
+    protected int getDimensions(Class arrayClass) {
+        if (arrayClass == null || !arrayClass.isArray()) {
+            return 0;
+        }
 
-      return 1 + getDimensions( arrayClass.getComponentType() );
-   }
+        return 1 + getDimensions(arrayClass.getComponentType());
+    }
 }

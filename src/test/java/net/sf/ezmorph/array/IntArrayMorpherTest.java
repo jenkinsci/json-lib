@@ -25,124 +25,104 @@ import net.sf.ezmorph.test.ArrayAssertions;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class IntArrayMorpherTest extends AbstractArrayMorpherTestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class IntArrayMorpherTest extends AbstractArrayMorpherTestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( IntArrayMorpherTest.class );
-      suite.setName( "IntArrayMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(IntArrayMorpherTest.class);
+        suite.setName("IntArrayMorpher Tests");
+        return suite;
+    }
 
-   private IntArrayMorpher anotherMorpher;
-   private IntArrayMorpher anotherMorpherWithDefaultValue;
-   private IntArrayMorpher morpher;
-   private IntArrayMorpher morpherWithDefaultValue;
+    private IntArrayMorpher anotherMorpher;
+    private IntArrayMorpher anotherMorpherWithDefaultValue;
+    private IntArrayMorpher morpher;
+    private IntArrayMorpher morpherWithDefaultValue;
 
-   public IntArrayMorpherTest( String name )
-   {
-      super( name );
-   }
+    public IntArrayMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testMorph_illegalArgument()
-   {
-      try{
-         // argument is not an array
-         morpher.morph( "" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testMorph_illegalArgument() {
+        try {
+            // argument is not an array
+            morpher.morph("");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   public void testMorph_intArray()
-   {
-      int[] expected = { 1, 2, 3 };
-      int[] actual = (int[]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_intArray() {
+        int[] expected = {1, 2, 3};
+        int[] actual = (int[]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_intArray_threedims()
-   {
-      int[][][] expected = { { { 1 }, { 2 } }, { { 3 }, { 4 } } };
-      int[][][] actual = (int[][][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_intArray_threedims() {
+        int[][][] expected = {{{1}, {2}}, {{3}, {4}}};
+        int[][][] actual = (int[][][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_intArray_twodims()
-   {
-      int[][] expected = { { 1, 2, 3 }, { 4, 5, 6 } };
-      int[][] actual = (int[][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( expected, actual );
-   }
+    public void testMorph_intArray_twodims() {
+        int[][] expected = {{1, 2, 3}, {4, 5, 6}};
+        int[][] actual = (int[][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(expected, actual);
+    }
 
-   public void testMorph_null()
-   {
-      assertNull( morpher.morph( null ) );
-   }
+    public void testMorph_null() {
+        assertNull(morpher.morph(null));
+    }
 
-   public void testMorph_strings()
-   {
-      String[] expected = { "1", "2", "3.3" };
-      int[] actual = (int[]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( new int[] { 1, 2, 3 }, actual );
-   }
+    public void testMorph_strings() {
+        String[] expected = {"1", "2", "3.3"};
+        int[] actual = (int[]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(new int[] {1, 2, 3}, actual);
+    }
 
-   public void testMorph_strings_twodims()
-   {
-      String[][] expected = { { "1", "2", "3.3" }, { "4", "5", "6.6" } };
-      int[][] actual = (int[][]) morpher.morph( expected );
-      ArrayAssertions.assertEquals( new int[][] { { 1, 2, 3 }, { 4, 5, 6 } }, actual );
-   }
+    public void testMorph_strings_twodims() {
+        String[][] expected = {{"1", "2", "3.3"}, {"4", "5", "6.6"}};
+        int[][] actual = (int[][]) morpher.morph(expected);
+        ArrayAssertions.assertEquals(new int[][] {{1, 2, 3}, {4, 5, 6}}, actual);
+    }
 
-   public void testMorph_throwException()
-   {
-      try{
-         new IntArrayMorpher().morph( new String[] { null } );
-         fail( "Should have thrown an Exception" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
-   }
+    public void testMorph_throwException() {
+        try {
+            new IntArrayMorpher().morph(new String[] {null});
+            fail("Should have thrown an Exception");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   protected AbstractArrayMorpher getAnotherMorpher()
-   {
-      return anotherMorpher;
-   }
+    protected AbstractArrayMorpher getAnotherMorpher() {
+        return anotherMorpher;
+    }
 
-   protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue()
-   {
-      return anotherMorpherWithDefaultValue;
-   }
+    protected AbstractArrayMorpher getAnotherMorpherWithDefaultValue() {
+        return anotherMorpherWithDefaultValue;
+    }
 
-   protected AbstractArrayMorpher getMorpher()
-   {
-      return morpher;
-   }
+    protected AbstractArrayMorpher getMorpher() {
+        return morpher;
+    }
 
-   protected AbstractArrayMorpher getMorpherWithDefaultValue()
-   {
-      return morpherWithDefaultValue;
-   }
+    protected AbstractArrayMorpher getMorpherWithDefaultValue() {
+        return morpherWithDefaultValue;
+    }
 
-   protected Class getMorphsToClass()
-   {
-      return int[].class;
-   }
+    protected Class getMorphsToClass() {
+        return int[].class;
+    }
 
-   protected void setUp() throws Exception
-   {
-      morpher = new IntArrayMorpher();
-      morpherWithDefaultValue = new IntArrayMorpher( 0 );
-      anotherMorpher = new IntArrayMorpher();
-      anotherMorpherWithDefaultValue = new IntArrayMorpher( 1 );
-   }
+    protected void setUp() throws Exception {
+        morpher = new IntArrayMorpher();
+        morpherWithDefaultValue = new IntArrayMorpher(0);
+        anotherMorpher = new IntArrayMorpher();
+        anotherMorpherWithDefaultValue = new IntArrayMorpher(1);
+    }
 }

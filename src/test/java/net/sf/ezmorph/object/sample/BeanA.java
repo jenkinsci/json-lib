@@ -24,41 +24,35 @@ import org.apache.commons.lang.builder.ToStringStyle;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BeanA
-{
-   private int integer = 42;
+public class BeanA {
+    private int integer = 42;
 
-   public boolean equals( Object obj )
-   {
-      if( obj == this ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
-      if( !BeanA.class.isAssignableFrom( obj.getClass() ) ){
-         return false;
-      }
-      return EqualsBuilder.reflectionEquals( this, obj );
-   }
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!BeanA.class.isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        return EqualsBuilder.reflectionEquals(this, obj);
+    }
 
-   public int getInteger()
-   {
-      return integer;
-   }
+    public int getInteger() {
+        return integer;
+    }
 
-   public int hashCode()
-   {
-      return HashCodeBuilder.reflectionHashCode( this );
-   }
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
 
-   public void setInteger( int integer )
-   {
-      this.integer = integer;
-   }
+    public void setInteger(int integer) {
+        this.integer = integer;
+    }
 
-   public String toString()
-   {
-      return ToStringBuilder.reflectionToString( this, ToStringStyle.MULTI_LINE_STYLE );
-   }
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

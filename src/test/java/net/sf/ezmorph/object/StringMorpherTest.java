@@ -25,57 +25,47 @@ import net.sf.ezmorph.MorphException;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class StringMorpherTest extends TestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class StringMorpherTest extends TestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( StringMorpherTest.class );
-      suite.setName( "StringMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(StringMorpherTest.class);
+        suite.setName("StringMorpher Tests");
+        return suite;
+    }
 
-   private StringMorpher morpher = StringMorpher.getInstance();
+    private StringMorpher morpher = StringMorpher.getInstance();
 
-   public StringMorpherTest( String name )
-   {
-      super( name );
-   }
+    public StringMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testMorph_array()
-   {
-      try{
-         morpher.morph( new boolean[] { true, false } );
-         fail( "Expected a MorphException" );
-      }
-      catch( MorphException expected ){
-         // ok
-      }
+    public void testMorph_array() {
+        try {
+            morpher.morph(new boolean[] {true, false});
+            fail("Expected a MorphException");
+        } catch (MorphException expected) {
+            // ok
+        }
+    }
 
-   }
+    public void testMorph_boolean() {
+        String expected = "true";
+        String actual = (String) morpher.morph(Boolean.TRUE);
+        assertEquals(expected, actual);
+    }
 
-   public void testMorph_boolean()
-   {
-      String expected = "true";
-      String actual = (String) morpher.morph( Boolean.TRUE );
-      assertEquals( expected, actual );
-   }
+    public void testMorph_noConversion() {
+        String expected = "true";
+        String actual = (String) morpher.morph(expected);
+        assertEquals(expected, actual);
+    }
 
-   public void testMorph_noConversion()
-   {
-      String expected = "true";
-      String actual = (String) morpher.morph( expected );
-      assertEquals( expected, actual );
-   }
-
-   public void testMorph_null()
-   {
-      assertNull( morpher.morph( null ) );
-   }
+    public void testMorph_null() {
+        assertNull(morpher.morph(null));
+    }
 }

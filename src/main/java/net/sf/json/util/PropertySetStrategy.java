@@ -18,10 +18,8 @@ package net.sf.json.util;
 
 import java.lang.reflect.Field;
 import java.util.Map;
-
 import net.sf.json.JSONException;
 import net.sf.json.JsonConfig;
-
 import org.apache.commons.beanutils.PropertyUtils;
 
 /**
@@ -32,47 +30,47 @@ import org.apache.commons.beanutils.PropertyUtils;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public abstract class PropertySetStrategy {
-   public static final PropertySetStrategy DEFAULT = new DefaultPropertySetStrategy();
+    public static final PropertySetStrategy DEFAULT = new DefaultPropertySetStrategy();
 
-   public abstract void setProperty( Object bean, String key, Object value ) throws JSONException;
-   
-   public void setProperty( Object bean, String key, Object value, JsonConfig jsonConfig ) throws JSONException {
-      setProperty( bean, key, value );
-   }
+    public abstract void setProperty(Object bean, String key, Object value) throws JSONException;
 
-   private static final class DefaultPropertySetStrategy extends PropertySetStrategy {
-      public void setProperty( Object bean, String key, Object value ) throws JSONException {
-         setProperty( bean, key, value, new JsonConfig());
-      }
-      
-      public void setProperty( Object bean, String key, Object value, JsonConfig jsonConfig ) throws JSONException {
-         if( bean instanceof Map ){
-            ((Map) bean).put( key, value );
-         } else {
-            if( !jsonConfig.isIgnorePublicFields() ) {
-               try {
-                  Field field = bean.getClass().getField( key );
-                  if( field != null ) {
-                      field.set( bean, value );
-                      return;
-                  }
-               } catch( Exception e ){
-                  // fall through
-               }
+    public void setProperty(Object bean, String key, Object value, JsonConfig jsonConfig) throws JSONException {
+        setProperty(bean, key, value);
+    }
+
+    private static final class DefaultPropertySetStrategy extends PropertySetStrategy {
+        public void setProperty(Object bean, String key, Object value) throws JSONException {
+            setProperty(bean, key, value, new JsonConfig());
+        }
+
+        public void setProperty(Object bean, String key, Object value, JsonConfig jsonConfig) throws JSONException {
+            if (bean instanceof Map) {
+                ((Map) bean).put(key, value);
+            } else {
+                if (!jsonConfig.isIgnorePublicFields()) {
+                    try {
+                        Field field = bean.getClass().getField(key);
+                        if (field != null) {
+                            field.set(bean, value);
+                            return;
+                        }
+                    } catch (Exception e) {
+                        // fall through
+                    }
+                }
+
+                try {
+                    PropertyUtils.setSimpleProperty(bean, key, value);
+                } catch (NoSuchMethodException e) {
+                    if (jsonConfig.isIgnoreUnreadableProperty()) {
+                        // ignore missing properties
+                        return;
+                    }
+                    throw new JSONException(e);
+                } catch (Exception e) {
+                    throw new JSONException(e);
+                }
             }
-
-            try {
-               PropertyUtils.setSimpleProperty( bean, key, value );
-            } catch( NoSuchMethodException e ) {
-               if (jsonConfig.isIgnoreUnreadableProperty()) {
-                  // ignore missing properties
-                  return;
-               }
-               throw new JSONException( e );
-            } catch( Exception e ) {
-               throw new JSONException( e );
-            }
-         }
-      }
-   }
+        }
+    }
 }

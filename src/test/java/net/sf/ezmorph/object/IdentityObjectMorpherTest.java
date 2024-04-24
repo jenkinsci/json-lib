@@ -24,33 +24,28 @@ import junit.textui.TestRunner;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class IdentityObjectMorpherTest extends TestCase
-{
-   public static void main( String[] args )
-   {
-      TestRunner.run( suite() );
-   }
+public class IdentityObjectMorpherTest extends TestCase {
+    public static void main(String[] args) {
+        TestRunner.run(suite());
+    }
 
-   public static Test suite()
-   {
-      TestSuite suite = new TestSuite( IdentityObjectMorpherTest.class );
-      suite.setName( "IdentityMorpher Tests" );
-      return suite;
-   }
+    public static Test suite() {
+        TestSuite suite = new TestSuite(IdentityObjectMorpherTest.class);
+        suite.setName("IdentityMorpher Tests");
+        return suite;
+    }
 
-   private IdentityObjectMorpher morpher = IdentityObjectMorpher.getInstance();
+    private IdentityObjectMorpher morpher = IdentityObjectMorpher.getInstance();
 
-   public IdentityObjectMorpherTest( String name )
-   {
-      super( name );
-   }
+    public IdentityObjectMorpherTest(String name) {
+        super(name);
+    }
 
-   // -----------------------------------------------------------------------
+    // -----------------------------------------------------------------------
 
-   public void testMorph()
-   {
-      assertNull( morpher.morph( null ) );
-      Object expected = new Object();
-      assertSame( expected, morpher.morph( expected ) );
-   }
+    public void testMorph() {
+        assertNull(morpher.morph(null));
+        Object expected = new Object();
+        assertSame(expected, morpher.morph(expected));
+    }
 }

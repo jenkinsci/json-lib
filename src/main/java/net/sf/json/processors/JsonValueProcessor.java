@@ -25,22 +25,22 @@ import net.sf.json.JsonConfig;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public interface JsonValueProcessor {
-   /**
-    * Processes the value an returns a suitable JSON value.
-    *
-    * @param value the input value
-    * @return a valid JSON value that represents the input value
-    * @throws JSONException if an error occurs during transformation
-    */
-   Object processArrayValue( Object value, JsonConfig jsonConfig );
+    /**
+     * Processes the value an returns a suitable JSON value.
+     *
+     * @param value the input value
+     * @return a valid JSON value that represents the input value
+     * @throws JSONException if an error occurs during transformation
+     */
+    Object processArrayValue(Object value, JsonConfig jsonConfig);
 
-   /**
-    * Processes the value an returns a suitable JSON value.
-    *
-    * @param key the name of the property
-    * @param value the value of the property
-    * @return a valid JSON value that represents the input property
-    * @throws JSONException if an error occurs during transformation
-    */
-   Object processObjectValue( String key, Object value, JsonConfig jsonConfig );
+    /**
+     * Processes the value an returns a suitable JSON value.
+     *
+     * @param key the name of the property
+     * @param value the value of the property
+     * @return a valid JSON value that represents the input property
+     * @throws JSONException if an error occurs during transformation
+     */
+    Object processObjectValue(String key, Object value, JsonConfig jsonConfig);
 }

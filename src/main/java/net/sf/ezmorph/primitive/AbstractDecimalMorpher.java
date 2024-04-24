@@ -21,19 +21,16 @@ package net.sf.ezmorph.primitive;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractDecimalMorpher extends AbstractPrimitiveMorpher
-{
-   public AbstractDecimalMorpher()
-   {
-      super();
-   }
+public abstract class AbstractDecimalMorpher extends AbstractPrimitiveMorpher {
+    public AbstractDecimalMorpher() {
+        super();
+    }
 
-   /**
-    * @param useDefault if morph() should return a default value if the value to
-    *        be morphed is null
-    */
-   public AbstractDecimalMorpher( boolean useDefault )
-   {
-      super( useDefault );
-   }
+    /**
+     * @param useDefault if morph() should return a default value if the value to
+     *        be morphed is null
+     */
+    public AbstractDecimalMorpher(boolean useDefault) {
+        super(useDefault);
+    }
 }

@@ -20,13 +20,13 @@ package net.sf.json.sample;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public class ClassBean {
-   private Class klass;
+    private Class klass;
 
-   public Class getKlass() {
-      return klass;
-   }
+    public Class getKlass() {
+        return klass;
+    }
 
-   public void setKlass( Class klass ) {
-      this.klass = klass;
-   }
+    public void setKlass(Class klass) {
+        this.klass = klass;
+    }
 }

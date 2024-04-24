@@ -19,9 +19,7 @@ package net.sf.ezmorph.object;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
-
 import net.sf.ezmorph.MorphException;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 
@@ -34,125 +32,114 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MapToDateMorpher extends AbstractObjectMorpher
-{
-   private Date defaultValue;
+public class MapToDateMorpher extends AbstractObjectMorpher {
+    private Date defaultValue;
 
-   public MapToDateMorpher()
-   {
-      super();
-   }
+    public MapToDateMorpher() {
+        super();
+    }
 
-   public MapToDateMorpher( Date defaultValue )
-   {
-      super( true );
-      this.defaultValue = defaultValue;
-   }
+    public MapToDateMorpher(Date defaultValue) {
+        super(true);
+        this.defaultValue = defaultValue;
+    }
 
-   public boolean equals( Object obj )
-   {
-      if( this == obj ){
-         return true;
-      }
-      if( obj == null ){
-         return false;
-      }
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
 
-      if( !(obj instanceof MapToDateMorpher) ){
-         return false;
-      }
+        if (!(obj instanceof MapToDateMorpher)) {
+            return false;
+        }
 
-      MapToDateMorpher other = (MapToDateMorpher) obj;
-      EqualsBuilder builder = new EqualsBuilder();
-      if( isUseDefault() && other.isUseDefault() ){
-         builder.append( getDefaultValue(), other.getDefaultValue() );
-         return builder.isEquals();
-      }else if( !isUseDefault() && !other.isUseDefault() ){
-         return builder.isEquals();
-      }else{
-         return false;
-      }
-   }
+        MapToDateMorpher other = (MapToDateMorpher) obj;
+        EqualsBuilder builder = new EqualsBuilder();
+        if (isUseDefault() && other.isUseDefault()) {
+            builder.append(getDefaultValue(), other.getDefaultValue());
+            return builder.isEquals();
+        } else if (!isUseDefault() && !other.isUseDefault()) {
+            return builder.isEquals();
+        } else {
+            return false;
+        }
+    }
 
-   /**
-    * Returns the default value for this Morpher.
-    */
-   public Date getDefaultValue()
-   {
-      return (Date) defaultValue.clone();
-   }
+    /**
+     * Returns the default value for this Morpher.
+     */
+    public Date getDefaultValue() {
+        return (Date) defaultValue.clone();
+    }
 
-   public int hashCode()
-   {
-      HashCodeBuilder builder = new HashCodeBuilder();
-      if( isUseDefault() ){
-         builder.append( getDefaultValue() );
-      }
-      return builder.toHashCode();
-   }
+    public int hashCode() {
+        HashCodeBuilder builder = new HashCodeBuilder();
+        if (isUseDefault()) {
+            builder.append(getDefaultValue());
+        }
+        return builder.toHashCode();
+    }
 
-   public Object morph( Object value )
-   {
-      if( value == null ){
-         return null;
-      }
+    public Object morph(Object value) {
+        if (value == null) {
+            return null;
+        }
 
-      if( Date.class.isAssignableFrom( value.getClass() ) ){
-         return (Date) value;
-      }
+        if (Date.class.isAssignableFrom(value.getClass())) {
+            return (Date) value;
+        }
 
-      if( !supports( value.getClass() ) ){
-         throw new MorphException( value.getClass() + " is not supported" );
-      }
+        if (!supports(value.getClass())) {
+            throw new MorphException(value.getClass() + " is not supported");
+        }
 
-      Map map = (Map) value;
-      if( map.isEmpty() ){
-         if( isUseDefault() ){
-            return defaultValue;
-         }else{
-            throw new MorphException( "Unable to parse the date " + value );
-         }
-      }
+        Map map = (Map) value;
+        if (map.isEmpty()) {
+            if (isUseDefault()) {
+                return defaultValue;
+            } else {
+                throw new MorphException("Unable to parse the date " + value);
+            }
+        }
 
-      Calendar c = Calendar.getInstance();
-      c.set( Calendar.YEAR, getValue( map, "year" ) );
-      c.set( Calendar.MONTH, getValue( map, "month" ) );
-      c.set( Calendar.DATE, getValue( map, "day" ) );
-      c.set( Calendar.HOUR_OF_DAY, getValue( map, "hour" ) );
-      c.set( Calendar.MINUTE, getValue( map, "minutes" ) );
-      c.set( Calendar.SECOND, getValue( map, "seconds" ) );
-      c.set( Calendar.MILLISECOND, getValue( map, "milliseconds" ) );
-      return c.getTime();
-   }
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, getValue(map, "year"));
+        c.set(Calendar.MONTH, getValue(map, "month"));
+        c.set(Calendar.DATE, getValue(map, "day"));
+        c.set(Calendar.HOUR_OF_DAY, getValue(map, "hour"));
+        c.set(Calendar.MINUTE, getValue(map, "minutes"));
+        c.set(Calendar.SECOND, getValue(map, "seconds"));
+        c.set(Calendar.MILLISECOND, getValue(map, "milliseconds"));
+        return c.getTime();
+    }
 
-   public Class morphsTo()
-   {
-      return Date.class;
-   }
+    public Class morphsTo() {
+        return Date.class;
+    }
 
-   /**
-    * Sets the defaultValue to use if the value to be morphed is null.
-    *
-    * @param defaultValue return value if the value to be morphed is null
-    */
-   public void setDefaultValue( Date defaultValue )
-   {
-      this.defaultValue = (Date) defaultValue.clone();
-   }
+    /**
+     * Sets the defaultValue to use if the value to be morphed is null.
+     *
+     * @param defaultValue return value if the value to be morphed is null
+     */
+    public void setDefaultValue(Date defaultValue) {
+        this.defaultValue = (Date) defaultValue.clone();
+    }
 
-   public boolean supports( Class clazz )
-   {
-      return clazz != null && Map.class.isAssignableFrom( clazz );
-   }
+    public boolean supports(Class clazz) {
+        return clazz != null && Map.class.isAssignableFrom(clazz);
+    }
 
-   private int getValue( Map map, String key )
-   {
-      Object value = map.get( key );
-      if( value == null || !(value instanceof Number) ){
-         return 0;
-      }
+    private int getValue(Map map, String key) {
+        Object value = map.get(key);
+        if (value == null || !(value instanceof Number)) {
+            return 0;
+        }
 
-      Number n = (Number) value;
-      return n.intValue();
-   }
+        Number n = (Number) value;
+        return n.intValue();
+    }
 }
