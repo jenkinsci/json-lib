@@ -40,7 +40,6 @@ public class TestJSONObjectStaticBuilders_DynaBean extends AbstractJSONObjectSta
       for( int i = 0; i < props.length; i++ ){
          map.put( props[i], PropertyConstants.getPropertyClass( props[i] ) );
       }
-      map.put( "class", Class.class );
       map.put( "pexcluded", String.class );
       MorphDynaClass dynaClass = new MorphDynaClass( map );
       MorphDynaBean dynaBean = null;
@@ -49,7 +48,6 @@ public class TestJSONObjectStaticBuilders_DynaBean extends AbstractJSONObjectSta
          for( int i = 0; i < props.length; i++ ){
             dynaBean.set( props[i], PropertyConstants.getPropertyValue( props[i] ) );
          }
-         dynaBean.set( "class", Object.class );
          dynaBean.set( "pexcluded", "" );
       }catch( Exception e ){
          throw new RuntimeException( e );
