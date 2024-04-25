@@ -110,6 +110,15 @@ public class JSONTokener {
         return RegexpUtils.getMatcher(pattern).matches(str);
     }
 
+    public boolean startsWith(String pattern) {
+        int patternLength = pattern.length();
+        if (length() - this.myIndex < patternLength) {
+            return false;
+        }
+        String str = this.mySource.substring(this.myIndex, this.myIndex + patternLength);
+        return str.startsWith(pattern);
+    }
+
     /**
      * Determine if the source string still contains characters that next() can
      * consume.
