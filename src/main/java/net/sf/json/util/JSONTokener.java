@@ -111,12 +111,7 @@ public class JSONTokener {
     }
 
     public boolean startsWith(String prefix) {
-        int prefixLength = prefix.length();
-        if (length() - this.myIndex < prefixLength) {
-            return false;
-        }
-        String str = this.mySource.substring(this.myIndex, this.myIndex + prefixLength);
-        return str.startsWith(prefix);
+        return this.mySource.startsWith(prefix, this.myIndex);
     }
 
     /**
