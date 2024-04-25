@@ -91,8 +91,9 @@ import org.apache.commons.lang.StringUtils;
  */
 public final class JSONArray extends AbstractJSON implements JSON, List<Object>, Comparable {
     /**
-     * Creates a JSONArray.<br>
-     * Inspects the object type to call the correct JSONArray factory method.
+     * Creates a JSONArray.
+     *
+     * <p>Inspects the object type to call the correct JSONArray factory method.
      * Accepts JSON formatted strings, arrays, Collections and Enums.
      *
      * @param object
@@ -104,8 +105,9 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     }
 
     /**
-     * Creates a JSONArray.<br>
-     * Inspects the object type to call the correct JSONArray factory method.
+     * Creates a JSONArray.
+     *
+     * <p>Inspects the object type to call the correct JSONArray factory method.
      * Accepts JSON formatted strings, arrays, Collections and Enums.
      *
      * @param object
@@ -177,8 +179,9 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
 
     /**
      * Get the collection type from a getter or setter, or null if no type was
-     * found.<br/>
-     * Contributed by [Matt Small @ WaveMaker].
+     * found.
+     *
+     * <p>Contributed by [Matt Small @ WaveMaker].
      */
     public static Class[] getCollectionType(PropertyDescriptor pd, boolean useGetter) throws JSONException {
 
@@ -367,14 +370,14 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     }
 
     /**
-     * Returns a List or a Set taking generics into account.<br/>
+     * Returns a List or a Set taking generics into account.
      */
     public static Collection toCollection(JSONArray jsonArray) {
         return toCollection(jsonArray, new JsonConfig());
     }
 
     /**
-     * Returns a List or a Set taking generics into account.<br/>
+     * Returns a List or a Set taking generics into account.
      */
     public static Collection toCollection(JSONArray jsonArray, Class objectClass) {
         JsonConfig jsonConfig = new JsonConfig();
@@ -383,8 +386,9 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     }
 
     /**
-     * Returns a List or a Set taking generics into account.<br/>
-     * Contributed by [Matt Small @ WaveMaker].
+     * Returns a List or a Set taking generics into account.
+     *
+     * <p>Contributed by [Matt Small @ WaveMaker].
      */
     public static Collection toCollection(JSONArray jsonArray, JsonConfig jsonConfig) {
         Collection collection = null;
