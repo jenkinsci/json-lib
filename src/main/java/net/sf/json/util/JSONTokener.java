@@ -110,13 +110,13 @@ public class JSONTokener {
         return RegexpUtils.getMatcher(pattern).matches(str);
     }
 
-    public boolean startsWith(String pattern) {
-        int patternLength = pattern.length();
+    public boolean startsWith(String prefix) {
+        int patternLength = prefix.length();
         if (length() - this.myIndex < patternLength) {
             return false;
         }
         String str = this.mySource.substring(this.myIndex, this.myIndex + patternLength);
-        return str.startsWith(pattern);
+        return str.startsWith(prefix);
     }
 
     /**
