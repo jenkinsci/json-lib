@@ -16,8 +16,6 @@
 
 package net.sf.ezmorph;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 /**
  * A <strong>MorphException</strong> indicates that a call to
  * <code>Morpher.morph()</code> has failed to complete successfully.<br>
@@ -25,7 +23,7 @@ import org.apache.commons.lang.exception.NestableRuntimeException;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MorphException extends NestableRuntimeException {
+public class MorphException extends RuntimeException {
     private static final long serialVersionUID = -540093801787033824L;
 
     // ----------------------------------------------------------- Constructors

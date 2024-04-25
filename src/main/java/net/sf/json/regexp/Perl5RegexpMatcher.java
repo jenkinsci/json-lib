@@ -16,7 +16,6 @@
 
 package net.sf.json.regexp;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
@@ -45,7 +44,7 @@ public class Perl5RegexpMatcher implements RegexpMatcher {
                 this.pattern = compiler.compile(pattern, Perl5Compiler.READ_ONLY_MASK);
             }
         } catch (MalformedPatternException mpe) {
-            throw new NestableRuntimeException(mpe);
+            throw new RuntimeException(mpe);
         }
     }
 
