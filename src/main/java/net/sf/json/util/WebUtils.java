@@ -76,7 +76,9 @@ public class WebUtils {
      * Returns a string represenation of a JSON value.<br>
      * When an object property name does not contain a space (' ') or a colon
      * (':'), the quotes are omitted. This is done to reduce the amount of bytes
-     * sent to a web browser.<br/>USE WITH CAUTION.
+     * sent to a web browser.
+     *
+     * <p>USE WITH CAUTION.
      */
     public static String toString(JSON json) {
         if (json instanceof JSONObject) {
