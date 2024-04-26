@@ -30,7 +30,6 @@ import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import net.sf.json.util.JSONUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Provides assertions on equality for JSON strings and JSON types.
@@ -388,7 +387,7 @@ public class JSONAssert extends Assert {
         if (keysInExpectedButNotInActual.isEmpty()) {
             return null;
         } else {
-            return "missing expected names: [" + StringUtils.join(keysInExpectedButNotInActual, ", ") + "]";
+            return "missing expected names: [" + String.join(", ", keysInExpectedButNotInActual) + "]";
         }
     }
 
@@ -398,7 +397,7 @@ public class JSONAssert extends Assert {
         if (keysInActualButNotInExpected.isEmpty()) {
             return null;
         } else {
-            return "unexpected names: [" + StringUtils.join(keysInActualButNotInExpected, ", ") + "]";
+            return "unexpected names: [" + String.join(", ", keysInActualButNotInExpected) + "]";
         }
     }
 

@@ -161,13 +161,13 @@ public class XMLSerializer {
      * @param elementName name of target element
      */
     public void addNamespace(String prefix, String uri, String elementName) {
-        if (StringUtils.isBlank(uri)) {
+        if (uri == null || uri.isBlank()) {
             return;
         }
         if (prefix == null) {
             prefix = "";
         }
-        if (StringUtils.isBlank(elementName)) {
+        if (elementName == null || elementName.isBlank()) {
             rootNamespace.put(prefix.trim(), uri.trim());
         } else {
             Map nameSpaces = (Map) namespacesPerElement.get(elementName);
@@ -195,7 +195,7 @@ public class XMLSerializer {
      * @param elementName name of target element
      */
     public void clearNamespaces(String elementName) {
-        if (StringUtils.isBlank(elementName)) {
+        if (elementName == null || elementName.isBlank()) {
             rootNamespace.clear();
         } else {
             namespacesPerElement.remove(elementName);
@@ -412,7 +412,7 @@ public class XMLSerializer {
         if (prefix == null) {
             prefix = "";
         }
-        if (StringUtils.isBlank(elementName)) {
+        if (elementName == null || elementName.isBlank()) {
             rootNamespace.remove(prefix.trim());
         } else {
             Map nameSpaces = (Map) namespacesPerElement.get(elementName);
@@ -425,7 +425,7 @@ public class XMLSerializer {
      * Default is 'a'.
      */
     public void setArrayName(String arrayName) {
-        this.arrayName = StringUtils.isBlank(arrayName) ? "a" : arrayName;
+        this.arrayName = arrayName == null || arrayName.isBlank() ? "a" : arrayName;
     }
 
     /**
@@ -433,7 +433,7 @@ public class XMLSerializer {
      * Default is 'e'.
      */
     public void setElementName(String elementName) {
-        this.elementName = StringUtils.isBlank(elementName) ? "e" : elementName;
+        this.elementName = elementName == null || elementName.isBlank() ? "e" : elementName;
     }
 
     /**
@@ -468,13 +468,13 @@ public class XMLSerializer {
      * @param elementName name of target element
      */
     public void setNamespace(String prefix, String uri, String elementName) {
-        if (StringUtils.isBlank(uri)) {
+        if (uri == null || uri.isBlank()) {
             return;
         }
         if (prefix == null) {
             prefix = "";
         }
-        if (StringUtils.isBlank(elementName)) {
+        if (elementName == null || elementName.isBlank()) {
             rootNamespace.clear();
             rootNamespace.put(prefix.trim(), uri.trim());
         } else {
@@ -500,7 +500,7 @@ public class XMLSerializer {
      * Default is 'o'.
      */
     public void setObjectName(String objectName) {
-        this.objectName = StringUtils.isBlank(objectName) ? "o" : objectName;
+        this.objectName = objectName == null || objectName.isBlank() ? "o" : objectName;
     }
 
     /**
@@ -515,7 +515,7 @@ public class XMLSerializer {
      * Sets the name used for the root element.
      */
     public void setRootName(String rootName) {
-        this.rootName = StringUtils.isBlank(rootName) ? null : rootName;
+        this.rootName = rootName == null || rootName.isBlank() ? null : rootName;
     }
 
     /**
@@ -631,7 +631,7 @@ public class XMLSerializer {
                 Map.Entry entry = (Map.Entry) entries.next();
                 String prefix = (String) entry.getKey();
                 String uri = (String) entry.getValue();
-                if (StringUtils.isBlank(prefix)) {
+                if (prefix == null || prefix.isBlank()) {
                     element.setNamespaceURI(uri);
                 } else {
                     element.addNamespaceDeclaration(prefix, uri);
@@ -667,7 +667,8 @@ public class XMLSerializer {
                 Node node = element.getChild(i);
                 if (node instanceof Text) {
                     Text text = (Text) node;
-                    if (StringUtils.isNotBlank(StringUtils.strip(text.getValue())) && !skipWhitespace) {
+                    String stripped = text.getValue() != null ? text.getValue().strip() : null;
+                    if (stripped != null && !stripped.isBlank() && !skipWhitespace) {
                         return false;
                     }
                 }
@@ -738,7 +739,7 @@ public class XMLSerializer {
         for (int i = 0; i < element.getNamespaceDeclarationCount(); i++) {
             String prefix = element.getNamespacePrefix(i);
             String uri = element.getNamespaceURI(prefix);
-            if (StringUtils.isBlank(uri)) {
+            if (uri == null || uri.isBlank()) {
                 continue;
             }
             namespaces++;
@@ -768,7 +769,7 @@ public class XMLSerializer {
             for (int j = 0; j < element.getNamespaceDeclarationCount(); j++) {
                 String prefix = element.getNamespacePrefix(j);
                 String uri = element.getNamespaceURI(prefix);
-                if (!StringUtils.isBlank(uri)) {
+                if (uri != null && !uri.isBlank()) {
                     return false;
                 }
             }
@@ -876,7 +877,8 @@ public class XMLSerializer {
             Node child = element.getChild(i);
             if (child instanceof Text) {
                 Text text = (Text) child;
-                if (StringUtils.isNotBlank(StringUtils.strip(text.getValue()))) {
+                String stripped = text.getValue() != null ? text.getValue().strip() : null;
+                if (stripped != null && !stripped.isBlank()) {
                     jsonArray.element(text.getValue());
                 }
             } else if (child instanceof Element) {
@@ -924,7 +926,7 @@ public class XMLSerializer {
                     Map.Entry entry = (Map.Entry) entries.next();
                     String prefix = (String) entry.getKey();
                     String uri = (String) entry.getValue();
-                    if (StringUtils.isBlank(prefix)) {
+                    if (prefix == null || prefix.isBlank()) {
                         root.setNamespaceURI(uri);
                     } else {
                         root.addNamespaceDeclaration(prefix, uri);
@@ -946,12 +948,13 @@ public class XMLSerializer {
                 int colon = name.indexOf(':');
                 if (colon == -1) {
                     // do not override if already defined by nameSpaceMaps
-                    if (StringUtils.isBlank(root.getNamespaceURI())) {
+                    if (root.getNamespaceURI() == null || root.getNamespaceURI().isBlank()) {
                         root.setNamespaceURI(String.valueOf(value));
                     }
                 } else {
                     String prefix = name.substring(colon + 1);
-                    if (StringUtils.isBlank(root.getNamespaceURI(prefix))) {
+                    if (root.getNamespaceURI(prefix) == null
+                            || root.getNamespaceURI(prefix).isBlank()) {
                         root.addNamespaceDeclaration(prefix, String.valueOf(value));
                     }
                 }
@@ -1051,10 +1054,10 @@ public class XMLSerializer {
             for (int j = 0; j < element.getNamespaceDeclarationCount(); j++) {
                 String prefix = element.getNamespacePrefix(j);
                 String uri = element.getNamespaceURI(prefix);
-                if (StringUtils.isBlank(uri)) {
+                if (uri == null || uri.isBlank()) {
                     continue;
                 }
-                if (!StringUtils.isBlank(prefix)) {
+                if (prefix != null && !prefix.isBlank()) {
                     prefix = ":" + prefix;
                 }
                 setOrAccumulate(jsonObject, "@xmlns" + prefix, trimSpaceFromValue(uri));
@@ -1081,7 +1084,8 @@ public class XMLSerializer {
             Node child = element.getChild(i);
             if (child instanceof Text) {
                 Text text = (Text) child;
-                if (StringUtils.isNotBlank(StringUtils.strip(text.getValue()))) {
+                String stripped = text.getValue() != null ? text.getValue().strip() : null;
+                if (stripped != null && !stripped.isBlank()) {
                     setOrAccumulate(jsonObject, "#text", trimSpaceFromValue(text.getValue()));
                 }
             } else if (child instanceof Element) {
@@ -1390,7 +1394,7 @@ public class XMLSerializer {
 
         @Override
         protected void writeNamespaceDeclaration(String prefix, String uri) throws IOException {
-            if (!StringUtils.isBlank(uri)) {
+            if (uri != null && !uri.isBlank()) {
                 super.writeNamespaceDeclaration(prefix, uri);
             }
         }
