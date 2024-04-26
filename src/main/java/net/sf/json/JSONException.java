@@ -15,15 +15,13 @@
  */
 package net.sf.json;
 
-import org.apache.commons.lang.exception.NestableRuntimeException;
-
 /**
  * The JSONException is thrown when things are amiss.
  *
  * @author JSON.org
  * @version 4
  */
-public class JSONException extends NestableRuntimeException {
+public class JSONException extends RuntimeException {
     private static final long serialVersionUID = 6995087065217051815L;
 
     public JSONException() {
