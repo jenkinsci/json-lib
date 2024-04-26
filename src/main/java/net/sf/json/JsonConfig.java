@@ -42,7 +42,6 @@ import net.sf.json.util.PropertyExclusionClassMatcher;
 import net.sf.json.util.PropertyFilter;
 import net.sf.json.util.PropertySetStrategy;
 import org.apache.commons.collections.map.MultiKeyMap;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Utility class that helps configuring the serialization process.
@@ -604,7 +603,7 @@ public class JsonConfig {
         Collection exclusions = new HashSet();
         for (int i = 0; i < excludes.length; i++) {
             String exclusion = excludes[i];
-            if (!StringUtils.isBlank(excludes[i])) {
+            if (exclusion != null && !exclusion.isBlank()) {
                 exclusions.add(exclusion.trim());
             }
         }
