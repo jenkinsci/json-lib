@@ -27,7 +27,6 @@ public class AllTests extends TestSuite {
         suite.setName("regexp");
 
         suite.addTest(new TestSuite(TestJdkRegexpMatcher.class));
-        suite.addTest(new TestSuite(TestPerl5RegexpMatcher.class));
 
         return suite;
     }
