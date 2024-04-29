@@ -1412,7 +1412,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
     /**
      * The Map where the JSONObject's properties are kept.
      */
-    private Map<String, Object> properties;
+    private Map properties;
 
     /**
      * Construct an empty JSONObject.
@@ -1799,7 +1799,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
     }
 
     @Override
-    public Set<Map.Entry<String, Object>> entrySet() {
+    public Set entrySet() {
         return Collections.unmodifiableSet(properties.entrySet());
     }
 
