@@ -137,7 +137,7 @@
   </issueManagement>
 
   <properties>
-    <revision>2.4-jenkins-6</revision>
+    <revision>2.4-jenkins-8</revision>
     <changelist>-SNAPSHOT</changelist>
     <gitHubRepo>jenkinsci/${project.artifactId}</gitHubRepo>
     <!-- TODO fix existing violations -->
