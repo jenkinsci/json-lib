@@ -19,9 +19,8 @@ package net.sf.ezmorph.object;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Map;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs a Map into a Date.<br>
@@ -58,12 +57,10 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
         }
 
         MapToDateMorpher other = (MapToDateMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -78,11 +75,10 @@ public class MapToDateMorpher extends AbstractObjectMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            return Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return 17;
     }
 
     @Override

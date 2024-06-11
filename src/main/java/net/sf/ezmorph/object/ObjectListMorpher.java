@@ -20,9 +20,9 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs a List to another List using a Morpher.
@@ -71,7 +71,7 @@ public final class ObjectListMorpher extends AbstractObjectMorpher {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(morpher).toHashCode();
+        return Objects.hashCode(morpher);
     }
 
     @Override
