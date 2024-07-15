@@ -18,9 +18,9 @@ package net.sf.ezmorph.array;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs an array to another array using a Morpher.
@@ -65,7 +65,7 @@ public final class ObjectArrayMorpher extends AbstractArrayMorpher {
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder().append(morpher).toHashCode();
+        return Objects.hashCode(morpher);
     }
 
     @Override
