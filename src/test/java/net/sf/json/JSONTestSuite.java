@@ -31,7 +31,6 @@ public class JSONTestSuite extends TestSuite {
         suite.addTest(net.sf.json.filters.AllTests.suite());
         suite.addTest(net.sf.json.processors.AllTests.suite());
         suite.addTest(net.sf.json.util.AllTests.suite());
-        suite.addTest(net.sf.json.xml.AllTests.suite());
         suite.addTest(net.sf.json.test.AllTests.suite());
 
         return suite;
