@@ -19,9 +19,8 @@ package net.sf.ezmorph.object;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Locale;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs to a BigInteger.
@@ -57,12 +56,10 @@ public final class BigIntegerMorpher extends AbstractObjectMorpher {
         }
 
         BigIntegerMorpher other = (BigIntegerMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -77,11 +74,10 @@ public final class BigIntegerMorpher extends AbstractObjectMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            return Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return 17;
     }
 
     @Override
