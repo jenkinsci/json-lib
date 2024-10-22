@@ -16,9 +16,8 @@
 
 package net.sf.ezmorph.primitive;
 
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Moprhs to a float.
@@ -54,12 +53,10 @@ public final class FloatMorpher extends AbstractDecimalMorpher {
         }
 
         FloatMorpher other = (FloatMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -74,11 +71,10 @@ public final class FloatMorpher extends AbstractDecimalMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            return Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return 17;
     }
 
     /**
