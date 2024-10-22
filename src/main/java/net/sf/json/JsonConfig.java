@@ -16,6 +16,7 @@
 
 package net.sf.json;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -41,7 +42,6 @@ import net.sf.json.util.NewBeanInstanceStrategy;
 import net.sf.json.util.PropertyExclusionClassMatcher;
 import net.sf.json.util.PropertyFilter;
 import net.sf.json.util.PropertySetStrategy;
-import org.apache.commons.collections.map.MultiKeyMap;
 
 /**
  * Utility class that helps configuring the serialization process.
@@ -72,9 +72,9 @@ public class JsonConfig {
     /** Array conversion mode */
     private int arrayMode = MODE_LIST;
 
-    private MultiKeyMap beanKeyMap = new MultiKeyMap();
+    private Map<Map.Entry<Class, String>, JsonValueProcessor> beanKeyMap = new HashMap<>();
     private Map beanProcessorMap = new HashMap();
-    private MultiKeyMap beanTypeMap = new MultiKeyMap();
+    private Map<Map.Entry<Class, Class>, JsonValueProcessor> beanTypeMap = new HashMap<>();
     /** Map of attribute/class */
     private Map classMap;
 
@@ -392,13 +392,12 @@ public class JsonConfig {
      * @param key the name of the property which may belong to the target class
      */
     public JsonValueProcessor findJsonValueProcessor(Class beanClass, Class propertyType, String key) {
-        JsonValueProcessor jsonValueProcessor = null;
-        jsonValueProcessor = (JsonValueProcessor) beanKeyMap.get(beanClass, key);
+        JsonValueProcessor jsonValueProcessor = beanKeyMap.get(new AbstractMap.SimpleImmutableEntry<>(beanClass, key));
         if (jsonValueProcessor != null) {
             return jsonValueProcessor;
         }
 
-        jsonValueProcessor = (JsonValueProcessor) beanTypeMap.get(beanClass, propertyType);
+        jsonValueProcessor = beanTypeMap.get(new AbstractMap.SimpleImmutableEntry<>(beanClass, propertyType));
         if (jsonValueProcessor != null) {
             return jsonValueProcessor;
         }
@@ -849,7 +848,7 @@ public class JsonConfig {
      */
     public void registerJsonValueProcessor(Class beanClass, Class propertyType, JsonValueProcessor jsonValueProcessor) {
         if (beanClass != null && propertyType != null && jsonValueProcessor != null) {
-            beanTypeMap.put(beanClass, propertyType, jsonValueProcessor);
+            beanTypeMap.put(new AbstractMap.SimpleImmutableEntry<>(beanClass, propertyType), jsonValueProcessor);
         }
     }
 
@@ -876,7 +875,7 @@ public class JsonConfig {
      */
     public void registerJsonValueProcessor(Class beanClass, String key, JsonValueProcessor jsonValueProcessor) {
         if (beanClass != null && key != null && jsonValueProcessor != null) {
-            beanKeyMap.put(beanClass, key, jsonValueProcessor);
+            beanKeyMap.put(new AbstractMap.SimpleImmutableEntry<>(beanClass, key), jsonValueProcessor);
         }
     }
 
@@ -1425,7 +1424,7 @@ public class JsonConfig {
      */
     public void unregisterJsonValueProcessor(Class beanClass, String key) {
         if (beanClass != null && key != null) {
-            beanKeyMap.remove(beanClass, key);
+            beanKeyMap.remove(new AbstractMap.SimpleImmutableEntry<>(beanClass, key));
         }
     }
 
