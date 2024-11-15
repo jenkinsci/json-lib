@@ -10,7 +10,7 @@
 
   <groupId>org.kohsuke.stapler</groupId>
   <artifactId>json-lib</artifactId>
-  <version>${revision}${changelist}</version>
+  <version>2.4-jenkins-8</version>
   <name>json-lib</name>
   <description>Java library for transforming beans, maps, collections, java arrays and XML to JSON.</description>
   <url>https://json-lib.sourceforge.net</url>
@@ -127,7 +127,7 @@
   <scm>
     <connection>scm:git:https://github.com/${gitHubRepo}.git</connection>
     <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
-    <tag>${scmTag}</tag>
+    <tag>json-lib-2.4-jenkins-8</tag>
     <url>https://github.com/${gitHubRepo}</url>
   </scm>
 
