@@ -52,7 +52,6 @@ import net.sf.json.util.PropertySetStrategy;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.collections.map.ListOrderedMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -1418,7 +1417,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      * Construct an empty JSONObject.
      */
     public JSONObject() {
-        this.properties = new ListOrderedMap();
+        this.properties = new LinkedHashMap<>();
     }
 
     /**
