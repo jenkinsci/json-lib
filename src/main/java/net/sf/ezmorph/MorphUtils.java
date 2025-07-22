@@ -90,7 +90,7 @@ public class MorphUtils {
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(StringMorpher.getInstance()));
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Byte.class, new Byte((byte) 0))));
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Short.class, new Short((short) 0))));
-        morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Integer.class, new Integer(0))));
+        morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Integer.class, 0)));
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Long.class, new Long(0))));
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Float.class, new Float(0))));
         morpherRegistry.registerMorpher(new ObjectArrayMorpher(new NumberMorpher(Double.class, new Double(0))));
@@ -124,7 +124,7 @@ public class MorphUtils {
         morpherRegistry.registerMorpher(StringMorpher.getInstance());
         morpherRegistry.registerMorpher(new NumberMorpher(Byte.class, new Byte((byte) 0)));
         morpherRegistry.registerMorpher(new NumberMorpher(Short.class, new Short((short) 0)));
-        morpherRegistry.registerMorpher(new NumberMorpher(Integer.class, new Integer(0)));
+        morpherRegistry.registerMorpher(new NumberMorpher(Integer.class, 0));
         morpherRegistry.registerMorpher(new NumberMorpher(Long.class, new Long(0)));
         morpherRegistry.registerMorpher(new NumberMorpher(Float.class, new Float(0)));
         morpherRegistry.registerMorpher(new NumberMorpher(Double.class, new Double(0)));

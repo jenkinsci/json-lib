@@ -48,7 +48,7 @@ public class TestJSONArrayJdk15 extends TestCase {
     public void testConstructor_Collection() {
         List l = new ArrayList();
         l.add(Boolean.TRUE);
-        l.add(new Integer(1));
+        l.add(1);
         l.add("string");
         l.add(Object.class);
         l.add(JsonEnum.ARRAY);

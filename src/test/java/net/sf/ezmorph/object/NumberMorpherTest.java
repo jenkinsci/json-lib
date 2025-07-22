@@ -222,14 +222,14 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testIntegerConversion_int() {
         morpher = new NumberMorpher(Integer.TYPE);
-        Integer expected = new Integer(Integer.MIN_VALUE);
+        Integer expected = Integer.MIN_VALUE;
         Integer actual = (Integer) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
     public void testIntegerConversion_Integer() {
         morpher = new NumberMorpher(Integer.class);
-        Integer expected = new Integer(Integer.MIN_VALUE);
+        Integer expected = Integer.MIN_VALUE;
         Integer actual = (Integer) morpher.morph(expected);
         assertEquals(expected, actual);
     }
@@ -248,7 +248,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testIntegerConversion_useDefault() {
         morpher = new NumberMorpher(Integer.class);
-        Integer expected = new Integer(Integer.MIN_VALUE);
+        Integer expected = Integer.MIN_VALUE;
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
         Integer actual = (Integer) morpher.morph(new Object());
@@ -256,7 +256,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
     }
 
     public void testIntegerConversion_useDefault_null() {
-        morpher = new NumberMorpher(Integer.class, (Integer) null);
+        morpher = new NumberMorpher(Integer.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
@@ -320,7 +320,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testNumbermorpher_notSupported_2() {
         try {
-            morpher = new NumberMorpher(String.class, new Integer(0));
+            morpher = new NumberMorpher(String.class, 0);
             fail("Should have thrown a ConversionException");
         } catch (MorphException expected) {
             // ok
@@ -338,7 +338,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testNumbermorpher_unspecifiedClass2() {
         try {
-            morpher = new NumberMorpher(null, new Integer(0));
+            morpher = new NumberMorpher(null, 0);
             fail("Should have thrown a ConversionException");
         } catch (MorphException expected) {
             // ok
@@ -408,8 +408,8 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
     @Override
     protected void setUp() throws Exception {
         morpher = new NumberMorpher(Integer.class);
-        morpherWithDefaultValue = new NumberMorpher(Integer.class, new Integer(0));
+        morpherWithDefaultValue = new NumberMorpher(Integer.class, 0);
         anotherMorpher = new NumberMorpher(Integer.class);
-        anotherMorpherWithDefaultValue = new NumberMorpher(Integer.class, new Integer(1));
+        anotherMorpherWithDefaultValue = new NumberMorpher(Integer.class, 1);
     }
 }

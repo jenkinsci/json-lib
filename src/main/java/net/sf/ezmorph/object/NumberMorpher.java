@@ -281,16 +281,16 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         return result;
     }
 
-    private Object morphToInteger(String str) {
-        Object result = null;
+    private Integer morphToInteger(String str) {
+        int result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Integer) null;
+                return null;
             } else {
-                result = new Integer(new IntMorpher(defaultValue.intValue()).morph(str));
+                result = new IntMorpher(defaultValue.intValue()).morph(str);
             }
         } else {
-            result = new Integer(new IntMorpher().morph(str));
+            result = new IntMorpher().morph(str);
         }
         return result;
     }
