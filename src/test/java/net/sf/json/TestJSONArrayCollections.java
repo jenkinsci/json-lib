@@ -92,8 +92,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add("A");
         expected.add("B");
         List chars = new ArrayList();
-        chars.add(new Character('A'));
-        chars.add(new Character('B'));
+        chars.add('A');
+        chars.add('B');
         JSONArray jsonArray = JSONArray.fromObject(chars);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -283,8 +283,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add("A");
         expected.add("B");
         Set chars = new HashSet();
-        chars.add(new Character('A'));
-        chars.add(new Character('B'));
+        chars.add('A');
+        chars.add('B');
         JSONArray jsonArray = JSONArray.fromObject(chars);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);

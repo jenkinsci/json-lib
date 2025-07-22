@@ -51,7 +51,7 @@ public final class PropertyConstants {
         values.put(FLOAT, Float.MAX_VALUE);
         values.put(DOUBLE, Double.MAX_VALUE);
         values.put(BOOLEAN, Boolean.TRUE);
-        values.put(CHAR, new Character('J'));
+        values.put(CHAR, 'J');
         values.put(STRING, "json");
         values.put(FUNCTION, new JSONFunction("this;"));
         values.put(ARRAY, new int[] {1, 2});

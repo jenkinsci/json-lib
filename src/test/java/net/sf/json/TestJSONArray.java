@@ -1048,7 +1048,7 @@ public class TestJSONArray extends TestCase {
 
     public void testToArray_Character() {
         String[] expected = {"A", "B"};
-        Character[] chars = new Character[] {new Character('A'), new Character('B')};
+        Character[] chars = new Character[] {'A', 'B'};
         JSONArray jsonArray = JSONArray.fromObject(chars);
         Object actual = JSONArray.toArray(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1300,8 +1300,8 @@ public class TestJSONArray extends TestCase {
         expected.add("A");
         expected.add("B");
         List chars = new ArrayList();
-        chars.add(new Character('A'));
-        chars.add(new Character('B'));
+        chars.add('A');
+        chars.add('B');
         JSONArray jsonArray = JSONArray.fromObject(chars);
         List actual = JSONArray.toList(jsonArray);
         Assertions.assertEquals(expected, actual);
