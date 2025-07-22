@@ -49,7 +49,7 @@ public final class PropertyConstants {
         values.put(INT, Integer.MAX_VALUE);
         values.put(LONG, Long.MAX_VALUE);
         values.put(FLOAT, new Float(Float.MAX_VALUE));
-        values.put(DOUBLE, new Double(Double.MAX_VALUE));
+        values.put(DOUBLE, Double.MAX_VALUE);
         values.put(BOOLEAN, Boolean.TRUE);
         values.put(CHAR, new Character('J'));
         values.put(STRING, "json");

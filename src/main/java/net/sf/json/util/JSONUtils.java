@@ -641,7 +641,7 @@ public final class JSONUtils {
      */
     public static Number transformNumber(Number input) {
         if (input instanceof Float) {
-            return new Double(input.toString());
+            return Double.valueOf(input.toString());
         } else if (input instanceof Short) {
             return input.intValue();
         } else if (input instanceof Byte) {

@@ -77,13 +77,12 @@ public class ShortMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testShortMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = ((ShortMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3, actual);
     }
 
     public void testShortMorphDecimalValue_Number_outOfRange() {
-        short actual = ((ShortMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        short actual = ((ShortMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(-1, actual);
     }
 

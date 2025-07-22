@@ -1457,7 +1457,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *         finite.
      */
     public JSONArray element(int index, double value) {
-        return element(index, new Double(value));
+        return element(index, (Double) value);
     }
 
     /**

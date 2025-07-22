@@ -77,13 +77,12 @@ public class IntMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testIntMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = ((IntMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3, actual);
     }
 
     public void testIntMorphDecimalValue_Number_outOfRange() {
-        int actual = ((IntMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        int actual = ((IntMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(Integer.MAX_VALUE, actual);
     }
 

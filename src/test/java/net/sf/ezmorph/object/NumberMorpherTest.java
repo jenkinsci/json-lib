@@ -142,14 +142,14 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testDoubleConversion_double() {
         morpher = new NumberMorpher(Double.TYPE);
-        Double expected = new Double(Double.MIN_VALUE);
+        Double expected = Double.MIN_VALUE;
         Double actual = (Double) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
     public void testDoubleConversion_Double() {
         morpher = new NumberMorpher(Double.class);
-        Double expected = new Double(Double.MIN_VALUE);
+        Double expected = Double.MIN_VALUE;
         Double actual = (Double) morpher.morph(expected);
         assertEquals(expected, actual);
     }
@@ -168,7 +168,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testDoubleConversion_useDefault() {
         morpher = new NumberMorpher(Double.class);
-        Double expected = new Double(Double.MIN_VALUE);
+        Double expected = Double.MIN_VALUE;
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
         Double actual = (Double) morpher.morph(new Object());
@@ -302,7 +302,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testNumbermorpher_incompatible_defaultValue() {
         try {
-            morpher = new NumberMorpher(Integer.class, new Double(0));
+            morpher = new NumberMorpher(Integer.class, 0d);
             fail("Should have thrown a ConversionException");
         } catch (MorphException expected) {
             // ok
