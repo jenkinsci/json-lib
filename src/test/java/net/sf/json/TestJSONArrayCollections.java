@@ -80,8 +80,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1);
         expected.add(2);
         List bytes = new ArrayList();
-        bytes.add(new Byte((byte) 1));
-        bytes.add(new Byte((byte) 2));
+        bytes.add((byte) 1);
+        bytes.add((byte) 2);
         JSONArray jsonArray = JSONArray.fromObject(bytes);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -269,8 +269,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1);
         expected.add(2);
         Set bytes = new HashSet();
-        bytes.add(new Byte((byte) 1));
-        bytes.add(new Byte((byte) 2));
+        bytes.add((byte) 1);
+        bytes.add((byte) 2);
         JSONArray jsonArray = JSONArray.fromObject(bytes);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);

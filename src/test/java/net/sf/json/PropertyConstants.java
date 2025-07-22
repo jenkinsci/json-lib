@@ -44,7 +44,7 @@ public final class PropertyConstants {
     private static Map values = new HashMap();
 
     static {
-        values.put(BYTE, new Byte(Byte.MAX_VALUE));
+        values.put(BYTE, Byte.MAX_VALUE);
         values.put(SHORT, new Short(Short.MAX_VALUE));
         values.put(INT, Integer.MAX_VALUE);
         values.put(LONG, Long.MAX_VALUE);

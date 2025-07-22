@@ -240,15 +240,15 @@ public final class NumberMorpher extends AbstractObjectMorpher {
     }
 
     private Object morphToByte(String str) {
-        Object result = null;
+        byte result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Byte) null;
+                return null;
             } else {
-                result = new Byte(new ByteMorpher(defaultValue.byteValue()).morph(str));
+                result = new ByteMorpher(defaultValue.byteValue()).morph(str);
             }
         } else {
-            result = new Byte(new ByteMorpher().morph(str));
+            result = new ByteMorpher().morph(str);
         }
         return result;
     }

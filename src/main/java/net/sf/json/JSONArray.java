@@ -720,7 +720,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         fireArrayStartEvent(jsonConfig);
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < array.length; i++) {
-            Number n = JSONUtils.transformNumber(new Byte(array[i]));
+            Number n = JSONUtils.transformNumber(array[i]);
             jsonArray.addValue(n, jsonConfig);
             fireElementAddedEvent(i, n, jsonConfig);
         }
