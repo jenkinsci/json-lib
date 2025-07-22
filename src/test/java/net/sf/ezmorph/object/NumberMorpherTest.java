@@ -352,14 +352,14 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testShortConversion_short() {
         morpher = new NumberMorpher(Short.TYPE);
-        Short expected = new Short(Short.MIN_VALUE);
+        Short expected = Short.MIN_VALUE;
         Short actual = (Short) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
     public void testShortConversion_Short() {
         morpher = new NumberMorpher(Short.class);
-        Short expected = new Short(Short.MIN_VALUE);
+        Short expected = Short.MIN_VALUE;
         Short actual = (Short) morpher.morph(expected);
         assertEquals(expected, actual);
     }
@@ -373,7 +373,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testShortConversion_useDefault() {
         morpher = new NumberMorpher(Short.class);
-        Short expected = new Short(Short.MIN_VALUE);
+        Short expected = Short.MIN_VALUE;
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
         Short actual = (Short) morpher.morph(new Object());

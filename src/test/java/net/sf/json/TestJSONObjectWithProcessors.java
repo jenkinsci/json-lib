@@ -134,7 +134,7 @@ public class TestJSONObjectWithProcessors extends TestCase {
 
     public void testNumericValueWithProcessor_Short() {
         Map bean = new HashMap();
-        bean.put("value", new Short(Short.MAX_VALUE));
+        bean.put("value", Short.MAX_VALUE);
         jsonConfig.registerJsonValueProcessor("value", new IdentityJsonValueProcessor());
         JSONObject jsonObject = JSONObject.fromObject(bean, jsonConfig);
         assertNotNull(jsonObject);

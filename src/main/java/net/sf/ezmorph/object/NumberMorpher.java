@@ -310,15 +310,15 @@ public final class NumberMorpher extends AbstractObjectMorpher {
     }
 
     private Object morphToShort(String str) {
-        Object result = null;
+        short result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Short) null;
+                return null;
             } else {
-                result = new Short(new ShortMorpher(defaultValue.shortValue()).morph(str));
+                result = new ShortMorpher(defaultValue.shortValue()).morph(str);
             }
         } else {
-            result = new Short(new ShortMorpher().morph(str));
+            result = new ShortMorpher().morph(str);
         }
         return result;
     }

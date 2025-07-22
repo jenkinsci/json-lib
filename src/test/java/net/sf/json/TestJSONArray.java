@@ -753,7 +753,7 @@ public class TestJSONArray extends TestCase {
 
     public void testFromObject_Short() {
         JSONArray expected = JSONArray.fromObject("[1]");
-        JSONArray actual = JSONArray.fromObject(new Short((short) 1));
+        JSONArray actual = JSONArray.fromObject((short) 1);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -1175,7 +1175,7 @@ public class TestJSONArray extends TestCase {
 
     public void testToArray_Short() {
         Integer[] expected = new Integer[] {1, 2};
-        Short[] shorts = new Short[] {new Short((short) 1), new Short((short) 2)};
+        Short[] shorts = new Short[] {(short) 1, (short) 2};
         JSONArray jsonArray = JSONArray.fromObject(shorts);
         Object actual = JSONArray.toArray(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1397,8 +1397,8 @@ public class TestJSONArray extends TestCase {
         expected.add(1);
         expected.add(2);
         List shorts = new ArrayList();
-        shorts.add(new Short((short) 1));
-        shorts.add(new Short((short) 2));
+        shorts.add((short) 1);
+        shorts.add((short) 2);
         JSONArray jsonArray = JSONArray.fromObject(shorts);
         List actual = JSONArray.toList(jsonArray);
         Assertions.assertEquals(expected, actual);
