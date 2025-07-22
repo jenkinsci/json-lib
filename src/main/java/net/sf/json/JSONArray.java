@@ -937,7 +937,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         fireArrayStartEvent(jsonConfig);
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < array.length; i++) {
-            Number n = JSONUtils.transformNumber(new Long(array[i]));
+            Number n = JSONUtils.transformNumber(array[i]);
             jsonArray.addValue(n, jsonConfig);
             fireElementAddedEvent(i, n, jsonConfig);
         }
@@ -1485,7 +1485,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @throws JSONException If the index is negative.
      */
     public JSONArray element(int index, long value) {
-        return element(index, new Long(value));
+        return element(index, (Long) value);
     }
 
     /**

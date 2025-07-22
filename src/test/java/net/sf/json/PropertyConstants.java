@@ -47,7 +47,7 @@ public final class PropertyConstants {
         values.put(BYTE, new Byte(Byte.MAX_VALUE));
         values.put(SHORT, new Short(Short.MAX_VALUE));
         values.put(INT, Integer.MAX_VALUE);
-        values.put(LONG, new Long(Long.MAX_VALUE));
+        values.put(LONG, Long.MAX_VALUE);
         values.put(FLOAT, new Float(Float.MAX_VALUE));
         values.put(DOUBLE, new Double(Double.MAX_VALUE));
         values.put(BOOLEAN, Boolean.TRUE);

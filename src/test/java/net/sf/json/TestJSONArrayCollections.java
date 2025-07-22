@@ -158,8 +158,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1);
         expected.add(2);
         List longs = new ArrayList();
-        longs.add(new Long(1L));
-        longs.add(new Long(2L));
+        longs.add(1L);
+        longs.add(2L);
         JSONArray jsonArray = JSONArray.fromObject(longs);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -167,8 +167,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Long2() {
         List expected = new ArrayList();
-        expected.add(new Long(Integer.MAX_VALUE + 1L));
-        expected.add(new Long(Integer.MAX_VALUE + 2L));
+        expected.add(Integer.MAX_VALUE + 1L);
+        expected.add(Integer.MAX_VALUE + 2L);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -365,8 +365,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1);
         expected.add(2);
         Set longs = new HashSet();
-        longs.add(new Long(1L));
-        longs.add(new Long(2L));
+        longs.add(1L);
+        longs.add(2L);
         JSONArray jsonArray = JSONArray.fromObject(longs);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
@@ -376,8 +376,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Long2() {
         Set expected = new HashSet();
-        expected.add(new Long(Integer.MAX_VALUE + 1L));
-        expected.add(new Long(Integer.MAX_VALUE + 2L));
+        expected.add(Integer.MAX_VALUE + 1L);
+        expected.add(Integer.MAX_VALUE + 2L);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);

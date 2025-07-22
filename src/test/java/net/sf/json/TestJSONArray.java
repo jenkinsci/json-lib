@@ -741,7 +741,7 @@ public class TestJSONArray extends TestCase {
 
     public void testFromObject_Long() {
         JSONArray expected = JSONArray.fromObject("[1]");
-        JSONArray actual = JSONArray.fromObject(new Long(1L));
+        JSONArray actual = JSONArray.fromObject(1L);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -1137,7 +1137,7 @@ public class TestJSONArray extends TestCase {
 
     public void testToArray_Long() {
         Integer[] expected = new Integer[] {1, 2};
-        Long[] longs = new Long[] {new Long(1L), new Long(2L)};
+        Long[] longs = new Long[] {1L, 2L};
         JSONArray jsonArray = JSONArray.fromObject(longs);
         Object actual = JSONArray.toArray(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1152,7 +1152,7 @@ public class TestJSONArray extends TestCase {
     }
 
     public void testToArray_Long2() {
-        Long[] expected = new Long[] {new Long(Integer.MAX_VALUE + 1L), new Long(Integer.MAX_VALUE + 2L)};
+        Long[] expected = new Long[] {Integer.MAX_VALUE + 1L, Integer.MAX_VALUE + 2L};
         JSONArray jsonArray = JSONArray.fromObject(expected);
         Object actual = JSONArray.toArray(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1366,8 +1366,8 @@ public class TestJSONArray extends TestCase {
         expected.add(1);
         expected.add(2);
         List longs = new ArrayList();
-        longs.add(new Long(1L));
-        longs.add(new Long(2L));
+        longs.add(1L);
+        longs.add(2L);
         JSONArray jsonArray = JSONArray.fromObject(longs);
         List actual = JSONArray.toList(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1375,8 +1375,8 @@ public class TestJSONArray extends TestCase {
 
     public void testToList_Long2() {
         List expected = new ArrayList();
-        expected.add(new Long(Integer.MAX_VALUE + 1L));
-        expected.add(new Long(Integer.MAX_VALUE + 2L));
+        expected.add(Integer.MAX_VALUE + 1L);
+        expected.add(Integer.MAX_VALUE + 2L);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         List actual = JSONArray.toList(jsonArray);
         Assertions.assertEquals(expected, actual);

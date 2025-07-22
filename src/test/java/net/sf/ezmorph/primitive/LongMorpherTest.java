@@ -94,25 +94,25 @@ public class LongMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testLongMorphMaxValue_Number() {
-        Long expected = new Long(Long.MAX_VALUE);
+        Long expected = Long.MAX_VALUE;
         long actual = ((LongMorpher) getMorpher()).morph(expected);
         assertEquals(expected.longValue(), actual);
     }
 
     public void testLongMorphMaxValue_String() {
-        String expected = String.valueOf(new Long(Long.MAX_VALUE));
+        String expected = String.valueOf(Long.MAX_VALUE);
         long actual = ((LongMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testLongMorphMinValue_Number() {
-        Long expected = new Long(Long.MIN_VALUE);
+        Long expected = Long.MIN_VALUE;
         long actual = ((LongMorpher) getMorpher()).morph(expected);
         assertEquals(expected.longValue(), actual);
     }
 
     public void testLongMorphMinValue_String() {
-        String expected = String.valueOf(new Long(Long.MIN_VALUE));
+        String expected = String.valueOf(Long.MIN_VALUE);
         long actual = ((LongMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }

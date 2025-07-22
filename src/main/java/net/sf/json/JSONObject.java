@@ -1685,7 +1685,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      */
     public JSONObject element(String key, long value) {
         verifyIsNull();
-        return element(key, new Long(value));
+        return element(key, (Long) value);
     }
 
     /**
