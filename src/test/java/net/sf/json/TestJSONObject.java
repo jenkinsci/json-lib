@@ -486,7 +486,7 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(Long.MIN_VALUE);
         assertTrue(json.isEmpty());
-        json = JSONObject.fromObject(new Float(Float.MIN_VALUE));
+        json = JSONObject.fromObject(Float.MIN_VALUE);
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(Double.MIN_VALUE);
         assertTrue(json.isEmpty());
@@ -796,7 +796,7 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(Long.MIN_VALUE);
         assertTrue(json.isEmpty());
-        json = JSONObject.fromObject(new Float(Float.MIN_VALUE));
+        json = JSONObject.fromObject(Float.MIN_VALUE);
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(Double.MIN_VALUE);
         assertTrue(json.isEmpty());
@@ -1088,7 +1088,7 @@ public class TestJSONObject extends TestCase {
         Assertions.assertEquals(new Short((short) 0), bean2.getShortp());
         Assertions.assertEquals((Integer) 0, bean2.getIntp());
         Assertions.assertEquals((Long) 0L, bean2.getLongp());
-        Assertions.assertEquals(new Float(0), bean2.getFloatp());
+        Assertions.assertEquals(0f, bean2.getFloatp());
         Assertions.assertEquals(0d, bean2.getDoublep());
         Assertions.assertEquals(new Character('\0'), bean2.getCharp());
         Assertions.assertEquals("", bean2.getStringp());
@@ -1346,7 +1346,7 @@ public class TestJSONObject extends TestCase {
         json.element("pshort", new Short((short) 2));
         json.element("pint", 2);
         json.element("plong", 2L);
-        json.element("pfloat", new Float(2));
+        json.element("pfloat", 2f);
         json.element("pdouble", 2d);
         json.element("pbigint", new BigInteger("2"));
         json.element("pbigdec", new BigDecimal("2"));

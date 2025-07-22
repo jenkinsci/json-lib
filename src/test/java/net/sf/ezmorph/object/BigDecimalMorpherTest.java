@@ -59,7 +59,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
     }
 
     public void testBigDecimalMorph_Number() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(new Float(1f));
+        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1f);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
         actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1d);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
@@ -85,7 +85,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testBigDecimalMorph_Number__Float_INFINITY() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Float(Float.POSITIVE_INFINITY));
+            ((BigDecimalMorpher) getMorpher()).morph(Float.POSITIVE_INFINITY);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok
@@ -94,7 +94,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testBigDecimalMorph_Number__Float_NAN() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Float(Float.NaN));
+            ((BigDecimalMorpher) getMorpher()).morph(Float.NaN);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok

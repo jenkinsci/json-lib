@@ -121,8 +121,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1d);
         expected.add(2d);
         List floats = new ArrayList();
-        floats.add(new Float(1f));
-        floats.add(new Float(2f));
+        floats.add(1f);
+        floats.add(2f);
         JSONArray jsonArray = JSONArray.fromObject(floats);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -318,8 +318,8 @@ public class TestJSONArrayCollections extends TestCase {
         expected.add(1d);
         expected.add(2d);
         Set floats = new HashSet();
-        floats.add(new Float(1f));
-        floats.add(new Float(2f));
+        floats.add(1f);
+        floats.add(2f);
         JSONArray jsonArray = JSONArray.fromObject(floats);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);

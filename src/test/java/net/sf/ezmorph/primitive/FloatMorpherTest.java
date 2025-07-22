@@ -93,25 +93,25 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testFloatMorphMaxValue_Number() {
-        Float expected = new Float(Float.MAX_VALUE);
+        float expected = Float.MAX_VALUE;
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.floatValue(), actual, 0f);
+        assertEquals(expected, actual, 0f);
     }
 
     public void testFloatMorphMaxValue_String() {
-        String expected = String.valueOf(new Float(Float.MAX_VALUE));
+        String expected = String.valueOf(Float.MAX_VALUE);
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testFloatMorphMinValue_Number() {
-        Float expected = new Float(Float.MIN_VALUE);
+        float expected = Float.MIN_VALUE;
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.floatValue(), actual, 0f);
+        assertEquals(expected, actual, 0f);
     }
 
     public void testFloatMorphMinValue_String() {
-        String expected = String.valueOf(new Float(Float.MIN_VALUE));
+        String expected = String.valueOf(Float.MIN_VALUE);
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }

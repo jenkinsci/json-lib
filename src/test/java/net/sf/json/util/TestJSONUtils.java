@@ -146,7 +146,7 @@ public class TestJSONUtils extends TestCase {
 
     public void testValidity_inifiniteFloat() {
         try {
-            JSONUtils.testValidity(new Float(Float.POSITIVE_INFINITY));
+            JSONUtils.testValidity(Float.POSITIVE_INFINITY);
             fail("Should have thrown a JSONException");
         } catch (JSONException expected) {
             // ok
@@ -164,7 +164,7 @@ public class TestJSONUtils extends TestCase {
 
     public void testValidity_nanFloat() {
         try {
-            JSONUtils.testValidity(new Float(Float.NaN));
+            JSONUtils.testValidity(Float.NaN);
             fail("Should have thrown a JSONException");
         } catch (JSONException expected) {
             // ok

@@ -709,7 +709,7 @@ public class TestJSONArray extends TestCase {
 
     public void testFromObject_Float() {
         JSONArray expected = JSONArray.fromObject("[1.0]");
-        JSONArray actual = JSONArray.fromObject(new Float(1f));
+        JSONArray actual = JSONArray.fromObject(1f);
         Assertions.assertEquals(expected, actual);
     }
 
@@ -1092,7 +1092,7 @@ public class TestJSONArray extends TestCase {
 
     public void testToArray_Float() {
         Double[] expected = new Double[] {1d, 2d};
-        Float[] floats = new Float[] {new Float(1f), new Float(2f)};
+        Float[] floats = new Float[] {1f, 2f};
         JSONArray jsonArray = JSONArray.fromObject(floats);
         Object actual = JSONArray.toArray(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -1329,8 +1329,8 @@ public class TestJSONArray extends TestCase {
         expected.add(1d);
         expected.add(2d);
         List floats = new ArrayList();
-        floats.add(new Float(1f));
-        floats.add(new Float(2f));
+        floats.add(1f);
+        floats.add(2f);
         JSONArray jsonArray = JSONArray.fromObject(floats);
         List actual = JSONArray.toList(jsonArray);
         Assertions.assertEquals(expected, actual);
