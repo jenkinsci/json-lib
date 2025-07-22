@@ -104,14 +104,14 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testByteConversion_byte() {
         morpher = new NumberMorpher(Byte.TYPE);
-        Byte expected = new Byte(Byte.MIN_VALUE);
+        Byte expected = Byte.MIN_VALUE;
         Byte actual = (Byte) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
     public void testByteConversion_Byte() {
         morpher = new NumberMorpher(Byte.class);
-        Byte expected = new Byte(Byte.MIN_VALUE);
+        Byte expected = Byte.MIN_VALUE;
         Byte actual = (Byte) morpher.morph(expected);
         assertEquals(expected, actual);
     }
@@ -129,7 +129,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
     }
 
     public void testByteConversion_useDefault() {
-        Byte expected = new Byte(Byte.MIN_VALUE);
+        Byte expected = Byte.MIN_VALUE;
         morpher = new NumberMorpher(Byte.class, expected);
         Byte actual = (Byte) morpher.morph(new Object());
         assertEquals(expected, actual);

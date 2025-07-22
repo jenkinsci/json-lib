@@ -137,7 +137,7 @@ public class MorpherRegistryTest extends TestCase {
         MorphUtils.registerStandardObjectArrayMorphers(morpherRegistry);
 
         ArrayAssertions.assertEquals(
-                new Byte[] {new Byte((byte) 0)}, (Byte[]) morpherRegistry.morph(Byte[].class, new String[] {"a"}));
+                new Byte[] {(byte) 0}, (Byte[]) morpherRegistry.morph(Byte[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
                 new Short[] {new Short((short) 0)}, (Short[]) morpherRegistry.morph(Short[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
@@ -228,7 +228,7 @@ public class MorpherRegistryTest extends TestCase {
 
         assertEquals(Boolean.FALSE, morpherRegistry.morph(boolean.class, null));
         assertEquals(new Character('\0'), morpherRegistry.morph(char.class, null));
-        assertEquals(new Byte((byte) 0), morpherRegistry.morph(byte.class, null));
+        assertEquals((byte) 0, morpherRegistry.morph(byte.class, null));
         assertEquals(new Short((short) 0), morpherRegistry.morph(short.class, null));
         assertEquals(0, morpherRegistry.morph(int.class, null));
         assertEquals(0L, morpherRegistry.morph(long.class, null));

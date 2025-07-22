@@ -84,7 +84,7 @@ public class BooleanMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testBooleanMorphNumberValues_false() {
-        assertFalse(((BooleanMorpher) getMorpher()).morph(new Byte((byte) 0)));
+        assertFalse(((BooleanMorpher) getMorpher()).morph((byte) 0));
         assertFalse(((BooleanMorpher) getMorpher()).morph(new Short((short) 0)));
         assertFalse(((BooleanMorpher) getMorpher()).morph(0));
         assertFalse(((BooleanMorpher) getMorpher()).morph(0L));
@@ -95,7 +95,7 @@ public class BooleanMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testBooleanMorphNumberValues_true() {
-        assertTrue(((BooleanMorpher) getMorpher()).morph(new Byte((byte) 1)));
+        assertTrue(((BooleanMorpher) getMorpher()).morph((byte) 1));
         assertTrue(((BooleanMorpher) getMorpher()).morph(new Short((short) 1)));
         assertTrue(((BooleanMorpher) getMorpher()).morph(1));
         assertTrue(((BooleanMorpher) getMorpher()).morph(1L));
