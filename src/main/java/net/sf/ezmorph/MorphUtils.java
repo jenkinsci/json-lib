@@ -70,13 +70,13 @@ public class MorphUtils {
      * values.<br>
      * <ul>
      * <li>Boolean - Boolean.FALSE</li>
-     * <li>Character - new Character('\0')</li>
-     * <li>Byte - new Byte( (byte)0 )</li>
-     * <li>Short - new Short( (short)0 )</li>
-     * <li>Integer - new Integer( 0 )</li>
-     * <li>Long - new Long( 0 )</li>
-     * <li>Float - new Float( 0 )</li>
-     * <li>Double - new Double( 0 )</li>
+     * <li>Character - '\0'</li>
+     * <li>Byte - (byte) 0</li>
+     * <li>Short - (short) 0</li>
+     * <li>Integer - 0</li>
+     * <li>Long - 0L</li>
+     * <li>Float - 0f</li>
+     * <li>Double - 0d</li>
      * <li>String - null</li>
      * <li>BigInteger - BigInteger.ZERO</li>
      * <li>BigDecimal - MorphUtils.BIGDECIMAL_ZERO</li>
@@ -104,13 +104,13 @@ public class MorphUtils {
      * Registers morphers for wrappers and String with standard default values.<br>
      * <ul>
      * <li>Boolean - Boolean.FALSE</li>
-     * <li>Character - new Character('\0')</li>
-     * <li>Byte - new Byte( (byte)0 )</li>
-     * <li>Short - new Short( (short)0 )</li>
-     * <li>Integer - new Integer( 0 )</li>
-     * <li>Long - new Long( 0 )</li>
-     * <li>Float - new Float( 0 )</li>
-     * <li>Double - new Double( 0 )</li>
+     * <li>Character - '\0'</li>
+     * <li>Byte - (byte) 0</li>
+     * <li>Short - (short) 0</li>
+     * <li>Integer - 0</li>
+     * <li>Long - 0L</li>
+     * <li>Float - 0f</li>
+     * <li>Double - 0d</li>
      * <li>String - null</li>
      * <li>BigInteger - BigInteger.ZERO</li>
      * <li>BigDecimal - MorphUtils.BIGDECIMAL_ZERO</li>
