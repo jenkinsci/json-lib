@@ -182,14 +182,14 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testFloatConversion_float() {
         morpher = new NumberMorpher(Float.TYPE);
-        Float expected = new Float(Float.MIN_VALUE);
+        Float expected = Float.MIN_VALUE;
         Float actual = (Float) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
     public void testFloatConversion_Float() {
         morpher = new NumberMorpher(Float.class);
-        Float expected = new Float(Float.MIN_VALUE);
+        Float expected = Float.MIN_VALUE;
         Float actual = (Float) morpher.morph(expected);
         assertEquals(expected, actual);
     }
@@ -208,7 +208,7 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testFloatConversion_useDefault() {
         morpher = new NumberMorpher(Float.class);
-        Float expected = new Float(Float.MIN_VALUE);
+        Float expected = Float.MIN_VALUE;
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
         Float actual = (Float) morpher.morph(new Object());

@@ -268,15 +268,15 @@ public final class NumberMorpher extends AbstractObjectMorpher {
     }
 
     private Object morphToFloat(String str) {
-        Object result = null;
+        float result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Float) null;
+                return null;
             } else {
-                result = new Float(new FloatMorpher(defaultValue.floatValue()).morph(str));
+                result = new FloatMorpher(defaultValue.floatValue()).morph(str);
             }
         } else {
-            result = new Float(new FloatMorpher().morph(str));
+            result = new FloatMorpher().morph(str);
         }
         return result;
     }
