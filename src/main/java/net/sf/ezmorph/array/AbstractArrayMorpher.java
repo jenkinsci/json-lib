@@ -60,9 +60,9 @@ public abstract class AbstractArrayMorpher implements ObjectMorpher {
      * Creates an array representing the dimensions for comversion.
      */
     protected int[] createDimensions(int length, int initial) {
-        Object dims = Array.newInstance(int.class, length);
-        Array.set(dims, 0, initial);
-        return (int[]) dims;
+        int[] dims = (int[]) Array.newInstance(int.class, length);
+        Array.setInt(dims, 0, initial);
+        return dims;
     }
 
     /**
