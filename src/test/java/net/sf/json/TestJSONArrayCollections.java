@@ -77,8 +77,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Byte() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         List bytes = new ArrayList();
         bytes.add(new Byte((byte) 1));
         bytes.add(new Byte((byte) 2));
@@ -130,8 +130,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Integer() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -155,8 +155,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Long() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         List longs = new ArrayList();
         longs.add(new Long(1L));
         longs.add(new Long(2L));
@@ -186,8 +186,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Short() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         List shorts = new ArrayList();
         shorts.add(new Short((short) 1));
         shorts.add(new Short((short) 2));
@@ -266,8 +266,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Byte() {
         Set expected = new HashSet();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         Set bytes = new HashSet();
         bytes.add(new Byte((byte) 1));
         bytes.add(new Byte((byte) 2));
@@ -329,8 +329,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Integer() {
         Set expected = new HashSet();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
@@ -362,8 +362,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Long() {
         Set expected = new HashSet();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         Set longs = new HashSet();
         longs.add(new Long(1L));
         longs.add(new Long(2L));
@@ -399,8 +399,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Short() {
         Set expected = new HashSet();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
+        expected.add(1);
+        expected.add(2);
         Set shorts = new HashSet();
         shorts.add(new Short((short) 1));
         shorts.add(new Short((short) 2));

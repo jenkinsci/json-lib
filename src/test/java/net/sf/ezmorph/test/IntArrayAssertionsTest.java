@@ -84,7 +84,7 @@ public class IntArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_int_Integer() {
         int[] expecteds = new int[] {1, 2};
-        Integer[] actuals = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
@@ -101,7 +101,7 @@ public class IntArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_int_Integer_different_length() {
         int[] expecteds = new int[] {1};
-        Integer[] actuals = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] actuals = new Integer[] {1, 2};
         boolean errorThrown = false;
         try {
             ArrayAssertions.assertEquals(expecteds, actuals);
@@ -113,7 +113,7 @@ public class IntArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_int_Integer_expecteds_is_null() {
         boolean errorThrown = false;
-        Integer[] actuals = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] actuals = new Integer[] {1, 2};
         try {
             ArrayAssertions.assertEquals((int[]) null, actuals);
         } catch (AssertionFailedError expected) {
@@ -123,14 +123,14 @@ public class IntArrayAssertionsTest extends TestCase {
     }
 
     public void testAssertEquals_Integer_int() {
-        Integer[] expecteds = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] expecteds = new Integer[] {1, 2};
         int[] actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_Integer_int_actuals_is_null() {
         boolean errorThrown = false;
-        Integer[] expecteds = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] expecteds = new Integer[] {1, 2};
         try {
             ArrayAssertions.assertEquals(expecteds, (int[]) null);
         } catch (AssertionFailedError expected) {
@@ -140,7 +140,7 @@ public class IntArrayAssertionsTest extends TestCase {
     }
 
     public void testAssertEquals_Integer_int_different_length() {
-        Integer[] expecteds = new Integer[] {new Integer(1)};
+        Integer[] expecteds = new Integer[] {1};
         int[] actuals = new int[] {1, 2};
         boolean errorThrown = false;
         try {
@@ -163,8 +163,8 @@ public class IntArrayAssertionsTest extends TestCase {
     }
 
     public void testAssertEquals_Integer_Integer() {
-        Integer[] expecteds = new Integer[] {new Integer(1), new Integer(2)};
-        Integer[] actuals = new Integer[] {new Integer(1), new Integer(2)};
+        Integer[] expecteds = new Integer[] {1, 2};
+        Integer[] actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
@@ -176,19 +176,19 @@ public class IntArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_multi_int_Integer() {
         int[][] expecteds = new int[][] {{1, 2}, {1, 2}};
-        Integer[][] actuals = new Integer[][] {{new Integer(1), new Integer(2)}, {new Integer(1), new Integer(2)}};
+        Integer[][] actuals = new Integer[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_multi_Integer_int() {
-        Integer[][] expecteds = new Integer[][] {{new Integer(1), new Integer(2)}, {new Integer(1), new Integer(2)}};
+        Integer[][] expecteds = new Integer[][] {{1, 2}, {1, 2}};
         int[][] actuals = new int[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_multi_Integer_Integer() {
-        Integer[][] expecteds = new Integer[][] {{new Integer(1), new Integer(2)}, {new Integer(1), new Integer(2)}};
-        Integer[][] actuals = new Integer[][] {{new Integer(1), new Integer(2)}, {new Integer(1), new Integer(2)}};
+        Integer[][] expecteds = new Integer[][] {{1, 2}, {1, 2}};
+        Integer[][] actuals = new Integer[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
@@ -212,31 +212,31 @@ public class IntArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_OO_int_Integer() {
         Object expecteds = new int[] {1, 2};
-        Object actuals = new Integer[] {new Integer(1), new Integer(2)};
+        Object actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_int_Object_array() {
         Object expecteds = new int[] {1, 2};
-        Object actuals = new Object[] {new Integer(1), new Integer(2)};
+        Object actuals = new Object[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Integer_int() {
-        Object expecteds = new Integer[] {new Integer(1), new Integer(2)};
+        Object expecteds = new Integer[] {1, 2};
         Object actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Object_array_int() {
-        Object expecteds = new Object[] {new Integer(1), new Integer(2)};
+        Object expecteds = new Object[] {1, 2};
         Object actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Object_array_Object_array() {
-        Object expecteds = new Object[] {new Integer(1), new Integer(2)};
-        Object actuals = new Object[] {new Integer(1), new Integer(2)};
+        Object expecteds = new Object[] {1, 2};
+        Object actuals = new Object[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 }

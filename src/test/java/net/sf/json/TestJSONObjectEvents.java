@@ -83,7 +83,7 @@ public class TestJSONObjectEvents extends TestCase {
         JSONObject jsonObject = new JSONObject()
                 .element("name", "json")
                 .element("func", new JSONFunction("return this;"))
-                .element("int", new Integer(1));
+                .element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }
@@ -92,7 +92,7 @@ public class TestJSONObjectEvents extends TestCase {
         Map map = new HashMap();
         map.put("name", "json");
         map.put("func", new JSONFunction("return this;"));
-        map.put("int", new Integer(1));
+        map.put("int", 1);
         JSONObject.fromObject(map, jsonConfig);
         assertEvents();
     }
@@ -136,7 +136,7 @@ public class TestJSONObjectEvents extends TestCase {
         dynaBean.setDynaBeanClass(dynaClass);
         dynaBean.set("name", "json");
         dynaBean.set("func", new JSONFunction("return this;"));
-        dynaBean.set("int", new Integer(1));
+        dynaBean.set("int", 1);
         return dynaBean;
     }
 }

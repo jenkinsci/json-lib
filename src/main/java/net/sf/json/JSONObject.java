@@ -1109,7 +1109,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         try {
             for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
                 boolean bypass = false;
-                Map.Entry entry = (Map.Entry) entries.next();
+                Entry entry = (Entry) entries.next();
                 Object k = entry.getKey();
                 if (k == null) {
                     throw new JSONException("JSON keys cannot be null.");
@@ -1293,7 +1293,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             // this will hit performance as it must iterate over all the keys
             // and create a RegexpMatcher for each key
             for (Iterator i = classMap.entrySet().iterator(); i.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) i.next();
+                Entry entry = (Entry) i.next();
                 if (RegexpUtils.getMatcher((String) entry.getKey()).matches(key)) {
                     targetClass = (Class) entry.getValue();
                     break;
@@ -1538,14 +1538,14 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
     public void accumulateAll(Map map, JsonConfig jsonConfig) {
         if (map instanceof JSONObject) {
             for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) entries.next();
+                Entry entry = (Entry) entries.next();
                 String key = (String) entry.getKey();
                 Object value = entry.getValue();
                 accumulate(key, value, jsonConfig);
             }
         } else {
             for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) entries.next();
+                Entry entry = (Entry) entries.next();
                 String key = String.valueOf(entry.getKey());
                 Object value = entry.getValue();
                 accumulate(key, value, jsonConfig);
@@ -1673,7 +1673,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      */
     public JSONObject element(String key, int value) {
         verifyIsNull();
-        return element(key, new Integer(value));
+        return element(key, ((Integer) value));
     }
 
     /**
@@ -2071,7 +2071,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             return hashcode + JSONNull.getInstance().hashCode();
         }
         for (Iterator entries = properties.entrySet().iterator(); entries.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) entries.next();
+            Entry entry = (Entry) entries.next();
             Object key = entry.getKey();
             Object value = entry.getValue();
             hashcode += key.hashCode() + JSONUtils.hashCode(value);
@@ -2352,14 +2352,14 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
     public void putAll(Map map, JsonConfig jsonConfig) {
         if (map instanceof JSONObject) {
             for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) entries.next();
+                Entry entry = (Entry) entries.next();
                 String key = (String) entry.getKey();
                 Object value = entry.getValue();
                 this.properties.put(key, value);
             }
         } else {
             for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) entries.next();
+                Entry entry = (Entry) entries.next();
                 String key = String.valueOf(entry.getKey());
                 Object value = entry.getValue();
                 element(key, value, jsonConfig);

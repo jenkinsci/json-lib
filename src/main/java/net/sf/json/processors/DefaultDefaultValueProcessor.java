@@ -34,7 +34,7 @@ public class DefaultDefaultValueProcessor implements DefaultValueProcessor {
             if (JSONUtils.isDouble(type)) {
                 return new Double(0);
             } else {
-                return new Integer(0);
+                return 0;
             }
         } else if (JSONUtils.isBoolean(type)) {
             return Boolean.FALSE;

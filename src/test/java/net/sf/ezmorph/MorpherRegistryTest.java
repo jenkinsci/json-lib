@@ -141,7 +141,7 @@ public class MorpherRegistryTest extends TestCase {
         ArrayAssertions.assertEquals(
                 new Short[] {new Short((short) 0)}, (Short[]) morpherRegistry.morph(Short[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
-                new Integer[] {new Integer(0)}, (Integer[]) morpherRegistry.morph(Integer[].class, new String[] {"a"}));
+                new Integer[] {0}, (Integer[]) morpherRegistry.morph(Integer[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
                 new Long[] {new Long(0)}, (Long[]) morpherRegistry.morph(Long[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
@@ -231,7 +231,7 @@ public class MorpherRegistryTest extends TestCase {
         assertEquals(new Character('\0'), morpherRegistry.morph(char.class, null));
         assertEquals(new Byte((byte) 0), morpherRegistry.morph(byte.class, null));
         assertEquals(new Short((short) 0), morpherRegistry.morph(short.class, null));
-        assertEquals(new Integer(0), morpherRegistry.morph(int.class, null));
+        assertEquals(0, morpherRegistry.morph(int.class, null));
         assertEquals(new Long(0), morpherRegistry.morph(long.class, null));
         assertEquals(new Float(0), morpherRegistry.morph(float.class, null));
         assertEquals(new Double(0), morpherRegistry.morph(double.class, null));
@@ -239,13 +239,13 @@ public class MorpherRegistryTest extends TestCase {
 
     public void testMorph_severalMorphersForTargetClass() {
         Map map = new HashMap();
-        map.put("year", new Integer(2007));
-        map.put("month", new Integer(5));
-        map.put("day", new Integer(17));
-        map.put("hour", new Integer(12));
-        map.put("minutes", new Integer(13));
-        map.put("seconds", new Integer(14));
-        map.put("milliseconds", new Integer(150));
+        map.put("year", 2007);
+        map.put("month", 5);
+        map.put("day", 17);
+        map.put("hour", 12);
+        map.put("minutes", 13);
+        map.put("seconds", 14);
+        map.put("milliseconds", 150);
 
         MorpherRegistry morpherRegistry = new MorpherRegistry();
         morpherRegistry.registerMorpher(new DateMorpher(new String[] {"mm/dd/yyyy"}));
