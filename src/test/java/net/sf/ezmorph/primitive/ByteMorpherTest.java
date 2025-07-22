@@ -77,13 +77,13 @@ public class ByteMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testByteMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
+        Double expected = 3.1416d;
         byte actual = ((ByteMorpher) getMorpher()).morph(expected);
         assertEquals(3, actual);
     }
 
     public void testByteMorphDecimalValue_Number_outOfRange() {
-        byte actual = ((ByteMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        byte actual = ((ByteMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(-1, actual);
     }
 

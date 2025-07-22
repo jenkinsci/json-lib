@@ -101,8 +101,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Double() {
         List expected = new ArrayList();
-        expected.add(new Double(1d));
-        expected.add(new Double(2d));
+        expected.add(1d);
+        expected.add(2d);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         List actual = (List) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
@@ -118,8 +118,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToList_Float() {
         List expected = new ArrayList();
-        expected.add(new Double(1d));
-        expected.add(new Double(2d));
+        expected.add(1d);
+        expected.add(2d);
         List floats = new ArrayList();
         floats.add(new Float(1f));
         floats.add(new Float(2f));
@@ -294,8 +294,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Double() {
         Set expected = new HashSet();
-        expected.add(new Double(1d));
-        expected.add(new Double(2d));
+        expected.add(1d);
+        expected.add(2d);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
@@ -315,8 +315,8 @@ public class TestJSONArrayCollections extends TestCase {
 
     public void testToSet_Float() {
         Set expected = new HashSet();
-        expected.add(new Double(1d));
-        expected.add(new Double(2d));
+        expected.add(1d);
+        expected.add(2d);
         Set floats = new HashSet();
         floats.add(new Float(1f));
         floats.add(new Float(2f));

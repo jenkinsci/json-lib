@@ -77,13 +77,12 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testFloatMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = ((FloatMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3.1416f, actual, 0f);
     }
 
     public void testFloatMorphDecimalValue_Number_outOfRange() {
-        float actual = ((FloatMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        float actual = ((FloatMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(Float.POSITIVE_INFINITY, actual, 0f);
     }
 

@@ -90,7 +90,7 @@ public class TestJSONBuilder extends TestCase {
                 .endObject();
         JSONObject jsonObj = JSONObject.fromObject(w.toString());
         assertEquals(Boolean.TRUE, jsonObj.get("bool"));
-        assertEquals(new Double(1.1d), jsonObj.get("numDouble"));
+        assertEquals(1.1d, jsonObj.get("numDouble"));
         assertEquals(2L, ((Number) jsonObj.get("numInt")).longValue());
         assertEquals("text", jsonObj.get("text"));
         assertTrue(JSONUtils.isFunction(jsonObj.get("func")));

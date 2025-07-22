@@ -359,8 +359,8 @@ public class TestJSONObject extends TestCase {
 
     public void testElement_Number() {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.element("num", new Double(2));
-        Assertions.assertEquals(new Double(2).doubleValue(), jsonObject.getDouble("num"), 0d);
+        jsonObject.element("num", 2d);
+        Assertions.assertEquals(2d, jsonObject.getDouble("num"), 0d);
     }
 
     public void testElement_Object() {
@@ -488,7 +488,7 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(new Float(Float.MIN_VALUE));
         assertTrue(json.isEmpty());
-        json = JSONObject.fromObject(new Double(Double.MIN_VALUE));
+        json = JSONObject.fromObject(Double.MIN_VALUE);
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(new Character('A'));
         assertTrue(json.isEmpty());
@@ -518,7 +518,7 @@ public class TestJSONObject extends TestCase {
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();
         dynaBean.setDynaBeanClass(dynaClass);
         dynaBean.set("string", "json");
-        dynaBean.set("number", new Double(2));
+        dynaBean.set("number", 2d);
         dynaBean.set("array", new Integer[] {1, 2});
         dynaBean.set("list", new ArrayList());
         dynaBean.set("func", new JSONFunction(new String[] {"a"}, "return a;"));
@@ -527,7 +527,7 @@ public class TestJSONObject extends TestCase {
 
         JSONObject jsonObject = JSONObject.fromObject(dynaBean);
         assertEquals("json", jsonObject.get("string"));
-        assertEquals(new Double(2), jsonObject.get("number"));
+        assertEquals(2d, jsonObject.get("number"));
         assertEquals(Boolean.TRUE, jsonObject.get("boolean"));
         Assertions.assertEquals("function(a){ return a; }", (JSONFunction) jsonObject.get("func"));
     }
@@ -606,7 +606,7 @@ public class TestJSONObject extends TestCase {
         expected.element("intp", 0);
         expected.element("longp", 0);
         expected.element("floatp", 0);
-        expected.element("doublep", new Double(0));
+        expected.element("doublep", 0d);
         expected.element("charp", "");
         expected.element("stringp", "");
 
@@ -798,7 +798,7 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(new Float(Float.MIN_VALUE));
         assertTrue(json.isEmpty());
-        json = JSONObject.fromObject(new Double(Double.MIN_VALUE));
+        json = JSONObject.fromObject(Double.MIN_VALUE);
         assertTrue(json.isEmpty());
         json = JSONObject.fromObject(new Character('A'));
         assertTrue(json.isEmpty());
@@ -814,15 +814,15 @@ public class TestJSONObject extends TestCase {
         assertEquals(NumberDefaultValueProcessor.NUMBER, jsonObject.get("pwint"));
         assertEquals(0, jsonObject.get("pwlong"));
         assertEquals(0, jsonObject.get("pwfloat"));
-        assertEquals(new Double(0), jsonObject.get("pwdouble"));
+        assertEquals(0d, jsonObject.get("pwdouble"));
         assertEquals(0, jsonObject.get("pbigdec"));
         assertEquals(0, jsonObject.get("pbigint"));
         assertEquals(0, jsonObject.get("pbyte"));
         assertEquals(0, jsonObject.get("pshort"));
         assertEquals(0, jsonObject.get("pint"));
         assertEquals(0, jsonObject.get("plong"));
-        assertEquals(new Double(0), jsonObject.get("pfloat"));
-        assertEquals(new Double(0), jsonObject.get("pdouble"));
+        assertEquals(0d, jsonObject.get("pfloat"));
+        assertEquals(0d, jsonObject.get("pdouble"));
     }
 
     public void testFromObject_withCustomDefaultValueProcessor_andMatcher() {
@@ -843,8 +843,8 @@ public class TestJSONObject extends TestCase {
         assertEquals(0, jsonObject.get("pshort"));
         assertEquals(0, jsonObject.get("pint"));
         assertEquals(0, jsonObject.get("plong"));
-        assertEquals(new Double(0), jsonObject.get("pfloat"));
-        assertEquals(new Double(0), jsonObject.get("pdouble"));
+        assertEquals(0d, jsonObject.get("pfloat"));
+        assertEquals(0d, jsonObject.get("pdouble"));
     }
 
     public void testFromObject_withExcludesPerClass() {
@@ -1074,7 +1074,7 @@ public class TestJSONObject extends TestCase {
         expected.element("intp", 0);
         expected.element("longp", 0);
         expected.element("floatp", 0);
-        expected.element("doublep", new Double(0));
+        expected.element("doublep", 0d);
         expected.element("charp", "");
         expected.element("stringp", "");
 
@@ -1089,7 +1089,7 @@ public class TestJSONObject extends TestCase {
         Assertions.assertEquals((Integer) 0, bean2.getIntp());
         Assertions.assertEquals((Long) 0L, bean2.getLongp());
         Assertions.assertEquals(new Float(0), bean2.getFloatp());
-        Assertions.assertEquals(new Double(0), bean2.getDoublep());
+        Assertions.assertEquals(0d, bean2.getDoublep());
         Assertions.assertEquals(new Character('\0'), bean2.getCharp());
         Assertions.assertEquals("", bean2.getStringp());
     }
@@ -1347,7 +1347,7 @@ public class TestJSONObject extends TestCase {
         json.element("pint", 2);
         json.element("plong", 2L);
         json.element("pfloat", new Float(2));
-        json.element("pdouble", new Double(2));
+        json.element("pdouble", 2d);
         json.element("pbigint", new BigInteger("2"));
         json.element("pbigdec", new BigDecimal("2"));
 

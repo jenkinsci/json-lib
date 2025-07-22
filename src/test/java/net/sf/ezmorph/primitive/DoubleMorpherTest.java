@@ -77,7 +77,7 @@ public class DoubleMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testDoubleMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
+        Double expected = 3.1416d;
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
         assertEquals(3.1416d, actual, 0d);
     }
@@ -89,25 +89,25 @@ public class DoubleMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testDoubleMorphMaxValue_Number() {
-        Double expected = new Double(Double.MAX_VALUE);
+        Double expected = Double.MAX_VALUE;
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
         assertEquals(expected.doubleValue(), actual, 0d);
     }
 
     public void testDoubleMorphMaxValue_String() {
-        String expected = String.valueOf(new Double(Double.MAX_VALUE));
+        String expected = String.valueOf(Double.MAX_VALUE);
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testDoubleMorphMinValue_Number() {
-        Double expected = new Double(Double.MIN_VALUE);
+        Double expected = Double.MIN_VALUE;
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
         assertEquals(expected.doubleValue(), actual, 0d);
     }
 
     public void testDoubleMorphMinValue_String() {
-        String expected = String.valueOf(new Double(Double.MIN_VALUE));
+        String expected = String.valueOf(Double.MIN_VALUE);
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }

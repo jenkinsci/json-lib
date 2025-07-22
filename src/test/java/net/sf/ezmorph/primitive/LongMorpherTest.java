@@ -77,13 +77,12 @@ public class LongMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testLongMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        long actual = ((LongMorpher) getMorpher()).morph(expected);
+        long actual = ((LongMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3, actual);
     }
 
     public void testLongMorphDecimalValue_Number_outOfRange() {
-        long actual = ((LongMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        long actual = ((LongMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(Long.MAX_VALUE, actual);
     }
 

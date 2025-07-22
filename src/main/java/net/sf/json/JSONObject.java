@@ -1657,7 +1657,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      */
     public JSONObject element(String key, double value) {
         verifyIsNull();
-        Double d = new Double(value);
+        Double d = value;
         JSONUtils.testValidity(d);
         return element(key, d);
     }
