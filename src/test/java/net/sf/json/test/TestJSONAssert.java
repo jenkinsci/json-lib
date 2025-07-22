@@ -154,10 +154,10 @@ public class TestJSONAssert extends TestCase {
     public void testAssertEquals_JSONArray_JSONArray() {
         Object[] values = new Object[] {
             Boolean.valueOf(true),
-            new Integer(Integer.MAX_VALUE),
-            new Long(Long.MAX_VALUE),
-            new Float(Float.MAX_VALUE),
-            new Double(Double.MAX_VALUE),
+            Integer.MAX_VALUE,
+            Long.MAX_VALUE,
+            Float.MAX_VALUE,
+            Double.MAX_VALUE,
             "json",
             new JSONArray(),
             new JSONObject(true),
@@ -312,10 +312,10 @@ public class TestJSONAssert extends TestCase {
             String[] names = new String[] {"b", "i", "l", "f", "d", "s", "a1", "o1", "o2", "o3", "u1", "u2"};
             Object[] values = new Object[] {
                 Boolean.valueOf(true),
-                new Integer(Integer.MAX_VALUE),
-                new Long(Long.MAX_VALUE),
-                new Float(Float.MAX_VALUE),
-                new Double(Double.MAX_VALUE),
+                Integer.MAX_VALUE,
+                Long.MAX_VALUE,
+                Float.MAX_VALUE,
+                Double.MAX_VALUE,
                 "json",
                 new JSONArray(),
                 new JSONObject(true),

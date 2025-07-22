@@ -106,13 +106,13 @@ public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher {
                         }
                         return result;
                     } else {
-                        morpher = new CharMorpher(defaultValue.charValue());
+                        morpher = new CharMorpher(defaultValue);
                     }
                 } else {
                     morpher = new CharMorpher();
                 }
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Character(morpher.morph(Array.get(array, index))));
+                    Array.setChar(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {

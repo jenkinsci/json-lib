@@ -77,10 +77,10 @@ public class IdBean {
         @Override
         public Object morph(Object value) {
             if (value != null) {
-                if (value instanceof Number) {
-                    return new IdBean.Id(((Number) value).longValue());
-                } else if (value instanceof String) {
-                    return new IdBean.Id(new Long((String) value).longValue());
+                if (value instanceof Number n) {
+                    return new IdBean.Id(n.longValue());
+                } else if (value instanceof String s) {
+                    return new IdBean.Id(Long.parseLong(s));
                 }
             }
             return null;

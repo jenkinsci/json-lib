@@ -77,13 +77,12 @@ public class IntMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testIntMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = ((IntMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3, actual);
     }
 
     public void testIntMorphDecimalValue_Number_outOfRange() {
-        int actual = ((IntMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        int actual = ((IntMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(Integer.MAX_VALUE, actual);
     }
 
@@ -94,25 +93,25 @@ public class IntMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testIntMorphMaxValue_Number() {
-        Integer expected = new Integer(Integer.MAX_VALUE);
+        Integer expected = Integer.MAX_VALUE;
         int actual = ((IntMorpher) getMorpher()).morph(expected);
         assertEquals(expected.intValue(), actual);
     }
 
     public void testIntMorphMaxValue_String() {
-        String expected = String.valueOf(new Integer(Integer.MAX_VALUE));
+        String expected = String.valueOf(Integer.MAX_VALUE);
         int actual = ((IntMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testIntMorphMinValue_Number() {
-        Integer expected = new Integer(Integer.MIN_VALUE);
+        Integer expected = Integer.MIN_VALUE;
         int actual = ((IntMorpher) getMorpher()).morph(expected);
         assertEquals(expected.intValue(), actual);
     }
 
     public void testIntMorphMinValue_String() {
-        String expected = String.valueOf(new Integer(Integer.MIN_VALUE));
+        String expected = String.valueOf(Integer.MIN_VALUE);
         int actual = ((IntMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
