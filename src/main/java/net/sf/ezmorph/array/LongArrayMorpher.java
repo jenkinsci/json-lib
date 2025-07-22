@@ -103,7 +103,7 @@ public final class LongArrayMorpher extends AbstractArrayMorpher {
             LongMorpher morpher = isUseDefault() ? new LongMorpher(defaultValue) : new LongMorpher();
             if (dims == 1) {
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Long(morpher.morph(Array.get(array, index))));
+                    Array.setLong(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {

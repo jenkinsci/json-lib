@@ -647,8 +647,7 @@ public final class JSONUtils {
         } else if (input instanceof Byte) {
             return input.intValue();
         } else if (input instanceof Long) {
-            Long max = new Long(Integer.MAX_VALUE);
-            if (input.longValue() <= max.longValue() && input.longValue() >= Integer.MIN_VALUE) {
+            if (input.longValue() <= Integer.MAX_VALUE && input.longValue() >= Integer.MIN_VALUE) {
                 return input.intValue();
             }
         }

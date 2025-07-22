@@ -155,7 +155,7 @@ public class TestJSONAssert extends TestCase {
         Object[] values = new Object[] {
             Boolean.valueOf(true),
             Integer.MAX_VALUE,
-            new Long(Long.MAX_VALUE),
+            Long.MAX_VALUE,
             new Float(Float.MAX_VALUE),
             new Double(Double.MAX_VALUE),
             "json",
@@ -313,7 +313,7 @@ public class TestJSONAssert extends TestCase {
             Object[] values = new Object[] {
                 Boolean.valueOf(true),
                 Integer.MAX_VALUE,
-                new Long(Long.MAX_VALUE),
+                Long.MAX_VALUE,
                 new Float(Float.MAX_VALUE),
                 new Double(Double.MAX_VALUE),
                 "json",

@@ -64,7 +64,7 @@ public class BigIntegerMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(BigInteger.ONE, actual);
         actual = ((BigIntegerMorpher) getMorpher()).morph(1);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(new Long(1L));
+        actual = ((BigIntegerMorpher) getMorpher()).morph(1L);
         assertEquals(BigInteger.ONE, actual);
         actual = ((BigIntegerMorpher) getMorpher()).morph(new Double(1d));
         assertEquals(BigInteger.ONE, actual);

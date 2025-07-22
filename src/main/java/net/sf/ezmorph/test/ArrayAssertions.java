@@ -720,7 +720,7 @@ public class ArrayAssertions extends Assert {
         }
 
         for (int i = 0; i < expecteds.length; i++) {
-            assertEquals(header + "arrays first differed at element [" + i + "];", new Long(expecteds[i]), actuals[i]);
+            assertEquals(header + "arrays first differed at element [" + i + "];", expecteds[i], actuals[i]);
         }
     }
 
@@ -930,7 +930,7 @@ public class ArrayAssertions extends Assert {
         }
 
         for (int i = 0; i < expecteds.length; i++) {
-            assertEquals(header + "arrays first differed at element [" + i + "];", expecteds[i], new Long(actuals[i]));
+            assertEquals(header + "arrays first differed at element [" + i + "];", expecteds[i], actuals[i]);
         }
     }
 

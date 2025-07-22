@@ -295,16 +295,16 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         return result;
     }
 
-    private Object morphToLong(String str) {
-        Object result = null;
+    private Long morphToLong(String str) {
+        long result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Long) null;
+                return null;
             } else {
-                result = new Long(new LongMorpher(defaultValue.longValue()).morph(str));
+                result = new LongMorpher(defaultValue.longValue()).morph(str);
             }
         } else {
-            result = new Long(new LongMorpher().morph(str));
+            result = new LongMorpher().morph(str);
         }
         return result;
     }
