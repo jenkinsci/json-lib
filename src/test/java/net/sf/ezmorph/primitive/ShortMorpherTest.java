@@ -93,25 +93,25 @@ public class ShortMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testShortMorphMaxValue_Number() {
-        Short expected = new Short(Short.MAX_VALUE);
+        Short expected = Short.MAX_VALUE;
         short actual = ((ShortMorpher) getMorpher()).morph(expected);
         assertEquals(expected.shortValue(), actual);
     }
 
     public void testShortMorphMaxValue_String() {
-        String expected = String.valueOf(new Short(Short.MAX_VALUE));
+        String expected = String.valueOf(Short.MAX_VALUE);
         short actual = ((ShortMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testShortMorphMinValue_Number() {
-        Short expected = new Short(Short.MIN_VALUE);
+        Short expected = Short.MIN_VALUE;
         short actual = ((ShortMorpher) getMorpher()).morph(expected);
         assertEquals(expected.shortValue(), actual);
     }
 
     public void testShortMorphMinValue_String() {
-        String expected = String.valueOf(new Short(Short.MIN_VALUE));
+        String expected = String.valueOf(Short.MIN_VALUE);
         short actual = ((ShortMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
