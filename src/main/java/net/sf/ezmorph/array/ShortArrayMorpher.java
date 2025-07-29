@@ -99,7 +99,7 @@ public final class ShortArrayMorpher extends AbstractArrayMorpher {
             ShortMorpher morpher = isUseDefault() ? new ShortMorpher(defaultValue) : new ShortMorpher();
             if (dims == 1) {
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Short(morpher.morph(Array.get(array, index))));
+                    Array.setShort(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {

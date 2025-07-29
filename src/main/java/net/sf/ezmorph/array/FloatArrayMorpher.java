@@ -99,7 +99,7 @@ public final class FloatArrayMorpher extends AbstractArrayMorpher {
             FloatMorpher morpher = isUseDefault() ? new FloatMorpher(defaultValue) : new FloatMorpher();
             if (dims == 1) {
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Float(morpher.morph(Array.get(array, index))));
+                    Array.setFloat(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {

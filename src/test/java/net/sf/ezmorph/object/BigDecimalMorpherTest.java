@@ -59,15 +59,15 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
     }
 
     public void testBigDecimalMorph_Number() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(new Float(1f));
+        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1f);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
-        actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(new Double(1d));
+        actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1d);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
     }
 
     public void testBigDecimalMorph_Number__Double_INFINITY() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Double(Double.POSITIVE_INFINITY));
+            ((BigDecimalMorpher) getMorpher()).morph(Double.POSITIVE_INFINITY);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok
@@ -76,7 +76,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testBigDecimalMorph_Number__Double_NAN() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Double(Double.NaN));
+            ((BigDecimalMorpher) getMorpher()).morph(Double.NaN);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok
@@ -85,7 +85,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testBigDecimalMorph_Number__Float_INFINITY() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Float(Float.POSITIVE_INFINITY));
+            ((BigDecimalMorpher) getMorpher()).morph(Float.POSITIVE_INFINITY);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok
@@ -94,7 +94,7 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testBigDecimalMorph_Number__Float_NAN() {
         try {
-            ((BigDecimalMorpher) getMorpher()).morph(new Float(Float.NaN));
+            ((BigDecimalMorpher) getMorpher()).morph(Float.NaN);
             fail("Should have thrown an Exception");
         } catch (MorphException expected) {
             // ok

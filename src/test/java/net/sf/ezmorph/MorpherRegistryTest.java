@@ -85,8 +85,8 @@ public class MorpherRegistryTest extends TestCase {
                 (BigDecimal[]) morpherRegistry.morph(BigDecimal[].class, new String[] {"0", "1"}));
         ArrayAssertions.assertEquals(
                 new Boolean[] {Boolean.FALSE}, (Boolean[]) morpherRegistry.morph(Boolean[].class, new String[] {""}));
-        ArrayAssertions.assertEquals(new Character[] {new Character('\0')}, (Character[])
-                morpherRegistry.morph(Character[].class, new String[] {""}));
+        ArrayAssertions.assertEquals(
+                new Character[] {'\0'}, (Character[]) morpherRegistry.morph(Character[].class, new String[] {""}));
         ArrayAssertions.assertEquals(new Class[] {Object.class, boolean[].class}, (Class[])
                 morpherRegistry.morph(Class[].class, new String[] {"java.lang.Object", "[Z"}));
     }
@@ -137,17 +137,16 @@ public class MorpherRegistryTest extends TestCase {
         MorphUtils.registerStandardObjectArrayMorphers(morpherRegistry);
 
         ArrayAssertions.assertEquals(
-                new Byte[] {new Byte((byte) 0)}, (Byte[]) morpherRegistry.morph(Byte[].class, new String[] {"a"}));
+                new Byte[] {(byte) 0}, (Byte[]) morpherRegistry.morph(Byte[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
-                new Short[] {new Short((short) 0)}, (Short[]) morpherRegistry.morph(Short[].class, new String[] {"a"}));
+                new Short[] {(short) 0}, (Short[]) morpherRegistry.morph(Short[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
-                new Integer[] {new Integer(0)}, (Integer[]) morpherRegistry.morph(Integer[].class, new String[] {"a"}));
+                new Integer[] {0}, (Integer[]) morpherRegistry.morph(Integer[].class, new String[] {"a"}));
+        ArrayAssertions.assertEquals(new Long[] {0L}, (Long[]) morpherRegistry.morph(Long[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
-                new Long[] {new Long(0)}, (Long[]) morpherRegistry.morph(Long[].class, new String[] {"a"}));
+                new Float[] {0f}, (Float[]) morpherRegistry.morph(Float[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(
-                new Float[] {new Float(0)}, (Float[]) morpherRegistry.morph(Float[].class, new String[] {"a"}));
-        ArrayAssertions.assertEquals(
-                new Double[] {new Double(0)}, (Double[]) morpherRegistry.morph(Double[].class, new String[] {"a"}));
+                new Double[] {0d}, (Double[]) morpherRegistry.morph(Double[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(new BigInteger[] {BigInteger.ZERO}, (BigInteger[])
                 morpherRegistry.morph(BigInteger[].class, new String[] {"a"}));
         ArrayAssertions.assertEquals(new BigDecimal[] {MorphUtils.BIGDECIMAL_ZERO}, (BigDecimal[])
@@ -176,7 +175,7 @@ public class MorpherRegistryTest extends TestCase {
         MorphUtils.registerStandardObjectMorphers(morpherRegistry);
 
         assertEquals(Boolean.FALSE, morpherRegistry.morph(Boolean.class, null));
-        assertEquals(new Character('\0'), morpherRegistry.morph(Character.class, null));
+        assertEquals('\0', morpherRegistry.morph(Character.class, null));
         assertEquals(Object.class, morpherRegistry.morph(Class.class, "java.lang.Object"));
     }
 
@@ -228,24 +227,24 @@ public class MorpherRegistryTest extends TestCase {
         MorphUtils.registerStandardPrimitiveMorphers(morpherRegistry);
 
         assertEquals(Boolean.FALSE, morpherRegistry.morph(boolean.class, null));
-        assertEquals(new Character('\0'), morpherRegistry.morph(char.class, null));
-        assertEquals(new Byte((byte) 0), morpherRegistry.morph(byte.class, null));
-        assertEquals(new Short((short) 0), morpherRegistry.morph(short.class, null));
-        assertEquals(new Integer(0), morpherRegistry.morph(int.class, null));
-        assertEquals(new Long(0), morpherRegistry.morph(long.class, null));
-        assertEquals(new Float(0), morpherRegistry.morph(float.class, null));
-        assertEquals(new Double(0), morpherRegistry.morph(double.class, null));
+        assertEquals('\0', morpherRegistry.morph(char.class, null));
+        assertEquals((byte) 0, morpherRegistry.morph(byte.class, null));
+        assertEquals((short) 0, morpherRegistry.morph(short.class, null));
+        assertEquals(0, morpherRegistry.morph(int.class, null));
+        assertEquals(0L, morpherRegistry.morph(long.class, null));
+        assertEquals(0f, morpherRegistry.morph(float.class, null));
+        assertEquals(0d, morpherRegistry.morph(double.class, null));
     }
 
     public void testMorph_severalMorphersForTargetClass() {
         Map map = new HashMap();
-        map.put("year", new Integer(2007));
-        map.put("month", new Integer(5));
-        map.put("day", new Integer(17));
-        map.put("hour", new Integer(12));
-        map.put("minutes", new Integer(13));
-        map.put("seconds", new Integer(14));
-        map.put("milliseconds", new Integer(150));
+        map.put("year", 2007);
+        map.put("month", 5);
+        map.put("day", 17);
+        map.put("hour", 12);
+        map.put("minutes", 13);
+        map.put("seconds", 14);
+        map.put("milliseconds", 150);
 
         MorpherRegistry morpherRegistry = new MorpherRegistry();
         morpherRegistry.registerMorpher(new DateMorpher(new String[] {"mm/dd/yyyy"}));

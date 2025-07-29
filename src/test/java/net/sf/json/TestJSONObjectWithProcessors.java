@@ -21,6 +21,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import junit.framework.TestCase;
+import junit.textui.TestRunner;
 import net.sf.json.processors.JsDateJsonBeanProcessor;
 import net.sf.json.processors.JsDateJsonValueProcessor;
 import net.sf.json.sample.DateBean;
@@ -32,7 +33,7 @@ import net.sf.json.test.JSONAssert;
  */
 public class TestJSONObjectWithProcessors extends TestCase {
     public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectWithProcessors.class);
+        TestRunner.run(TestJSONObjectWithProcessors.class);
     }
 
     private Date date;
@@ -124,20 +125,20 @@ public class TestJSONObjectWithProcessors extends TestCase {
 
     public void testNumericValueWithProcessor_Byte() {
         Map bean = new HashMap();
-        bean.put("value", new Byte(Byte.MAX_VALUE));
+        bean.put("value", Byte.MAX_VALUE);
         jsonConfig.registerJsonValueProcessor("value", new IdentityJsonValueProcessor());
         JSONObject jsonObject = JSONObject.fromObject(bean, jsonConfig);
         assertNotNull(jsonObject);
-        assertEquals(new Integer(Byte.MAX_VALUE), jsonObject.get("value"));
+        assertEquals((int) Byte.MAX_VALUE, jsonObject.get("value"));
     }
 
     public void testNumericValueWithProcessor_Short() {
         Map bean = new HashMap();
-        bean.put("value", new Short(Short.MAX_VALUE));
+        bean.put("value", Short.MAX_VALUE);
         jsonConfig.registerJsonValueProcessor("value", new IdentityJsonValueProcessor());
         JSONObject jsonObject = JSONObject.fromObject(bean, jsonConfig);
         assertNotNull(jsonObject);
-        assertEquals(new Integer(Short.MAX_VALUE), jsonObject.get("value"));
+        assertEquals(((int) Short.MAX_VALUE), jsonObject.get("value"));
     }
 
     @Override

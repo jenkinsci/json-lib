@@ -96,7 +96,7 @@ public final class ByteArrayMorpher extends AbstractArrayMorpher {
             ByteMorpher morpher = isUseDefault() ? new ByteMorpher(defaultValue) : new ByteMorpher();
             if (dims == 1) {
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Byte(morpher.morph(Array.get(array, index))));
+                    Array.setByte(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {
