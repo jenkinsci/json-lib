@@ -240,85 +240,85 @@ public final class NumberMorpher extends AbstractObjectMorpher {
     }
 
     private Object morphToByte(String str) {
-        Object result = null;
+        byte result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Byte) null;
+                return null;
             } else {
-                result = new Byte(new ByteMorpher(defaultValue.byteValue()).morph(str));
+                result = new ByteMorpher(defaultValue.byteValue()).morph(str);
             }
         } else {
-            result = new Byte(new ByteMorpher().morph(str));
+            result = new ByteMorpher().morph(str);
         }
         return result;
     }
 
-    private Object morphToDouble(String str) {
-        Object result = null;
+    private Double morphToDouble(String str) {
+        double result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Double) null;
+                return null;
             } else {
-                result = new Double(new DoubleMorpher(defaultValue.doubleValue()).morph(str));
+                result = new DoubleMorpher(defaultValue.doubleValue()).morph(str);
             }
         } else {
-            result = new Double(new DoubleMorpher().morph(str));
+            result = new DoubleMorpher().morph(str);
         }
         return result;
     }
 
     private Object morphToFloat(String str) {
-        Object result = null;
+        float result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Float) null;
+                return null;
             } else {
-                result = new Float(new FloatMorpher(defaultValue.floatValue()).morph(str));
+                result = new FloatMorpher(defaultValue.floatValue()).morph(str);
             }
         } else {
-            result = new Float(new FloatMorpher().morph(str));
+            result = new FloatMorpher().morph(str);
         }
         return result;
     }
 
-    private Object morphToInteger(String str) {
-        Object result = null;
+    private Integer morphToInteger(String str) {
+        int result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Integer) null;
+                return null;
             } else {
-                result = new Integer(new IntMorpher(defaultValue.intValue()).morph(str));
+                result = new IntMorpher(defaultValue.intValue()).morph(str);
             }
         } else {
-            result = new Integer(new IntMorpher().morph(str));
+            result = new IntMorpher().morph(str);
         }
         return result;
     }
 
-    private Object morphToLong(String str) {
-        Object result = null;
+    private Long morphToLong(String str) {
+        long result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Long) null;
+                return null;
             } else {
-                result = new Long(new LongMorpher(defaultValue.longValue()).morph(str));
+                result = new LongMorpher(defaultValue.longValue()).morph(str);
             }
         } else {
-            result = new Long(new LongMorpher().morph(str));
+            result = new LongMorpher().morph(str);
         }
         return result;
     }
 
     private Object morphToShort(String str) {
-        Object result = null;
+        short result;
         if (isUseDefault()) {
             if (defaultValue == null) {
-                return (Short) null;
+                return null;
             } else {
-                result = new Short(new ShortMorpher(defaultValue.shortValue()).morph(str));
+                result = new ShortMorpher(defaultValue.shortValue()).morph(str);
             }
         } else {
-            result = new Short(new ShortMorpher().morph(str));
+            result = new ShortMorpher().morph(str);
         }
         return result;
     }

@@ -61,9 +61,9 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testMorph_IntegerList() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
-        expected.add(new Integer(3));
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
         List actual = (List) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
@@ -83,9 +83,9 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testMorph_NullList_withDefaultValue() {
         List expected = new ArrayList();
-        expected.add(new Integer(0));
-        expected.add(new Integer(0));
-        expected.add(new Integer(0));
+        expected.add(0);
+        expected.add(0);
+        expected.add(0);
         List input = new ArrayList();
         input.add(null);
         input.add(null);
@@ -96,9 +96,9 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
 
     public void testMorph_StringList() {
         List expected = new ArrayList();
-        expected.add(new Integer(1));
-        expected.add(new Integer(2));
-        expected.add(new Integer(3));
+        expected.add(1);
+        expected.add(2);
+        expected.add(3);
         List input = new ArrayList();
         input.add("1");
         input.add("2");
@@ -174,10 +174,8 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
     @Override
     protected void setUp() throws Exception {
         morpher = new ObjectListMorpher(new NumberMorpher(Integer.class));
-        morpherWithDefaultValue =
-                new ObjectListMorpher(new NumberMorpher(Integer.class, new Integer(0)), new Integer(0));
+        morpherWithDefaultValue = new ObjectListMorpher(new NumberMorpher(Integer.class, 0), 0);
         anotherMorpher = new ObjectListMorpher(new NumberMorpher(Integer.class));
-        anotherMorpherWithDefaultValue =
-                new ObjectListMorpher(new NumberMorpher(Integer.class, new Integer(1)), new Integer(1));
+        anotherMorpherWithDefaultValue = new ObjectListMorpher(new NumberMorpher(Integer.class, 1), 1);
     }
 }

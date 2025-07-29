@@ -104,21 +104,21 @@ public class ObjectArrayMorpherTest extends TestCase {
     }
 
     public void testMorph_onedim() {
-        Object[] input = new Object[] {new Integer(1), Boolean.TRUE};
+        Object[] input = new Object[] {1, Boolean.TRUE};
         String[] expected = new String[] {"1", "true"};
         String[] actual = (String[]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
     public void testMorph_threedims() {
-        Object[][][] input = new Object[][][] {{{new Integer(1), Boolean.TRUE}}, {{new Character('A')}}};
+        Object[][][] input = new Object[][][] {{{1, Boolean.TRUE}}, {{'A'}}};
         String[][][] expected = new String[][][] {{{"1", "true"}}, {{"A"}}};
         String[][][] actual = (String[][][]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
     public void testMorph_twodims() {
-        Object[][] input = new Object[][] {{new Integer(1), Boolean.TRUE}, {new Character('A')}};
+        Object[][] input = new Object[][] {{1, Boolean.TRUE}, {'A'}};
         String[][] expected = new String[][] {{"1", "true"}, {"A"}};
         String[][] actual = (String[][]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
@@ -126,8 +126,8 @@ public class ObjectArrayMorpherTest extends TestCase {
 
     public void testMorph_twodims_reflection() {
         Object input = Array.newInstance(Object.class, new int[] {2, 2});
-        Object[] a = new Object[] {new Integer(1), Boolean.TRUE};
-        Object[] b = new Object[] {new Character('A')};
+        Object[] a = new Object[] {1, Boolean.TRUE};
+        Object[] b = new Object[] {'A'};
         Array.set(input, 0, a);
         Array.set(input, 1, b);
 

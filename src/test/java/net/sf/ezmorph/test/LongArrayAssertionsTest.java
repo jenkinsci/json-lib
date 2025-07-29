@@ -50,19 +50,19 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_long_Long() {
         long[] expecteds = new long[] {1, 2};
-        Long[] actuals = new Long[] {new Long(1), new Long(2)};
+        Long[] actuals = new Long[] {1L, 2L};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_Long_long() {
-        Long[] expecteds = new Long[] {new Long(1), new Long(2)};
+        Long[] expecteds = new Long[] {1L, 2L};
         long[] actuals = new long[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_Long_Long() {
-        Long[] expecteds = new Long[] {new Long(1), new Long(2)};
-        Long[] actuals = new Long[] {new Long(1), new Long(2)};
+        Long[] expecteds = new Long[] {1L, 2L};
+        Long[] actuals = new Long[] {1L, 2L};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
@@ -90,7 +90,7 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_Long_long_actuals_is_null() {
         boolean errorThrown = false;
-        Long[] expecteds = new Long[] {new Long(1), new Long(2)};
+        Long[] expecteds = new Long[] {1L, 2L};
         try {
             ArrayAssertions.assertEquals(expecteds, (long[]) null);
         } catch (AssertionFailedError expected) {
@@ -113,7 +113,7 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_long_Long_different_length() {
         long[] expecteds = new long[] {1};
-        Long[] actuals = new Long[] {new Long(1), new Long(2)};
+        Long[] actuals = new Long[] {1L, 2L};
         boolean errorThrown = false;
         try {
             ArrayAssertions.assertEquals(expecteds, actuals);
@@ -124,7 +124,7 @@ public class LongArrayAssertionsTest extends TestCase {
     }
 
     public void testAssertEquals_Long_long_different_length() {
-        Long[] expecteds = new Long[] {new Long(1)};
+        Long[] expecteds = new Long[] {1L};
         long[] actuals = new long[] {1, 2};
         boolean errorThrown = false;
         try {
@@ -148,7 +148,7 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_long_Long_expecteds_is_null() {
         boolean errorThrown = false;
-        Long[] actuals = new Long[] {new Long(1), new Long(2)};
+        Long[] actuals = new Long[] {1L, 2L};
         try {
             ArrayAssertions.assertEquals((long[]) null, actuals);
         } catch (AssertionFailedError expected) {
@@ -176,19 +176,19 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_multi_long_Long() {
         long[][] expecteds = new long[][] {{1, 2}, {1, 2}};
-        Long[][] actuals = new Long[][] {{new Long(1), new Long(2)}, {new Long(1), new Long(2)}};
+        Long[][] actuals = new Long[][] {{1L, 2L}, {1L, 2L}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_multi_Long_long() {
-        Long[][] expecteds = new Long[][] {{new Long(1), new Long(2)}, {new Long(1), new Long(2)}};
+        Long[][] expecteds = new Long[][] {{1L, 2L}, {1L, 2L}};
         long[][] actuals = new long[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_multi_Long_Long() {
-        Long[][] expecteds = new Long[][] {{new Long(1), new Long(2)}, {new Long(1), new Long(2)}};
-        Long[][] actuals = new Long[][] {{new Long(1), new Long(2)}, {new Long(1), new Long(2)}};
+        Long[][] expecteds = new Long[][] {{1L, 2L}, {1L, 2L}};
+        Long[][] actuals = new Long[][] {{1L, 2L}, {1L, 2L}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
@@ -212,31 +212,31 @@ public class LongArrayAssertionsTest extends TestCase {
 
     public void testAssertEquals_OO_long_Long() {
         Object expecteds = new long[] {1, 2};
-        Object actuals = new Long[] {new Long(1), new Long(2)};
+        Object actuals = new Long[] {1L, 2L};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Long_long() {
-        Object expecteds = new Long[] {new Long(1), new Long(2)};
+        Object expecteds = new Long[] {1L, 2L};
         Object actuals = new long[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_long_Object_array() {
         Object expecteds = new long[] {1, 2};
-        Object actuals = new Object[] {new Long(1), new Long(2)};
+        Object actuals = new Object[] {1L, 2L};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Object_array_long() {
-        Object expecteds = new Object[] {new Long(1), new Long(2)};
+        Object expecteds = new Object[] {1L, 2L};
         Object actuals = new long[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
     public void testAssertEquals_OO_Object_array_Object_array() {
-        Object expecteds = new Object[] {new Long(1), new Long(2)};
-        Object actuals = new Object[] {new Long(1), new Long(2)};
+        Object expecteds = new Object[] {1L, 2L};
+        Object actuals = new Object[] {1L, 2L};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 }

@@ -198,6 +198,8 @@ public class JSONTokener {
                             if (c == '*') {
                                 if (next() == '/') {
                                     break;
+                                } else if (!more()) {
+                                    return 0;
                                 }
                                 back();
                             }
@@ -398,13 +400,13 @@ public class JSONTokener {
             if (b == '0') {
                 if (s.length() > 2 && (s.charAt(1) == 'x' || s.charAt(1) == 'X')) {
                     try {
-                        return new Integer(Integer.parseInt(s.substring(2), 16));
+                        return Integer.parseInt(s.substring(2), 16);
                     } catch (Exception e) {
                         /* Ignore the error */
                     }
                 } else {
                     try {
-                        return new Integer(Integer.parseInt(s, 8));
+                        return Integer.parseInt(s, 8);
                     } catch (Exception e) {
                         /* Ignore the error */
                     }

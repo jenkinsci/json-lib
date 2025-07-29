@@ -17,10 +17,9 @@
 package net.sf.ezmorph.array;
 
 import java.lang.reflect.Array;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.primitive.CharMorpher;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs an array to a Character[].
@@ -57,12 +56,10 @@ public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher {
         }
 
         CharacterObjectArrayMorpher other = (CharacterObjectArrayMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -74,11 +71,10 @@ public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            return Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return 17;
     }
 
     @Override
@@ -106,13 +102,13 @@ public final class CharacterObjectArrayMorpher extends AbstractArrayMorpher {
                         }
                         return result;
                     } else {
-                        morpher = new CharMorpher(defaultValue.charValue());
+                        morpher = new CharMorpher(defaultValue);
                     }
                 } else {
                     morpher = new CharMorpher();
                 }
                 for (int index = 0; index < length; index++) {
-                    Array.set(result, index, new Character(morpher.morph(Array.get(array, index))));
+                    Array.setChar(result, index, morpher.morph(Array.get(array, index)));
                 }
             } else {
                 for (int index = 0; index < length; index++) {

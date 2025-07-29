@@ -77,13 +77,12 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testFloatMorphDecimalValue_Number() {
-        Double expected = new Double(3.1416d);
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = ((FloatMorpher) getMorpher()).morph(3.1416d);
         assertEquals(3.1416f, actual, 0f);
     }
 
     public void testFloatMorphDecimalValue_Number_outOfRange() {
-        float actual = ((FloatMorpher) getMorpher()).morph(new Double(Double.MAX_VALUE));
+        float actual = ((FloatMorpher) getMorpher()).morph(Double.MAX_VALUE);
         assertEquals(Float.POSITIVE_INFINITY, actual, 0f);
     }
 
@@ -94,25 +93,25 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testFloatMorphMaxValue_Number() {
-        Float expected = new Float(Float.MAX_VALUE);
+        float expected = Float.MAX_VALUE;
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.floatValue(), actual, 0f);
+        assertEquals(expected, actual, 0f);
     }
 
     public void testFloatMorphMaxValue_String() {
-        String expected = String.valueOf(new Float(Float.MAX_VALUE));
+        String expected = String.valueOf(Float.MAX_VALUE);
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
     public void testFloatMorphMinValue_Number() {
-        Float expected = new Float(Float.MIN_VALUE);
+        float expected = Float.MIN_VALUE;
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.floatValue(), actual, 0f);
+        assertEquals(expected, actual, 0f);
     }
 
     public void testFloatMorphMinValue_String() {
-        String expected = String.valueOf(new Float(Float.MIN_VALUE));
+        String expected = String.valueOf(Float.MIN_VALUE);
         float actual = ((FloatMorpher) getMorpher()).morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
