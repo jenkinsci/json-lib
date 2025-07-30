@@ -221,8 +221,6 @@ abstract class AbstractJSON implements JSON {
             return JSONNull.getInstance();
         } else if (Class.class.isAssignableFrom(value.getClass()) || value instanceof Class) {
             return ((Class) value).getName();
-        } else if (value instanceof JSONFunction) {
-            return value;
         } else if (value instanceof JSONString) {
             return JSONSerializer.toJSON((JSONString) value, jsonConfig);
         } else if (value instanceof JSON) {

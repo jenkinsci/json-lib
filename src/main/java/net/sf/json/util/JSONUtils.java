@@ -30,7 +30,6 @@ import net.sf.ezmorph.bean.MorphDynaClass;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
-import net.sf.json.JSONFunction;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONString;
@@ -49,12 +48,6 @@ public final class JSONUtils {
     public static final String DOUBLE_QUOTE = "\"";
     /** Constant for char ' */
     public static final String SINGLE_QUOTE = "'";
-
-    private static final String FUNCTION_BODY_PATTERN = "^function[ ]?\\(.*?\\)[ \n\t]*\\{(.*?)\\}$";
-    private static final String FUNCTION_HEADER_PATTERN = "^function[ ]?\\(.*?\\)$";
-    private static final String FUNCTION_PARAMS_PATTERN = "^function[ ]?\\((.*?)\\).*";
-    private static final String FUNCTION_PATTERN = "^function[ ]?\\(.*?\\)[ \n\t]*\\{.*?\\}$";
-    private static final String FUNCTION_PREFIX = "function";
 
     private static final MorpherRegistry morpherRegistry = new MorpherRegistry();
 
@@ -116,20 +109,6 @@ public final class JSONUtils {
     }
 
     /**
-     * Returns the body of a function literal.
-     */
-    public static String getFunctionBody(String function) {
-        return RegexpUtils.getMatcher(FUNCTION_BODY_PATTERN, true).getGroupIfMatches(function, 1);
-    }
-
-    /**
-     * Returns the params of a function literal.
-     */
-    public static String getFunctionParams(String function) {
-        return RegexpUtils.getMatcher(FUNCTION_PARAMS_PATTERN, true).getGroupIfMatches(function, 1);
-    }
-
-    /**
      * Returns the inner-most component type of an Array.
      */
     public static Class getInnerComponentType(Class type) {
@@ -164,15 +143,13 @@ public final class JSONUtils {
 
     /**
      * Returns the JSON type.<br>
-     * Values are Object, String, Boolean, Number(subclasses) &amp; JSONFunction.
+     * Values are Object, String, Boolean, Number(subclasses).
      */
     public static Class getTypeClass(Object obj) {
         if (isNull(obj)) {
             return Object.class;
         } else if (isArray(obj)) {
             return List.class;
-        } else if (isFunction(obj)) {
-            return JSONFunction.class;
         } else if (isBoolean(obj)) {
             return Boolean.class;
         } else if (isNumber(obj)) {
@@ -204,14 +181,14 @@ public final class JSONUtils {
     /**
      * Returns the hashcode of value.<br>
      * If null it will return JSONNull.getInstance().hashCode().<br>
-     * If value is JSON, JSONFunction or String, value.hashCode is returned,
+     * If value is JSON or String, value.hashCode is returned,
      * otherwise the value is transformed to a String an its hashcode is
      * returned.
      */
     public static int hashCode(Object value) {
         if (value == null) {
             return JSONNull.getInstance().hashCode();
-        } else if (value instanceof JSON || value instanceof String || value instanceof JSONFunction) {
+        } else if (value instanceof JSON || value instanceof String) {
             return value.hashCode();
         } else {
             return String.valueOf(value).hashCode();
@@ -260,35 +237,6 @@ public final class JSONUtils {
      */
     public static boolean isDouble(Class clazz) {
         return clazz != null && (Double.TYPE.isAssignableFrom(clazz) || Double.class.isAssignableFrom(clazz));
-    }
-
-    /**
-     * Tests if obj is javaScript function.<br>
-     * Obj must be a non-null String and match "^function[ ]?\\(.*\\)[ ]?\\{.*\\}$"
-     */
-    public static boolean isFunction(Object obj) {
-        if (obj instanceof String) {
-            String str = (String) obj;
-            return str.startsWith(FUNCTION_PREFIX)
-                    && RegexpUtils.getMatcher(FUNCTION_PATTERN, true).matches(str);
-        }
-        if (obj instanceof JSONFunction) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Tests if obj is javaScript function header.<br>
-     * Obj must be a non-null String and match "^function[ ]?\\(.*\\)$"
-     */
-    public static boolean isFunctionHeader(Object obj) {
-        if (obj instanceof String) {
-            String str = (String) obj;
-            return str.startsWith(FUNCTION_PREFIX)
-                    && RegexpUtils.getMatcher(FUNCTION_HEADER_PATTERN, true).matches(str);
-        }
-        return false;
     }
 
     /**
@@ -350,7 +298,7 @@ public final class JSONUtils {
      * Tests if obj is not a boolean, number, string or array.
      */
     public static boolean isObject(Object obj) {
-        return !isNumber(obj) && !isString(obj) && !isBoolean(obj) && !isArray(obj) && !isFunction(obj) || isNull(obj);
+        return !isNumber(obj) && !isString(obj) && !isBoolean(obj) && !isArray(obj) || isNull(obj);
     }
 
     /**
@@ -674,9 +622,6 @@ public final class JSONUtils {
         if (value == null || isNull(value)) {
             return "null";
         }
-        if (value instanceof JSONFunction) {
-            return value.toString();
-        }
         if (value instanceof JSONString) {
             return ((JSONString) value).toJSONString();
         }
@@ -692,9 +637,6 @@ public final class JSONUtils {
     public static String valueToCanonicalString(Object value) {
         if (value == null || isNull(value)) {
             return "null";
-        }
-        if (value instanceof JSONFunction) {
-            return value.toString(); // there's really no canonical form for functions
         }
         if (value instanceof JSONString) {
             return ((JSONString) value).toJSONString();
@@ -725,9 +667,6 @@ public final class JSONUtils {
     public static String valueToString(Object value, int indentFactor, int indent) {
         if (value == null || isNull(value)) {
             return "null";
-        }
-        if (value instanceof JSONFunction) {
-            return value.toString();
         }
         if (value instanceof JSONString) {
             return ((JSONString) value).toJSONString();

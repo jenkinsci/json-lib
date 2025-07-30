@@ -151,7 +151,6 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 }
             }
         } else if (JSONUtils.isBoolean(object)
-                || JSONUtils.isFunction(object)
                 || JSONUtils.isNumber(object)
                 || JSONUtils.isNull(object)
                 || JSONUtils.isString(object)
@@ -293,8 +292,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                     Array.set(array, i, toArray((JSONArray) value, objectClass, classMap));
                 } else if (String.class.isAssignableFrom(type)
                         || Boolean.class.isAssignableFrom(type)
-                        || Character.class.isAssignableFrom(type)
-                        || JSONFunction.class.isAssignableFrom(type)) {
+                        || Character.class.isAssignableFrom(type)) {
                     if (objectClass != null && !objectClass.isAssignableFrom(type)) {
                         value = JSONUtils.getMorpherRegistry().morph(objectClass, value);
                     }
@@ -348,8 +346,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 } else if (String.class.isAssignableFrom(type)
                         || Boolean.class.isAssignableFrom(type)
                         || JSONUtils.isNumber(type)
-                        || Character.class.isAssignableFrom(type)
-                        || JSONFunction.class.isAssignableFrom(type)) {
+                        || Character.class.isAssignableFrom(type)) {
                     if (objectClass != null && !objectClass.isAssignableFrom(type)) {
                         value = JSONUtils.getMorpherRegistry().morph(objectClass, value);
                     }
@@ -426,8 +423,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 } else if (String.class.isAssignableFrom(type)
                         || Boolean.class.isAssignableFrom(type)
                         || JSONUtils.isNumber(type)
-                        || Character.class.isAssignableFrom(type)
-                        || JSONFunction.class.isAssignableFrom(type)) {
+                        || Character.class.isAssignableFrom(type)) {
 
                     if (objectClass != null && !objectClass.isAssignableFrom(type)) {
                         value = JSONUtils.getMorpherRegistry().morph(objectClass, value);
@@ -448,88 +444,6 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
 
         return collection;
     }
-    /*
-    public static Collection toCollection( JSONArray jsonArray, JsonConfig jsonConfig ) {
-       Collection collection = null;
-       Class collectionType = jsonConfig.getCollectionType();
-       Class enclosedType = jsonConfig.getEnclosedType();
-
-       if( collectionType.isInterface() ){
-          if( collectionType.equals( List.class ) ){
-             collection = new ArrayList();
-          }else if( collectionType.equals( Set.class ) ){
-             collection = new HashSet();
-          }else{
-             throw new JSONException( "unknown interface: " + collectionType );
-          }
-       }else{
-          try{
-             collection = (Collection) collectionType.newInstance();
-          }catch( InstantiationException e ){
-             throw new JSONException( e );
-          }catch( IllegalAccessException e ){
-             throw new JSONException( e );
-          }
-       }
-
-       Class objectClass = jsonConfig.getRootClass();
-       Map classMap = jsonConfig.getClassMap();
-
-       int size = jsonArray.size();
-       for( int i = 0; i < size; i++ ){
-          Object value = jsonArray.get( i );
-          Class enclosedTypeE = enclosedType;
-
-          if( null == enclosedTypeE ){
-             enclosedTypeE = value.getClass();
-          }
-
-          if( JSONUtils.isNull( value ) ){
-             collection.add( null );
-          }else{
-             if( JSONArray.class.isAssignableFrom( value.getClass() ) ){
-                //throw new RuntimeException( "can't have nested collections" );
-                 collection.add( toCollection( (JSONArray) value, jsonConfig ) );
-             }else if( String.class.isAssignableFrom( enclosedTypeE )
-                   || Boolean.class.isAssignableFrom( enclosedTypeE )
-                   || JSONUtils.isNumber( enclosedTypeE )
-                   || Character.class.isAssignableFrom( enclosedTypeE )
-                   || JSONFunction.class.isAssignableFrom( enclosedTypeE ) ){
-
-                if( !value.getClass()
-                      .isAssignableFrom( enclosedTypeE ) ){
-                   throw new JSONException( "can't assign value " + value + " of type "
-                         + value.getClass() + " to Collection of type " + enclosedTypeE );
-                }
-                collection.add( value );
-             }else{
-                try{
-                   if( JSON.class.isAssignableFrom( enclosedTypeE ) ){
-                      ret.add( JSONObject.toBean( (JSONObject) value ) );
-                   }else{
-                      Object newRoot = enclosedTypeE.newInstance();
-                      ret.add( JSONObject.toBean( (JSONObject) value, newRoot, jsonConfig ) );
-                   }
-                }catch( JSONException jsone ){
-                   throw jsone;
-                }catch( Exception e ){
-                   throw new JSONException( e );
-                }
-                if( objectClass != null ){
-                   JsonConfig jsc = jsonConfig.copy();
-                   jsc.setRootClass( objectClass );
-                   jsc.setClassMap( classMap );
-                   collection.add( JSONObject.toBean( (JSONObject) value, jsc ) );
-                }else{
-                   collection.add( JSONObject.toBean( (JSONObject) value ) );
-                }
-             }
-          }
-       }
-
-       return collection;
-    }
-    */
 
     /**
      * Creates a List from a JSONArray.<br>
@@ -604,8 +518,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 } else if (String.class.isAssignableFrom(type)
                         || Boolean.class.isAssignableFrom(type)
                         || JSONUtils.isNumber(type)
-                        || Character.class.isAssignableFrom(type)
-                        || JSONFunction.class.isAssignableFrom(type)) {
+                        || Character.class.isAssignableFrom(type)) {
                     if (objectClass != null && !objectClass.isAssignableFrom(type)) {
                         value = JSONUtils.getMorpherRegistry().morph(objectClass, value);
                     }
@@ -646,8 +559,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 } else if (String.class.isAssignableFrom(type)
                         || Boolean.class.isAssignableFrom(type)
                         || JSONUtils.isNumber(type)
-                        || Character.class.isAssignableFrom(type)
-                        || JSONFunction.class.isAssignableFrom(type)) {
+                        || Character.class.isAssignableFrom(type)) {
                     list.add(value);
                 } else {
                     try {
@@ -1117,42 +1029,8 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 } else {
                     tokener.back();
                     Object v = tokener.nextValue(jsonConfig);
-                    if (!JSONUtils.isFunctionHeader(v)) {
-                        jsonArray.addValue(v, jsonConfig);
-                        fireElementAddedEvent(index, jsonArray.get(index++), jsonConfig);
-                    } else {
-                        // read params if any
-                        String params = JSONUtils.getFunctionParams((String) v);
-                        // read function text
-                        int i = 0;
-                        StringBuffer sb = new StringBuffer();
-                        for (; ; ) {
-                            char ch = tokener.next();
-                            if (ch == 0) {
-                                break;
-                            }
-                            if (ch == '{') {
-                                i++;
-                            }
-                            if (ch == '}') {
-                                i--;
-                            }
-                            sb.append(ch);
-                            if (i == 0) {
-                                break;
-                            }
-                        }
-                        if (i != 0) {
-                            throw tokener.syntaxError("Unbalanced '{' or '}' on prop: " + v);
-                        }
-                        // trim '{' at start and '}' at end
-                        String text = sb.toString();
-                        text = text.substring(1, text.length() - 1).trim();
-                        jsonArray.addValue(
-                                new JSONFunction((params != null) ? StringUtils.split(params, ",") : null, text),
-                                jsonConfig);
-                        fireElementAddedEvent(index, jsonArray.get(index++), jsonConfig);
-                    }
+                    jsonArray.addValue(v, jsonConfig);
+                    fireElementAddedEvent(index, jsonArray.get(index++), jsonConfig);
                 }
                 switch (tokener.nextClean()) {
                     case ';':
@@ -1538,7 +1416,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *
      * @param index The subscript.
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      * @throws JSONException If the index is negative or if the the value is an
@@ -1555,7 +1433,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      *
      * @param index The subscript.
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      * @throws JSONException If the index is negative or if the the value is an
@@ -1695,7 +1573,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * Append an object value. This increases the array's length by one.
      *
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      */
@@ -1707,7 +1585,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * Append an object value. This increases the array's length by one.
      *
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      */
@@ -1800,23 +1678,11 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                     return false;
                 }
             } else {
-                if (o1 instanceof String && o2 instanceof JSONFunction) {
-                    if (!o1.equals(String.valueOf(o2))) {
-                        return false;
-                    }
-                } else if (o1 instanceof JSONFunction && o2 instanceof String) {
-                    if (!o2.equals(String.valueOf(o1))) {
-                        return false;
-                    }
-                } else if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
+                if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
                     if (!o1.equals(o2)) {
                         return false;
                     }
                 } else if (o1 instanceof JSONArray && o2 instanceof JSONArray) {
-                    if (!o1.equals(o2)) {
-                        return false;
-                    }
-                } else if (o1 instanceof JSONFunction && o2 instanceof JSONFunction) {
                     if (!o1.equals(o2)) {
                         return false;
                     }
@@ -2477,7 +2343,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * Append an object value. This increases the array's length by one.
      *
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      */
@@ -2503,7 +2369,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * Append an object value. This increases the array's length by one.
      *
      * @param value An object value. The value should be a Boolean, Double,
-     *        Integer, JSONArray, JSONObject, JSONFunction, Long, String,
+     *        Integer, JSONArray, JSONObject, Long, String,
      *        JSONString or the JSONNull object.
      * @return this.
      */

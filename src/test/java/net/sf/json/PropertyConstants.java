@@ -35,7 +35,6 @@ public final class PropertyConstants {
     private static Map classes = new HashMap();
     private static final String DOUBLE = "pdouble";
     private static final String FLOAT = "pfloat";
-    private static final String FUNCTION = "pfunction";
     private static final String INT = "pint";
     private static final String LIST = "plist";
     private static final String LONG = "plong";
@@ -53,7 +52,6 @@ public final class PropertyConstants {
         values.put(BOOLEAN, Boolean.TRUE);
         values.put(CHAR, 'J');
         values.put(STRING, "json");
-        values.put(FUNCTION, new JSONFunction("this;"));
         values.put(ARRAY, new int[] {1, 2});
         List list = new ArrayList();
         list.add("a");
@@ -71,7 +69,6 @@ public final class PropertyConstants {
         classes.put(BOOLEAN, Boolean.class);
         classes.put(CHAR, Character.class);
         classes.put(STRING, String.class);
-        classes.put(FUNCTION, JSONFunction.class);
         classes.put(ARRAY, int[].class);
         classes.put(LIST, List.class);
         classes.put(CLASS, Class.class);
@@ -80,7 +77,7 @@ public final class PropertyConstants {
 
     public static String[] getProperties() {
         return new String[] {
-            BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BOOLEAN, STRING, FUNCTION, ARRAY, LIST, CLASS, BEAN
+            BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BOOLEAN, STRING, ARRAY, LIST, CLASS, BEAN
         };
     }
 

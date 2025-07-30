@@ -420,9 +420,6 @@ public class JSONTokener {
             }
         }
 
-        if (JSONUtils.isFunctionHeader(s) || JSONUtils.isFunction(s)) {
-            return s;
-        }
         switch (peek()) {
             case ',':
             case '}':

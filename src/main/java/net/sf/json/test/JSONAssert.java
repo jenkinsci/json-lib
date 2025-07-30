@@ -19,13 +19,13 @@ package net.sf.json.test;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
+
 import junit.framework.Assert;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
-import net.sf.json.JSONFunction;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
@@ -55,13 +55,6 @@ public class JSONAssert extends Assert {
      * Asserts that two JSONArrays are equal.
      */
     public static void assertEquals(JSONArray expected, String actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    /**
-     * Asserts that two JSONFunctions are equal.
-     */
-    public static void assertEquals(JSONFunction expected, String actual) {
         assertEquals(null, expected, actual);
     }
 
@@ -171,22 +164,12 @@ public class JSONAssert extends Assert {
                 JSONArray a = (JSONArray) o2;
                 assertEquals(header + "arrays first differed at element " + i + ";", e, a);
             } else {
-                if (o1 instanceof String && o2 instanceof JSONFunction) {
-                    assertEquals(
-                            header + "arrays first differed at element [" + i + "];", (String) o1, (JSONFunction) o2);
-                } else if (o1 instanceof JSONFunction && o2 instanceof String) {
-                    assertEquals(
-                            header + "arrays first differed at element [" + i + "];", (JSONFunction) o1, (String) o2);
-                } else if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
+                if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
                     assertEquals(
                             header + "arrays first differed at element [" + i + "];", (JSONObject) o1, (JSONObject) o2);
                 } else if (o1 instanceof JSONArray && o2 instanceof JSONArray) {
                     assertEquals(
                             header + "arrays first differed at element [" + i + "];", (JSONArray) o1, (JSONArray) o2);
-                } else if (o1 instanceof JSONFunction && o2 instanceof JSONFunction) {
-                    assertEquals(
-                            header + "arrays first differed at element [" + i + "];", (JSONFunction) o1, (JSONFunction)
-                                    o2);
                 } else {
                     if (o1 instanceof String) {
                         assertEquals(
@@ -228,32 +211,6 @@ public class JSONAssert extends Assert {
         } catch (JSONException e) {
             String header = message == null ? "" : message + ": ";
             fail(header + "actual is not a JSONArray");
-        }
-    }
-
-    /**
-     * Asserts that two JSONFunctions are equal.
-     */
-    public static void assertEquals(String expected, JSONFunction actual) {
-        assertEquals(null, expected, actual);
-    }
-
-    /**
-     * Asserts that two JSONFunctions are equal.
-     */
-    public static void assertEquals(String message, JSONFunction expected, String actual) {
-        String header = message == null ? "" : message + ": ";
-        if (expected == null) {
-            fail(header + "expected function was null");
-        }
-        if (actual == null) {
-            fail(header + "actual string was null");
-        }
-
-        try {
-            assertEquals(header, expected, JSONFunction.parse(actual));
-        } catch (JSONException jsone) {
-            fail(header + "'" + actual + "' is not a function");
         }
     }
 
@@ -333,16 +290,10 @@ public class JSONAssert extends Assert {
                 }
             }
 
-            if (o1 instanceof String && o2 instanceof JSONFunction) {
-                assertEquals(header + "objects differed at key [" + key + "];", (String) o1, (JSONFunction) o2);
-            } else if (o1 instanceof JSONFunction && o2 instanceof String) {
-                assertEquals(header + "objects differed at key [" + key + "];", (JSONFunction) o1, (String) o2);
-            } else if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
+            if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
                 assertEquals(header + "objects differed at key [" + key + "];", (JSONObject) o1, (JSONObject) o2);
             } else if (o1 instanceof JSONArray && o2 instanceof JSONArray) {
                 assertEquals(header + "objects differed at key [" + key + "];", (JSONArray) o1, (JSONArray) o2);
-            } else if (o1 instanceof JSONFunction && o2 instanceof JSONFunction) {
-                assertEquals(header + "objects differed at key [" + key + "];", (JSONFunction) o1, (JSONFunction) o2);
             } else {
                 if (o1 instanceof String) {
                     assertEquals(header + "objects differed at key [" + key + "];", (String) o1, String.valueOf(o2));
@@ -422,25 +373,6 @@ public class JSONAssert extends Assert {
         } catch (JSONException e) {
             String header = message == null ? "" : message + ": ";
             fail(header + "expected is not a JSONArray");
-        }
-    }
-
-    /**
-     * Asserts that two JSONFunctions are equal.
-     */
-    public static void assertEquals(String message, String expected, JSONFunction actual) {
-        String header = message == null ? "" : message + ": ";
-        if (expected == null) {
-            fail(header + "expected string was null");
-        }
-        if (actual == null) {
-            fail(header + "actual function was null");
-        }
-
-        try {
-            assertEquals(header, JSONFunction.parse(expected), actual);
-        } catch (JSONException jsone) {
-            fail(header + "'" + expected + "' is not a function");
         }
     }
 

@@ -73,22 +73,12 @@ public class Assertions extends JSONAssert {
             } else if (List.class.isAssignableFrom(o1.getClass()) && List.class.isAssignableFrom(o2.getClass())) {
                 assertEquals(header + "lists first differed at element [" + i + "];", (List) o1, (List) o2);
             } else {
-                if (o1 instanceof String && o2 instanceof JSONFunction) {
-                    assertEquals(
-                            header + "lists first differed at element [" + i + "];", (String) o1, (JSONFunction) o2);
-                } else if (o1 instanceof JSONFunction && o2 instanceof String) {
-                    assertEquals(
-                            header + "lists first differed at element [" + i + "];", (JSONFunction) o1, (String) o2);
-                } else if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
+                if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
                     assertEquals(
                             header + "lists first differed at element [" + i + "];", (JSONObject) o1, (JSONObject) o2);
                 } else if (o1 instanceof JSONArray && o2 instanceof JSONArray) {
                     assertEquals(
                             header + "lists first differed at element [" + i + "];", (JSONArray) o1, (JSONArray) o2);
-                } else if (o1 instanceof JSONFunction && o2 instanceof JSONFunction) {
-                    assertEquals(
-                            header + "lists first differed at element [" + i + "];", (JSONFunction) o1, (JSONFunction)
-                                    o2);
                 } else {
                     assertEquals(header + "lists first differed at element [" + i + "];", o1, o2);
                 }

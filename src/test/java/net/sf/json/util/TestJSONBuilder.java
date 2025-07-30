@@ -18,7 +18,6 @@ package net.sf.json.util;
 
 import java.io.StringWriter;
 import junit.framework.TestCase;
-import net.sf.json.JSONFunction;
 import net.sf.json.JSONObject;
 
 /**
@@ -63,16 +62,6 @@ public class TestJSONBuilder extends TestCase {
         assertEquals("{}", w.toString());
     }
 
-    public void testCreateFunctionArray() {
-        StringWriter w = new StringWriter();
-        new JSONBuilder(w)
-                .array()
-                .value(new JSONFunction("var a = 1;"))
-                .value(new JSONFunction("var b = 2;"))
-                .endArray();
-        assertEquals("[function(){ var a = 1; },function(){ var b = 2; }]", w.toString());
-    }
-
     public void testCreateSimpleObject() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w)
@@ -85,15 +74,11 @@ public class TestJSONBuilder extends TestCase {
                 .value(2)
                 .key("text")
                 .value("text")
-                .key("func")
-                .value(new JSONFunction("var a = 1;"))
                 .endObject();
         JSONObject jsonObj = JSONObject.fromObject(w.toString());
         assertEquals(Boolean.TRUE, jsonObj.get("bool"));
         assertEquals(1.1d, jsonObj.get("numDouble"));
         assertEquals(2L, ((Number) jsonObj.get("numInt")).longValue());
         assertEquals("text", jsonObj.get("text"));
-        assertTrue(JSONUtils.isFunction(jsonObj.get("func")));
-        assertEquals("function(){ var a = 1; }", jsonObj.get("func").toString());
     }
 }
