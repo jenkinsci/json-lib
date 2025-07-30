@@ -16,7 +16,6 @@
 
 package net.sf.json.processors;
 
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -32,8 +31,8 @@ public class StartsWithJsonBeanProcessorMatcher extends JsonBeanProcessorMatcher
     @Override
     public Object getMatch(Class target, Set set) {
         if (target != null && set != null && target.getName().startsWith(pattern)) {
-            for (Iterator i = set.iterator(); i.hasNext(); ) {
-                Class c = (Class) i.next();
+            for (Object o : set) {
+                Class c = (Class) o;
                 if (c.getName().startsWith(pattern)) {
                     return c;
                 }

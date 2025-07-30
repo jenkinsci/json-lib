@@ -21,7 +21,6 @@ import java.io.Writer;
 import java.lang.ref.SoftReference;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 import net.sf.json.util.JSONUtils;
@@ -71,8 +70,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireArrayEndEvent(JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onArrayEnd();
                 } catch (RuntimeException e) {
@@ -87,8 +86,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireArrayStartEvent(JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onArrayStart();
                 } catch (RuntimeException e) {
@@ -106,8 +105,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireElementAddedEvent(int index, Object element, JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onElementAdded(index, element);
                 } catch (RuntimeException e) {
@@ -124,8 +123,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireErrorEvent(JSONException jsone, JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onError(jsone);
                 } catch (RuntimeException e) {
@@ -140,8 +139,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireObjectEndEvent(JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onObjectEnd();
                 } catch (RuntimeException e) {
@@ -156,8 +155,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireObjectStartEvent(JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onObjectStart();
                 } catch (RuntimeException e) {
@@ -176,8 +175,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void firePropertySetEvent(String key, Object value, boolean accumulated, JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onPropertySet(key, value, accumulated);
                 } catch (RuntimeException e) {
@@ -194,8 +193,8 @@ abstract class AbstractJSON implements JSON {
      */
     protected static void fireWarnEvent(String warning, JsonConfig jsonConfig) {
         if (jsonConfig.isEventTriggeringEnabled()) {
-            for (Iterator listeners = jsonConfig.getJsonEventListeners().iterator(); listeners.hasNext(); ) {
-                JsonEventListener listener = (JsonEventListener) listeners.next();
+            for (Object o : jsonConfig.getJsonEventListeners()) {
+                JsonEventListener listener = (JsonEventListener) o;
                 try {
                     listener.onWarning(warning);
                 } catch (RuntimeException e) {

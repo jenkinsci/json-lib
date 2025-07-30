@@ -81,22 +81,22 @@ public abstract class JavaIdentifierTransformer {
 
             char[] chars = str2.toCharArray();
             int pos = 0;
-            StringBuffer buf = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             boolean toUpperCaseNextChar = false;
             while (pos < chars.length) {
                 if (!Character.isJavaIdentifierPart(chars[pos]) || Character.isWhitespace(chars[pos])) {
                     toUpperCaseNextChar = true;
                 } else {
                     if (toUpperCaseNextChar) {
-                        buf.append(Character.toUpperCase(chars[pos]));
+                        sb.append(Character.toUpperCase(chars[pos]));
                         toUpperCaseNextChar = false;
                     } else {
-                        buf.append(chars[pos]);
+                        sb.append(chars[pos]);
                     }
                 }
                 pos++;
             }
-            return buf.toString();
+            return sb.toString();
         }
     }
 
@@ -124,24 +124,24 @@ public abstract class JavaIdentifierTransformer {
 
             char[] chars = str2.toCharArray();
             int pos = 0;
-            StringBuffer buf = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             boolean toUnderScorePreviousChar = false;
             while (pos < chars.length) {
                 if (!Character.isJavaIdentifierPart(chars[pos]) || Character.isWhitespace(chars[pos])) {
                     toUnderScorePreviousChar = true;
                 } else {
                     if (toUnderScorePreviousChar) {
-                        buf.append("_");
+                        sb.append("_");
                         toUnderScorePreviousChar = false;
                     }
-                    buf.append(chars[pos]);
+                    sb.append(chars[pos]);
                 }
                 pos++;
             }
-            if (buf.charAt(buf.length() - 1) == '_') {
-                buf.deleteCharAt(buf.length() - 1);
+            if (sb.charAt(sb.length() - 1) == '_') {
+                sb.deleteCharAt(sb.length() - 1);
             }
-            return buf.toString();
+            return sb.toString();
         }
     }
 
@@ -155,14 +155,14 @@ public abstract class JavaIdentifierTransformer {
             str2 = StringUtils.deleteWhitespace(str2);
             char[] chars = str2.toCharArray();
             int pos = 0;
-            StringBuffer buf = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             while (pos < chars.length) {
                 if (Character.isJavaIdentifierPart(chars[pos])) {
-                    buf.append(chars[pos]);
+                    sb.append(chars[pos]);
                 }
                 pos++;
             }
-            return buf.toString();
+            return sb.toString();
         }
     }
 }

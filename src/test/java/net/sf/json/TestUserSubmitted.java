@@ -67,7 +67,7 @@ public class TestUserSubmitted extends TestCase {
         classMap.put("attributes", Long.class);
 
         ListingBean original = new ListingBean();
-        original.addAttribute(Long.valueOf(12));
+        original.addAttribute(12L);
 
         JSONObject jsonObject =
                 JSONObject.fromObject(JSONObject.fromObject(original).toString());

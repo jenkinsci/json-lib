@@ -65,13 +65,13 @@ public class JsonSlurper extends GroovyObjectSupport {
     public JSON parse(Reader reader) throws IOException {
         // unfortunately JSONSerializer can't process the text as a stream
         // so we must read the full content first and then parse it
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         BufferedReader in = new BufferedReader(reader);
-        String line = null;
+        String line;
         while ((line = in.readLine()) != null) {
-            buffer.append(line).append("\n");
+            sb.append(line).append("\n");
         }
-        return parseText(buffer.toString());
+        return parseText(sb.toString());
     }
 
     public JSON parseText(String text) {

@@ -102,7 +102,7 @@ public final class BooleanObjectArrayMorpher extends AbstractArrayMorpher {
                         }
                         return result;
                     } else {
-                        morpher = new BooleanMorpher(defaultValue.booleanValue());
+                        morpher = new BooleanMorpher(defaultValue);
                     }
                 } else {
                     morpher = new BooleanMorpher();

@@ -129,10 +129,7 @@ public class TestJSONArrayAsList extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        jsonArray = new JSONArray()
-                .element("1")
-                .element("true")
-                .element("string")
-                .element("[1,2,3]");
+        jsonArray =
+                new JSONArray().element("1").element("true").element("string").element("[1,2,3]");
     }
 }

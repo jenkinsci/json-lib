@@ -39,8 +39,8 @@ public class TestJSONArrayStaticBuilders_Collection_DynaBean extends AbstractJSO
     protected Object getSource() {
         Map map = new HashMap();
         String[] props = getProperties();
-        for (int i = 0; i < props.length; i++) {
-            map.put(props[i], PropertyConstants.getPropertyClass(props[i]));
+        for (String prop : props) {
+            map.put(prop, PropertyConstants.getPropertyClass(prop));
         }
         map.put("class", Class.class);
         map.put("pexcluded", String.class);
@@ -48,8 +48,8 @@ public class TestJSONArrayStaticBuilders_Collection_DynaBean extends AbstractJSO
         MorphDynaBean dynaBean = null;
         try {
             dynaBean = (MorphDynaBean) dynaClass.newInstance();
-            for (int i = 0; i < props.length; i++) {
-                dynaBean.set(props[i], PropertyConstants.getPropertyValue(props[i]));
+            for (String prop : props) {
+                dynaBean.set(prop, PropertyConstants.getPropertyValue(prop));
             }
             dynaBean.set("class", Object.class);
             dynaBean.set("pexcluded", "");

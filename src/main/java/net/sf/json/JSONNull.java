@@ -94,7 +94,7 @@ public final class JSONNull implements JSON {
 
     @Override
     public String toString(int indentFactor, int indent) {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i += 1) {
             sb.append(' ');
         }

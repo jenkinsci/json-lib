@@ -76,9 +76,7 @@ public final class PropertyConstants {
     }
 
     public static String[] getProperties() {
-        return new String[] {
-            BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BOOLEAN, STRING, ARRAY, LIST, CLASS, BEAN
-        };
+        return new String[] {BYTE, SHORT, INT, LONG, FLOAT, DOUBLE, CHAR, BOOLEAN, STRING, ARRAY, LIST, CLASS, BEAN};
     }
 
     public static Class getPropertyClass(String key) {

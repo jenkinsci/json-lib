@@ -35,8 +35,8 @@ public class TestJSONObjectStaticBuilders_Map extends AbstractJSONObjectStaticBu
     protected Object getSource() {
         Map map = new HashMap();
         String[] props = getProperties();
-        for (int i = 0; i < props.length; i++) {
-            map.put(props[i], PropertyConstants.getPropertyValue(props[i]));
+        for (String prop : props) {
+            map.put(prop, PropertyConstants.getPropertyValue(prop));
         }
         map.put("pexcluded", "");
         return map;

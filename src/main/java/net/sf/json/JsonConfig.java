@@ -21,7 +21,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -600,18 +599,17 @@ public class JsonConfig {
      * [Java -&gt; JSON]
      */
     public Collection getMergedExcludes() {
-        Collection exclusions = new HashSet();
-        for (int i = 0; i < excludes.length; i++) {
-            String exclusion = excludes[i];
+        Collection<String> exclusions = new HashSet<String>();
+        for (String exclusion : excludes) {
             if (exclusion != null && !exclusion.isBlank()) {
                 exclusions.add(exclusion.trim());
             }
         }
 
         if (!ignoreDefaultExcludes) {
-            for (int i = 0; i < DEFAULT_EXCLUDES.length; i++) {
-                if (!exclusions.contains(DEFAULT_EXCLUDES[i])) {
-                    exclusions.add(DEFAULT_EXCLUDES[i]);
+            for (String defaultExclude : DEFAULT_EXCLUDES) {
+                if (!exclusions.contains(defaultExclude)) {
+                    exclusions.add(defaultExclude);
                 }
             }
         }
@@ -634,8 +632,7 @@ public class JsonConfig {
             Object key = propertyExclusionClassMatcher.getMatch(target, exclusionMap.keySet());
             Set set = (Set) exclusionMap.get(key);
             if (set != null && !set.isEmpty()) {
-                for (Iterator i = set.iterator(); i.hasNext(); ) {
-                    Object e = i.next();
+                for (Object e : set) {
                     if (!exclusionSet.contains(e)) {
                         exclusionSet.add(e);
                     }
@@ -927,9 +924,9 @@ public class JsonConfig {
                 set = new HashSet();
                 exclusionMap.put(target, set);
             }
-            for (int i = 0; i < properties.length; i++) {
-                if (!set.contains(properties[i])) {
-                    set.add(properties[i]);
+            for (String property : properties) {
+                if (!set.contains(property)) {
+                    set.add(property);
                 }
             }
         }

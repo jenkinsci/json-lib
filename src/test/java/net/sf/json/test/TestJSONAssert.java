@@ -152,7 +152,7 @@ public class TestJSONAssert extends TestCase {
 
     public void testAssertEquals_JSONArray_JSONArray() {
         Object[] values = new Object[] {
-            Boolean.valueOf(true),
+            Boolean.TRUE,
             Integer.MAX_VALUE,
             Long.MAX_VALUE,
             Float.MAX_VALUE,
@@ -271,7 +271,7 @@ public class TestJSONAssert extends TestCase {
         try {
             String[] names = new String[] {"b", "i", "l", "f", "d", "s", "a1", "o1", "o2", "o3"};
             Object[] values = new Object[] {
-                Boolean.valueOf(true),
+                Boolean.TRUE,
                 Integer.MAX_VALUE,
                 Long.MAX_VALUE,
                 Float.MAX_VALUE,

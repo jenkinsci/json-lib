@@ -28,7 +28,7 @@ public abstract class AbstractJSONTest extends TestCase {
     }
 
     public void testIsArray() {
-        boolean isArray = ((Boolean) getIsArrayExpectations()[0]).booleanValue();
+        boolean isArray = (Boolean) getIsArrayExpectations()[0];
         JSON json = (JSON) getIsArrayExpectations()[1];
         assertEquals(isArray, json.isArray());
     }

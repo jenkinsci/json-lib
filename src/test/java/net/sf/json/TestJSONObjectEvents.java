@@ -43,14 +43,14 @@ public class TestJSONObjectEvents extends TestCase {
 
     public void testFromObject_bean() {
         JSONObject.fromObject(new BeanA(), jsonConfig);
-        assertEquals( 0, jsonEventAdpater.getError() );
-        assertEquals( 0, jsonEventAdpater.getWarning() );
-        assertEquals( 0, jsonEventAdpater.getArrayStart() );
-        assertEquals( 0, jsonEventAdpater.getArrayEnd() );
-        assertEquals( 1, jsonEventAdpater.getObjectStart() );
-        assertEquals( 1, jsonEventAdpater.getObjectEnd() );
-        assertEquals( 0, jsonEventAdpater.getElementAdded() );
-        assertEquals( 3, jsonEventAdpater.getPropertySet() );
+        assertEquals(0, jsonEventAdpater.getError());
+        assertEquals(0, jsonEventAdpater.getWarning());
+        assertEquals(0, jsonEventAdpater.getArrayStart());
+        assertEquals(0, jsonEventAdpater.getArrayEnd());
+        assertEquals(1, jsonEventAdpater.getObjectStart());
+        assertEquals(1, jsonEventAdpater.getObjectEnd());
+        assertEquals(0, jsonEventAdpater.getElementAdded());
+        assertEquals(3, jsonEventAdpater.getPropertySet());
     }
 
     public void testFromObject_bean2() {
@@ -87,9 +87,7 @@ public class TestJSONObjectEvents extends TestCase {
     }
 
     public void testFromObject_JSONObject() {
-        JSONObject jsonObject = new JSONObject()
-                .element("name", "json")
-                .element("int", 1);
+        JSONObject jsonObject = new JSONObject().element("name", "json").element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }

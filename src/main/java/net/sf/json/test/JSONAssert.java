@@ -19,7 +19,6 @@ package net.sf.json.test;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
 import junit.framework.Assert;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.object.IdentityObjectMorpher;

@@ -92,8 +92,8 @@ public final class CharMorpher extends AbstractPrimitiveMorpher {
             }
         }
 
-        if (value instanceof Character) {
-            return ((Character) value).charValue();
+        if (value instanceof Character c) {
+            return c;
         } else {
             String s = String.valueOf(value);
             if (s.length() > 0) {

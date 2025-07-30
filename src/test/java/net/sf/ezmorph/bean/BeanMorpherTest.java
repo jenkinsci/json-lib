@@ -375,7 +375,7 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(Long.valueOf("0"), typedBean.getPlong());
         assertEquals(Float.valueOf("0"), typedBean.getPfloat());
         assertEquals(Double.valueOf("0"), typedBean.getPdouble());
-        assertEquals((Character) '\0', typedBean.getPchar());
+        assertEquals(new Character('\0'), typedBean.getPchar());
         assertEquals(null, typedBean.getParray());
         assertEquals(null, typedBean.getPlist());
         assertEquals(null, typedBean.getPbean());
