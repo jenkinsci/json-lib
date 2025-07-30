@@ -105,7 +105,7 @@ public class WebUtils {
     }
 
     private static String quote(String str) {
-        if (str.indexOf(" ") > -1 || str.indexOf(":") > -1) {
+        if (str.contains(" ") || str.contains(":")) {
             return JSONUtils.quote(str);
         } else {
             return str;
