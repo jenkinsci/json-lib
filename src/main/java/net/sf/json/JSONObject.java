@@ -1459,7 +1459,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, double value) {
-        return _accumulate(key, Double.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**
@@ -1476,7 +1476,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, int value) {
-        return _accumulate(key, Integer.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**
@@ -1493,7 +1493,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, long value) {
-        return _accumulate(key, Long.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**

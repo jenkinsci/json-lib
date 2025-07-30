@@ -1019,7 +1019,7 @@ public class TestJSONObject extends TestCase {
         String json = "{bool:true,integer:1,string:\"json\"}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         BeanA bean = (BeanA) JSONObject.toBean(jsonObject, BeanA.class);
-        assertEquals(jsonObject.get("bool"), Boolean.valueOf(bean.isBool()));
+        assertEquals(jsonObject.get("bool"), bean.isBool());
         assertEquals(jsonObject.get("integer"), bean.getInteger());
         assertEquals(jsonObject.get("string"), bean.getString());
     }
@@ -1028,7 +1028,7 @@ public class TestJSONObject extends TestCase {
         String json = "{bool:true,integer:1,string:\"json\",intarray:[4,5,6]}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         BeanB bean = (BeanB) JSONObject.toBean(jsonObject, BeanB.class);
-        assertEquals(jsonObject.get("bool"), Boolean.valueOf(bean.isBool()));
+        assertEquals(jsonObject.get("bool"), bean.isBool());
         assertEquals(jsonObject.get("integer"), bean.getInteger());
         assertEquals(jsonObject.get("string"), bean.getString());
         Assertions.assertEquals(bean.getIntarray(), JSONArray.toArray(jsonObject.getJSONArray("intarray")));
