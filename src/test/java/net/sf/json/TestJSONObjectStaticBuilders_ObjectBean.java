@@ -36,8 +36,8 @@ public class TestJSONObjectStaticBuilders_ObjectBean extends AbstractJSONObjectS
         ObjectBean bean = new ObjectBean();
         String[] props = getProperties();
         try {
-            for (int i = 0; i < props.length; i++) {
-                PropertyUtils.setProperty(bean, props[i], PropertyConstants.getPropertyValue(props[i]));
+            for (String prop : props) {
+                PropertyUtils.setProperty(bean, prop, PropertyConstants.getPropertyValue(prop));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

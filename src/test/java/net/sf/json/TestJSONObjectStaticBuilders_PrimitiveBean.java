@@ -36,8 +36,8 @@ public class TestJSONObjectStaticBuilders_PrimitiveBean extends AbstractJSONObje
         PrimitiveBean bean = new PrimitiveBean();
         String[] props = getProperties();
         try {
-            for (int i = 0; i < props.length; i++) {
-                PropertyUtils.setProperty(bean, props[i], PropertyConstants.getPropertyValue(props[i]));
+            for (String prop : props) {
+                PropertyUtils.setProperty(bean, prop, PropertyConstants.getPropertyValue(prop));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

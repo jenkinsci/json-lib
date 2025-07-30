@@ -18,7 +18,6 @@ package net.sf.ezmorph.object;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import net.sf.ezmorph.MorphException;
@@ -85,8 +84,7 @@ public final class ObjectListMorpher extends AbstractObjectMorpher {
         }
 
         List list = new ArrayList();
-        for (Iterator i = ((List) value).iterator(); i.hasNext(); ) {
-            Object object = i.next();
+        for (Object object : (List) value) {
             if (object == null) {
                 if (isUseDefault()) {
                     list.add(defaultValue);

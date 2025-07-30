@@ -229,8 +229,8 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         processArrayDimensions(jsonArray, dims, 0);
         int[] dimensions = new int[dims.size()];
         int j = 0;
-        for (Iterator i = dims.iterator(); i.hasNext(); ) {
-            dimensions[j++] = (Integer) i.next();
+        for (Object dim : dims) {
+            dimensions[j++] = (Integer) dim;
         }
         return dimensions;
     }
@@ -413,10 +413,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         Class objectClass = jsonConfig.getRootClass();
         Map classMap = jsonConfig.getClassMap();
 
-        int size = jsonArray.size();
-        for (int i = 0; i < size; i++) {
-            Object value = jsonArray.get(i);
-
+        for (Object value : jsonArray) {
             if (JSONUtils.isNull(value)) {
                 collection.add(null);
             } else {
@@ -592,9 +589,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         Map classMap = jsonConfig.getClassMap();
 
         List list = new ArrayList();
-        int size = jsonArray.size();
-        for (int i = 0; i < size; i++) {
-            Object value = jsonArray.get(i);
+        for (Object value : jsonArray) {
             if (JSONUtils.isNull(value)) {
                 list.add(null);
             } else {
@@ -634,9 +629,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         }
 
         List list = new ArrayList();
-        int size = jsonArray.size();
-        for (int i = 0; i < size; i++) {
-            Object value = jsonArray.get(i);
+        for (Object value : jsonArray) {
             if (JSONUtils.isNull(value)) {
                 list.add(null);
             } else {
@@ -1040,8 +1033,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         JSONArray jsonArray = new JSONArray();
         try {
             int i = 0;
-            for (Iterator elements = collection.iterator(); elements.hasNext(); ) {
-                Object element = elements.next();
+            for (Object element : collection) {
                 jsonArray.addValue(element, jsonConfig);
                 fireElementAddedEvent(i, jsonArray.get(i++), jsonConfig);
             }
@@ -1079,8 +1071,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         fireArrayStartEvent(jsonConfig);
         JSONArray jsonArray = new JSONArray();
         int index = 0;
-        for (Iterator elements = array.iterator(); elements.hasNext(); ) {
-            Object element = elements.next();
+        for (Object element : array) {
             jsonArray.addValue(element, jsonConfig);
             fireElementAddedEvent(index++, element, jsonConfig);
         }
@@ -1189,8 +1180,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                 dims.set(index, jsonArray.size());
             }
         }
-        for (Iterator i = jsonArray.iterator(); i.hasNext(); ) {
-            Object item = i.next();
+        for (Object item : jsonArray) {
             if (item instanceof JSONArray) {
                 processArrayDimensions((JSONArray) item, dims, index + 1);
             }
@@ -1996,8 +1986,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
     public int hashCode() {
         int hashcode = 29;
 
-        for (Iterator e = elements.iterator(); e.hasNext(); ) {
-            Object element = e.next();
+        for (Object element : elements) {
             hashcode += JSONUtils.hashCode(element);
         }
         return hashcode;

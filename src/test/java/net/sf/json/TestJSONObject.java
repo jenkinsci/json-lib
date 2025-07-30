@@ -23,7 +23,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -744,8 +743,8 @@ public class TestJSONObject extends TestCase {
             "pmap",
             "pbean"
         };
-        for (int i = 0; i < keys.length; i++) {
-            assertTrue(JSONNull.getInstance().equals(json.get(keys[i])));
+        for (String key : keys) {
+            assertTrue(JSONNull.getInstance().equals(json.get(key)));
         }
     }
 
@@ -1453,8 +1452,8 @@ public class TestJSONObject extends TestCase {
             "pmap",
             "pbean"
         };
-        for (int i = 0; i < keys.length; i++) {
-            assertNull(PropertyUtils.getProperty(obj, keys[i]));
+        for (String key : keys) {
+            assertNull(PropertyUtils.getProperty(obj, key));
         }
     }
 
@@ -1572,8 +1571,8 @@ public class TestJSONObject extends TestCase {
     public static class BeanAPropertyExclusionClassMatcher extends PropertyExclusionClassMatcher {
         @Override
         public Object getMatch(Class target, Set set) {
-            for (Iterator i = set.iterator(); i.hasNext(); ) {
-                Class c = (Class) i.next();
+            for (Object o : set) {
+                Class c = (Class) o;
                 if (BeanA.class.isAssignableFrom(c)) {
                     return c;
                 }
@@ -1611,8 +1610,8 @@ public class TestJSONObject extends TestCase {
     public static class NumberDefaultValueProcessorMatcher extends DefaultValueProcessorMatcher {
         @Override
         public Object getMatch(Class target, Set set) {
-            for (Iterator i = set.iterator(); i.hasNext(); ) {
-                Class c = (Class) i.next();
+            for (Object o : set) {
+                Class c = (Class) o;
                 if (Number.class.isAssignableFrom(c)) {
                     return c;
                 }

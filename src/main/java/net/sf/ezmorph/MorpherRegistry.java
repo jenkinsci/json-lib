@@ -20,7 +20,6 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
@@ -112,8 +111,8 @@ public class MorpherRegistry implements Serializable {
         } else {
             Morpher[] morphs = new Morpher[registered.size()];
             int k = 0;
-            for (Iterator i = registered.iterator(); i.hasNext(); ) {
-                morphs[k++] = (Morpher) i.next();
+            for (Object o : registered) {
+                morphs[k++] = (Morpher) o;
             }
             return morphs;
         }
@@ -147,11 +146,10 @@ public class MorpherRegistry implements Serializable {
         }
 
         Morpher[] morphers = getMorphersFor(target);
-        for (int i = 0; i < morphers.length; i++) {
-            Morpher morpher = morphers[i];
+        for (Morpher morpher : morphers) {
             if (morpher.supports(value.getClass())) {
-                if (morpher instanceof ObjectMorpher) {
-                    return ((ObjectMorpher) morpher).morph(value);
+                if (morpher instanceof ObjectMorpher om) {
+                    return om.morph(value);
                 } else {
                     try {
                         Method morphMethod = morpher.getClass().getDeclaredMethod("morph", new Class[] {Object.class});
