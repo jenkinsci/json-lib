@@ -1125,7 +1125,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
                         String params = JSONUtils.getFunctionParams((String) v);
                         // read function text
                         int i = 0;
-                        StringBuffer sb = new StringBuffer();
+                        StringBuilder sb = new StringBuilder();
                         for (; ; ) {
                             char ch = tokener.next();
                             if (ch == 0) {
@@ -2054,7 +2054,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      */
     public String join(String separator, boolean stripQuotes) {
         int len = size();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < len; i += 1) {
             if (i > 0) {
@@ -2414,7 +2414,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
             return this.toString();
         }
         int i;
-        StringBuffer sb = new StringBuffer("[");
+        StringBuilder sb = new StringBuilder("[");
         if (len == 1) {
             sb.append(JSONUtils.valueToString(this.elements.get(0), indentFactor, indent));
         } else {

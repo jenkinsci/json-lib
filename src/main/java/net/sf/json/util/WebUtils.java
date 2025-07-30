@@ -92,7 +92,7 @@ public class WebUtils {
 
     private static String join(JSONArray jsonArray) {
         int len = jsonArray.size();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < len; i += 1) {
             if (i > 0) {
@@ -129,7 +129,7 @@ public class WebUtils {
             return JSONNull.getInstance().toString();
         }
         Iterator keys = jsonObject.keys();
-        StringBuffer sb = new StringBuffer("{");
+        StringBuilder sb = new StringBuilder("{");
 
         while (keys.hasNext()) {
             if (sb.length() > 1) {

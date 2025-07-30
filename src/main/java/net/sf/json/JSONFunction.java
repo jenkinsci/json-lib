@@ -146,7 +146,7 @@ public class JSONFunction implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuffer b = new StringBuffer("function(");
+        StringBuilder b = new StringBuilder("function(");
         if (params.length > 0) {
             for (int i = 0; i < params.length - 1; i++) {
                 b.append(params[i]).append(',');
