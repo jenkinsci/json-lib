@@ -40,7 +40,6 @@ public class AllTests extends TestSuite {
         suite.addTest(new TestSuite(TestJSONArrayStaticBuilders_JSONString.class));
         suite.addTest(new TestSuite(TestJSONArrayStaticBuilders_String.class));
 
-        suite.addTest(new TestSuite(TestJSONFunction.class));
         suite.addTest(new TestSuite(TestJSONArray.class));
         suite.addTest(new TestSuite(TestJSONObject.class));
         suite.addTest(new TestSuite(TestJSONSerializer.class));

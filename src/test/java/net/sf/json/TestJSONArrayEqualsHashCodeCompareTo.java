@@ -45,7 +45,6 @@ public class TestJSONArrayEqualsHashCodeCompareTo extends TestCase {
                 .element("1")
                 .element("true")
                 .element("string")
-                .element("function(){ return this; }")
                 .element("[1,2,3]");
         values.put("JSONArray.strings", strings);
         values1 = new JSONArray()
@@ -53,7 +52,6 @@ public class TestJSONArrayEqualsHashCodeCompareTo extends TestCase {
                 .element(Long.valueOf("1"))
                 .element(Boolean.TRUE)
                 .element("string")
-                .element(new JSONFunction("return this;"))
                 .element(JSONArray.fromObject(new int[] {1, 2, 3}));
         values.put("JSONArray.values.1", values1);
         values2 = new JSONArray()

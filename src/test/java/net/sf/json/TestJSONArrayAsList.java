@@ -35,16 +35,16 @@ public class TestJSONArrayAsList extends TestCase {
     }
 
     public void testAdd() {
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
         jsonArray.add("value");
-        assertEquals(6, jsonArray.size());
+        assertEquals(5, jsonArray.size());
     }
 
     public void testAdd_index_value() {
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
         Object first = jsonArray.get(0);
         jsonArray.add(0, "value");
-        assertEquals(6, jsonArray.size());
+        assertEquals(5, jsonArray.size());
         assertEquals("value", jsonArray.get(0));
         assertEquals(first, jsonArray.get(1));
     }
@@ -58,12 +58,12 @@ public class TestJSONArrayAsList extends TestCase {
     public void testAddAll_index_value() {
         JSONArray array = new JSONArray().element("value");
         array.addAll(0, jsonArray);
-        assertEquals(6, array.size());
-        assertEquals("value", array.get(5));
+        assertEquals(5, array.size());
+        assertEquals("value", array.get(4));
     }
 
     public void testClear() {
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
         jsonArray.clear();
         assertEquals(0, jsonArray.size());
     }
@@ -88,33 +88,33 @@ public class TestJSONArrayAsList extends TestCase {
 
     public void testLastIndexOf() {
         jsonArray.element("1");
-        assertEquals(5, jsonArray.lastIndexOf("1"));
+        assertEquals(4, jsonArray.lastIndexOf("1"));
     }
 
     public void testRemove() {
-        assertEquals(5, jsonArray.size());
-        jsonArray.remove("string");
         assertEquals(4, jsonArray.size());
+        jsonArray.remove("string");
+        assertEquals(3, jsonArray.size());
         assertTrue(!jsonArray.contains("string"));
     }
 
     public void testRemove_index() {
-        assertEquals(5, jsonArray.size());
-        jsonArray.remove(2);
         assertEquals(4, jsonArray.size());
+        jsonArray.remove(2);
+        assertEquals(3, jsonArray.size());
         assertTrue(!jsonArray.contains("string"));
     }
 
     public void testRemoveAll() {
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
         jsonArray.removeAll(jsonArray);
         assertEquals(0, jsonArray.size());
     }
 
     public void testRetainAll() {
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
         jsonArray.retainAll(jsonArray);
-        assertEquals(5, jsonArray.size());
+        assertEquals(4, jsonArray.size());
     }
 
     public void testSubList() {
@@ -129,11 +129,7 @@ public class TestJSONArrayAsList extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-        jsonArray = new JSONArray()
-                .element("1")
-                .element("true")
-                .element("string")
-                .element("function(){ return this; }")
-                .element("[1,2,3]");
+        jsonArray =
+                new JSONArray().element("1").element("true").element("string").element("[1,2,3]");
     }
 }

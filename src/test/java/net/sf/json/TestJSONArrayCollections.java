@@ -137,22 +137,6 @@ public class TestJSONArrayCollections extends TestCase {
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_JSONFunction_elements() {
-        List expected = new ArrayList();
-        expected.add(new JSONFunction(new String[] {"a"}, "return a;"));
-        JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
-        Assertions.assertEquals(expected, actual);
-    }
-
-    public void testToList_JSONFunction_elements_2() {
-        List expected = new ArrayList();
-        expected.add("function(a){ return a; }");
-        JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
-        Assertions.assertEquals(expected, actual);
-    }
-
     public void testToList_Long() {
         List expected = new ArrayList();
         expected.add(1);
@@ -337,28 +321,6 @@ public class TestJSONArrayCollections extends TestCase {
         Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
-
-    public void testToSet_JSONFunction_elements() {
-        Set expected = new HashSet();
-        expected.add(new JSONFunction(new String[] {"a"}, "return a;"));
-        JSONArray jsonArray = JSONArray.fromObject(expected);
-        JsonConfig jsonConfig = new JsonConfig();
-        jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
-        Assertions.assertEquals(expected, actual);
-    }
-
-    /*
-    public void testToSet_JSONFunction_elements_2() {
-       Set expected = new HashSet();
-       expected.add( "function(a){ return a; }" );
-       JSONArray jsonArray = JSONArray.fromObject( expected );
-       JsonConfig jsonConfig = new JsonConfig();
-       jsonConfig.setCollectionType( Set.class );
-       Set actual = (Set) JSONArray.toCollection( jsonArray, jsonConfig );
-       Assertions.assertEquals( expected, actual );
-    }
-    */
 
     public void testToSet_Long() {
         Set expected = new HashSet();

@@ -45,13 +45,6 @@ public class TestJSONUtils extends TestCase {
         assertEquals("200", JSONUtils.doubleToString(200.00000));
     }
 
-    public void testGetFunctionParams() {
-        assertEquals("", JSONUtils.getFunctionParams("function()"));
-        assertEquals("a", JSONUtils.getFunctionParams("function(a)"));
-        assertEquals("a,b", JSONUtils.getFunctionParams("function(a,b)"));
-        assertEquals("", JSONUtils.getFunctionParams("notAFunction"));
-    }
-
     public void testIsArray() {
         assertTrue(JSONUtils.isArray(new Object[0]));
         assertTrue(JSONUtils.isArray(new boolean[0]));
@@ -80,14 +73,6 @@ public class TestJSONUtils extends TestCase {
 
         // jsonArray
         assertTrue(JSONUtils.isArray(new JSONArray()));
-    }
-
-    public void testIsFunction() {
-        assertTrue(JSONUtils.isFunction("function(){ return a; }"));
-        assertTrue(JSONUtils.isFunction("function (){ return a; }"));
-        assertTrue(JSONUtils.isFunction("function() { return a; }"));
-        assertTrue(JSONUtils.isFunction("function () { return a; }"));
-        assertTrue(JSONUtils.isFunction("function(a){ return a; }"));
     }
 
     public void testNumberToString_null() {

@@ -35,13 +35,12 @@ public class TestJSONObjectAsMap extends TestCase {
     }
 
     public void testClear() {
-        assertEquals(6, jsonObject.size());
+        assertEquals(5, jsonObject.size());
         jsonObject.clear();
         assertEquals(0, jsonObject.size());
     }
 
     public void testContainsKey() {
-        assertTrue(jsonObject.containsKey("func"));
         assertFalse(jsonObject.containsKey("bogus"));
     }
 
@@ -74,9 +73,9 @@ public class TestJSONObjectAsMap extends TestCase {
     }
 
     public void testRemove() {
-        assertTrue(jsonObject.has("func"));
-        jsonObject.remove("func");
-        assertFalse(jsonObject.has("func"));
+        assertTrue(jsonObject.has("array"));
+        jsonObject.remove("array");
+        assertFalse(jsonObject.has("array"));
     }
 
     @Override
@@ -86,7 +85,6 @@ public class TestJSONObjectAsMap extends TestCase {
                 .element("long", "1")
                 .element("boolean", "true")
                 .element("string", "string")
-                .element("func", "function(){ return this; }")
                 .element("array", "[1,2,3]");
     }
 }

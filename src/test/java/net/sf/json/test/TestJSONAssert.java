@@ -22,7 +22,6 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONFunction;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 
@@ -163,8 +162,6 @@ public class TestJSONAssert extends TestCase {
             new JSONObject(true),
             new JSONObject(),
             new JSONObject().element("str", "json"),
-            "function(){ return this; }",
-            new JSONFunction("return that;"),
             new int[] {1, 2}
         };
         JSONArray expected = JSONArray.fromObject(values);
@@ -243,43 +240,6 @@ public class TestJSONAssert extends TestCase {
         }
     }
 
-    public void testAssertEquals_JSONFunction_String() {
-        try {
-            JSONFunction expected = new JSONFunction("return this;");
-            String actual = "function(){ return this; }";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Functions should be equal");
-        }
-    }
-
-    public void testAssertEquals_JSONFunction_String__actual_null() {
-        try {
-            JSONFunction expected = new JSONFunction(";");
-            JSONAssert.assertEquals(expected, (String) null);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual string was null");
-        }
-    }
-
-    public void testAssertEquals_JSONFunction_String__expected_null() {
-        try {
-            JSONAssert.assertEquals((JSONFunction) null, ";");
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected function was null");
-        }
-    }
-
-    public void testAssertEquals_JSONFunction_String_fail() {
-        try {
-            JSONFunction expected = new JSONFunction("return this;");
-            String actual = "function(){ return this;";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "'function(){ return this;' is not a function");
-        }
-    }
-
     public void testAssertEquals_JSONNull_String() {
         try {
             JSONNull expected = JSONNull.getInstance();
@@ -309,7 +269,7 @@ public class TestJSONAssert extends TestCase {
 
     public void testAssertEquals_JSONObject_JSONObject_() {
         try {
-            String[] names = new String[] {"b", "i", "l", "f", "d", "s", "a1", "o1", "o2", "o3", "u1", "u2"};
+            String[] names = new String[] {"b", "i", "l", "f", "d", "s", "a1", "o1", "o2", "o3"};
             Object[] values = new Object[] {
                 Boolean.TRUE,
                 Integer.MAX_VALUE,
@@ -321,8 +281,6 @@ public class TestJSONAssert extends TestCase {
                 new JSONObject(true),
                 new JSONObject(),
                 new JSONObject().element("str", "json"),
-                "function(){ return this; }",
-                new JSONFunction("return that;")
             };
             Map map = new HashMap();
             for (int i = 0; i < names.length; i++) {
@@ -454,26 +412,6 @@ public class TestJSONAssert extends TestCase {
             JSONAssert.assertEquals(expected, actual);
         } catch (AssertionFailedError e) {
             assertEquals(e.getMessage(), "expected is not a JSONArray");
-        }
-    }
-
-    public void testAssertEquals_String_JSONFunction() {
-        try {
-            String expected = "function(){ return this; }";
-            JSONFunction actual = new JSONFunction("return this;");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Functions should be equal");
-        }
-    }
-
-    public void testAssertEquals_String_JSONFunction_fail() {
-        try {
-            JSONFunction actual = new JSONFunction("return this;");
-            String expected = "function(){ return this;";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "'function(){ return this;' is not a function");
         }
     }
 

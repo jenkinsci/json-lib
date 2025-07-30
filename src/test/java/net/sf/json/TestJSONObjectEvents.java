@@ -80,10 +80,8 @@ public class TestJSONObjectEvents extends TestCase {
     }
 
     public void testFromObject_JSONObject() {
-        JSONObject jsonObject = new JSONObject()
-                .element("name", "json")
-                .element("func", new JSONFunction("return this;"))
-                .element("int", 1);
+        JSONObject jsonObject =
+                new JSONObject().element("name", "json").element("bool", true).element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }
@@ -91,14 +89,14 @@ public class TestJSONObjectEvents extends TestCase {
     public void testFromObject_map() {
         Map map = new HashMap();
         map.put("name", "json");
-        map.put("func", new JSONFunction("return this;"));
+        map.put("bool", true);
         map.put("int", 1);
         JSONObject.fromObject(map, jsonConfig);
         assertEvents();
     }
 
     public void testFromObject_string() {
-        JSONObject.fromObject("{name:'json',int:1,func:function(){ return this; }}", jsonConfig);
+        JSONObject.fromObject("{name:'json',int:1,bool:true}", jsonConfig);
         assertEvents();
     }
 
@@ -129,13 +127,13 @@ public class TestJSONObjectEvents extends TestCase {
     private DynaBean createDynaBean() throws Exception {
         Map properties = new HashMap();
         properties.put("name", String.class);
-        properties.put("func", JSONFunction.class);
+        properties.put("bool", Boolean.class);
         properties.put("int", Integer.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();
         dynaBean.setDynaBeanClass(dynaClass);
         dynaBean.set("name", "json");
-        dynaBean.set("func", new JSONFunction("return this;"));
+        dynaBean.set("bool", true);
         dynaBean.set("int", 1);
         return dynaBean;
     }

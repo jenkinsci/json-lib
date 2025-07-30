@@ -38,7 +38,6 @@ import net.sf.json.sample.BeanA;
 import net.sf.json.sample.BeanB;
 import net.sf.json.sample.BeanC;
 import net.sf.json.sample.BeanFoo;
-import net.sf.json.sample.BeanWithFunc;
 import net.sf.json.sample.ChildBean;
 import net.sf.json.sample.ClassBean;
 import net.sf.json.sample.EmptyBean;
@@ -147,13 +146,11 @@ public class TestJSONObject extends TestCase {
                 .element("long", "1")
                 .element("boolean", "true")
                 .element("string", "string")
-                .element("func", "function(){ return this; }")
                 .element("array", "[1,2,3]");
-        assertEquals(6, jsonObject.size());
-        jsonObject.discard("int").discard("func");
-        assertEquals(4, jsonObject.size());
+        assertEquals(5, jsonObject.size());
+        jsonObject.discard("int").discard("array");
+        assertEquals(3, jsonObject.size());
         assertFalse(jsonObject.has("int"));
-        assertFalse(jsonObject.has("func"));
     }
 
     public void testElement__duplicateProperty() {
@@ -270,13 +267,6 @@ public class TestJSONObject extends TestCase {
         JSONObject jsonObject = new JSONObject();
         jsonObject.element("null", JSONNull.getInstance());
         Assertions.assertEquals(JSONNull.getInstance(), jsonObject.get("null"));
-    }
-
-    public void testElement_JSONFunction() {
-        JSONObject jsonObject = new JSONObject();
-        JSONFunction f = new JSONFunction("return this;");
-        jsonObject.element("func", f);
-        Assertions.assertEquals(f, (JSONFunction) jsonObject.get("func"));
     }
 
     public void testElement_JSONString() {
@@ -421,7 +411,6 @@ public class TestJSONObject extends TestCase {
         Assertions.assertEquals("[1,2]", json.getString("str"));
         Assertions.assertEquals(JSONObject.fromObject("{'id':'1'}"), json.getJSONObject("json"));
         Assertions.assertEquals(JSONObject.fromObject("{'name':''}"), json.getJSONObject("jsonstr"));
-        Assertions.assertEquals("function(){ return this; }", (JSONFunction) json.get("func"));
     }
 
     public void testFromBean_JSONObject() {
@@ -510,7 +499,6 @@ public class TestJSONObject extends TestCase {
         properties.put("number", Integer.class);
         properties.put("array", Object[].class);
         properties.put("list", List.class);
-        properties.put("func", JSONFunction.class);
         properties.put("boolean", Boolean.class);
         properties.put("bean", BeanA.class);
         MorphDynaClass dynaClass = new MorphDynaClass("JSON", MorphDynaBean.class, properties);
@@ -520,7 +508,6 @@ public class TestJSONObject extends TestCase {
         dynaBean.set("number", 2d);
         dynaBean.set("array", new Integer[] {1, 2});
         dynaBean.set("list", new ArrayList());
-        dynaBean.set("func", new JSONFunction(new String[] {"a"}, "return a;"));
         dynaBean.set("boolean", Boolean.TRUE);
         dynaBean.set("bean", new BeanA());
 
@@ -528,7 +515,6 @@ public class TestJSONObject extends TestCase {
         assertEquals("json", jsonObject.get("string"));
         assertEquals(2d, jsonObject.get("number"));
         assertEquals(Boolean.TRUE, jsonObject.get("boolean"));
-        Assertions.assertEquals("function(a){ return a; }", (JSONFunction) jsonObject.get("func"));
     }
 
     public void testFromDynaBean_null() {
@@ -580,13 +566,6 @@ public class TestJSONObject extends TestCase {
         assertEquals(true, json.getBoolean("bool"));
         assertEquals(42, json.getInt("integer"));
         assertEquals("json", json.getString("string"));
-    }
-
-    public void testFromObject_BeanWithFunc() {
-        JSONObject json = JSONObject.fromObject(new BeanWithFunc("return a;"));
-        assertNotNull(json.get("function"));
-        assertTrue(JSONUtils.isFunction(json.get("function")));
-        assertEquals("function(){ return a; }", json.get("function").toString());
     }
 
     public void testFromObject_DynaBean() throws Exception {
@@ -700,7 +679,6 @@ public class TestJSONObject extends TestCase {
         Map map = new HashMap();
         map.put("string", "json");
         bean.setPmap(map);
-        bean.setPfunction(new JSONFunction("this;"));
 
         JSONObject json = JSONObject.fromObject(bean);
         assertEquals(1, json.getInt("pbyte"));
@@ -878,7 +856,6 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.has("pbean"));
         assertTrue(json.has("pclass"));
         assertTrue(json.has("pexcluded"));
-        assertTrue(json.has("pfunction"));
         assertTrue(json.has("plist"));
         assertTrue(json.has("pmap"));
         assertTrue(json.has("pstring"));
@@ -904,7 +881,6 @@ public class TestJSONObject extends TestCase {
         assertTrue(json.has("pbean"));
         assertTrue(json.has("pclass"));
         assertTrue(!json.has("pexcluded"));
-        assertTrue(json.has("pfunction"));
         assertTrue(json.has("plist"));
         assertTrue(json.has("pmap"));
         assertTrue(json.has("pstring"));
@@ -1002,14 +978,13 @@ public class TestJSONObject extends TestCase {
     }
 
     public void testToBean() throws Exception {
-        String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },array:[1,2]}";
+        String json = "{name=\"json\",bool:true,int:1,double:2.2,array:[1,2]}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         Object bean = JSONObject.toBean(jsonObject);
         assertEquals(jsonObject.get("name"), PropertyUtils.getProperty(bean, "name"));
         assertEquals(jsonObject.get("bool"), PropertyUtils.getProperty(bean, "bool"));
         assertEquals(jsonObject.get("int"), PropertyUtils.getProperty(bean, "int"));
         assertEquals(jsonObject.get("double"), PropertyUtils.getProperty(bean, "double"));
-        assertEquals(jsonObject.get("func"), PropertyUtils.getProperty(bean, "func"));
         List expected = (List) JSONArray.toCollection(jsonObject.getJSONArray("array"));
         Assertions.assertEquals(expected, (List) PropertyUtils.getProperty(bean, "array"));
     }
@@ -1115,14 +1090,13 @@ public class TestJSONObject extends TestCase {
     }
 
     public void testToBean_nested() throws Exception {
-        String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },nested:{nested:true}}";
+        String json = "{name=\"json\",bool:true,int:1,double:2.2,nested:{nested:true}}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         Object bean = JSONObject.toBean(jsonObject);
         assertEquals(jsonObject.get("name"), PropertyUtils.getProperty(bean, "name"));
         assertEquals(jsonObject.get("bool"), PropertyUtils.getProperty(bean, "bool"));
         assertEquals(jsonObject.get("int"), PropertyUtils.getProperty(bean, "int"));
         assertEquals(jsonObject.get("double"), PropertyUtils.getProperty(bean, "double"));
-        assertEquals(jsonObject.get("func"), PropertyUtils.getProperty(bean, "func"));
         JSONObject nestedJson = jsonObject.getJSONObject("nested");
         Object nestedBean = PropertyUtils.getProperty(bean, "nested");
         assertEquals(nestedJson.get("nested"), PropertyUtils.getProperty(nestedBean, "nested"));
@@ -1404,7 +1378,6 @@ public class TestJSONObject extends TestCase {
         Map map = new HashMap();
         map.put("string", "json");
         bean.setPmap(map);
-        bean.setPfunction(new JSONFunction("this;"));
         JSONObject json = JSONObject.fromObject(bean);
         Map classMap = new HashMap();
         classMap.put("pbean", BeanA.class);
@@ -1552,7 +1525,6 @@ public class TestJSONObject extends TestCase {
     private MorphDynaBean createDynaBean() throws Exception {
         Map properties = new HashMap();
         properties.put("name", String.class);
-        properties.put("func", JSONFunction.class);
         properties.put("jsonstr", JSONString.class);
         properties.put("json", JSON.class);
         properties.put("str", String.class);
@@ -1560,7 +1532,6 @@ public class TestJSONObject extends TestCase {
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();
         dynaBean.setDynaBeanClass(dynaClass);
         dynaBean.set("name", "json");
-        dynaBean.set("func", new JSONFunction("return this;"));
         dynaBean.set("jsonstr", new ObjectJSONStringBean());
         dynaBean.set("json", new JSONObject().element("id", "1"));
         dynaBean.set("str", "[1,2]");

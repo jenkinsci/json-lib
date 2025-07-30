@@ -18,7 +18,6 @@ package net.sf.json.sample;
 
 import java.util.List;
 import java.util.Map;
-import net.sf.json.JSONFunction;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -36,7 +35,6 @@ public class PrimitiveBean {
     private double pdouble;
     private String pexcluded;
     private float pfloat;
-    private JSONFunction pfunction;
     private int pint;
     private List plist;
     private long plong;
@@ -78,10 +76,6 @@ public class PrimitiveBean {
 
     public float getPfloat() {
         return pfloat;
-    }
-
-    public JSONFunction getPfunction() {
-        return pfunction;
     }
 
     public int getPint() {
@@ -150,10 +144,6 @@ public class PrimitiveBean {
 
     public void setPfloat(float pfloat) {
         this.pfloat = pfloat;
-    }
-
-    public void setPfunction(JSONFunction pfunction) {
-        this.pfunction = pfunction;
     }
 
     public void setPint(int pint) {

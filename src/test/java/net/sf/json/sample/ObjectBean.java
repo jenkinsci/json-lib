@@ -32,7 +32,6 @@ public class ObjectBean {
     private Object pdouble;
     private Object pexcluded;
     private Object pfloat;
-    private Object pfunction;
     private Object pint;
     private Object plist;
     private Object plong;
@@ -74,10 +73,6 @@ public class ObjectBean {
 
     public Object getPfloat() {
         return pfloat;
-    }
-
-    public Object getPfunction() {
-        return pfunction;
     }
 
     public Object getPint() {
@@ -138,10 +133,6 @@ public class ObjectBean {
 
     public void setPfloat(Object pfloat) {
         this.pfloat = pfloat;
-    }
-
-    public void setPfunction(Object pfunction) {
-        this.pfunction = pfunction;
     }
 
     public void setPint(Object pint) {

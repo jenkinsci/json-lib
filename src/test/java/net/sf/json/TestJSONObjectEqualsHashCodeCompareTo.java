@@ -47,7 +47,6 @@ public class TestJSONObjectEqualsHashCodeCompareTo extends TestCase {
                 .element("long", "1")
                 .element("boolean", "true")
                 .element("string", "string")
-                .element("func", "function(){ return this; }")
                 .element("array", JSONArray.fromObject("[1,2,3]"));
         values.put("JSONObject.strings", strings);
         values1 = new JSONObject()
@@ -55,7 +54,6 @@ public class TestJSONObjectEqualsHashCodeCompareTo extends TestCase {
                 .element("long", Long.valueOf("1"))
                 .element("boolean", Boolean.TRUE)
                 .element("string", "string")
-                .element("func", new JSONFunction("return this;"))
                 .element("array", JSONArray.fromObject(new int[] {1, 2, 3}));
         values.put("JSONObject.values.1", values1);
         values2 = new JSONObject()
@@ -187,8 +185,9 @@ public class TestJSONObjectEqualsHashCodeCompareTo extends TestCase {
     }
 
     public void testHashCode_strings_values() {
-        assertTrue(values.get("JSONObject.strings").hashCode()
-                != values.get("JSONObject.values.1").hashCode());
+        assertEquals(
+                values.get("JSONObject.strings").hashCode(),
+                values.get("JSONObject.values.1").hashCode());
     }
 
     public void testHashCode_to_other() {

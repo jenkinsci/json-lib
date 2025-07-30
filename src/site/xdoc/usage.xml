@@ -61,19 +61,16 @@
    map.put( "bool", Boolean.TRUE );
    map.put( "int", new Integer(1) );
    map.put( "arr", new String[]{"a","b"} );
-   map.put( "func", "function(i){ return this.arr[i]; }" );
 
    JSONObject jsonObject = JSONObject.fromObject( map );
    System.out.println( jsonObject );
-   // prints ["name":"json","bool":true,"int":1,"arr":["a","b"],"func":function(i){ return this.arr[i]; }]</textarea>
+   // prints ["name":"json","bool":true,"int":1,"arr":["a","b"]]</textarea>
 
        <textarea cols="70" rows="16" class="java:nocontrols:nogutter" name="srccode">
    class MyBean{
       private String name = "json";
       private int pojoId = 1;
       private char[] options = new char[]{'a','f'};
-      private String func1 = "function(i){ return this.options[i]; }";
-      private JSONFunction func2 = new JSONFunction(new String[]{"i"},"return this.options[i];");
 
       // getters &amp; setters
       ...
@@ -82,9 +79,7 @@
    JSONObject jsonObject = JSONObject.fromObject( new MyBean() );
    System.out.println( jsonObject );
    /* prints
-     {"name":"json","pojoId":1,"options":["a","f"],
-     "func1":function(i){ return this.options[i];},
-     "func2":function(i){ return this.options[i];}}
+     {"name":"json","pojoId":1,"options":["a","f"]}
    */</textarea>
 
      <p><center>
@@ -100,7 +95,7 @@
        the transformation will use type conversion if necessary on array properties.</p>
        <p>Convert to DynaBean:</p>
        <textarea cols="70" rows="10" class="java:nocontrols:nogutter" name="srccode">
-   String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },array:[1,2]}";
+   String json = "{name=\"json\",bool:true,int:1,double:2.2,array:[1,2]}";
    JSONObject jsonObject = JSONObject.fromObject( json );
    Object bean = JSONObject.toBean( jsonObject );
    assertEquals( jsonObject.get( "name" ), PropertyUtils.getProperty( bean, "name" ) );
@@ -235,34 +230,10 @@
    </table>
           </subsection>
           <subsection name="From XML to JSON">
-             <p>XMLSerializer treats each element as a <code>string</code> unless a type parameter is specified.<br/>
-             JSONFunction needs an additional parameter that specifies that function's params.<br/>All xml attributes
+             <p>XMLSerializer treats each element as a <code>string</code> unless a type parameter is specified.<br/>All xml attributes
              will have the prefix '@' and text nodes will have the property name '#text'. XMLSerializer supports
              the rules outlined at 
              <a href="http://www.xml.com/pub/a/2006/05/31/converting-between-xml-and-json.html">Converting Between XML and JSON</a></p>
-   <table>
-      <tr>
-    <th>XML input</th>
-         <th>Code</th>
-      </tr>
-      <tr>
-         <td valign="top">
-       <textarea cols="70" rows="5" class="xml:nocontrols:nogutter" name="srccode">
-   &lt;a class="array"&gt;
-     &lt;e type="function" params="i,j"&gt;
-         return matrix[i][j];
-     &lt;/e&gt;
-   &lt;/a&gt;
-   </textarea>
-         </td><td valign="top">
-       <textarea cols="70" rows="3" class="java:nocontrols:nogutter" name="srccode">
-   JSONArray json = (JSONArray) XMLSerializer.read( xml );
-   System.out.println( json );
-   // prints [function(i,j){ return matrix[i][j]; }]
-   </textarea>
-         </td>
-      </tr>
-   </table>
           </subsection>
 
      <p><center>

@@ -78,7 +78,7 @@ public class TestJSONSerializer extends TestCase {
 
     public void testToJava_JSONObject_2() throws Exception {
         setName("JSONObject -&gt; ToJava[default]");
-        String json = "{name=\"json\",bool:true,int:1,double:2.2,func:function(a){ return a; },array:[1,2]}";
+        String json = "{name=\"json\",bool:true,int:1,double:2.2,array:[1,2]}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         Object bean = JSONSerializer.toJava(jsonObject);
         assertNotNull(bean);
@@ -87,7 +87,6 @@ public class TestJSONSerializer extends TestCase {
         assertEquals(jsonObject.get("bool"), PropertyUtils.getProperty(bean, "bool"));
         assertEquals(jsonObject.get("int"), PropertyUtils.getProperty(bean, "int"));
         assertEquals(jsonObject.get("double"), PropertyUtils.getProperty(bean, "double"));
-        assertEquals(jsonObject.get("func"), PropertyUtils.getProperty(bean, "func"));
         List expected = (List) JSONArray.toCollection(jsonObject.getJSONArray("array"));
         Assertions.assertEquals(expected, (List) PropertyUtils.getProperty(bean, "array"));
     }
