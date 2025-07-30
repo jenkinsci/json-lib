@@ -16,225 +16,172 @@
 
 package net.sf.ezmorph.test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class FloatArrayAssertionsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FloatArrayAssertionsTest.class);
-        suite.setName("FloatArrayAssertions Tests");
-        return suite;
-    }
-
-    public FloatArrayAssertionsTest(String name) {
-        super(name);
-    }
-
-    // -----------------------------------------------------------------------
-
-    public void testAssertEquals_float_float() {
+class FloatArrayAssertionsTest {
+    @Test
+    void testAssertEquals_float_float() {
         float[] expecteds = new float[] {1, 2};
         float[] actuals = new float[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_float_Float() {
+    @Test
+    void testAssertEquals_float_Float() {
         float[] expecteds = new float[] {1, 2};
         Float[] actuals = new Float[] {1f, 2f};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Float_float() {
+    @Test
+    void testAssertEquals_Float_float() {
         Float[] expecteds = new Float[] {1f, 2f};
         float[] actuals = new float[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Float_Float() {
+    @Test
+    void testAssertEquals_Float_Float() {
         Float[] expecteds = new Float[] {1f, 2f};
         Float[] actuals = new Float[] {1f, 2f};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_float_float_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_float_float_actuals_is_null() {
         float[] expecteds = new float[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (float[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (float[]) null));
     }
 
-    public void testAssertEquals_float_Float_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_float_Float_actuals_is_null() {
         float[] expecteds = new float[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (Float[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (Float[]) null));
     }
 
-    public void testAssertEquals_Float_float_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Float_float_actuals_is_null() {
         Float[] expecteds = new Float[] {1f, 2f};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (float[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (float[]) null));
     }
 
-    public void testAssertEquals_float_float_different_length() {
+    @Test
+    void testAssertEquals_float_float_different_length() {
         float[] expecteds = new float[] {1};
         float[] actuals = new float[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_float_Float_different_length() {
+    @Test
+    void testAssertEquals_float_Float_different_length() {
         float[] expecteds = new float[] {1};
         Float[] actuals = new Float[] {1f, 2f};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_Float_float_different_length() {
+    @Test
+    void testAssertEquals_Float_float_different_length() {
         Float[] expecteds = new Float[] {1f};
         float[] actuals = new float[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_float_float_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_float_float_expecteds_is_null() {
         float[] actuals = new float[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((float[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((float[]) null, actuals));
     }
 
-    public void testAssertEquals_float_Float_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_float_Float_expecteds_is_null() {
         Float[] actuals = new Float[] {1f, 2f};
-        try {
-            ArrayAssertions.assertEquals((float[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((float[]) null, actuals));
     }
 
-    public void testAssertEquals_Float_float_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Float_float_expecteds_is_null() {
         float[] actuals = new float[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((Float[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((Float[]) null, actuals));
     }
 
-    public void testAssertEquals_multi_float_float() {
+    @Test
+    void testAssertEquals_multi_float_float() {
         float[][] expecteds = new float[][] {{1, 2}, {1, 2}};
         float[][] actuals = new float[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_float_Float() {
+    @Test
+    void testAssertEquals_multi_float_Float() {
         float[][] expecteds = new float[][] {{1, 2}, {1, 2}};
         Float[][] actuals = new Float[][] {{1f, 2f}, {1f, 2f}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Float_float() {
+    @Test
+    void testAssertEquals_multi_Float_float() {
         Float[][] expecteds = new Float[][] {{1f, 2f}, {1f, 2f}};
         float[][] actuals = new float[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Float_Float() {
+    @Test
+    void testAssertEquals_multi_Float_Float() {
         Float[][] expecteds = new Float[][] {{1f, 2f}, {1f, 2f}};
         Float[][] actuals = new Float[][] {{1f, 2f}, {1f, 2f}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_float_double() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_OO_float_double() {
         Object expecteds = new float[] {1, 2};
         Object actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_OO_float_float() {
+    @Test
+    void testAssertEquals_OO_float_float() {
         Object expecteds = new float[] {1, 2};
         Object actuals = new float[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_float_Float() {
+    @Test
+    void testAssertEquals_OO_float_Float() {
         Object expecteds = new float[] {1, 2};
         Object actuals = new Float[] {1f, 2f};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Float_float() {
+    @Test
+    void testAssertEquals_OO_Float_float() {
         Object expecteds = new Float[] {1f, 2f};
         Object actuals = new float[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_float_Object_array() {
+    @Test
+    void testAssertEquals_OO_float_Object_array() {
         Object expecteds = new float[] {1, 2};
         Object actuals = new Object[] {1f, 2f};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_float() {
+    @Test
+    void testAssertEquals_OO_Object_array_float() {
         Object expecteds = new Object[] {1f, 2f};
         Object actuals = new float[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_Object_array() {
+    @Test
+    void testAssertEquals_OO_Object_array_Object_array() {
         Object expecteds = new Object[] {1f, 2f};
         Object actuals = new Object[] {1f, 2f};
         ArrayAssertions.assertEquals(expecteds, actuals);

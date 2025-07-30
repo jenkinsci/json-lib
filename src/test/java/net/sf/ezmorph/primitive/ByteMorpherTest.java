@@ -16,104 +16,92 @@
 
 package net.sf.ezmorph.primitive;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ByteMorpherTest extends AbstractMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ByteMorpherTest.class);
-        suite.setName("ByteMorpher Tests");
-        return suite;
-    }
-
-    private Morpher anotherMorpher;
-    private Morpher anotherMorpherWithDefaultValue;
-    private Morpher morpher;
-    private Morpher morpherWithDefaultValue;
-
-    public ByteMorpherTest(String name) {
-        super(name);
-    }
+class ByteMorpherTest extends AbstractMorpherTestCase {
+    private ByteMorpher anotherMorpher;
+    private ByteMorpher anotherMorpherWithDefaultValue;
+    private ByteMorpher morpher;
+    private ByteMorpher morpherWithDefaultValue;
 
     // -----------------------------------------------------------------------
 
-    public void testByteMorph_throwException() {
-        try {
-            ((ByteMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testByteMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testByteMorph_throwException_null() {
-        try {
-            ((ByteMorpher) getMorpher()).morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testByteMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testByteMorph_useDefault() {
-        String expected = String.valueOf("A");
-        byte actual = ((ByteMorpher) getMorpherWithDefaultValue()).morph(expected);
+    @Test
+    void testByteMorph_useDefault() {
+        byte actual = morpherWithDefaultValue.morph("A");
         assertEquals(0, actual);
     }
 
-    public void testByteMorph_useDefault_null() {
-        byte actual = ((ByteMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testByteMorph_useDefault_null() {
+        byte actual = morpherWithDefaultValue.morph(null);
         assertEquals(0, actual);
     }
 
-    public void testByteMorphDecimalValue_Number() {
+    @Test
+    void testByteMorphDecimalValue_Number() {
         Double expected = 3.1416d;
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(3, actual);
     }
 
-    public void testByteMorphDecimalValue_Number_outOfRange() {
-        byte actual = ((ByteMorpher) getMorpher()).morph(Double.MAX_VALUE);
+    @Test
+    void testByteMorphDecimalValue_Number_outOfRange() {
+        byte actual = morpher.morph(Double.MAX_VALUE);
         assertEquals(-1, actual);
     }
 
-    public void testByteMorphDecimalValue_String() {
+    @Test
+    void testByteMorphDecimalValue_String() {
         String expected = "3.1416";
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(3, actual);
     }
 
-    public void testByteMorphMaxValue_Number() {
+    @Test
+    void testByteMorphMaxValue_Number() {
         Byte expected = Byte.MAX_VALUE;
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(expected.byteValue(), actual);
     }
 
-    public void testByteMorphMaxValue_String() {
+    @Test
+    void testByteMorphMaxValue_String() {
         String expected = String.valueOf(Byte.MAX_VALUE);
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
-    public void testByteMorphMinValue_Number() {
+    @Test
+    void testByteMorphMinValue_Number() {
         Byte expected = Byte.MIN_VALUE;
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(expected.byteValue(), actual);
     }
 
-    public void testByteMorphMinValue_String() {
+    @Test
+    void testByteMorphMinValue_String() {
         String expected = String.valueOf(Byte.MIN_VALUE);
-        byte actual = ((ByteMorpher) getMorpher()).morph(expected);
+        byte actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
@@ -128,7 +116,7 @@ public class ByteMorpherTest extends AbstractMorpherTestCase {
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Byte.TYPE;
     }
 
@@ -142,8 +130,8 @@ public class ByteMorpherTest extends AbstractMorpherTestCase {
         return anotherMorpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new ByteMorpher();
         morpherWithDefaultValue = new ByteMorpher((byte) 0);
         anotherMorpher = new ByteMorpher();

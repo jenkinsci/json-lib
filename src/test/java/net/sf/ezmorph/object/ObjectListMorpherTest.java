@@ -16,139 +16,124 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.test.ArrayAssertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ObjectListMorpherTest.class);
-        suite.setName("ObjectListMorpher Tests");
-        return suite;
-    }
-
+class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
     private ObjectListMorpher anotherMorpher;
     private ObjectListMorpher anotherMorpherWithDefaultValue;
     private ObjectListMorpher morpher;
     private ObjectListMorpher morpherWithDefaultValue;
 
-    public ObjectListMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testMorph_illegalArgument() {
-        try {
-            // argument is not a list
-            morpher.morph("");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_illegalArgument() {
+        // argument is not a list
+        assertThrows(MorphException.class, () -> morpher.morph(""));
     }
 
-    public void testMorph_IntegerList() {
-        List expected = new ArrayList();
+    @Test
+    void testMorph_IntegerList() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
         expected.add(3);
-        List actual = (List) morpher.morph(expected);
+        List<?> actual = (List<?>) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_NullList() {
-        List expected = new ArrayList();
+    @Test
+    void testMorph_NullList() {
+        List<Object> expected = new ArrayList<>();
         expected.add(null);
         expected.add(null);
         expected.add(null);
-        List actual = (List) morpher.morph(expected);
+        List<?> actual = (List<?>) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_NullList_withDefaultValue() {
-        List expected = new ArrayList();
+    @Test
+    void testMorph_NullList_withDefaultValue() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(0);
         expected.add(0);
         expected.add(0);
-        List input = new ArrayList();
+        List<Object> input = new ArrayList<>();
         input.add(null);
         input.add(null);
         input.add(null);
-        List actual = (List) morpherWithDefaultValue.morph(input);
+        List<?> actual = (List<?>) morpherWithDefaultValue.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_StringList() {
-        List expected = new ArrayList();
+    @Test
+    void testMorph_StringList() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
         expected.add(3);
-        List input = new ArrayList();
+        List<String> input = new ArrayList<>();
         input.add("1");
         input.add("2");
         input.add("3");
-        List actual = (List) morpher.morph(input);
+        List<?> actual = (List<?>) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testObjectListMorpher_illegalMorpher_noMorphMethod() {
-        try {
-            morpher = new ObjectListMorpher(new Morpher() {
-                @Override
-                public Class morphsTo() {
-                    return Object.class;
-                }
+    @Test
+    void testObjectListMorpher_illegalMorpher_noMorphMethod() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new ObjectListMorpher(new Morpher() {
+                    @Override
+                    public Class morphsTo() {
+                        return Object.class;
+                    }
 
-                @Override
-                public boolean supports(Class clazz) {
-                    return false;
-                }
-            });
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+                    @Override
+                    public boolean supports(Class clazz) {
+                        return false;
+                    }
+                }));
     }
 
-    public void testObjectListMorpher_illegalMorpher_nullMorpher() {
-        try {
-            morpher = new ObjectListMorpher(null);
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+    @Test
+    void testObjectListMorpher_illegalMorpher_nullMorpher() {
+        assertThrows(IllegalArgumentException.class, () -> new ObjectListMorpher(null));
     }
 
-    public void testObjectListMorpher_illegalMorpher_supportsList() {
-        try {
-            morpher = new ObjectListMorpher(new Morpher() {
-                @Override
-                public Class morphsTo() {
-                    return List.class;
-                }
+    @Test
+    void testObjectListMorpher_illegalMorpher_supportsList() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new ObjectListMorpher(new Morpher() {
+                    @Override
+                    public Class morphsTo() {
+                        return List.class;
+                    }
 
-                @Override
-                public boolean supports(Class clazz) {
-                    return false;
-                }
-            });
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+                    @Override
+                    public boolean supports(Class clazz) {
+                        return false;
+                    }
+                }));
     }
 
     @Override
@@ -171,8 +156,8 @@ public class ObjectListMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new ObjectListMorpher(new NumberMorpher(Integer.class));
         morpherWithDefaultValue = new ObjectListMorpher(new NumberMorpher(Integer.class, 0), 0);
         anotherMorpher = new ObjectListMorpher(new NumberMorpher(Integer.class));

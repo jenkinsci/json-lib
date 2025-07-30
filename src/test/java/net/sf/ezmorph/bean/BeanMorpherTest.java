@@ -16,13 +16,16 @@
 
 package net.sf.ezmorph.bean;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
@@ -35,131 +38,71 @@ import net.sf.ezmorph.bean.sample.PrimitiveBean;
 import net.sf.ezmorph.bean.sample.TypedBean;
 import net.sf.ezmorph.test.ArrayAssertions;
 import org.apache.commons.beanutils.DynaBean;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BeanMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BeanMorpherTest.class);
-        suite.setName("BeanMorpher Tests");
-        return suite;
-    }
+class BeanMorpherTest {
 
     private MorpherRegistry morpherRegistry;
 
-    public BeanMorpherTest(String name) {
-        super(name);
+    @Test
+    void testException_array_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(Map[].class, morpherRegistry));
     }
 
-    public void testException_array_class() {
-        try {
-            new BeanMorpher(Map[].class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_Collection_subclass() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(ArrayList.class, morpherRegistry));
     }
 
-    public void testException_Collection_subclass() {
-        try {
-            new BeanMorpher(ArrayList.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_DynaBean_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(MorphDynaBean.class, morpherRegistry));
     }
 
-    public void testException_DynaBean_class() {
-        try {
-            new BeanMorpher(MorphDynaBean.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_interface_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(Map.class, morpherRegistry));
     }
 
-    public void testException_interface_class() {
-        try {
-            new BeanMorpher(Map.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_Map_subclass() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(HashMap.class, morpherRegistry));
     }
 
-    public void testException_Map_subclass() {
-        try {
-            new BeanMorpher(HashMap.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_null_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(null, morpherRegistry));
     }
 
-    public void testException_null_class() {
-        try {
-            new BeanMorpher(null, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_null_morpherRegistry() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(BeanA.class, null));
     }
 
-    public void testException_null_morpherRegistry() {
-        try {
-            new BeanMorpher(BeanA.class, null);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_primitive_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(int.class, morpherRegistry));
     }
 
-    public void testException_primitive_class() {
-        try {
-            new BeanMorpher(int.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_String_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(String.class, morpherRegistry));
     }
 
-    public void testException_String_class() {
-        try {
-            new BeanMorpher(String.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testException_wrapper_class() {
+        assertThrows(MorphException.class, () -> new BeanMorpher(Integer.class, morpherRegistry));
+        assertThrows(MorphException.class, () -> new BeanMorpher(Boolean.class, morpherRegistry));
+        assertThrows(MorphException.class, () -> new BeanMorpher(Character.class, morpherRegistry));
     }
 
-    public void testException_wrapper_class() {
-        try {
-            new BeanMorpher(Integer.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-        try {
-            new BeanMorpher(Boolean.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-        try {
-            new BeanMorpher(Character.class, morpherRegistry);
-            fail("Expected an MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-    }
-
-    public void testMorph_dynaBean() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testMorph_dynaBean() throws Exception {
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("string", String.class);
         properties.put("integer", Integer.class);
         properties.put("bool", Boolean.class);
@@ -173,13 +116,14 @@ public class BeanMorpherTest extends TestCase {
         BeanMorpher morpher = new BeanMorpher(BeanA.class, morpherRegistry);
         BeanA beanA = (BeanA) morpher.morph(dynaBean);
         assertNotNull(beanA);
-        assertEquals(false, beanA.isBool());
+        assertFalse(beanA.isBool());
         assertEquals(24, beanA.getInteger());
         assertEquals("dyna morph", beanA.getString());
     }
 
-    public void testMorph_dynaBean_missingProperty() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testMorph_dynaBean_missingProperty() throws Exception {
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("integer", Integer.class);
         properties.put("bool", Boolean.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
@@ -191,13 +135,14 @@ public class BeanMorpherTest extends TestCase {
         BeanMorpher morpher = new BeanMorpher(BeanA.class, morpherRegistry);
         BeanA beanA = (BeanA) morpher.morph(dynaBean);
         assertNotNull(beanA);
-        assertEquals(false, beanA.isBool());
+        assertFalse(beanA.isBool());
         assertEquals(24, beanA.getInteger());
         assertEquals("morph", beanA.getString());
     }
 
-    public void testMorph_nested__dynaBeans() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testMorph_nested__dynaBeans() throws Exception {
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("string", String.class);
         properties.put("integer", Integer.class);
         properties.put("bool", Boolean.class);
@@ -208,7 +153,7 @@ public class BeanMorpherTest extends TestCase {
         dynaBeanA.set("integer", "24");
         dynaBeanA.set("bool", "false");
 
-        properties = new HashMap();
+        properties = new HashMap<>();
         properties.put("string", String.class);
         properties.put("integer", Integer.class);
         properties.put("bool", Boolean.class);
@@ -221,7 +166,7 @@ public class BeanMorpherTest extends TestCase {
         dynaBeanB.set("bool", "true");
         dynaBeanB.set("intarray", new int[] {4, 5, 6});
 
-        properties = new HashMap();
+        properties = new HashMap<>();
         properties.put("beanA", DynaBean.class);
         properties.put("beanB", DynaBean.class);
         dynaClass = new MorphDynaClass(properties);
@@ -236,23 +181,25 @@ public class BeanMorpherTest extends TestCase {
         BeanC beanC = (BeanC) morpher.morph(dynaBeanC);
         assertNotNull(beanC);
         BeanA beanA = beanC.getBeanA();
-        assertEquals(false, beanA.isBool());
+        assertFalse(beanA.isBool());
         assertEquals(24, beanA.getInteger());
         assertEquals("dyna morph", beanA.getString());
         BeanB beanB = beanC.getBeanB();
-        assertEquals(true, beanB.isBool());
+        assertTrue(beanB.isBool());
         assertEquals(48, beanB.getInteger());
         assertEquals("dyna morph B", beanB.getString());
         ArrayAssertions.assertEquals(new int[] {4, 5, 6}, beanB.getIntarray());
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         BeanMorpher morpher = new BeanMorpher(BeanA.class, morpherRegistry);
         BeanA beanA = (BeanA) morpher.morph(null);
         assertNull(beanA);
     }
 
-    public void testMorph_ObjectBean_to_PrimitiveBean() {
+    @Test
+    void testMorph_ObjectBean_to_PrimitiveBean() {
         ObjectBean objectBean = new ObjectBean();
         objectBean.setPclass(Object.class);
         objectBean.setPstring("MORPH");
@@ -260,7 +207,7 @@ public class BeanMorpherTest extends TestCase {
         morpherRegistry.registerMorpher(new BeanMorpher(ObjectBean.class, morpherRegistry));
         PrimitiveBean primitiveBean = (PrimitiveBean) morpherRegistry.morph(PrimitiveBean.class, objectBean);
         assertNotNull(primitiveBean);
-        assertEquals(false, primitiveBean.isPboolean());
+        assertFalse(primitiveBean.isPboolean());
         assertEquals((byte) 0, primitiveBean.getPbyte());
         assertEquals((short) 0, primitiveBean.getPshort());
         assertEquals(0, primitiveBean.getPint());
@@ -268,15 +215,16 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(0f, primitiveBean.getPfloat(), 0f);
         assertEquals(0d, primitiveBean.getPdouble(), 0d);
         assertEquals('\0', primitiveBean.getPchar());
-        assertEquals(null, primitiveBean.getParray());
-        assertEquals(null, primitiveBean.getPlist());
-        assertEquals(null, primitiveBean.getPbean());
-        assertEquals(null, primitiveBean.getPmap());
+        assertNull(primitiveBean.getParray());
+        assertNull(primitiveBean.getPlist());
+        assertNull(primitiveBean.getPbean());
+        assertNull(primitiveBean.getPmap());
         assertEquals("MORPH", primitiveBean.getPstring());
         assertEquals(Object.class, primitiveBean.getPclass());
     }
 
-    public void testMorph_ObjectBean_to_PrimitiveBean_lenient() {
+    @Test
+    void testMorph_ObjectBean_to_PrimitiveBean_lenient() {
         ObjectBean objectBean = new ObjectBean();
         objectBean.setPclass(Object.class);
         objectBean.setPstring("MORPH");
@@ -284,7 +232,7 @@ public class BeanMorpherTest extends TestCase {
         morpherRegistry.registerMorpher(new BeanMorpher(PrimitiveBean.class, morpherRegistry, true));
         PrimitiveBean primitiveBean = (PrimitiveBean) morpherRegistry.morph(PrimitiveBean.class, objectBean);
         assertNotNull(primitiveBean);
-        assertEquals(false, primitiveBean.isPboolean());
+        assertFalse(primitiveBean.isPboolean());
         assertEquals((byte) 0, primitiveBean.getPbyte());
         assertEquals((short) 0, primitiveBean.getPshort());
         assertEquals(0, primitiveBean.getPint());
@@ -292,29 +240,26 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(0f, primitiveBean.getPfloat(), 0f);
         assertEquals(0d, primitiveBean.getPdouble(), 0d);
         assertEquals('\0', primitiveBean.getPchar());
-        assertEquals(null, primitiveBean.getParray());
-        assertEquals(null, primitiveBean.getPlist());
-        assertEquals(null, primitiveBean.getPbean());
-        assertEquals(null, primitiveBean.getPmap());
+        assertNull(primitiveBean.getParray());
+        assertNull(primitiveBean.getPlist());
+        assertNull(primitiveBean.getPbean());
+        assertNull(primitiveBean.getPmap());
         assertEquals("MORPH", primitiveBean.getPstring());
         assertEquals(Object.class, primitiveBean.getPclass());
     }
 
-    public void testMorph_ObjectBean_to_PrimitiveBean_notLenient() {
+    @Test
+    void testMorph_ObjectBean_to_PrimitiveBean_notLenient() {
         ObjectBean objectBean = new ObjectBean();
         objectBean.setPclass(Object.class);
         objectBean.setPstring("MORPH");
         objectBean.setPbean(objectBean);
         morpherRegistry.registerMorpher(new BeanMorpher(PrimitiveBean.class, morpherRegistry));
-        try {
-            morpherRegistry.morph(PrimitiveBean.class, objectBean);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+        assertThrows(MorphException.class, () -> morpherRegistry.morph(PrimitiveBean.class, objectBean));
     }
 
-    public void testMorph_ObjectBean_to_TypedBean() {
+    @Test
+    void testMorph_ObjectBean_to_TypedBean() {
         ObjectBean objectBean = new ObjectBean();
         objectBean.setPclass(Object.class);
         objectBean.setPstring("MORPH");
@@ -322,23 +267,24 @@ public class BeanMorpherTest extends TestCase {
         morpherRegistry.registerMorpher(new BeanMorpher(ObjectBean.class, morpherRegistry));
         TypedBean typedBean = (TypedBean) morpherRegistry.morph(TypedBean.class, objectBean);
         assertNotNull(typedBean);
-        assertEquals(null, typedBean.getPboolean());
-        assertEquals(null, typedBean.getPbyte());
-        assertEquals(null, typedBean.getPshort());
-        assertEquals(null, typedBean.getPint());
-        assertEquals(null, typedBean.getPlong());
-        assertEquals(null, typedBean.getPfloat());
-        assertEquals(null, typedBean.getPdouble());
-        assertEquals(null, typedBean.getPchar());
-        assertEquals(null, typedBean.getParray());
-        assertEquals(null, typedBean.getPlist());
-        assertEquals(null, typedBean.getPbean());
-        assertEquals(null, typedBean.getPmap());
+        assertNull(typedBean.getPboolean());
+        assertNull(typedBean.getPbyte());
+        assertNull(typedBean.getPshort());
+        assertNull(typedBean.getPint());
+        assertNull(typedBean.getPlong());
+        assertNull(typedBean.getPfloat());
+        assertNull(typedBean.getPdouble());
+        assertNull(typedBean.getPchar());
+        assertNull(typedBean.getParray());
+        assertNull(typedBean.getPlist());
+        assertNull(typedBean.getPbean());
+        assertNull(typedBean.getPmap());
         assertEquals("MORPH", typedBean.getPstring());
         assertEquals(Object.class, typedBean.getPclass());
     }
 
-    public void testMorph_PrimitiveBean_to_ObjectBean() {
+    @Test
+    void testMorph_PrimitiveBean_to_ObjectBean() {
         PrimitiveBean primitiveBean = new PrimitiveBean();
         primitiveBean.setPclass(Object.class);
         primitiveBean.setPstring("MORPH");
@@ -353,15 +299,16 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(Float.valueOf("0"), objectBean.getPfloat());
         assertEquals(Double.valueOf("0"), objectBean.getPdouble());
         assertEquals('\0', objectBean.getPchar());
-        assertEquals(null, objectBean.getParray());
-        assertEquals(null, objectBean.getPlist());
-        assertEquals(null, objectBean.getPbean());
-        assertEquals(null, objectBean.getPmap());
+        assertNull(objectBean.getParray());
+        assertNull(objectBean.getPlist());
+        assertNull(objectBean.getPbean());
+        assertNull(objectBean.getPmap());
         assertEquals("MORPH", objectBean.getPstring());
         assertEquals(Object.class, objectBean.getPclass());
     }
 
-    public void testMorph_PrimitiveBean_to_TypedBean() {
+    @Test
+    void testMorph_PrimitiveBean_to_TypedBean() {
         PrimitiveBean primitiveBean = new PrimitiveBean();
         primitiveBean.setPclass(Object.class);
         primitiveBean.setPstring("MORPH");
@@ -375,26 +322,23 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(Long.valueOf("0"), typedBean.getPlong());
         assertEquals(Float.valueOf("0"), typedBean.getPfloat());
         assertEquals(Double.valueOf("0"), typedBean.getPdouble());
-        assertEquals(new Character('\0'), typedBean.getPchar());
-        assertEquals(null, typedBean.getParray());
-        assertEquals(null, typedBean.getPlist());
-        assertEquals(null, typedBean.getPbean());
-        assertEquals(null, typedBean.getPmap());
+        assertEquals('\0', typedBean.getPchar());
+        assertNull(typedBean.getParray());
+        assertNull(typedBean.getPlist());
+        assertNull(typedBean.getPbean());
+        assertNull(typedBean.getPmap());
         assertEquals("MORPH", typedBean.getPstring());
         assertEquals(Object.class, typedBean.getPclass());
     }
 
-    public void testMorph_unsupported() {
+    @Test
+    void testMorph_unsupported() {
         BeanMorpher morpher = new BeanMorpher(BeanA.class, morpherRegistry);
-        try {
-            morpher.morph(new Object[0]);
-            fail("Should vae thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+        assertThrows(MorphException.class, () -> morpher.morph(new Object[0]));
     }
 
-    public void testMorph_BeanA_to_BeanD() {
+    @Test
+    void testMorph_BeanA_to_BeanD() {
         morpherRegistry.registerMorpher(new BeanMorpher(BeanD.class, morpherRegistry));
         BeanA beanA = new BeanA();
         beanA.setBool(false);
@@ -407,8 +351,8 @@ public class BeanMorpherTest extends TestCase {
         assertEquals(0d, beanD.getDecimal(), 0d);
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpherRegistry = new MorpherRegistry();
         MorphUtils.registerStandardMorphers(morpherRegistry);
     }

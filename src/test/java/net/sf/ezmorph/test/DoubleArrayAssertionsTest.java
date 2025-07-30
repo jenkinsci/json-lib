@@ -16,225 +16,172 @@
 
 package net.sf.ezmorph.test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class DoubleArrayAssertionsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DoubleArrayAssertionsTest.class);
-        suite.setName("DoubleArrayAssertions Tests");
-        return suite;
-    }
-
-    public DoubleArrayAssertionsTest(String name) {
-        super(name);
-    }
-
-    // -----------------------------------------------------------------------
-
-    public void testAssertEquals_double_double() {
+class DoubleArrayAssertionsTest {
+    @Test
+    void testAssertEquals_double_double() {
         double[] expecteds = new double[] {1, 2};
         double[] actuals = new double[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_double_Double() {
+    @Test
+    void testAssertEquals_double_Double() {
         double[] expecteds = new double[] {1, 2};
         Double[] actuals = new Double[] {1d, 2d};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Double_double() {
+    @Test
+    void testAssertEquals_Double_double() {
         Double[] expecteds = new Double[] {1d, 2d};
         double[] actuals = new double[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Double_Double() {
+    @Test
+    void testAssertEquals_Double_Double() {
         Double[] expecteds = new Double[] {1d, 2d};
         Double[] actuals = new Double[] {1d, 2d};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_double_double_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_double_double_actuals_is_null() {
         double[] expecteds = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (double[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (double[]) null));
     }
 
-    public void testAssertEquals_double_Double_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_double_Double_actuals_is_null() {
         double[] expecteds = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (Double[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (Double[]) null));
     }
 
-    public void testAssertEquals_Double_double_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Double_double_actuals_is_null() {
         Double[] expecteds = new Double[] {1d, 2d};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (double[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (double[]) null));
     }
 
-    public void testAssertEquals_double_double_different_length() {
+    @Test
+    void testAssertEquals_double_double_different_length() {
         double[] expecteds = new double[] {1};
         double[] actuals = new double[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_double_Double_different_length() {
+    @Test
+    void testAssertEquals_double_Double_different_length() {
         double[] expecteds = new double[] {1};
         Double[] actuals = new Double[] {1d, 2d};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_Double_double_different_length() {
+    @Test
+    void testAssertEquals_Double_double_different_length() {
         Double[] expecteds = new Double[] {1d};
         double[] actuals = new double[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_double_double_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_double_double_expecteds_is_null() {
         double[] actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((double[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((double[]) null, actuals));
     }
 
-    public void testAssertEquals_double_Double_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_double_Double_expecteds_is_null() {
         Double[] actuals = new Double[] {1d, 2d};
-        try {
-            ArrayAssertions.assertEquals((double[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((double[]) null, actuals));
     }
 
-    public void testAssertEquals_Double_double_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Double_double_expecteds_is_null() {
         double[] actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((Double[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((Double[]) null, actuals));
     }
 
-    public void testAssertEquals_multi_double_double() {
+    @Test
+    void testAssertEquals_multi_double_double() {
         double[][] expecteds = new double[][] {{1, 2}, {1, 2}};
         double[][] actuals = new double[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_double_Double() {
+    @Test
+    void testAssertEquals_multi_double_Double() {
         double[][] expecteds = new double[][] {{1, 2}, {1, 2}};
         Double[][] actuals = new Double[][] {{1d, 2d}, {1d, 2d}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Double_double() {
+    @Test
+    void testAssertEquals_multi_Double_double() {
         Double[][] expecteds = new Double[][] {{1d, 2d}, {1d, 2d}};
         double[][] actuals = new double[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Double_Double() {
+    @Test
+    void testAssertEquals_multi_Double_Double() {
         Double[][] expecteds = new Double[][] {{1d, 2d}, {1d, 2d}};
         Double[][] actuals = new Double[][] {{1d, 2d}, {1d, 2d}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_double_byte() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_OO_double_byte() {
         Object expecteds = new double[] {1, 2};
         Object actuals = new byte[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_OO_double_double() {
+    @Test
+    void testAssertEquals_OO_double_double() {
         Object expecteds = new double[] {1, 2};
         Object actuals = new double[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_double_Double() {
+    @Test
+    void testAssertEquals_OO_double_Double() {
         Object expecteds = new double[] {1, 2};
         Object actuals = new Double[] {1d, 2d};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Double_double() {
+    @Test
+    void testAssertEquals_OO_Double_double() {
         Object expecteds = new Double[] {1d, 2d};
         Object actuals = new double[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_double_Object_array() {
+    @Test
+    void testAssertEquals_OO_double_Object_array() {
         Object expecteds = new double[] {1, 2};
         Object actuals = new Object[] {1d, 2d};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_double() {
+    @Test
+    void testAssertEquals_OO_Object_array_double() {
         Object expecteds = new Object[] {1d, 2d};
         Object actuals = new double[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_Object_array() {
+    @Test
+    void testAssertEquals_OO_Object_array_Object_array() {
         Object expecteds = new Object[] {1d, 2d};
         Object actuals = new Object[] {1d, 2d};
         ArrayAssertions.assertEquals(expecteds, actuals);

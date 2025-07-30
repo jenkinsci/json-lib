@@ -16,139 +16,117 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.math.BigInteger;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class BigIntegerMorpherTest extends AbstractObjectMorpherTestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BigIntegerMorpherTest.class);
-        suite.setName("BigDecimalMorpher Tests");
-        return suite;
-    }
+class BigIntegerMorpherTest extends AbstractObjectMorpherTestCase {
 
     private BigIntegerMorpher anotherMorpher;
     private BigIntegerMorpher anotherMorpherWithDefaultValue;
     private BigIntegerMorpher morpher;
     private BigIntegerMorpher morpherWithDefaultValue;
 
-    public BigIntegerMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testBigIntegerMorph_BigDecimal() {
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph(MorphUtils.BIGDECIMAL_ZERO);
+    @Test
+    void testBigIntegerMorph_BigDecimal() {
+        Object actual = morpherWithDefaultValue.morph(MorphUtils.BIGDECIMAL_ZERO);
         assertEquals(BigInteger.ZERO, actual);
     }
 
-    public void testBigIntegerMorph_BigInteger() {
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph(BigInteger.ZERO);
+    @Test
+    void testBigIntegerMorph_BigInteger() {
+        Object actual = morpherWithDefaultValue.morph(BigInteger.ZERO);
         assertEquals(BigInteger.ZERO, actual);
     }
 
-    public void testBigIntegerMorph_Number() {
-        Object actual = ((BigIntegerMorpher) getMorpher()).morph((byte) 1);
+    @Test
+    void testBigIntegerMorph_Number() {
+        Object actual = morpher.morph((byte) 1);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph((short) 1);
+        actual = morpher.morph((short) 1);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(1);
+        actual = morpher.morph(1);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(1L);
+        actual = morpher.morph(1L);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(1d);
+        actual = morpher.morph(1d);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(1f);
+        actual = morpher.morph(1f);
         assertEquals(BigInteger.ONE, actual);
-        actual = ((BigIntegerMorpher) getMorpher()).morph(MorphUtils.BIGDECIMAL_ONE);
+        actual = morpher.morph(MorphUtils.BIGDECIMAL_ONE);
         assertEquals(BigInteger.ONE, actual);
     }
 
-    public void testBigIntegerMorph_Number__Double_INFINITY() {
-        try {
-            ((BigIntegerMorpher) getMorpher()).morph(Double.POSITIVE_INFINITY);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigIntegerMorph_Number__Double_INFINITY() {
+        assertThrows(MorphException.class, () -> morpher.morph(Double.POSITIVE_INFINITY));
     }
 
-    public void testBigIntegerMorph_Number__Double_NAN() {
-        try {
-            ((BigIntegerMorpher) getMorpher()).morph(Double.NaN);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigIntegerMorph_Number__Double_NAN() {
+        assertThrows(MorphException.class, () -> morpher.morph(Double.NaN));
     }
 
-    public void testBigIntegerMorph_Number__Float_INFINITY() {
-        try {
-            ((BigIntegerMorpher) getMorpher()).morph(Float.POSITIVE_INFINITY);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigIntegerMorph_Number__Float_INFINITY() {
+        assertThrows(MorphException.class, () -> morpher.morph(Float.POSITIVE_INFINITY));
     }
 
-    public void testBigIntegerMorph_Number__Float_NAN() {
-        try {
-            ((BigIntegerMorpher) getMorpher()).morph(Float.NaN);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigIntegerMorph_Number__Float_NAN() {
+        assertThrows(MorphException.class, () -> morpher.morph(Float.NaN));
     }
 
-    public void testBigIntegerMorph_String__decimal() {
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph("123.45");
+    @Test
+    void testBigIntegerMorph_String__decimal() {
+        Object actual = morpherWithDefaultValue.morph("123.45");
         assertEquals(new BigInteger("123"), actual);
     }
 
-    public void testBigIntegerMorph_String__int() {
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph("123");
+    @Test
+    void testBigIntegerMorph_String__int() {
+        Object actual = morpherWithDefaultValue.morph("123");
         assertEquals(new BigInteger("123"), actual);
     }
 
-    public void testBigIntegerMorph_String_empty() {
-        assertNull(((BigIntegerMorpher) getMorpher()).morph(""));
+    @Test
+    void testBigIntegerMorph_String_empty() {
+        assertNull(morpher.morph(""));
     }
 
-    public void testBigIntegerMorph_String_null() {
-        assertNull(((BigIntegerMorpher) getMorpher()).morph(null));
+    @Test
+    void testBigIntegerMorph_String_null() {
+        assertNull(morpher.morph(null));
     }
 
-    public void testBigIntegerMorph_String_null2() {
-        assertNull(((BigIntegerMorpher) getMorpher()).morph("null"));
+    @Test
+    void testBigIntegerMorph_String_null2() {
+        assertNull(morpher.morph("null"));
     }
 
-    public void testBigIntegerMorph_throwException() {
-        try {
-            ((BigIntegerMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigIntegerMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testBigIntegerMorph_useDefault() {
-        String expected = String.valueOf("A");
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph(expected);
+    @Test
+    void testBigIntegerMorph_useDefault() {
+        Object actual = morpherWithDefaultValue.morph("A");
         assertEquals(BigInteger.ZERO, actual);
     }
 
-    public void testBigIntegerMorph_useDefault_null() {
-        Object actual = ((BigIntegerMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testBigIntegerMorph_useDefault_null() {
+        Object actual = morpherWithDefaultValue.morph(null);
         assertEquals(BigInteger.ZERO, actual);
     }
 
@@ -172,8 +150,8 @@ public class BigIntegerMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new BigIntegerMorpher();
         morpherWithDefaultValue = new BigIntegerMorpher(BigInteger.ZERO);
         anotherMorpher = new BigIntegerMorpher();

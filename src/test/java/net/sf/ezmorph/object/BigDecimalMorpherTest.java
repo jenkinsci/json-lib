@@ -16,125 +16,102 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
-
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BigDecimalMorpherTest.class);
-        suite.setName("BigDecimalMorpher Tests");
-        return suite;
-    }
+class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
 
     private BigDecimalMorpher anotherMorpher;
     private BigDecimalMorpher anotherMorpherWithDefaultValue;
     private BigDecimalMorpher morpher;
     private BigDecimalMorpher morpherWithDefaultValue;
 
-    public BigDecimalMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testBigDecimalMorph_BigDecimal() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(MorphUtils.BIGDECIMAL_ZERO);
+    @Test
+    void testBigDecimalMorph_BigDecimal() {
+        Object actual = morpherWithDefaultValue.morph(MorphUtils.BIGDECIMAL_ZERO);
         assertEquals(MorphUtils.BIGDECIMAL_ZERO, actual);
     }
 
-    public void testBigDecimalMorph_BigInteger() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(BigInteger.ZERO);
+    @Test
+    void testBigDecimalMorph_BigInteger() {
+        Object actual = morpherWithDefaultValue.morph(BigInteger.ZERO);
         assertEquals(MorphUtils.BIGDECIMAL_ZERO, actual);
     }
 
-    public void testBigDecimalMorph_Number() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1f);
+    @Test
+    void testBigDecimalMorph_Number() {
+        Object actual = morpherWithDefaultValue.morph(1f);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
-        actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(1d);
+        actual = morpherWithDefaultValue.morph(1d);
         assertEquals(MorphUtils.BIGDECIMAL_ONE, actual);
     }
 
-    public void testBigDecimalMorph_Number__Double_INFINITY() {
-        try {
-            ((BigDecimalMorpher) getMorpher()).morph(Double.POSITIVE_INFINITY);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigDecimalMorph_Number__Double_INFINITY() {
+        assertThrows(MorphException.class, () -> morpher.morph(Double.POSITIVE_INFINITY));
     }
 
-    public void testBigDecimalMorph_Number__Double_NAN() {
-        try {
-            ((BigDecimalMorpher) getMorpher()).morph(Double.NaN);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigDecimalMorph_Number__Double_NAN() {
+        assertThrows(MorphException.class, () -> morpher.morph(Double.NaN));
     }
 
-    public void testBigDecimalMorph_Number__Float_INFINITY() {
-        try {
-            ((BigDecimalMorpher) getMorpher()).morph(Float.POSITIVE_INFINITY);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigDecimalMorph_Number__Float_INFINITY() {
+        assertThrows(MorphException.class, () -> morpher.morph(Float.POSITIVE_INFINITY));
     }
 
-    public void testBigDecimalMorph_Number__Float_NAN() {
-        try {
-            ((BigDecimalMorpher) getMorpher()).morph(Float.NaN);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigDecimalMorph_Number__Float_NAN() {
+        assertThrows(MorphException.class, () -> morpher.morph(Float.NaN));
     }
 
-    public void testBigDecimalMorph_String() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph("123.45");
+    @Test
+    void testBigDecimalMorph_String() {
+        Object actual = morpherWithDefaultValue.morph("123.45");
         assertEquals(new BigDecimal("123.45"), actual);
     }
 
-    public void testBigDecimalMorph_String_empty() {
-        assertNull(((BigDecimalMorpher) getMorpher()).morph(""));
+    @Test
+    void testBigDecimalMorph_String_empty() {
+        assertNull(morpher.morph(""));
     }
 
-    public void testBigDecimalMorph_String_null() {
-        assertNull(((BigDecimalMorpher) getMorpher()).morph(null));
+    @Test
+    void testBigDecimalMorph_String_null() {
+        assertNull(morpher.morph(null));
     }
 
-    public void testBigDecimalMorph_String_null2() {
-        assertNull(((BigDecimalMorpher) getMorpher()).morph("null"));
+    @Test
+    void testBigDecimalMorph_String_null2() {
+        assertNull(morpher.morph("null"));
     }
 
-    public void testBigDecimalMorph_throwException() {
-        try {
-            ((BigDecimalMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBigDecimalMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testBigDecimalMorph_useDefault() {
-        String expected = String.valueOf("A");
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(expected);
+    @Test
+    void testBigDecimalMorph_useDefault() {
+        Object actual = morpherWithDefaultValue.morph("A");
         assertEquals(MorphUtils.BIGDECIMAL_ZERO, actual);
     }
 
-    public void testBigDecimalMorph_useDefault_null() {
-        Object actual = ((BigDecimalMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testBigDecimalMorph_useDefault_null() {
+        Object actual = morpherWithDefaultValue.morph(null);
         assertEquals(MorphUtils.BIGDECIMAL_ZERO, actual);
     }
 
@@ -158,8 +135,8 @@ public class BigDecimalMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new BigDecimalMorpher();
         morpherWithDefaultValue = new BigDecimalMorpher(MorphUtils.BIGDECIMAL_ZERO);
         anotherMorpher = new BigDecimalMorpher();

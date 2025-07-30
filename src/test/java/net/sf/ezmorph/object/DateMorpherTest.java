@@ -16,111 +16,76 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Calendar;
 import java.util.Date;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class DateMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(DateMorpherTest.class);
-        suite.setName("DateMorpher Tests");
-        return suite;
-    }
+class DateMorpherTest extends AbstractObjectMorpherTestCase {
 
     private DateMorpher anotherMorpher;
     private DateMorpher anotherMorpherWithDefaultValue;
     private DateMorpher morpher;
     private DateMorpher morpherWithDefaultValue;
 
-    public DateMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testConstructor_illegalFormats() {
-        try {
-            new DateMorpher(null);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-
-        try {
-            new DateMorpher(new String[0]);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-
-        try {
-            new DateMorpher(null, false);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-
-        try {
-            new DateMorpher(new String[0], false);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testConstructor_illegalFormats() {
+        assertThrows(MorphException.class, () -> new DateMorpher(null));
+        assertThrows(MorphException.class, () -> new DateMorpher(new String[0]));
+        assertThrows(MorphException.class, () -> new DateMorpher(null, false));
+        assertThrows(MorphException.class, () -> new DateMorpher(new String[0], false));
     }
 
-    public void testMorph_canNotParseDate() {
+    @Test
+    void testMorph_canNotParseDate() {
         DateMorpher morpher = new DateMorpher(new String[] {"dd/MM/yyyy"});
-        try {
-            morpher.morph("01-01-1976");
-            fail("Should ve have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+        assertThrows(MorphException.class, () -> morpher.morph("01-01-1976"));
     }
 
-    public void testMorph_matchFirstPattern() {
+    @Test
+    void testMorph_matchFirstPattern() {
         Date expected = getUnixEpoch();
         Date actual = (Date) morpher.morph("1970-1-1");
         assertEquals(expected, actual);
     }
 
-    public void testMorph_matchSecondPattern() {
+    @Test
+    void testMorph_matchSecondPattern() {
         Date expected = getUnixEpoch();
         Date actual = (Date) morpher.morph("1/1/1970");
         assertEquals(expected, actual);
     }
 
-    public void testMorph_noConversion() {
+    @Test
+    void testMorph_noConversion() {
         Date expected = new Date();
         Date actual = (Date) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testMorph_notSupported() {
-        try {
-            morpher.morph(new Object[0]);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_notSupported() {
+        assertThrows(MorphException.class, () -> morpher.morph(new Object[0]));
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_useDefault() {
+    @Test
+    void testMorph_useDefault() {
         Date expected = new Date();
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
@@ -148,8 +113,8 @@ public class DateMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new DateMorpher(new String[] {"yyyy-MM-dd", "MM/dd/yyyy"});
         morpherWithDefaultValue = new DateMorpher(new String[] {"yyyy-MM-dd", "MM/dd/yyyy"}, new Date());
         anotherMorpher = new DateMorpher(new String[] {"yyyy-MM-dd", "MM/dd/yyyy"});

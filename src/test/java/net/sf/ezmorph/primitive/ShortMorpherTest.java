@@ -16,103 +16,92 @@
 
 package net.sf.ezmorph.primitive;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ShortMorpherTest extends AbstractMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ShortMorpherTest.class);
-        suite.setName("ShortMorpher Tests");
-        return suite;
-    }
-
-    private Morpher anotherMorpher;
-    private Morpher anotherMorpherWithDefaultValue;
-    private Morpher morpher;
-    private Morpher morpherWithDefaultValue;
-
-    public ShortMorpherTest(String name) {
-        super(name);
-    }
+class ShortMorpherTest extends AbstractMorpherTestCase {
+    private ShortMorpher anotherMorpher;
+    private ShortMorpher anotherMorpherWithDefaultValue;
+    private ShortMorpher morpher;
+    private ShortMorpher morpherWithDefaultValue;
 
     // -----------------------------------------------------------------------
 
-    public void testShortMorph_throwException() {
-        try {
-            ((ShortMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testShortMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testShortMorph_throwException_null() {
-        try {
-            ((ShortMorpher) getMorpher()).morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testShortMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testShortMorph_useDefault() {
-        String expected = String.valueOf("A");
-        short actual = ((ShortMorpher) getMorpherWithDefaultValue()).morph(expected);
+    @Test
+    void testShortMorph_useDefault() {
+        String expected = "A";
+        short actual = morpherWithDefaultValue.morph(expected);
         assertEquals(0, actual);
     }
 
-    public void testShortMorph_useDefault_null() {
-        short actual = ((ShortMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testShortMorph_useDefault_null() {
+        short actual = morpherWithDefaultValue.morph(null);
         assertEquals(0, actual);
     }
 
-    public void testShortMorphDecimalValue_Number() {
-        short actual = ((ShortMorpher) getMorpher()).morph(3.1416d);
+    @Test
+    void testShortMorphDecimalValue_Number() {
+        short actual = morpher.morph(3.1416d);
         assertEquals(3, actual);
     }
 
-    public void testShortMorphDecimalValue_Number_outOfRange() {
-        short actual = ((ShortMorpher) getMorpher()).morph(Double.MAX_VALUE);
+    @Test
+    void testShortMorphDecimalValue_Number_outOfRange() {
+        short actual = morpher.morph(Double.MAX_VALUE);
         assertEquals(-1, actual);
     }
 
-    public void testShortMorphDecimalValue_String() {
+    @Test
+    void testShortMorphDecimalValue_String() {
         String expected = "3.1416";
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = morpher.morph(expected);
         assertEquals(3, actual);
     }
 
-    public void testShortMorphMaxValue_Number() {
+    @Test
+    void testShortMorphMaxValue_Number() {
         Short expected = Short.MAX_VALUE;
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = morpher.morph(expected);
         assertEquals(expected.shortValue(), actual);
     }
 
-    public void testShortMorphMaxValue_String() {
+    @Test
+    void testShortMorphMaxValue_String() {
         String expected = String.valueOf(Short.MAX_VALUE);
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
-    public void testShortMorphMinValue_Number() {
+    @Test
+    void testShortMorphMinValue_Number() {
         Short expected = Short.MIN_VALUE;
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = morpher.morph(expected);
         assertEquals(expected.shortValue(), actual);
     }
 
-    public void testShortMorphMinValue_String() {
+    @Test
+    void testShortMorphMinValue_String() {
         String expected = String.valueOf(Short.MIN_VALUE);
-        short actual = ((ShortMorpher) getMorpher()).morph(expected);
+        short actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
@@ -127,7 +116,7 @@ public class ShortMorpherTest extends AbstractMorpherTestCase {
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Short.TYPE;
     }
 
@@ -141,8 +130,8 @@ public class ShortMorpherTest extends AbstractMorpherTestCase {
         return anotherMorpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new ShortMorpher();
         morpherWithDefaultValue = new ShortMorpher((short) 0);
         anotherMorpher = new ShortMorpher();

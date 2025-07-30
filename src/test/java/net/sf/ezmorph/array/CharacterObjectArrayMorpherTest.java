@@ -16,107 +16,103 @@
 
 package net.sf.ezmorph.array;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.test.ArrayAssertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class CharacterObjectArrayMorpherTest extends AbstractArrayMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharacterObjectArrayMorpherTest.class);
-        suite.setName("CharacterObjectArrayMorpher Tests");
-        return suite;
-    }
+class CharacterObjectArrayMorpherTest extends AbstractArrayMorpherTestCase {
 
     private CharacterObjectArrayMorpher anotherMorpher;
     private CharacterObjectArrayMorpher anotherMorpherWithDefaultValue;
     private CharacterObjectArrayMorpher morpher;
     private CharacterObjectArrayMorpher morpherWithDefaultValue;
 
-    public CharacterObjectArrayMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testMorph_CharacterArray() {
+    @Test
+    void testMorph_CharacterArray() {
         Character[] expected = {'A', 'B'};
         Character[] actual = (Character[]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_CharacterArray_threedims() {
+    @Test
+    void testMorph_CharacterArray_threedims() {
         Character[][][] expected = {{{'A'}, {'B'}}, {{'A'}, {'B'}}};
         Character[][][] actual = (Character[][][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_CharacterArray_twodims() {
+    @Test
+    void testMorph_CharacterArray_twodims() {
         Character[][] expected = {{'A', 'B'}, {'A', 'B'}};
         Character[][] actual = (Character[][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_charArray() {
+    @Test
+    void testMorph_charArray() {
         char[] input = {'A', 'B'};
         Character[] actual = (Character[]) morpher.morph(input);
         ArrayAssertions.assertEquals(new Character[] {'A', 'B'}, actual);
     }
 
-    public void testMorph_charArray_threedims() {
+    @Test
+    void testMorph_charArray_threedims() {
         char[][][] input = {{{'A'}}, {{'B'}}};
         Character[][][] actual = (Character[][][]) morpher.morph(input);
         ArrayAssertions.assertEquals(new Character[][][] {{{'A'}}, {{'B'}}}, actual);
     }
 
-    public void testMorph_charArray_twodims() {
+    @Test
+    void testMorph_charArray_twodims() {
         char[][] input = {{'A'}, {'B'}};
         Character[][] actual = (Character[][]) morpher.morph(input);
         ArrayAssertions.assertEquals(new Character[][] {{'A'}, {'B'}}, actual);
     }
 
-    public void testMorph_illegalArgument() {
-        try {
-            // argument is not an array
-            morpher.morph("");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_illegalArgument() {
+        assertThrows(MorphException.class, () -> morpher.morph(""));
     }
 
-    public void testMorph_IntegerArray_default() {
+    @Test
+    void testMorph_IntegerArray_default() {
         Character[] expected = {'A', 'A'};
         morpher = new CharacterObjectArrayMorpher('A');
         Character[] actual = (Character[]) morpher.morph(new Integer[] {null, null});
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_StringArray_null_default() {
+    @Test
+    void testMorph_StringArray_null_default() {
         Character[] expected = {null, null};
         morpher = new CharacterObjectArrayMorpher(null);
         Character[] actual = (Character[]) morpher.morph(new String[] {"A", "B"});
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_strings() {
+    @Test
+    void testMorph_strings() {
         String[] expected = {"A", "B"};
         Character[] actual = (Character[]) morpher.morph(expected);
         ArrayAssertions.assertEquals(new Character[] {'A', 'B'}, actual);
     }
 
-    public void testMorph_strings_twodims() {
+    @Test
+    void testMorph_strings_twodims() {
         String[][] expected = {{"A"}, {"B"}};
         Character[][] actual = (Character[][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(new Character[][] {{'A'}, {'B'}}, actual);
@@ -143,12 +139,12 @@ public class CharacterObjectArrayMorpherTest extends AbstractArrayMorpherTestCas
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Character[].class;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new CharacterObjectArrayMorpher();
         morpherWithDefaultValue = new CharacterObjectArrayMorpher('A');
         anotherMorpher = new CharacterObjectArrayMorpher();

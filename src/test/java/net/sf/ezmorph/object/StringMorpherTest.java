@@ -16,56 +16,42 @@
 
 package net.sf.ezmorph.object;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class StringMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(StringMorpherTest.class);
-        suite.setName("StringMorpher Tests");
-        return suite;
-    }
-
-    private StringMorpher morpher = StringMorpher.getInstance();
-
-    public StringMorpherTest(String name) {
-        super(name);
-    }
+class StringMorpherTest {
+    private final StringMorpher morpher = StringMorpher.getInstance();
 
     // -----------------------------------------------------------------------
 
-    public void testMorph_array() {
-        try {
-            morpher.morph(new boolean[] {true, false});
-            fail("Expected a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_array() {
+        assertThrows(MorphException.class, () -> morpher.morph(new boolean[] {true, false}));
     }
 
-    public void testMorph_boolean() {
+    @Test
+    void testMorph_boolean() {
         String expected = "true";
         String actual = (String) morpher.morph(Boolean.TRUE);
         assertEquals(expected, actual);
     }
 
-    public void testMorph_noConversion() {
+    @Test
+    void testMorph_noConversion() {
         String expected = "true";
         String actual = (String) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 }

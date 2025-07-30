@@ -16,53 +16,45 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(NumberMorpherTest.class);
-        suite.setName("NumberMorpher Tests");
-        return suite;
-    }
-
+class NumberMorpherTest extends AbstractObjectMorpherTestCase {
     private NumberMorpher anotherMorpher;
     private NumberMorpher anotherMorpherWithDefaultValue;
     private NumberMorpher morpher;
     private NumberMorpher morpherWithDefaultValue;
 
-    public NumberMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testBigDecimalConversion_Double() {
+    @Test
+    void testBigDecimalConversion_Double() {
         morpher = new NumberMorpher(BigDecimal.class);
         BigDecimal expected = new BigDecimal(Double.MIN_VALUE);
         BigDecimal actual = (BigDecimal) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testBigDecimalConversion_null() {
+    @Test
+    void testBigDecimalConversion_null() {
         morpher = new NumberMorpher(BigDecimal.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testBigDecimalConversion_useDefault() {
+    @Test
+    void testBigDecimalConversion_useDefault() {
         morpher = new NumberMorpher(BigDecimal.class);
         BigDecimal expected = MorphUtils.BIGDECIMAL_ONE;
         morpher.setDefaultValue(expected);
@@ -71,24 +63,28 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testBigDecimalConversion_useDefault_null() {
-        morpher = new NumberMorpher(BigDecimal.class, (BigDecimal) null);
+    @Test
+    void testBigDecimalConversion_useDefault_null() {
+        morpher = new NumberMorpher(BigDecimal.class, null);
         assertNull(morpher.morph(null));
     }
 
-    public void testBigIntegerConversion_Long() {
+    @Test
+    void testBigIntegerConversion_Long() {
         morpher = new NumberMorpher(BigInteger.class);
         BigInteger expected = BigInteger.valueOf(Long.MIN_VALUE);
         BigInteger actual = (BigInteger) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testBigIntegerConversion_null() {
+    @Test
+    void testBigIntegerConversion_null() {
         morpher = new NumberMorpher(BigInteger.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testBigIntegerConversion_useDefault() {
+    @Test
+    void testBigIntegerConversion_useDefault() {
         morpher = new NumberMorpher(BigInteger.class);
         BigInteger expected = BigInteger.ONE;
         morpher.setDefaultValue(expected);
@@ -97,76 +93,86 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testBigIntegerConversion_useDefault_null() {
-        morpher = new NumberMorpher(BigInteger.class, (BigInteger) null);
+    @Test
+    void testBigIntegerConversion_useDefault_null() {
+        morpher = new NumberMorpher(BigInteger.class, null);
         assertNull(morpher.morph(null));
     }
 
-    public void testByteConversion_byte() {
+    @Test
+    void testByteConversion_byte() {
         morpher = new NumberMorpher(Byte.TYPE);
         Byte expected = Byte.MIN_VALUE;
         Byte actual = (Byte) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testByteConversion_Byte() {
+    @Test
+    void testByteConversion_Byte() {
         morpher = new NumberMorpher(Byte.class);
         Byte expected = Byte.MIN_VALUE;
         Byte actual = (Byte) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testByteConversion_null() {
+    @Test
+    void testByteConversion_null() {
         morpher = new NumberMorpher(Byte.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testByteConversion_String() {
+    @Test
+    void testByteConversion_String() {
         morpher = new NumberMorpher(Byte.class);
-        String expected = String.valueOf(Byte.MIN_VALUE);
-        Byte actual = (Byte) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Byte actual = (Byte) morpher.morph(String.valueOf(Byte.MIN_VALUE));
+        assertEquals(Byte.MIN_VALUE, actual);
     }
 
-    public void testByteConversion_useDefault() {
+    @Test
+    void testByteConversion_useDefault() {
         Byte expected = Byte.MIN_VALUE;
         morpher = new NumberMorpher(Byte.class, expected);
         Byte actual = (Byte) morpher.morph(new Object());
         assertEquals(expected, actual);
     }
 
-    public void testByteConversion_useDefault_null() {
-        morpher = new NumberMorpher(Byte.class, (Byte) null);
+    @Test
+    void testByteConversion_useDefault_null() {
+        morpher = new NumberMorpher(Byte.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
-    public void testDoubleConversion_double() {
+    @Test
+    void testDoubleConversion_double() {
         morpher = new NumberMorpher(Double.TYPE);
         Double expected = Double.MIN_VALUE;
         Double actual = (Double) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testDoubleConversion_Double() {
+    @Test
+    void testDoubleConversion_Double() {
         morpher = new NumberMorpher(Double.class);
         Double expected = Double.MIN_VALUE;
         Double actual = (Double) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testDoubleConversion_null() {
+    @Test
+    void testDoubleConversion_null() {
         morpher = new NumberMorpher(Double.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testDoubleConversion_String() {
+    @Test
+    void testDoubleConversion_String() {
         morpher = new NumberMorpher(Double.class);
-        String expected = String.valueOf(Double.MIN_VALUE);
-        Double actual = (Double) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Double actual = (Double) morpher.morph(String.valueOf(Double.MIN_VALUE));
+        assertEquals(Double.MIN_VALUE, actual);
     }
 
-    public void testDoubleConversion_useDefault() {
+    @Test
+    void testDoubleConversion_useDefault() {
         morpher = new NumberMorpher(Double.class);
         Double expected = Double.MIN_VALUE;
         morpher.setDefaultValue(expected);
@@ -175,38 +181,43 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testDoubleConversion_useDefault_null() {
-        morpher = new NumberMorpher(Double.class, (Double) null);
+    @Test
+    void testDoubleConversion_useDefault_null() {
+        morpher = new NumberMorpher(Double.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
-    public void testFloatConversion_float() {
+    @Test
+    void testFloatConversion_float() {
         morpher = new NumberMorpher(Float.TYPE);
         Float expected = Float.MIN_VALUE;
         Float actual = (Float) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testFloatConversion_Float() {
+    @Test
+    void testFloatConversion_Float() {
         morpher = new NumberMorpher(Float.class);
         Float expected = Float.MIN_VALUE;
         Float actual = (Float) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testFloatConversion_null() {
+    @Test
+    void testFloatConversion_null() {
         morpher = new NumberMorpher(Float.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testFloatConversion_String() {
+    @Test
+    void testFloatConversion_String() {
         morpher = new NumberMorpher(Float.class);
-        String expected = String.valueOf(Float.MIN_VALUE);
-        Float actual = (Float) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Float actual = (Float) morpher.morph(String.valueOf(Float.MIN_VALUE));
+        assertEquals(Float.MIN_VALUE, actual);
     }
 
-    public void testFloatConversion_useDefault() {
+    @Test
+    void testFloatConversion_useDefault() {
         morpher = new NumberMorpher(Float.class);
         Float expected = Float.MIN_VALUE;
         morpher.setDefaultValue(expected);
@@ -215,38 +226,43 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testFloatConversion_useDefault_null() {
-        morpher = new NumberMorpher(Float.class, (Float) null);
+    @Test
+    void testFloatConversion_useDefault_null() {
+        morpher = new NumberMorpher(Float.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
-    public void testIntegerConversion_int() {
+    @Test
+    void testIntegerConversion_int() {
         morpher = new NumberMorpher(Integer.TYPE);
         Integer expected = Integer.MIN_VALUE;
         Integer actual = (Integer) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testIntegerConversion_Integer() {
+    @Test
+    void testIntegerConversion_Integer() {
         morpher = new NumberMorpher(Integer.class);
         Integer expected = Integer.MIN_VALUE;
         Integer actual = (Integer) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testIntegerConversion_null() {
+    @Test
+    void testIntegerConversion_null() {
         morpher = new NumberMorpher(Integer.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testIntegerConversion_String() {
+    @Test
+    void testIntegerConversion_String() {
         morpher = new NumberMorpher(Integer.class);
-        String expected = String.valueOf(Integer.MIN_VALUE);
-        Integer actual = (Integer) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Integer actual = (Integer) morpher.morph(String.valueOf(Integer.MIN_VALUE));
+        assertEquals(Integer.MIN_VALUE, actual);
     }
 
-    public void testIntegerConversion_useDefault() {
+    @Test
+    void testIntegerConversion_useDefault() {
         morpher = new NumberMorpher(Integer.class);
         Integer expected = Integer.MIN_VALUE;
         morpher.setDefaultValue(expected);
@@ -255,38 +271,43 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testIntegerConversion_useDefault_null() {
+    @Test
+    void testIntegerConversion_useDefault_null() {
         morpher = new NumberMorpher(Integer.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
-    public void testlongConversion_long() {
+    @Test
+    void testlongConversion_long() {
         morpher = new NumberMorpher(Long.TYPE);
         Long expected = Long.MIN_VALUE;
         Long actual = (Long) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testLongConversion_Long() {
+    @Test
+    void testLongConversion_Long() {
         morpher = new NumberMorpher(Long.class);
         Long expected = Long.MIN_VALUE;
         Long actual = (Long) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testLongConversion_null() {
+    @Test
+    void testLongConversion_null() {
         morpher = new NumberMorpher(Long.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testLongConversion_String() {
+    @Test
+    void testLongConversion_String() {
         morpher = new NumberMorpher(Long.class);
-        String expected = String.valueOf(Long.MIN_VALUE);
-        Long actual = (Long) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Long actual = (Long) morpher.morph(String.valueOf(Long.MIN_VALUE));
+        assertEquals(Long.MIN_VALUE, actual);
     }
 
-    public void testLongConversion_useDefault() {
+    @Test
+    void testLongConversion_useDefault() {
         morpher = new NumberMorpher(Long.class);
         Long expected = Long.MIN_VALUE;
         morpher.setDefaultValue(expected);
@@ -295,83 +316,68 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testLongConversion_useDefault_null() {
-        morpher = new NumberMorpher(Long.class, (Long) null);
+    @Test
+    void testLongConversion_useDefault_null() {
+        morpher = new NumberMorpher(Long.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
-    public void testNumbermorpher_incompatible_defaultValue() {
-        try {
-            morpher = new NumberMorpher(Integer.class, 0d);
-            fail("Should have thrown a ConversionException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testNumbermorpher_incompatible_defaultValue() {
+        assertThrows(MorphException.class, () -> new NumberMorpher(Integer.class, 0d));
     }
 
-    public void testNumbermorpher_notSupported() {
-        try {
-            morpher = new NumberMorpher(String.class);
-            fail("Should have thrown a ConversionException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testNumbermorpher_notSupported() {
+        assertThrows(MorphException.class, () -> new NumberMorpher(String.class));
     }
 
-    public void testNumbermorpher_notSupported_2() {
-        try {
-            morpher = new NumberMorpher(String.class, 0);
-            fail("Should have thrown a ConversionException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testNumbermorpher_notSupported_2() {
+        assertThrows(MorphException.class, () -> new NumberMorpher(String.class, 0));
     }
 
-    public void testNumbermorpher_unspecifiedClass() {
-        try {
-            morpher = new NumberMorpher(null);
-            fail("Should have thrown a ConversionException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testNumbermorpher_unspecifiedClass() {
+        assertThrows(MorphException.class, () -> new NumberMorpher(null));
     }
 
-    public void testNumbermorpher_unspecifiedClass2() {
-        try {
-            morpher = new NumberMorpher(null, 0);
-            fail("Should have thrown a ConversionException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testNumbermorpher_unspecifiedClass2() {
+        assertThrows(MorphException.class, () -> new NumberMorpher(null, 0));
     }
 
-    public void testShortConversion_null() {
+    @Test
+    void testShortConversion_null() {
         morpher = new NumberMorpher(Short.class);
         assertNull(morpher.morph(null));
     }
 
-    public void testShortConversion_short() {
+    @Test
+    void testShortConversion_short() {
         morpher = new NumberMorpher(Short.TYPE);
         Short expected = Short.MIN_VALUE;
         Short actual = (Short) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testShortConversion_Short() {
+    @Test
+    void testShortConversion_Short() {
         morpher = new NumberMorpher(Short.class);
         Short expected = Short.MIN_VALUE;
         Short actual = (Short) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testShortConversion_String() {
+    @Test
+    void testShortConversion_String() {
         morpher = new NumberMorpher(Short.class);
-        String expected = String.valueOf(Short.MIN_VALUE);
-        Short actual = (Short) morpher.morph(expected);
-        assertEquals(expected, actual.toString());
+        Short actual = (Short) morpher.morph(String.valueOf(Short.MIN_VALUE));
+        assertEquals(Short.MIN_VALUE, actual);
     }
 
-    public void testShortConversion_useDefault() {
+    @Test
+    void testShortConversion_useDefault() {
         morpher = new NumberMorpher(Short.class);
         Short expected = Short.MIN_VALUE;
         morpher.setDefaultValue(expected);
@@ -380,8 +386,9 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(expected, actual);
     }
 
-    public void testShortConversion_useDefault_null() {
-        morpher = new NumberMorpher(Short.class, (Short) null);
+    @Test
+    void testShortConversion_useDefault_null() {
+        morpher = new NumberMorpher(Short.class, null);
         assertNull(morpher.morph(new Object()));
     }
 
@@ -405,8 +412,8 @@ public class NumberMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new NumberMorpher(Integer.class);
         morpherWithDefaultValue = new NumberMorpher(Integer.class, 0);
         anotherMorpher = new NumberMorpher(Integer.class);

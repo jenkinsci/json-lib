@@ -16,101 +16,96 @@
 
 package net.sf.ezmorph.array;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.test.ArrayAssertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BooleanObjectArrayMorpherTest extends AbstractArrayMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BooleanObjectArrayMorpherTest.class);
-        suite.setName("BooleanObjectArrayMorpher Tests");
-        return suite;
-    }
+class BooleanObjectArrayMorpherTest extends AbstractArrayMorpherTestCase {
 
     private BooleanObjectArrayMorpher anotherMorpher;
     private BooleanObjectArrayMorpher anotherMorpherWithDefaultValue;
     private BooleanObjectArrayMorpher morpher;
     private BooleanObjectArrayMorpher morpherWithDefaultValue;
 
-    public BooleanObjectArrayMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testMorph_booleanArray() {
+    @Test
+    void testMorph_booleanArray() {
         boolean[] expected = {true, false};
         Boolean[] actual = (Boolean[]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_BooleanArray() {
+    @Test
+    void testMorph_BooleanArray() {
         Boolean[] expected = {Boolean.TRUE, Boolean.FALSE};
         Boolean[] actual = (Boolean[]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_booleanArray_threedims() {
+    @Test
+    void testMorph_booleanArray_threedims() {
         boolean[][][] expected = {{{true}, {false}}, {{true}, {false}}};
         Boolean[][][] actual = (Boolean[][][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_BooleanArray_threedims() {
+    @Test
+    void testMorph_BooleanArray_threedims() {
         Boolean[][][] expected = {{{Boolean.TRUE}, {Boolean.FALSE}}, {{Boolean.TRUE}, {Boolean.FALSE}}};
         Boolean[][][] actual = (Boolean[][][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_booleanArray_twodims() {
+    @Test
+    void testMorph_booleanArray_twodims() {
         boolean[][] expected = {{true, false}, {true, false}};
         Boolean[][] actual = (Boolean[][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_BooleanArray_twodims() {
+    @Test
+    void testMorph_BooleanArray_twodims() {
         Boolean[][] expected = {{Boolean.TRUE, Boolean.FALSE}, {Boolean.TRUE, Boolean.FALSE}};
         Boolean[][] actual = (Boolean[][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_illegalArgument() {
-        try {
-            // argument is not an array
-            morpher.morph("");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_illegalArgument() {
+        assertThrows(MorphException.class, () -> morpher.morph(""));
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_StringArray_Boolean_default() {
+    @Test
+    void testMorph_StringArray_Boolean_default() {
         Boolean[] expected = {Boolean.TRUE, Boolean.TRUE};
         morpher = new BooleanObjectArrayMorpher(Boolean.TRUE);
         Boolean[] actual = (Boolean[]) morpher.morph(new String[] {"A", "B"});
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_StringArray_null_default() {
+    @Test
+    void testMorph_StringArray_null_default() {
         Boolean[] expected = {null, null};
         morpher = new BooleanObjectArrayMorpher(null);
         Boolean[] actual = (Boolean[]) morpher.morph(new String[] {"A", "B"});
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_strings() {
+    @Test
+    void testMorph_strings() {
         String[] expected = {"true", "yes", "on", "false", "no", "off"};
         Boolean[] actual = (Boolean[]) morpher.morph(expected);
         ArrayAssertions.assertEquals(
@@ -118,7 +113,8 @@ public class BooleanObjectArrayMorpherTest extends AbstractArrayMorpherTestCase 
                 actual);
     }
 
-    public void testMorph_strings_twodims() {
+    @Test
+    void testMorph_strings_twodims() {
         String[][] expected = {{"true", "yes", "on"}, {"false", "no", "off"}};
         Boolean[][] actual = (Boolean[][]) morpher.morph(expected);
         ArrayAssertions.assertEquals(
@@ -128,13 +124,9 @@ public class BooleanObjectArrayMorpherTest extends AbstractArrayMorpherTestCase 
                 actual);
     }
 
-    public void testMorph_throwException() {
-        try {
-            new BooleanObjectArrayMorpher().morph(new String[] {"A"});
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_throwException() {
+        assertThrows(MorphException.class, () -> new BooleanObjectArrayMorpher().morph(new String[] {"A"}));
     }
 
     @Override
@@ -158,12 +150,12 @@ public class BooleanObjectArrayMorpherTest extends AbstractArrayMorpherTestCase 
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Boolean[].class;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new BooleanObjectArrayMorpher();
         morpherWithDefaultValue = new BooleanObjectArrayMorpher(Boolean.TRUE);
         anotherMorpher = new BooleanObjectArrayMorpher();

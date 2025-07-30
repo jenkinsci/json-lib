@@ -16,112 +16,100 @@
 
 package net.sf.ezmorph.primitive;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.math.BigInteger;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BooleanMorpherTest extends AbstractMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BooleanMorpherTest.class);
-        suite.setName("BooleanMorpher Tests");
-        return suite;
-    }
-
-    private Morpher anotherMorpher;
-    private Morpher anotherMorpherWithDefaultValue;
-    private Morpher morpher;
-    private Morpher morpherWithDefaultValue;
-
-    public BooleanMorpherTest(String name) {
-        super(name);
-    }
+class BooleanMorpherTest extends AbstractMorpherTestCase {
+    private BooleanMorpher anotherMorpher;
+    private BooleanMorpher anotherMorpherWithDefaultValue;
+    private BooleanMorpher morpher;
+    private BooleanMorpher morpherWithDefaultValue;
 
     // -----------------------------------------------------------------------
 
-    public void testBooleanMorph_noConversion() {
-        boolean actual = ((BooleanMorpher) getMorpherWithDefaultValue()).morph(Boolean.TRUE);
-        assertEquals(true, actual);
+    @Test
+    void testBooleanMorph_noConversion() {
+        boolean actual = morpherWithDefaultValue.morph(Boolean.TRUE);
+        assertTrue(actual);
     }
 
-    public void testBooleanMorph_throwException() {
-        try {
-            ((BooleanMorpher) getMorpher()).morph("A");
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBooleanMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testBooleanMorph_throwException_null() {
-        try {
-            ((BooleanMorpher) getMorpher()).morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBooleanMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testBooleanMorph_useDefault() {
+    @Test
+    void testBooleanMorph_useDefault() {
         String expected = String.valueOf("A");
-        boolean actual = ((BooleanMorpher) getMorpherWithDefaultValue()).morph(expected);
-        assertEquals(true, actual);
+        boolean actual = morpherWithDefaultValue.morph(expected);
+        assertTrue(actual);
     }
 
-    public void testBooleanMorph_useDefault_null() {
-        boolean actual = ((BooleanMorpher) getMorpherWithDefaultValue()).morph(null);
-        assertEquals(true, actual);
+    @Test
+    void testBooleanMorph_useDefault_null() {
+        boolean actual = morpherWithDefaultValue.morph(null);
+        assertTrue(actual);
     }
 
-    public void testBooleanMorphNumberValues_false() {
-        assertFalse(((BooleanMorpher) getMorpher()).morph((byte) 0));
-        assertFalse(((BooleanMorpher) getMorpher()).morph((short) 0));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(0));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(0L));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(0f));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(0d));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(BigInteger.ZERO));
-        assertFalse(((BooleanMorpher) getMorpher()).morph(MorphUtils.BIGDECIMAL_ZERO));
+    @Test
+    void testBooleanMorphNumberValues_false() {
+        assertFalse(morpher.morph((byte) 0));
+        assertFalse(morpher.morph((short) 0));
+        assertFalse(morpher.morph(0));
+        assertFalse(morpher.morph(0L));
+        assertFalse(morpher.morph(0f));
+        assertFalse(morpher.morph(0d));
+        assertFalse(morpher.morph(BigInteger.ZERO));
+        assertFalse(morpher.morph(MorphUtils.BIGDECIMAL_ZERO));
     }
 
-    public void testBooleanMorphNumberValues_true() {
-        assertTrue(((BooleanMorpher) getMorpher()).morph((byte) 1));
-        assertTrue(((BooleanMorpher) getMorpher()).morph((short) 1));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(1));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(1L));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(1f));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(1d));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(BigInteger.ONE));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(MorphUtils.BIGDECIMAL_ONE));
+    @Test
+    void testBooleanMorphNumberValues_true() {
+        assertTrue(morpher.morph((byte) 1));
+        assertTrue(morpher.morph((short) 1));
+        assertTrue(morpher.morph(1));
+        assertTrue(morpher.morph(1L));
+        assertTrue(morpher.morph(1f));
+        assertTrue(morpher.morph(1d));
+        assertTrue(morpher.morph(BigInteger.ONE));
+        assertTrue(morpher.morph(MorphUtils.BIGDECIMAL_ONE));
 
-        assertTrue(((BooleanMorpher) getMorpher()).morph(Float.NEGATIVE_INFINITY));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(Float.POSITIVE_INFINITY));
-        assertTrue(((BooleanMorpher) getMorpher()).morph((Float.NaN)));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(Double.NEGATIVE_INFINITY));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(Double.POSITIVE_INFINITY));
-        assertTrue(((BooleanMorpher) getMorpher()).morph(Double.NaN));
+        assertTrue(morpher.morph(Float.NEGATIVE_INFINITY));
+        assertTrue(morpher.morph(Float.POSITIVE_INFINITY));
+        assertTrue(morpher.morph((Float.NaN)));
+        assertTrue(morpher.morph(Double.NEGATIVE_INFINITY));
+        assertTrue(morpher.morph(Double.POSITIVE_INFINITY));
+        assertTrue(morpher.morph(Double.NaN));
     }
 
-    public void testBooleanMorphStringValues_false() {
-        assertFalse(((BooleanMorpher) getMorpher()).morph("false"));
-        assertFalse(((BooleanMorpher) getMorpher()).morph("no"));
-        assertFalse(((BooleanMorpher) getMorpher()).morph("off"));
+    @Test
+    void testBooleanMorphStringValues_false() {
+        assertFalse(morpher.morph("false"));
+        assertFalse(morpher.morph("no"));
+        assertFalse(morpher.morph("off"));
     }
 
-    public void testBooleanMorphStringValues_true() {
-        assertTrue(((BooleanMorpher) getMorpher()).morph("true"));
-        assertTrue(((BooleanMorpher) getMorpher()).morph("yes"));
-        assertTrue(((BooleanMorpher) getMorpher()).morph("on"));
+    @Test
+    void testBooleanMorphStringValues_true() {
+        assertTrue(morpher.morph("true"));
+        assertTrue(morpher.morph("yes"));
+        assertTrue(morpher.morph("on"));
     }
 
     @Override
@@ -145,12 +133,12 @@ public class BooleanMorpherTest extends AbstractMorpherTestCase {
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Boolean.TYPE;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new BooleanMorpher();
         morpherWithDefaultValue = new BooleanMorpher(true);
         anotherMorpher = new BooleanMorpher();

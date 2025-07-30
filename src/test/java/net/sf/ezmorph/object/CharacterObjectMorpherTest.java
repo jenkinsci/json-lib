@@ -16,76 +16,61 @@
 
 package net.sf.ezmorph.object;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class CharacterObjectMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharacterObjectMorpherTest.class);
-        suite.setName("CharacterObjectMorpher Tests");
-        return suite;
-    }
+class CharacterObjectMorpherTest extends AbstractObjectMorpherTestCase {
 
     private CharacterObjectMorpher anotherMorpher;
     private CharacterObjectMorpher anotherMorpherWithDefaultValue;
     private CharacterObjectMorpher morpher;
     private CharacterObjectMorpher morpherWithDefaultValue;
 
-    public CharacterObjectMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testCharMorph() {
+    @Test
+    void testCharMorph() {
         String expected = "A";
-        Character actual = (Character) new CharacterObjectMorpher().morph(expected);
+        Character actual = (Character) morpher.morph(expected);
         assertEquals((Character) 'A', actual);
     }
 
-    public void testCharMorph_noConversion() {
+    @Test
+    void testCharMorph_noConversion() {
         Character expected = 'A';
-        Character actual = (Character) new CharacterObjectMorpher().morph(expected);
+        Character actual = (Character) morpher.morph(expected);
         assertEquals(expected, actual);
         assertSame(expected, actual);
     }
 
-    public void testCharMorph_throwException_emptyString() {
-        try {
-            new CharacterObjectMorpher().morph("");
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testCharMorph_throwException_emptyString() {
+        assertThrows(MorphException.class, () -> morpher.morph(""));
     }
 
-    public void testCharMorph_throwException_null() {
-        try {
-            new CharacterObjectMorpher().morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testCharMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testCharMorph_useDefault() {
-        String expected = "";
-        Character actual = (Character) new CharacterObjectMorpher('A').morph(expected);
+    @Test
+    void testCharMorph_useDefault() {
+        Character actual = (Character) morpherWithDefaultValue.morph("");
         assertEquals((Character) 'A', actual);
     }
 
-    public void testCharMorph_useDefault_null() {
-        Character actual = (Character) new CharacterObjectMorpher('A').morph(null);
+    @Test
+    void testCharMorph_useDefault_null() {
+        Character actual = (Character) morpherWithDefaultValue.morph(null);
         assertEquals((Character) 'A', actual);
     }
 
@@ -109,8 +94,8 @@ public class CharacterObjectMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new CharacterObjectMorpher();
         morpherWithDefaultValue = new CharacterObjectMorpher('A');
         anotherMorpher = new CharacterObjectMorpher();

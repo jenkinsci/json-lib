@@ -16,91 +16,79 @@
 
 package net.sf.ezmorph.object;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import net.sf.ezmorph.MorphException;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ClassMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
+class ClassMorpherTest {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ClassMorpherTest.class);
-        suite.setName("ClassMorpher Tests");
-        return suite;
-    }
-
-    private ClassMorpher morpher = ClassMorpher.getInstance();
-
-    public ClassMorpherTest(String name) {
-        super(name);
-    }
+    private final ClassMorpher morpher = ClassMorpher.getInstance();
 
     // -----------------------------------------------------------------------
 
-    public void testEquals() {
-        assertTrue(ClassMorpher.getInstance().equals(ClassMorpher.getInstance()));
-        assertFalse(ClassMorpher.getInstance().equals(StringMorpher.getInstance()));
+    @Test
+    void testEquals() {
+        assertEquals(ClassMorpher.getInstance(), ClassMorpher.getInstance());
+        assertNotEquals(StringMorpher.getInstance(), ClassMorpher.getInstance());
     }
 
-    public void testHashCode() {
+    @Test
+    void testHashCode() {
         assertEquals(
                 ClassMorpher.getInstance().hashCode(),
+                ClassMorpher.getInstance().hashCode());
+        assertNotEquals(
+                StringMorpher.getInstance().hashCode(),
                 ClassMorpher.getInstance().hashCode());
         assertTrue(ClassMorpher.getInstance().hashCode()
                 != StringMorpher.getInstance().hashCode());
     }
 
-    public void testMorph() {
-        Class expected = Object.class;
-        Class actual = (Class) morpher.morph("java.lang.Object");
-        assertEquals(expected, actual);
+    @Test
+    void testMorph() {
+        Class<?> actual = (Class<?>) morpher.morph("java.lang.Object");
+        assertEquals(Object.class, actual);
     }
 
-    public void testMorph_array() {
-        try {
-            morpher.morph(new boolean[] {true, false});
-            fail("Expected a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_array() {
+        assertThrows(MorphException.class, () -> morpher.morph(new boolean[] {true, false}));
     }
 
-    public void testMorph_arrayClass() {
-        Class expected = int[].class;
-        Class actual = (Class) morpher.morph("[I");
-        assertEquals(expected, actual);
+    @Test
+    void testMorph_arrayClass() {
+        Class<?> actual = (Class<?>) morpher.morph("[I");
+        assertEquals(int[].class, actual);
     }
 
-    public void testMorph_class() {
-        Class expected = Object.class;
-        Class actual = (Class) morpher.morph(Object.class);
-        assertEquals(expected, actual);
+    @Test
+    void testMorph_class() {
+        Class<?> actual = (Class<?>) morpher.morph(Object.class);
+        assertEquals(Object.class, actual);
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_unknownClassname() {
-        try {
-            morpher.morph("bogusClass.I.do.not.exist");
-            fail("Expected a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_unknownClassname() {
+        assertThrows(MorphException.class, () -> morpher.morph("bogusClass.I.do.not.exist"));
     }
 
-    public void testMorph_withtoString() {
-        Class expected = MyClass.class;
-        Class actual = (Class) morpher.morph(new MyClass());
-        assertEquals(expected, actual);
+    @Test
+    void testMorph_withtoString() {
+        Class<?> actual = (Class<?>) morpher.morph(new MyClass());
+        assertEquals(MyClass.class, actual);
     }
 
     public static class MyClass {
