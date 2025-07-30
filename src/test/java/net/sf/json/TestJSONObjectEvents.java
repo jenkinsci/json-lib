@@ -43,14 +43,7 @@ public class TestJSONObjectEvents extends TestCase {
 
     public void testFromObject_bean() {
         JSONObject.fromObject(new BeanA(), jsonConfig);
-        assertEquals(0, jsonEventAdpater.getError());
-        assertEquals(0, jsonEventAdpater.getWarning());
-        assertEquals(0, jsonEventAdpater.getArrayStart());
-        assertEquals(0, jsonEventAdpater.getArrayEnd());
-        assertEquals(1, jsonEventAdpater.getObjectStart());
-        assertEquals(1, jsonEventAdpater.getObjectEnd());
-        assertEquals(0, jsonEventAdpater.getElementAdded());
-        assertEquals(3, jsonEventAdpater.getPropertySet());
+        assertEvents();
     }
 
     public void testFromObject_bean2() {
@@ -87,7 +80,8 @@ public class TestJSONObjectEvents extends TestCase {
     }
 
     public void testFromObject_JSONObject() {
-        JSONObject jsonObject = new JSONObject().element("name", "json").element("int", 1);
+        JSONObject jsonObject =
+                new JSONObject().element("name", "json").element("bool", true).element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }
@@ -95,13 +89,14 @@ public class TestJSONObjectEvents extends TestCase {
     public void testFromObject_map() {
         Map map = new HashMap();
         map.put("name", "json");
+        map.put("bool", true);
         map.put("int", 1);
         JSONObject.fromObject(map, jsonConfig);
         assertEvents();
     }
 
     public void testFromObject_string() {
-        JSONObject.fromObject("{name:'json',int:1}", jsonConfig);
+        JSONObject.fromObject("{name:'json',int:1,bool:true}", jsonConfig);
         assertEvents();
     }
 
@@ -126,17 +121,19 @@ public class TestJSONObjectEvents extends TestCase {
         assertEquals(1, jsonEventAdpater.getObjectStart());
         assertEquals(1, jsonEventAdpater.getObjectEnd());
         assertEquals(0, jsonEventAdpater.getElementAdded());
-        assertEquals(2, jsonEventAdpater.getPropertySet());
+        assertEquals(3, jsonEventAdpater.getPropertySet());
     }
 
     private DynaBean createDynaBean() throws Exception {
         Map properties = new HashMap();
         properties.put("name", String.class);
+        properties.put("bool", Boolean.class);
         properties.put("int", Integer.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();
         dynaBean.setDynaBeanClass(dynaClass);
         dynaBean.set("name", "json");
+        dynaBean.set("bool", true);
         dynaBean.set("int", 1);
         return dynaBean;
     }
