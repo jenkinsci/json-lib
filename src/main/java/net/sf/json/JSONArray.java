@@ -230,7 +230,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         int[] dimensions = new int[dims.size()];
         int j = 0;
         for (Iterator i = dims.iterator(); i.hasNext(); ) {
-            dimensions[j++] = ((Integer) i.next()).intValue();
+            dimensions[j++] = (Integer) i.next();
         }
         return dimensions;
     }
@@ -1184,7 +1184,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
         if (dims.size() <= index) {
             dims.add(jsonArray.size());
         } else {
-            int i = ((Integer) dims.get(index)).intValue();
+            int i = (Integer) dims.get(index);
             if (jsonArray.size() > i) {
                 dims.set(index, jsonArray.size());
             }
