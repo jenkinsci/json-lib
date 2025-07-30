@@ -21,7 +21,6 @@ import groovy.lang.GString;
 import groovy.lang.GroovyObjectSupport;
 import groovy.lang.MissingMethodException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -160,15 +159,15 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
         if (args.length > 1) {
             JSONArray array = new JSONArray();
             stack.push(array);
-            for (int i = 0; i < args.length; i++) {
-                if (args[i] instanceof Closure) {
-                    append(name, createObject((Closure) args[i]));
-                } else if (args[i] instanceof Map) {
-                    append(name, createObject((Map) args[i]));
-                } else if (args[i] instanceof List) {
-                    append(name, createArray((List) args[i]));
+            for (Object o : args) {
+                if (o instanceof Closure closure) {
+                    append(name, createObject(closure));
+                } else if (o instanceof Map map) {
+                    append(name, createObject(map));
+                } else if (o instanceof List list) {
+                    append(name, createArray(list));
                 } else {
-                    _append(name, args[i], (JSON) stack.peek());
+                    _append(name, o, (JSON) stack.peek());
                 }
             }
             stack.pop();
@@ -246,14 +245,13 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
     private JSON createArray(List list) {
         JSONArray array = new JSONArray();
         stack.push(array);
-        for (Iterator elements = list.iterator(); elements.hasNext(); ) {
-            Object element = elements.next();
-            if (element instanceof Closure) {
-                element = createObject((Closure) element);
-            } else if (element instanceof Map) {
-                element = createObject((Map) element);
-            } else if (element instanceof List) {
-                element = createArray((List) element);
+        for (Object element : list) {
+            if (element instanceof Closure closure) {
+                element = createObject(closure);
+            } else if (element instanceof Map map) {
+                element = createObject(map);
+            } else if (element instanceof List l) {
+                element = createArray(l);
             }
             array.element(element);
         }
@@ -274,16 +272,16 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
     private JSON createObject(Map map) {
         JSONObject object = new JSONObject();
         stack.push(object);
-        for (Iterator properties = map.entrySet().iterator(); properties.hasNext(); ) {
-            Map.Entry property = (Map.Entry) properties.next();
+        for (Object o : map.entrySet()) {
+            Map.Entry property = (Map.Entry) o;
             String key = String.valueOf(property.getKey());
             Object value = property.getValue();
-            if (value instanceof Closure) {
-                value = createObject((Closure) value);
-            } else if (value instanceof Map) {
-                value = createObject((Map) value);
-            } else if (value instanceof List) {
-                value = createArray((List) value);
+            if (value instanceof Closure closure) {
+                value = createObject(closure);
+            } else if (value instanceof Map m) {
+                value = createObject(m);
+            } else if (value instanceof List list) {
+                value = createArray(list);
             }
             object.element(key, value);
         }
@@ -310,15 +308,15 @@ public class JsonGroovyBuilder extends GroovyObjectSupport {
         } else {
             JSONArray array = new JSONArray();
             stack.push(array);
-            for (int i = 0; i < args.length; i++) {
-                if (args[i] instanceof Closure) {
-                    append(name, createObject((Closure) args[i]));
-                } else if (args[i] instanceof Map) {
-                    append(name, createObject((Map) args[i]));
-                } else if (args[i] instanceof List) {
-                    append(name, createArray((List) args[i]));
+            for (Object o : args) {
+                if (o instanceof Closure closure) {
+                    append(name, createObject(closure));
+                } else if (o instanceof Map map) {
+                    append(name, createObject(map));
+                } else if (o instanceof List list) {
+                    append(name, createArray(list));
                 } else {
-                    _append(name, args[i], (JSON) stack.peek());
+                    _append(name, o, (JSON) stack.peek());
                 }
             }
             stack.pop();

@@ -86,8 +86,7 @@ public final class BeanMorpher implements ObjectMorpher {
         try {
             targetBean = beanClass.newInstance();
             PropertyDescriptor[] targetPds = PropertyUtils.getPropertyDescriptors(beanClass);
-            for (int i = 0; i < targetPds.length; i++) {
-                PropertyDescriptor targetPd = targetPds[i];
+            for (PropertyDescriptor targetPd : targetPds) {
                 String name = targetPd.getName();
                 if (targetPd.getWriteMethod() == null) {
                     log.info("Property '" + beanClass.getName() + "." + name + "' has no write method. SKIPPED.");

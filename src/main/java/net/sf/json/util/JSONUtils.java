@@ -407,8 +407,8 @@ public final class JSONUtils {
      */
     public static DynaBean newDynaBean(JSONObject jsonObject, JsonConfig jsonConfig) {
         Map props = getProperties(jsonObject);
-        for (Iterator entries = props.entrySet().iterator(); entries.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) entries.next();
+        for (Object o : props.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             String key = (String) entry.getKey();
             if (!JSONUtils.isJavaIdentifier(key)) {
                 String parsedKey = JSONUtils.convertToJavaIdentifier(key, jsonConfig);
@@ -473,7 +473,7 @@ public final class JSONUtils {
         char c = 0;
         int i;
         int len = string.length();
-        StringBuffer sb = new StringBuffer(len * 2);
+        StringBuilder sb = new StringBuilder(len * 2);
         String t;
         char[] chars = string.toCharArray();
         char[] buffer = new char[1030];

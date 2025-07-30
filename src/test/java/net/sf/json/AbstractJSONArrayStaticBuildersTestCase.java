@@ -44,8 +44,8 @@ public abstract class AbstractJSONArrayStaticBuildersTestCase extends TestCase {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         assertJSONObject(jsonObject, getProperties());
         String[] excluded = getExclusions();
-        for (int i = 0; i < excluded.length; i++) {
-            assertTrue(!jsonObject.has(excluded[i]));
+        for (String s : excluded) {
+            assertTrue(!jsonObject.has(s));
         }
         assertTrue(!jsonObject.has("class"));
         assertTrue(!jsonObject.has("pexcluded"));
@@ -76,8 +76,8 @@ public abstract class AbstractJSONArrayStaticBuildersTestCase extends TestCase {
 
     private void assertJSONObject(JSONObject json, String[] properties) {
         assertNotNull(json);
-        for (int i = 0; i < properties.length; i++) {
-            assertTrue(json.has(properties[i]));
+        for (String property : properties) {
+            assertTrue(json.has(property));
         }
     }
 }

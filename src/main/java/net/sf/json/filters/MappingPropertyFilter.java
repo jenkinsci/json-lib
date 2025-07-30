@@ -17,7 +17,6 @@
 package net.sf.json.filters;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import net.sf.json.util.PropertyFilter;
 
@@ -33,8 +32,8 @@ public abstract class MappingPropertyFilter implements PropertyFilter {
 
     public MappingPropertyFilter(Map filters) {
         if (filters != null) {
-            for (Iterator i = filters.entrySet().iterator(); i.hasNext(); ) {
-                Map.Entry entry = (Map.Entry) i.next();
+            for (Object o : filters.entrySet()) {
+                Map.Entry entry = (Map.Entry) o;
                 Object key = entry.getKey();
                 Object filter = entry.getValue();
                 if (filter instanceof PropertyFilter) {
@@ -52,8 +51,8 @@ public abstract class MappingPropertyFilter implements PropertyFilter {
 
     @Override
     public boolean apply(Object source, String name, Object value) {
-        for (Iterator i = filters.entrySet().iterator(); i.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) i.next();
+        for (Object o : filters.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             Object key = entry.getKey();
             if (keyMatches(key, source, name, value)) {
                 PropertyFilter filter = (PropertyFilter) entry.getValue();

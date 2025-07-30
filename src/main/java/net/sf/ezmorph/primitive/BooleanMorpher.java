@@ -92,8 +92,8 @@ public final class BooleanMorpher extends AbstractPrimitiveMorpher {
             }
         }
 
-        if (value instanceof Boolean) {
-            return ((Boolean) value).booleanValue();
+        if (value instanceof Boolean bool) {
+            return bool;
         } else if (value instanceof Number) {
             if (value instanceof Double
                     && (Double.isInfinite(((Number) value).doubleValue())

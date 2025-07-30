@@ -23,7 +23,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -744,8 +743,8 @@ public class TestJSONObject extends TestCase {
             "pmap",
             "pbean"
         };
-        for (int i = 0; i < keys.length; i++) {
-            assertTrue(JSONNull.getInstance().equals(json.get(keys[i])));
+        for (String key : keys) {
+            assertTrue(JSONNull.getInstance().equals(json.get(key)));
         }
     }
 
@@ -1019,7 +1018,7 @@ public class TestJSONObject extends TestCase {
         String json = "{bool:true,integer:1,string:\"json\"}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         BeanA bean = (BeanA) JSONObject.toBean(jsonObject, BeanA.class);
-        assertEquals(jsonObject.get("bool"), Boolean.valueOf(bean.isBool()));
+        assertEquals(jsonObject.get("bool"), bean.isBool());
         assertEquals(jsonObject.get("integer"), bean.getInteger());
         assertEquals(jsonObject.get("string"), bean.getString());
     }
@@ -1028,7 +1027,7 @@ public class TestJSONObject extends TestCase {
         String json = "{bool:true,integer:1,string:\"json\",intarray:[4,5,6]}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         BeanB bean = (BeanB) JSONObject.toBean(jsonObject, BeanB.class);
-        assertEquals(jsonObject.get("bool"), Boolean.valueOf(bean.isBool()));
+        assertEquals(jsonObject.get("bool"), bean.isBool());
         assertEquals(jsonObject.get("integer"), bean.getInteger());
         assertEquals(jsonObject.get("string"), bean.getString());
         Assertions.assertEquals(bean.getIntarray(), JSONArray.toArray(jsonObject.getJSONArray("intarray")));
@@ -1453,8 +1452,8 @@ public class TestJSONObject extends TestCase {
             "pmap",
             "pbean"
         };
-        for (int i = 0; i < keys.length; i++) {
-            assertNull(PropertyUtils.getProperty(obj, keys[i]));
+        for (String key : keys) {
+            assertNull(PropertyUtils.getProperty(obj, key));
         }
     }
 
@@ -1572,8 +1571,8 @@ public class TestJSONObject extends TestCase {
     public static class BeanAPropertyExclusionClassMatcher extends PropertyExclusionClassMatcher {
         @Override
         public Object getMatch(Class target, Set set) {
-            for (Iterator i = set.iterator(); i.hasNext(); ) {
-                Class c = (Class) i.next();
+            for (Object o : set) {
+                Class c = (Class) o;
                 if (BeanA.class.isAssignableFrom(c)) {
                     return c;
                 }
@@ -1611,8 +1610,8 @@ public class TestJSONObject extends TestCase {
     public static class NumberDefaultValueProcessorMatcher extends DefaultValueProcessorMatcher {
         @Override
         public Object getMatch(Class target, Set set) {
-            for (Iterator i = set.iterator(); i.hasNext(); ) {
-                Class c = (Class) i.next();
+            for (Object o : set) {
+                Class c = (Class) o;
                 if (Number.class.isAssignableFrom(c)) {
                     return c;
                 }

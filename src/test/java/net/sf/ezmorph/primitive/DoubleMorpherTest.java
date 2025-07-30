@@ -89,9 +89,9 @@ public class DoubleMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testDoubleMorphMaxValue_Number() {
-        Double expected = Double.MAX_VALUE;
+        double expected = Double.MAX_VALUE;
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.doubleValue(), actual, 0d);
+        assertEquals(expected, actual, 0d);
     }
 
     public void testDoubleMorphMaxValue_String() {
@@ -101,9 +101,9 @@ public class DoubleMorpherTest extends AbstractMorpherTestCase {
     }
 
     public void testDoubleMorphMinValue_Number() {
-        Double expected = Double.MIN_VALUE;
+        double expected = Double.MIN_VALUE;
         double actual = ((DoubleMorpher) getMorpher()).morph(expected);
-        assertEquals(expected.doubleValue(), actual, 0d);
+        assertEquals(expected, actual, 0d);
     }
 
     public void testDoubleMorphMinValue_String() {

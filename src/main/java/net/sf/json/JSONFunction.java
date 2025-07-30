@@ -134,8 +134,8 @@ public class JSONFunction implements Serializable {
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        for (int i = 0; i < params.length; i++) {
-            builder.append(params[i]);
+        for (String param : params) {
+            builder.append(param);
         }
         builder.append(text);
         return builder.toHashCode();
@@ -146,7 +146,7 @@ public class JSONFunction implements Serializable {
      */
     @Override
     public String toString() {
-        StringBuffer b = new StringBuffer("function(");
+        StringBuilder b = new StringBuilder("function(");
         if (params.length > 0) {
             for (int i = 0; i < params.length - 1; i++) {
                 b.append(params[i]).append(',');

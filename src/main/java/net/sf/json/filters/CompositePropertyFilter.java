@@ -17,7 +17,6 @@
 package net.sf.json.filters;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import net.sf.json.util.PropertyFilter;
 
@@ -33,8 +32,7 @@ public class CompositePropertyFilter implements PropertyFilter {
 
     public CompositePropertyFilter(List filters) {
         if (filters != null) {
-            for (Iterator i = filters.iterator(); i.hasNext(); ) {
-                Object filter = i.next();
+            for (Object filter : filters) {
                 if (filter instanceof PropertyFilter) {
                     this.filters.add(filter);
                 }
@@ -50,8 +48,8 @@ public class CompositePropertyFilter implements PropertyFilter {
 
     @Override
     public boolean apply(Object source, String name, Object value) {
-        for (Iterator i = filters.iterator(); i.hasNext(); ) {
-            PropertyFilter filter = (PropertyFilter) i.next();
+        for (Object o : filters) {
+            PropertyFilter filter = (PropertyFilter) o;
             if (filter.apply(source, name, value)) {
                 return true;
             }

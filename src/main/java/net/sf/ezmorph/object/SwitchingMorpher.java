@@ -17,7 +17,6 @@
 package net.sf.ezmorph.object;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorpherRegistry;
@@ -61,8 +60,8 @@ public class SwitchingMorpher implements ObjectMorpher {
         if (classMap.size() != other.classMap.size()) {
             return false;
         }
-        for (Iterator entries = classMap.entrySet().iterator(); entries.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) entries.next();
+        for (Object o : classMap.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             if (!other.classMap.containsKey(entry.getKey())) {
                 return false;
             }
@@ -76,8 +75,8 @@ public class SwitchingMorpher implements ObjectMorpher {
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder();
-        for (Iterator entries = classMap.entrySet().iterator(); entries.hasNext(); ) {
-            Map.Entry entry = (Map.Entry) entries.next();
+        for (Object o : classMap.entrySet()) {
+            Map.Entry entry = (Map.Entry) o;
             builder.append(entry.getKey());
             builder.append(entry.getValue());
         }

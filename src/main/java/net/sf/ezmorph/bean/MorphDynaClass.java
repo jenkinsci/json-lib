@@ -142,9 +142,9 @@ public final class MorphDynaClass implements DynaClass, Serializable {
     @Override
     public int hashCode() {
         HashCodeBuilder builder = new HashCodeBuilder().append(name).append(type);
-        for (int i = 0; i < dynaProperties.length; i++) {
-            builder.append(this.dynaProperties[i].getName());
-            builder.append(this.dynaProperties[i].getType());
+        for (DynaProperty dynaProperty : dynaProperties) {
+            builder.append(dynaProperty.getName());
+            builder.append(dynaProperty.getType());
         }
         return builder.toHashCode();
     }
@@ -162,9 +162,8 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         MorphDynaBean dynaBean = (MorphDynaBean) getBeanClass().newInstance();
         dynaBean.setDynaBeanClass(this);
         dynaBean.setMorpherRegistry(morpherRegistry);
-        Iterator keys = attributes.keySet().iterator();
-        while (keys.hasNext()) {
-            String key = (String) keys.next();
+        for (Object o : attributes.keySet()) {
+            String key = (String) o;
             dynaBean.set(key, null);
         }
         return dynaBean;

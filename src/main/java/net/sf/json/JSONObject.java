@@ -182,8 +182,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         JsonConfig jsonConfig = new JsonConfig();
         Map props = JSONUtils.getProperties(jsonObject);
         dynaBean = JSONUtils.newDynaBean(jsonObject, jsonConfig);
-        for (Iterator entries = jsonObject.names(jsonConfig).iterator(); entries.hasNext(); ) {
-            String name = (String) entries.next();
+        for (Object o : jsonObject.names(jsonConfig)) {
+            String name = (String) o;
             String key = JSONUtils.convertToJavaIdentifier(name, jsonConfig);
             Class type = (Class) props.get(name);
             Object value = jsonObject.get(name);
@@ -458,8 +458,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
 
         Map props = JSONUtils.getProperties(jsonObject);
         PropertyFilter javaPropertyFilter = jsonConfig.getJavaPropertyFilter();
-        for (Iterator entries = jsonObject.names(jsonConfig).iterator(); entries.hasNext(); ) {
-            String name = (String) entries.next();
+        for (Object o : jsonObject.names(jsonConfig)) {
+            String name = (String) o;
             Class type = (Class) props.get(name);
             Object value = jsonObject.get(name);
             if (javaPropertyFilter != null && javaPropertyFilter.apply(bean, name, value)) {
@@ -688,9 +688,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         try {
             PropertyDescriptor[] pds = PropertyUtils.getPropertyDescriptors(bean);
             PropertyFilter jsonPropertyFilter = jsonConfig.getJsonPropertyFilter();
-            for (int i = 0; i < pds.length; i++) {
+            for (PropertyDescriptor pd : pds) {
                 boolean bypass = false;
-                String key = pds[i].getName();
+                String key = pd.getName();
                 if (exclusions.contains(key)) {
                     continue;
                 }
@@ -699,9 +699,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     continue;
                 }
 
-                Class type = pds[i].getPropertyType();
+                Class type = pd.getPropertyType();
                 try {
-                    pds[i].getReadMethod();
+                    pd.getReadMethod();
                 } catch (Exception e) {
                     // bug 2565295
                     String warning = "Property '" + key + "' of " + beanClass + " has no read method. SKIPPED";
@@ -709,7 +709,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     log.info(warning);
                     continue;
                 }
-                if (pds[i].getReadMethod() != null) {
+                if (pd.getReadMethod() != null) {
                     /*
                     if( jsonConfig.isIgnoreJPATransient() ){
                        try{
@@ -723,7 +723,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                        }
                     }
                     */
-                    if (isTransient(pds[i].getReadMethod(), jsonConfig)) {
+                    if (isTransient(pd.getReadMethod(), jsonConfig)) {
                         continue;
                     }
 
@@ -754,9 +754,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             try {
                 if (!jsonConfig.isIgnorePublicFields()) {
                     Field[] fields = beanClass.getFields();
-                    for (int i = 0; i < fields.length; i++) {
+                    for (Field item : fields) {
                         boolean bypass = false;
-                        Field field = fields[i];
+                        Field field = item;
                         String key = field.getName();
                         if (exclusions.contains(key)) {
                             continue;
@@ -833,9 +833,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             DynaProperty[] props = bean.getDynaClass().getDynaProperties();
             Collection exclusions = jsonConfig.getMergedExcludes();
             PropertyFilter jsonPropertyFilter = jsonConfig.getJsonPropertyFilter();
-            for (int i = 0; i < props.length; i++) {
+            for (DynaProperty prop : props) {
                 boolean bypass = false;
-                DynaProperty dynaProperty = props[i];
+                DynaProperty dynaProperty = prop;
                 String key = dynaProperty.getName();
                 if (exclusions.contains(key)) {
                     continue;
@@ -898,8 +898,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         Collection exclusions = jsonConfig.getMergedExcludes();
         JSONObject jsonObject = new JSONObject();
         PropertyFilter jsonPropertyFilter = jsonConfig.getJsonPropertyFilter();
-        for (Iterator i = sa.iterator(); i.hasNext(); ) {
-            Object k = i.next();
+        for (Object k : sa) {
             if (k == null) {
                 throw new JSONException("JSON keys cannot be null.");
             }
@@ -1018,7 +1017,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     String params = JSONUtils.getFunctionParams((String) v);
                     // read function text
                     int i = 0;
-                    StringBuffer sb = new StringBuffer();
+                    StringBuilder sb = new StringBuilder();
                     for (; ; ) {
                         char ch = tokener.next();
                         if (ch == 0) {
@@ -1106,9 +1105,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         JSONObject jsonObject = new JSONObject();
         PropertyFilter jsonPropertyFilter = jsonConfig.getJsonPropertyFilter();
         try {
-            for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
+            for (Object o : map.entrySet()) {
                 boolean bypass = false;
-                Entry entry = (Entry) entries.next();
+                Entry entry = (Entry) o;
                 Object k = entry.getKey();
                 if (k == null) {
                     throw new JSONException("JSON keys cannot be null.");
@@ -1291,8 +1290,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             // try with regexp
             // this will hit performance as it must iterate over all the keys
             // and create a RegexpMatcher for each key
-            for (Iterator i = classMap.entrySet().iterator(); i.hasNext(); ) {
-                Entry entry = (Entry) i.next();
+            for (Object o : classMap.entrySet()) {
+                Entry entry = (Entry) o;
                 if (RegexpUtils.getMatcher((String) entry.getKey()).matches(key)) {
                     targetClass = (Class) entry.getValue();
                     break;
@@ -1459,7 +1458,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, double value) {
-        return _accumulate(key, Double.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**
@@ -1476,7 +1475,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, int value) {
-        return _accumulate(key, Integer.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**
@@ -1493,7 +1492,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      *         null.
      */
     public JSONObject accumulate(String key, long value) {
-        return _accumulate(key, Long.valueOf(value), new JsonConfig());
+        return _accumulate(key, value, new JsonConfig());
     }
 
     /**
@@ -1536,15 +1535,15 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
 
     public void accumulateAll(Map map, JsonConfig jsonConfig) {
         if (map instanceof JSONObject) {
-            for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Entry entry = (Entry) entries.next();
+            for (Object o : map.entrySet()) {
+                Entry entry = (Entry) o;
                 String key = (String) entry.getKey();
                 Object value = entry.getValue();
                 accumulate(key, value, jsonConfig);
             }
         } else {
-            for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Entry entry = (Entry) entries.next();
+            for (Object o : map.entrySet()) {
+                Entry entry = (Entry) o;
                 String key = String.valueOf(entry.getKey());
                 Object value = entry.getValue();
                 accumulate(key, value, jsonConfig);
@@ -1829,8 +1828,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             return false;
         }
 
-        for (Iterator keys = properties.keySet().iterator(); keys.hasNext(); ) {
-            String key = (String) keys.next();
+        for (Object o : properties.keySet()) {
+            String key = (String) o;
             if (!other.properties.containsKey(key)) {
                 return false;
             }
@@ -2069,8 +2068,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         if (isNullObject()) {
             return hashcode + JSONNull.getInstance().hashCode();
         }
-        for (Iterator entries = properties.entrySet().iterator(); entries.hasNext(); ) {
-            Entry entry = (Entry) entries.next();
+        for (Object o : properties.entrySet()) {
+            Entry entry = (Entry) o;
             Object key = entry.getKey();
             Object value = entry.getValue();
             hashcode += key.hashCode() + JSONUtils.hashCode(value);
@@ -2350,15 +2349,15 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
 
     public void putAll(Map map, JsonConfig jsonConfig) {
         if (map instanceof JSONObject) {
-            for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Entry entry = (Entry) entries.next();
+            for (Object o : map.entrySet()) {
+                Entry entry = (Entry) o;
                 String key = (String) entry.getKey();
                 Object value = entry.getValue();
                 this.properties.put(key, value);
             }
         } else {
-            for (Iterator entries = map.entrySet().iterator(); entries.hasNext(); ) {
-                Entry entry = (Entry) entries.next();
+            for (Object o : map.entrySet()) {
+                Entry entry = (Entry) o;
                 String key = String.valueOf(entry.getKey());
                 Object value = entry.getValue();
                 element(key, value, jsonConfig);
@@ -2434,7 +2433,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         }
         try {
             Iterator keys = keys();
-            StringBuffer sb = new StringBuffer("{");
+            StringBuilder sb = new StringBuilder("{");
 
             while (keys.hasNext()) {
                 if (sb.length() > 1) {
@@ -2503,7 +2502,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             return this.toString();
         }
         Iterator keys = keys();
-        StringBuffer sb = new StringBuffer("{");
+        StringBuilder sb = new StringBuilder("{");
         int newindent = indent + indentFactor;
         Object o;
         if (n == 1) {

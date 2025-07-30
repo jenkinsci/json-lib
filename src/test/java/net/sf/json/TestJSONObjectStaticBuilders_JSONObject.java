@@ -33,8 +33,8 @@ public class TestJSONObjectStaticBuilders_JSONObject extends AbstractJSONObjectS
         String[] props = getProperties();
         JSONObject jsonObject = new JSONObject();
         try {
-            for (int i = 0; i < props.length; i++) {
-                jsonObject.element(props[i], PropertyConstants.getPropertyValue(props[i]));
+            for (String prop : props) {
+                jsonObject.element(prop, PropertyConstants.getPropertyValue(prop));
             }
             jsonObject.element("pexcluded", "");
         } catch (Exception e) {
