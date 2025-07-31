@@ -21,7 +21,6 @@ import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
 import net.sf.json.regexp.RegexpUtils;
-import org.apache.commons.lang.math.NumberUtils;
 
 /**
  * A JSONTokener takes a source string and extracts characters and tokens from
@@ -414,7 +413,12 @@ public class JSONTokener {
             }
 
             try {
-                return NumberUtils.createNumber(s);
+                if (s.contains(".") || s.contains("e") || s.contains("E")) {
+                    return Double.parseDouble(s);
+                } else {
+                    long l = Long.parseLong(s);
+                    return l >= Integer.MIN_VALUE && l <= Integer.MAX_VALUE ? (int) l : l;
+                }
             } catch (Exception e) {
                 return s;
             }
