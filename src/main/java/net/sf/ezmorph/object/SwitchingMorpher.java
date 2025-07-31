@@ -77,8 +77,8 @@ public class SwitchingMorpher implements ObjectMorpher {
         int result = 17;
         for (Object o : classMap.entrySet()) {
             Map.Entry entry = (Map.Entry) o;
-            result = 37 * result + Objects.hashCode(entry.getKey());
-            result = 37 * result + Objects.hashCode(entry.getValue());
+            result = 31 * result + Objects.hashCode(entry.getKey());
+            result = 31 * result + Objects.hashCode(entry.getValue());
         }
         return result;
     }

@@ -150,7 +150,7 @@ public final class NumberMorpher extends AbstractObjectMorpher {
     public int hashCode() {
         int result = Objects.hashCode(type);
         if (isUseDefault()) {
-            result = 37 * result + Objects.hashCode(getDefaultValue());
+            result = 31 * result + Objects.hashCode(getDefaultValue());
         }
         return result;
     }

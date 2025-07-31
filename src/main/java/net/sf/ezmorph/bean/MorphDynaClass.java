@@ -145,10 +145,10 @@ public final class MorphDynaClass implements DynaClass, Serializable {
     @Override
     public int hashCode() {
         int result = Objects.hashCode(name);
-        result = 37 * result + Objects.hashCode(type);
+        result = 31 * result + Objects.hashCode(type);
         for (DynaProperty dynaProperty : dynaProperties) {
-            result = 37 * result + Objects.hashCode(dynaProperty.getName());
-            result = 37 * result + Objects.hashCode(dynaProperty.getType());
+            result = 31 * result + Objects.hashCode(dynaProperty.getName());
+            result = 31 * result + Objects.hashCode(dynaProperty.getType());
         }
         return result;
     }

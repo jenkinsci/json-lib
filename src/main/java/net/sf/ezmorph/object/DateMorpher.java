@@ -155,10 +155,10 @@ public final class DateMorpher extends AbstractObjectMorpher {
     @Override
     public int hashCode() {
         int result = Arrays.hashCode(formats);
-        result = 37 * result + Objects.hashCode(locale);
-        result = 37 * result + Boolean.hashCode(lenient);
+        result = 31 * result + Objects.hashCode(locale);
+        result = 31 * result + Boolean.hashCode(lenient);
         if (isUseDefault()) {
-            result = 37 * result + Objects.hashCode(getDefaultValue());
+            result = 31 * result + Objects.hashCode(getDefaultValue());
         }
         return result;
     }

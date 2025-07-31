@@ -161,7 +161,7 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         int result = Objects.hashCode(dynaClass);
         DynaProperty[] props = dynaClass.getDynaProperties();
         for (DynaProperty prop : props) {
-            result = 37 * result + Objects.hashCode(dynaValues.get(prop.getName()));
+            result = 31 * result + Objects.hashCode(dynaValues.get(prop.getName()));
         }
         return result;
     }
