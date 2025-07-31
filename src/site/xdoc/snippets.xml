@@ -52,12 +52,6 @@
                <li><a href="#XML to JSONObject">XML to JSONObject</a></li>
             </ol>
          </subsection>
-	 <a name="Groovy"/>
-         <subsection name="Groovy Support">
-            <ol>
-               <li><a href="#Using the JsonGroovyBuilder">Using the JsonGroovyBuilder</a></li>
-            </ol>
-         </subsection>
 	 <a name="JRuby"/>
          <subsection name="JRuby Support">
             <ol>
@@ -573,88 +567,6 @@ System.out.println( json.toString(2) );
   "@number": "1"
 }
 </textarea>[<a href="#Snippets">Index</a>|<a href="#XMLJSON">From XML to JSON</a>]
-	 </subsection>
-      </section>
-      <section name="Groovy Support">
-         <subsection name="Using the JsonGroovyBuilder">
-	 <p>The following snippets produce the same JSON output</p>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   book = [title: "Groovy in Action", author: "Dierk Konig"]
-   book = [title: "Groovy in Action", author: "Dierk Konig"]
-}
-</textarea>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   book = new Book(title: "Groovy in Action", author: "Dierk Konig")
-}
-</textarea>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   book = {
-      title = "Groovy in Action"
-      author= "Dierk Konig"
-   }
-   book = {
-      title = "Groovy in Action"
-      author= "Dierk Konig"
-   }
-}
-</textarea>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   2.times {
-      book = {
-         title = "Groovy in Action"
-         author= "Dierk Konig"
-      }
-   }
-}
-</textarea>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   2.times {
-      book {
-         title = "Groovy in Action"
-         author= "Dierk Konig"
-      }
-   }
-}
-</textarea>
-<textarea cols="80" rows="5" class="groovy:nocontrols:nogutter" name="srccode">
-def builder = new JsonGroovyBuilder()
-def books = builder.books {
-   book {
-      title = "Groovy in Action"
-      author= "Dierk Konig"
-   }
-   book {
-      title = "Groovy in Action"
-      author= "Dierk Konig"
-   }
-}
-</textarea>
-<textarea cols="80" rows="5" class="js:nocontrols:nogutter" name="srccode">
-{
-   "books": {
-      "book": [
-         {
-	    "title": "Groovy in Action",
-	    "author": "Dierk Konig"
-	 },
-         {
-	    "title": "Groovy in Action",
-	    "author": "Dierk Konig"
-	 }
-      ]
-   }
-}
-</textarea>[<a href="#Snippets">Index</a>|<a href="#Groovy">Groovy Support</a>]
 	 </subsection>
       </section>
       <section name="JRuby Support">
