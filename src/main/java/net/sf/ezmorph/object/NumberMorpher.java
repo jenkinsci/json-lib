@@ -18,6 +18,7 @@ package net.sf.ezmorph.object;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.primitive.ByteMorpher;
 import net.sf.ezmorph.primitive.DoubleMorpher;
@@ -25,8 +26,6 @@ import net.sf.ezmorph.primitive.FloatMorpher;
 import net.sf.ezmorph.primitive.IntMorpher;
 import net.sf.ezmorph.primitive.LongMorpher;
 import net.sf.ezmorph.primitive.ShortMorpher;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs to a subclass of Number.<br>
@@ -126,13 +125,15 @@ public final class NumberMorpher extends AbstractObjectMorpher {
         }
 
         NumberMorpher other = (NumberMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
-        builder.append(type, other.type);
+
+        if (!Objects.equals(type, other.type)) {
+            return false;
+        }
+
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -147,12 +148,11 @@ public final class NumberMorpher extends AbstractObjectMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(type);
+        int result = Objects.hashCode(type);
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            result = 31 * result + Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return result;
     }
 
     @Override

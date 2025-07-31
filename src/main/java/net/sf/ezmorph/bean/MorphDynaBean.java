@@ -22,16 +22,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.StringJoiner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
-import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
@@ -39,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 public final class MorphDynaBean implements DynaBean, Serializable {
     private static final long serialVersionUID = -605547389232706344L;
     private MorphDynaClass dynaClass;
-    private Map dynaValues = new HashMap();
+    private Map<String, Object> dynaValues = new HashMap<>();
     private MorpherRegistry morpherRegistry;
 
     public MorphDynaBean() {
@@ -82,12 +80,18 @@ public final class MorphDynaBean implements DynaBean, Serializable {
         }
 
         MorphDynaBean other = (MorphDynaBean) obj;
-        EqualsBuilder builder = new EqualsBuilder().append(this.dynaClass, other.dynaClass);
+
+        if (!Objects.equals(this.dynaClass, other.dynaClass)) {
+            return false;
+        }
+
         DynaProperty[] props = dynaClass.getDynaProperties();
         for (DynaProperty prop : props) {
-            builder.append(dynaValues.get(prop.getName()), dynaValues.get(prop.getName()));
+            if (!Objects.equals(dynaValues.get(prop.getName()), other.dynaValues.get(prop.getName()))) {
+                return false;
+            }
         }
-        return builder.isEquals();
+        return true;
     }
 
     @Override
@@ -154,12 +158,12 @@ public final class MorphDynaBean implements DynaBean, Serializable {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder().append(dynaClass);
+        int result = Objects.hashCode(dynaClass);
         DynaProperty[] props = dynaClass.getDynaProperties();
         for (DynaProperty prop : props) {
-            builder.append(dynaValues.get(prop.getName()));
+            result = 31 * result + Objects.hashCode(dynaValues.get(prop.getName()));
         }
-        return builder.toHashCode();
+        return result;
     }
 
     @Override
@@ -262,9 +266,11 @@ public final class MorphDynaBean implements DynaBean, Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append(dynaValues)
-                .toString();
+        StringJoiner joiner = new StringJoiner(", ", getClass().getSimpleName() + "[", "]");
+        for (Map.Entry<String, Object> entry : dynaValues.entrySet()) {
+            joiner.add(entry.getKey() + "=" + entry.getValue());
+        }
+        return joiner.toString();
     }
 
     protected DynaProperty getDynaProperty(String name) {

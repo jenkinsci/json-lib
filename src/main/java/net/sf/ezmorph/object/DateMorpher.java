@@ -18,11 +18,11 @@ package net.sf.ezmorph.object;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Morphs a String to a Date.<br>
@@ -129,15 +129,17 @@ public final class DateMorpher extends AbstractObjectMorpher {
         }
 
         DateMorpher other = (DateMorpher) obj;
-        EqualsBuilder builder = new EqualsBuilder();
-        builder.append(formats, other.formats);
-        builder.append(locale, other.locale);
-        builder.append(lenient, other.lenient);
+
+        if (!Arrays.equals(formats, other.formats)
+                || !Objects.equals(locale, other.locale)
+                || lenient != other.lenient) {
+            return false;
+        }
+
         if (isUseDefault() && other.isUseDefault()) {
-            builder.append(getDefaultValue(), other.getDefaultValue());
-            return builder.isEquals();
+            return Objects.equals(getDefaultValue(), other.getDefaultValue());
         } else if (!isUseDefault() && !other.isUseDefault()) {
-            return builder.isEquals();
+            return true;
         } else {
             return false;
         }
@@ -152,14 +154,13 @@ public final class DateMorpher extends AbstractObjectMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
-        builder.append(formats);
-        builder.append(locale);
-        builder.append(lenient);
+        int result = Arrays.hashCode(formats);
+        result = 31 * result + Objects.hashCode(locale);
+        result = 31 * result + Boolean.hashCode(lenient);
         if (isUseDefault()) {
-            builder.append(getDefaultValue());
+            result = 31 * result + Objects.hashCode(getDefaultValue());
         }
-        return builder.toHashCode();
+        return result;
     }
 
     @Override
