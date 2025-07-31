@@ -34,6 +34,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.array.ObjectArrayMorpher;
 import net.sf.ezmorph.bean.BeanMorpher;
@@ -42,7 +43,6 @@ import net.sf.json.processors.JsonBeanProcessor;
 import net.sf.json.processors.JsonValueProcessor;
 import net.sf.json.processors.JsonVerifier;
 import net.sf.json.processors.PropertyNameProcessor;
-import net.sf.json.regexp.RegexpUtils;
 import net.sf.json.util.CycleDetectionStrategy;
 import net.sf.json.util.EnumMorpher;
 import net.sf.json.util.JSONTokener;
@@ -1203,17 +1203,16 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
      * Locates a Class associated to a specifi key.<br>
      * The key may be a regexp.
      */
-    private static Class findTargetClass(String key, Map classMap) {
+    private static Class findTargetClass(String key, Map<String, Class> classMap) {
         // try get first
-        Class targetClass = (Class) classMap.get(key);
+        Class targetClass = classMap.get(key);
         if (targetClass == null) {
             // try with regexp
             // this will hit performance as it must iterate over all the keys
-            // and create a RegexpMatcher for each key
-            for (Object o : classMap.entrySet()) {
-                Entry entry = (Entry) o;
-                if (RegexpUtils.getMatcher((String) entry.getKey()).matches(key)) {
-                    targetClass = (Class) entry.getValue();
+            // and create a Pattern for each key
+            for (Entry<String, Class> entry : classMap.entrySet()) {
+                if (Pattern.compile(entry.getKey()).matcher(key).matches()) {
+                    targetClass = entry.getValue();
                     break;
                 }
             }

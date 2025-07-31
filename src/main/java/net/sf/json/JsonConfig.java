@@ -475,7 +475,7 @@ public class JsonConfig {
      *
      * @return a Map of classes, every key identifies a property or a regexp
      */
-    public Map getClassMap() {
+    public Map<String, Class> getClassMap() {
         return classMap;
     }
 
