@@ -16,10 +16,14 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.TestCase;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
@@ -30,40 +34,27 @@ import net.sf.json.sample.JsonAnnotation;
 import net.sf.json.sample.JsonEnum;
 import net.sf.json.util.EnumMorpher;
 import net.sf.json.util.JSONUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectJdk15 extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectJdk15.class);
-    }
-
-    public TestJSONObjectJdk15(String testName) {
-        super(testName);
-    }
-
-    public void testFromBean_AnnotationBean() {
+class TestJSONObjectJdk15 {
+    @Test
+    void testFromBean_AnnotationBean() {
         AnnotationBean bean = new AnnotationBean();
         Annotation[] annotations = bean.getClass().getAnnotations();
-        try {
-            JSONObject.fromObject(annotations[0]);
-            fail("Expected a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        assertThrows(JSONException.class, () -> JSONObject.fromObject(annotations[0]));
     }
 
-    public void testFromBean_Enum() {
-        try {
-            JSONObject.fromObject(JsonEnum.OBJECT);
-            fail("Expected a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testFromBean_Enum() {
+        assertThrows(JSONException.class, () -> JSONObject.fromObject(JsonEnum.OBJECT));
     }
 
-    public void testFromBean_EnumBean() {
+    @Test
+    void testFromBean_EnumBean() {
         EnumBean bean = new EnumBean();
         bean.setJsonEnum(JsonEnum.OBJECT);
         bean.setString("string");
@@ -73,19 +64,16 @@ public class TestJSONObjectJdk15 extends TestCase {
         assertEquals("string", json.get("string"));
     }
 
-    public void testFromObject_AnnotationBean() {
+    @Test
+    void testFromObject_AnnotationBean() {
         AnnotationBean bean = new AnnotationBean();
         Annotation[] annotations = bean.getClass().getAnnotations();
-        try {
-            JSONObject.fromObject(annotations[0]);
-            fail("Expected a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        assertThrows(JSONException.class, () -> JSONObject.fromObject(annotations[0]));
     }
 
-    public void testFromObject_DynaBean__Enum() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testFromObject_DynaBean__Enum() throws Exception {
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("jsonEnum", JsonEnum.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();
@@ -96,16 +84,13 @@ public class TestJSONObjectJdk15 extends TestCase {
         assertEquals(JsonEnum.OBJECT.toString(), json.get("jsonEnum"));
     }
 
-    public void testFromObject_Enum() {
-        try {
-            JSONObject.fromObject(JsonEnum.OBJECT);
-            fail("Expected a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testFromObject_Enum() {
+        assertThrows(JSONException.class, () -> JSONObject.fromObject(JsonEnum.OBJECT));
     }
 
-    public void testFromObject_EnumBean() {
+    @Test
+    void testFromObject_EnumBean() {
         EnumBean bean = new EnumBean();
         bean.setJsonEnum(JsonEnum.OBJECT);
         bean.setString("string");
@@ -115,39 +100,38 @@ public class TestJSONObjectJdk15 extends TestCase {
         assertEquals("string", json.get("string"));
     }
 
-    public void testFromObject_Map__Enum() {
-        Map properties = new HashMap();
+    @Test
+    void testFromObject_Map__Enum() {
+        Map<String, Object> properties = new HashMap<>();
         properties.put("jsonEnum", JsonEnum.OBJECT);
         JSONObject json = JSONObject.fromObject(properties);
         assertNotNull(json);
         assertEquals(JsonEnum.OBJECT.toString(), json.get("jsonEnum"));
     }
 
-    public void testPut_Annotation() {
+    @Test
+    void testPut_Annotation() {
         AnnotationBean bean = new AnnotationBean();
         Annotation[] annotations = bean.getClass().getAnnotations();
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.element("annotation", annotations[0]);
-            fail("Expected a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        JSONObject jsonObject = new JSONObject();
+        assertThrows(JSONException.class, () -> jsonObject.element("annotation", annotations[0]));
     }
 
-    public void testPut_Enum() {
+    @Test
+    void testPut_Enum() {
         JSONObject json = new JSONObject();
         json.element("jsonEnum", JsonEnum.OBJECT);
         assertEquals(JsonEnum.OBJECT.toString(), json.get("jsonEnum"));
     }
 
-    public void testToBean_EnumBean() {
+    @Test
+    void testToBean_EnumBean() {
         JSONUtils.getMorpherRegistry().registerMorpher(new EnumMorpher(JsonEnum.class));
         JSONObject json = new JSONObject();
         json.element("jsonEnum", "OBJECT");
         EnumBean bean = (EnumBean) JSONObject.toBean(json, EnumBean.class);
         assertNotNull(bean);
-        assertEquals(bean.getJsonEnum(), JsonEnum.OBJECT);
+        assertEquals(JsonEnum.OBJECT, bean.getJsonEnum());
     }
 
     /*
@@ -176,15 +160,17 @@ public class TestJSONObjectJdk15 extends TestCase {
     }
     */
 
-    public void testToBean_EnumBean_autoRegisterMorpher() {
+    @Test
+    void testToBean_EnumBean_autoRegisterMorpher() {
         JSONObject json = new JSONObject();
         json.element("jsonEnum", "OBJECT");
         EnumBean bean = (EnumBean) JSONObject.toBean(json, EnumBean.class);
         assertNotNull(bean);
-        assertEquals(bean.getJsonEnum(), JsonEnum.OBJECT);
+        assertEquals(JsonEnum.OBJECT, bean.getJsonEnum());
     }
 
-    public void testFromObject_ignoreAnnotations() {
+    @Test
+    void testFromObject_ignoreAnnotations() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.addIgnoreFieldAnnotation(JsonAnnotation.class);
         AnnotatedBean bean = new AnnotatedBean();
@@ -205,8 +191,8 @@ public class TestJSONObjectJdk15 extends TestCase {
         assertFalse(json.has("string3"));
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         Morpher morpher = JSONUtils.getMorpherRegistry().getMorpherFor(JsonEnum.class);
         JSONUtils.getMorpherRegistry().deregisterMorpher(morpher);
     }

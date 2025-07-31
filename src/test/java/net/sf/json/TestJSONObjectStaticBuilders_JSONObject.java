@@ -19,14 +19,7 @@ package net.sf.json;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectStaticBuilders_JSONObject extends AbstractJSONObjectStaticBuildersTestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_JSONObject.class);
-    }
-
-    public TestJSONObjectStaticBuilders_JSONObject(String name) {
-        super(name);
-    }
+class TestJSONObjectStaticBuilders_JSONObject extends AbstractJSONObjectStaticBuildersTestCase {
 
     @Override
     protected Object getSource() {

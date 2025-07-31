@@ -16,23 +16,18 @@
 
 package net.sf.json.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.StringWriter;
-import junit.framework.TestCase;
 import net.sf.json.JSONObject;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONBuilder extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONBuilder.class);
-    }
-
-    public TestJSONBuilder(String testName) {
-        super(testName);
-    }
-
-    public void testCreateArray() {
+class TestJSONBuilder {
+    @Test
+    void testCreateArray() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w)
                 .array()
@@ -44,25 +39,29 @@ public class TestJSONBuilder extends TestCase {
         assertEquals("[true,1.1,2,\"text\"]", w.toString());
     }
 
-    public void testCreateEmptyArray() {
+    @Test
+    void testCreateEmptyArray() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w).array().endArray();
         assertEquals("[]", w.toString());
     }
 
-    public void testCreateEmptyArrayWithNullObjects() {
+    @Test
+    void testCreateEmptyArrayWithNullObjects() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w).array().value(null).value(null).endArray();
         assertEquals("[null,null]", w.toString());
     }
 
-    public void testCreateEmptyObject() {
+    @Test
+    void testCreateEmptyObject() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w).object().endObject();
         assertEquals("{}", w.toString());
     }
 
-    public void testCreateSimpleObject() {
+    @Test
+    void testCreateSimpleObject() {
         StringWriter w = new StringWriter();
         new JSONBuilder(w)
                 .object()

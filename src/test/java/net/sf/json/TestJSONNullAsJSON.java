@@ -19,14 +19,7 @@ package net.sf.json;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONNullAsJSON extends AbstractJSONTest {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONNullAsJSON.class);
-    }
-
-    public TestJSONNullAsJSON(String name) {
-        super(name);
-    }
+class TestJSONNullAsJSON extends AbstractJSONTest {
 
     @Override
     protected int getIndent() {

@@ -16,26 +16,23 @@
 
 package net.sf.json.filters;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestNotPropertyFilter extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestNotPropertyFilter.class);
-    }
-
-    public TestNotPropertyFilter(String testName) {
-        super(testName);
-    }
-
-    public void testApply_true() {
+class TestNotPropertyFilter {
+    @Test
+    void testApply_true() {
         NotPropertyFilter filter = new NotPropertyFilter(new TruePropertyFilter());
         assertFalse(filter.apply(null, null, null));
     }
 
-    public void testApply_false() {
+    @Test
+    void testApply_false() {
         NotPropertyFilter filter = new NotPropertyFilter(new FalsePropertyFilter());
         assertTrue(filter.apply(null, null, null));
     }

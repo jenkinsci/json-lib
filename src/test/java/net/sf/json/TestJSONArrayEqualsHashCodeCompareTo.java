@@ -16,113 +16,104 @@
 
 package net.sf.json;
 
-import java.util.HashMap;
-import java.util.Map;
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayEqualsHashCodeCompareTo extends TestCase {
-    private static JSONArray strings;
-    private static Map values = new HashMap();
-    private static JSONArray values1;
-    private static JSONArray values2;
-    private static JSONArray values3;
+class TestJSONArrayEqualsHashCodeCompareTo {
+    private static final JSONArray strings;
+    private static final JSONArray values1;
+    private static final JSONArray values2;
+    private static final JSONArray values3;
 
     static {
-        values.put("int.1", Integer.valueOf("1"));
-        values.put("int.2", Integer.valueOf("2"));
-        values.put("long.1", Long.valueOf("1"));
-        values.put("long.2", Long.valueOf("2"));
-        values.put("string.1", "1");
-        values.put("string.2", "2");
-        values.put("boolean.1", Boolean.TRUE);
-        values.put("boolean.2", Boolean.FALSE);
-
         strings = new JSONArray()
                 .element("1")
                 .element("1")
                 .element("true")
                 .element("string")
                 .element("[1,2,3]");
-        values.put("JSONArray.strings", strings);
         values1 = new JSONArray()
                 .element(Integer.valueOf("1"))
                 .element(Long.valueOf("1"))
                 .element(Boolean.TRUE)
                 .element("string")
                 .element(JSONArray.fromObject(new int[] {1, 2, 3}));
-        values.put("JSONArray.values.1", values1);
         values2 = new JSONArray()
                 .element(Integer.valueOf("1"))
                 .element(Long.valueOf("1"))
                 .element(Boolean.TRUE)
                 .element("string");
-        values.put("JSONObject.values.2", values2);
         values3 = new JSONArray()
                 .element(Integer.valueOf("2"))
                 .element(Long.valueOf("2"))
                 .element(Boolean.FALSE)
                 .element("string2");
-        values.put("JSONObject.values.3", values3);
     }
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayEqualsHashCodeCompareTo.class);
-    }
-
-    public TestJSONArrayEqualsHashCodeCompareTo(String name) {
-        super(name);
-    }
-
-    public void testCompareTo_different_size() {
+    @Test
+    void testCompareTo_different_size() {
         assertEquals(-1, values2.compareTo(strings));
         assertEquals(1, strings.compareTo(values2));
     }
 
-    public void testCompareTo_null() {
+    @Test
+    void testCompareTo_null() {
         assertEquals(-1, strings.compareTo(null));
     }
 
-    public void testCompareTo_object() {
+    @Test
+    void testCompareTo_object() {
         assertEquals(-1, strings.compareTo(new Object()));
     }
 
-    public void testCompareTo_same_array() {
+    @Test
+    void testCompareTo_same_array() {
         assertEquals(0, strings.compareTo(strings));
     }
 
-    public void testCompareTo_same_size_different_values() {
+    @Test
+    void testCompareTo_same_size_different_values() {
         assertEquals(-1, values2.compareTo(values3));
     }
 
-    public void testCompareTo_same_size_similar_values() {
+    @Test
+    void testCompareTo_same_size_similar_values() {
         assertEquals(0, strings.compareTo(values1));
     }
 
-    public void testEquals_different_elements_same_size() {
-        assertFalse(values2.equals(values3));
-        assertFalse(values3.equals(values2));
+    @Test
+    void testEquals_different_elements_same_size() {
+        assertNotEquals(values2, values3);
+        assertNotEquals(values3, values2);
     }
 
-    public void testEquals_null() {
-        assertFalse(strings.equals(null));
+    @Test
+    void testEquals_null() {
+        assertNotEquals(null, strings);
     }
 
-    public void testEquals_object() {
-        assertFalse(strings.equals(new Object()));
+    @Test
+    void testEquals_object() {
+        assertNotEquals(strings, new Object());
     }
 
-    public void testEquals_same_object() {
-        assertTrue(strings.equals(strings));
+    @Test
+    void testEquals_same_object() {
+        assertEquals(strings, strings);
     }
 
-    public void testEquals_same_size_similar_values() {
-        assertTrue(strings.equals(values1));
+    @Test
+    void testEquals_same_size_similar_values() {
+        assertEquals(strings, values1);
     }
 
-    public void testHashCode_different_elements_same_size() {
-        assertFalse(values2.hashCode() == values3.hashCode());
+    @Test
+    void testHashCode_different_elements_same_size() {
+        assertNotEquals(values2.hashCode(), values3.hashCode());
     }
 }

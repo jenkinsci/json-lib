@@ -16,20 +16,11 @@
 package net.sf.json;
 
 import java.util.List;
-import junit.framework.TestCase;
 
 /**
  * @author Matt Small <msmall@wavemaker.com>
  */
-public class TestGenerics extends TestCase {
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestGenerics.class);
-    }
-
-    public TestGenerics(String testName) {
-        super(testName);
-    }
+class TestGenerics {
 
     /*
     public void testBasicList() throws Exception {

@@ -24,18 +24,11 @@ import net.sf.ezmorph.bean.MorphDynaClass;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectStaticBuilders_DynaBean extends AbstractJSONObjectStaticBuildersTestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_DynaBean.class);
-    }
-
-    public TestJSONObjectStaticBuilders_DynaBean(String name) {
-        super(name);
-    }
+class TestJSONObjectStaticBuilders_DynaBean extends AbstractJSONObjectStaticBuildersTestCase {
 
     @Override
     protected Object getSource() {
-        Map map = new HashMap();
+        Map<String, Class<?>> map = new HashMap<>();
         String[] props = getProperties();
         for (String prop : props) {
             map.put(prop, PropertyConstants.getPropertyClass(prop));

@@ -22,14 +22,7 @@ import org.apache.commons.beanutils.PropertyUtils;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectStaticBuilders_PrimitiveBean extends AbstractJSONObjectStaticBuildersTestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_PrimitiveBean.class);
-    }
-
-    public TestJSONObjectStaticBuilders_PrimitiveBean(String name) {
-        super(name);
-    }
+class TestJSONObjectStaticBuilders_PrimitiveBean extends AbstractJSONObjectStaticBuildersTestCase {
 
     @Override
     protected Object getSource() {

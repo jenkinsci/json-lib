@@ -19,14 +19,7 @@ package net.sf.json;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayAsJSON extends AbstractJSONTest {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayAsJSON.class);
-    }
-
-    public TestJSONArrayAsJSON(String name) {
-        super(name);
-    }
+class TestJSONArrayAsJSON extends AbstractJSONTest {
 
     @Override
     protected int getIndent() {
@@ -50,16 +43,12 @@ public class TestJSONArrayAsJSON extends AbstractJSONTest {
 
     @Override
     protected Object[] getToStringExpectations2() {
-        return new Object[] {
-            "[\n" + "  1,\n" + "  true,\n" + "  \"json\"\n" + "]", JSONArray.fromObject("[1,true,'json']")
-        };
+        return new Object[] {"[\n  1,\n  true,\n  \"json\"\n]", JSONArray.fromObject("[1,true,'json']")};
     }
 
     @Override
     protected Object[] getToStringExpectations3() {
-        return new Object[] {
-            "  [\n" + "    1,\n" + "    true,\n" + "    \"json\"\n" + "  ]", JSONArray.fromObject("[1,true,'json']")
-        };
+        return new Object[] {"  [\n    1,\n    true,\n    \"json\"\n  ]", JSONArray.fromObject("[1,true,'json']")};
     }
 
     @Override

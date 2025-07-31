@@ -16,21 +16,18 @@
 
 package net.sf.json.filters;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestMappingPropertyFilter extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestMappingPropertyFilter.class);
-    }
+class TestMappingPropertyFilter {
 
-    public TestMappingPropertyFilter(String testName) {
-        super(testName);
-    }
-
-    public void testApply() {
+    @Test
+    void testApply() {
         MappingPropertyFilter filter = new SampleMappingPropertyFilter();
         filter.addPropertyFilter(String.class, new TruePropertyFilter());
         filter.addPropertyFilter(Long.class, new TruePropertyFilter());
@@ -42,7 +39,7 @@ public class TestMappingPropertyFilter extends TestCase {
     public static class SampleMappingPropertyFilter extends MappingPropertyFilter {
         @Override
         protected boolean keyMatches(Object key, Object source, String name, Object value) {
-            return ((Class) key).isAssignableFrom(source.getClass()) && source instanceof Number;
+            return ((Class<?>) key).isAssignableFrom(source.getClass()) && source instanceof Number;
         }
     }
 }

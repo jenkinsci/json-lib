@@ -16,19 +16,23 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectEqualsHashCodeCompareTo extends TestCase {
-    private static JSONObject strings;
-    private static Map values = new HashMap();
-    private static JSONObject values1;
-    private static JSONObject values2;
-    private static JSONObject values3;
+class TestJSONObjectEqualsHashCodeCompareTo {
+    private static final JSONObject strings;
+    private static final Map<String, Object> values = new HashMap<>();
+    private static final JSONObject values1;
+    private static final JSONObject values2;
+    private static final JSONObject values3;
 
     static {
         values.put("JSONObject.null.1", new JSONObject(true));
@@ -70,127 +74,149 @@ public class TestJSONObjectEqualsHashCodeCompareTo extends TestCase {
         values.put("JSONObject.values.3", values3);
     }
 
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectEqualsHashCodeCompareTo.class);
-    }
-
-    public TestJSONObjectEqualsHashCodeCompareTo(String name) {
-        super(name);
-    }
-
-    public void testCompareTo_different_size() {
+    @Test
+    void testCompareTo_different_size() {
         assertEquals(-1, values2.compareTo(strings));
         assertEquals(1, strings.compareTo(values2));
     }
 
-    public void testCompareTo_null() {
+    @Test
+    void testCompareTo_null() {
         assertEquals(-1, strings.compareTo(null));
     }
 
-    public void testCompareTo_object() {
+    @Test
+    void testCompareTo_object() {
         assertEquals(-1, strings.compareTo(new Object()));
     }
 
-    public void testCompareTo_same_array() {
+    @Test
+    void testCompareTo_same_array() {
         assertEquals(0, strings.compareTo(strings));
     }
 
-    public void testCompareTo_same_size_different_values() {
+    @Test
+    void testCompareTo_same_size_different_values() {
         assertEquals(-1, values2.compareTo(values3));
     }
 
-    public void testCompareTo_same_size_similar_values() {
+    @Test
+    void testCompareTo_same_size_similar_values() {
         assertEquals(0, strings.compareTo(values1));
     }
 
-    public void testEquals_different_key_same_size() {
+    @Test
+    void testEquals_different_key_same_size() {
         JSONObject a = new JSONObject().element("key1", "string");
         JSONObject b = new JSONObject().element("key2", "json");
-        assertFalse(a.equals(b));
-        assertFalse(b.equals(a));
+        assertNotEquals(a, b);
+        assertNotEquals(b, a);
     }
 
-    public void testEquals_different_sizes() {
-        assertFalse(values.get("JSONObject.values.1").equals(values.get("JSONObject.values.2")));
+    @Test
+    void testEquals_different_sizes() {
+        assertNotEquals(values.get("JSONObject.values.1"), values.get("JSONObject.values.2"));
     }
 
-    public void testEquals_nullObject_other() {
-        assertFalse(values.get("JSONObject.null.1").equals(values.get("JSONObject.strings")));
+    @Test
+    void testEquals_nullObject_other() {
+        assertNotEquals(values.get("JSONObject.null.1"), values.get("JSONObject.strings"));
     }
 
-    public void testEquals_nullObjects_different() {
-        assertTrue(values.get("JSONObject.null.1").equals(values.get("JSONObject.null.2")));
+    @Test
+    void testEquals_nullObjects_different() {
+        assertEquals(values.get("JSONObject.null.1"), values.get("JSONObject.null.2"));
     }
 
-    public void testEquals_other_nullObject() {
-        assertFalse(values.get("JSONObject.strings").equals(values.get("JSONObject.null.1")));
+    @Test
+    void testEquals_other_nullObject() {
+        assertNotEquals(values.get("JSONObject.strings"), values.get("JSONObject.null.1"));
     }
 
-    public void testEquals_same() {
-        assertTrue(values.get("JSONObject.null.1").equals(values.get("JSONObject.null.1")));
+    @Test
+    void testEquals_same() {
+        assertEquals(values.get("JSONObject.null.1"), values.get("JSONObject.null.1"));
     }
 
-    public void testEquals_same_key_different_value() {
+    @Test
+    void testEquals_same_key_different_value() {
         JSONObject a = new JSONObject().element("key", "string");
         JSONObject b = new JSONObject().element("key", "json");
-        assertFalse(a.equals(b));
-        assertFalse(b.equals(a));
+        assertNotEquals(a, b);
+        assertNotEquals(b, a);
     }
 
-    public void testEquals_strings_values() {
-        assertTrue(values.get("JSONObject.strings").equals(values.get("JSONObject.values.1")));
+    @Test
+    void testEquals_strings_values() {
+        assertEquals(values.get("JSONObject.strings"), values.get("JSONObject.values.1"));
     }
 
-    public void testEquals_to_null() {
-        assertFalse(values.get("JSONObject.null.1").equals(null));
+    @Test
+    void testEquals_to_null() {
+        assertNotEquals(null, values.get("JSONObject.null.1"));
     }
 
-    public void testEquals_to_other() {
-        assertFalse(values.get("JSONObject.null.1").equals(new Object()));
+    @Test
+    void testEquals_to_other() {
+        assertNotEquals(values.get("JSONObject.null.1"), new Object());
     }
 
-    public void testEquals_values_strings() {
-        assertTrue(values.get("JSONObject.values.1").equals(values.get("JSONObject.strings")));
+    @Test
+    void testEquals_values_strings() {
+        assertEquals(values.get("JSONObject.values.1"), values.get("JSONObject.strings"));
     }
 
-    public void testHashCode_different_size() {
-        assertFalse(values.get("JSONObject.values.1").hashCode()
-                == values.get("JSONObject.values.2").hashCode());
+    @Test
+    void testHashCode_different_size() {
+        assertNotEquals(
+                values.get("JSONObject.values.1").hashCode(),
+                values.get("JSONObject.values.2").hashCode());
     }
 
-    public void testHashCode_nullObject_other() {
-        assertFalse(values.get("JSONObject.null.1").hashCode()
-                == values.get("JSONObject.strings").hashCode());
+    @Test
+    void testHashCode_nullObject_other() {
+        assertNotEquals(
+                values.get("JSONObject.null.1").hashCode(),
+                values.get("JSONObject.strings").hashCode());
     }
 
-    public void testHashCode_nullObjects_different() {
-        assertTrue(values.get("JSONObject.null.1").hashCode()
-                == values.get("JSONObject.null.2").hashCode());
-    }
-
-    public void testHashCode_other_nullObject() {
-        assertFalse(values.get("JSONObject.strings").hashCode()
-                == values.get("JSONObject.null.1").hashCode());
-    }
-
-    public void testHashCode_same() {
-        assertTrue(values.get("JSONObject.null.1").hashCode()
-                == values.get("JSONObject.null.1").hashCode());
-    }
-
-    public void testHashCode_same_key_different_value() {
-        JSONObject a = new JSONObject().element("key", "string");
-        JSONObject b = new JSONObject().element("key", "json");
-        assertFalse(a.hashCode() == b.hashCode());
-    }
-
-    public void testHashCode_strings_values() {
+    @Test
+    void testHashCode_nullObjects_different() {
         assertEquals(
-                values.get("JSONObject.strings").hashCode(),
-                values.get("JSONObject.values.1").hashCode());
+                values.get("JSONObject.null.1").hashCode(),
+                values.get("JSONObject.null.2").hashCode());
     }
 
-    public void testHashCode_to_other() {
-        assertFalse(values.get("JSONObject.null.1").hashCode() == new Object().hashCode());
+    @Test
+    void testHashCode_other_nullObject() {
+        assertNotEquals(
+                values.get("JSONObject.strings").hashCode(),
+                values.get("JSONObject.null.1").hashCode());
+    }
+
+    @Test
+    void testHashCode_same() {
+        assertEquals(
+                values.get("JSONObject.null.1").hashCode(),
+                values.get("JSONObject.null.1").hashCode());
+    }
+
+    @Test
+    void testHashCode_same_key_different_value() {
+        JSONObject a = new JSONObject().element("key", "string");
+        JSONObject b = new JSONObject().element("key", "json");
+        assertNotEquals(a.hashCode(), b.hashCode());
+    }
+
+    @Test
+    void testHashCode_strings_values() {
+      assertNotEquals(
+          values.get("JSONObject.strings").hashCode(),
+          values.get("JSONObject.values.1").hashCode());
+    }
+
+    @Test
+    void testHashCode_to_other() {
+        assertNotEquals(values.get("JSONObject.null.1").hashCode(), new Object().hashCode());
     }
 }

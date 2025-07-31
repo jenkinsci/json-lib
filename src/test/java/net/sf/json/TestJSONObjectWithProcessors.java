@@ -16,34 +16,31 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.TestCase;
-import junit.textui.TestRunner;
 import net.sf.json.processors.JsDateJsonBeanProcessor;
 import net.sf.json.processors.JsDateJsonValueProcessor;
 import net.sf.json.sample.DateBean;
 import net.sf.json.sample.IdentityJsonValueProcessor;
 import net.sf.json.test.JSONAssert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectWithProcessors extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(TestJSONObjectWithProcessors.class);
-    }
-
+class TestJSONObjectWithProcessors {
     private Date date;
     private JsonConfig jsonConfig;
 
-    public TestJSONObjectWithProcessors(String name) {
-        super(name);
-    }
-
-    public void testBeanWithDateProperty_fromObject_withJsonBeanProcessor() {
+    @Test
+    void testBeanWithDateProperty_fromObject_withJsonBeanProcessor() {
         DateBean bean = new DateBean();
         bean.setDate(date);
         bean.setValue(42);
@@ -55,7 +52,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testBeanWithDateProperty_fromObject_withJsonValueProcessor_1() {
+    @Test
+    void testBeanWithDateProperty_fromObject_withJsonValueProcessor_1() {
         DateBean bean = new DateBean();
         bean.setDate(date);
         bean.setValue(42);
@@ -67,7 +65,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testBeanWithDateProperty_fromObject_withJsonValueProcessor_2() {
+    @Test
+    void testBeanWithDateProperty_fromObject_withJsonValueProcessor_2() {
         DateBean bean = new DateBean();
         bean.setDate(date);
         bean.setValue(42);
@@ -79,7 +78,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testBeanWithDateProperty_fromObject_withJsonValueProcessor_3() {
+    @Test
+    void testBeanWithDateProperty_fromObject_withJsonValueProcessor_3() {
         DateBean bean = new DateBean();
         bean.setDate(date);
         bean.setValue(42);
@@ -91,7 +91,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testBeanWithDateProperty_fromObject_withJsonValueProcessor_4() {
+    @Test
+    void testBeanWithDateProperty_fromObject_withJsonValueProcessor_4() {
         DateBean bean = new DateBean();
         bean.setDate(date);
         bean.setValue(42);
@@ -103,7 +104,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testBeanWithDateProperty_put() {
+    @Test
+    void testBeanWithDateProperty_put() {
         DateBean bean = new DateBean();
         bean.setValue(42);
         jsonConfig.registerJsonBeanProcessor(Date.class, new JsDateJsonBeanProcessor());
@@ -117,14 +119,16 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertJsDate(jsDate);
     }
 
-    public void testDateAsBean_fromObject() {
+    @Test
+    void testDateAsBean_fromObject() {
         jsonConfig.registerJsonBeanProcessor(Date.class, new JsDateJsonBeanProcessor());
         JSONObject jsDate = JSONObject.fromObject(date, jsonConfig);
         assertJsDate(jsDate);
     }
 
-    public void testNumericValueWithProcessor_Byte() {
-        Map bean = new HashMap();
+    @Test
+    void testNumericValueWithProcessor_Byte() {
+        Map<String, Object> bean = new HashMap<>();
         bean.put("value", Byte.MAX_VALUE);
         jsonConfig.registerJsonValueProcessor("value", new IdentityJsonValueProcessor());
         JSONObject jsonObject = JSONObject.fromObject(bean, jsonConfig);
@@ -132,8 +136,9 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertEquals((int) Byte.MAX_VALUE, jsonObject.get("value"));
     }
 
-    public void testNumericValueWithProcessor_Short() {
-        Map bean = new HashMap();
+    @Test
+    void testNumericValueWithProcessor_Short() {
+        Map<String, Object> bean = new HashMap<>();
         bean.put("value", Short.MAX_VALUE);
         jsonConfig.registerJsonValueProcessor("value", new IdentityJsonValueProcessor());
         JSONObject jsonObject = JSONObject.fromObject(bean, jsonConfig);
@@ -141,8 +146,8 @@ public class TestJSONObjectWithProcessors extends TestCase {
         assertEquals(((int) Short.MAX_VALUE), jsonObject.get("value"));
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2007);
         c.set(Calendar.MONTH, 5);

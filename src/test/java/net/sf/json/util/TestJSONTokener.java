@@ -16,22 +16,20 @@
 
 package net.sf.json.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import net.sf.json.JSONException;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONTokener extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONTokener.class);
-    }
-
-    public TestJSONTokener(String name) {
-        super(name);
-    }
-
-    public void testDehexchar() {
+class TestJSONTokener {
+    @Test
+    void testDehexchar() {
         assertEquals(0, JSONTokener.dehexchar('0'));
         assertEquals(1, JSONTokener.dehexchar('1'));
         assertEquals(2, JSONTokener.dehexchar('2'));
@@ -57,24 +55,22 @@ public class TestJSONTokener extends TestCase {
         assertEquals(15, JSONTokener.dehexchar('F'));
     }
 
-    public void testLength() {
+    @Test
+    void testLength() {
         assertEquals(0, new JSONTokener(null).length());
         assertEquals(0, new JSONTokener("").length());
         assertEquals(2, new JSONTokener("[]").length());
     }
 
-    public void testNextChar() {
+    @Test
+    void testNextChar() {
         JSONTokener tok = new JSONTokener("abc");
         assertEquals('a', tok.next('a'));
-        try {
-            assertEquals('e', tok.next('e'));
-            fail("Expectd a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        assertThrows(JSONException.class, () -> tok.next('e'));
     }
 
-    public void testStartsWith() {
+    @Test
+    void testStartsWith() {
         assertFalse(new JSONTokener("").startsWith("null"));
         assertFalse(new JSONTokener("n").startsWith("null"));
         assertFalse(new JSONTokener("nu").startsWith("null"));
@@ -88,7 +84,8 @@ public class TestJSONTokener extends TestCase {
         assertFalse(new JSONTokener("nnulll").startsWith("null"));
     }
 
-    public void testReset() {
+    @Test
+    void testReset() {
         JSONTokener tok = new JSONTokener("abc");
         tok.next();
         tok.next();
