@@ -131,7 +131,7 @@ public abstract class JavaIdentifierTransformer {
                     sb.append(ch);
                 }
             }
-            if (!sb.isEmpty() && sb.charAt(sb.length() - 1) == '_') {
+            if (sb.charAt(sb.length() - 1) == '_') {
                 sb.deleteCharAt(sb.length() - 1);
             }
             return sb.toString();
