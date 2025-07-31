@@ -286,7 +286,8 @@ public class TestJSONObject extends TestCase {
     }
 
     public void testJSONTokener_ParseNumber() {
-        String jsonStr = "{\"int\":42,\"negInt\":-17,\"long\":9223372036854775807,\"negLong\":-9223372036854775808,\"float\":3.1415,\"negFloat\":-0.01,\"exp\":1.23e4,\"negExp\":-1.23e4,\"expNeg\":1.23e-4,\"negExpNeg\":-1.23e-4,\"zero\":0}";
+        String jsonStr =
+                "{\"int\":42,\"negInt\":-17,\"long\":9223372036854775807,\"negLong\":-9223372036854775808,\"float\":3.1415,\"negFloat\":-0.01,\"exp\":1.23e4,\"negExp\":-1.23e4,\"expNeg\":1.23e-4,\"negExpNeg\":-1.23e-4,\"zero\":0}";
         JSONTokener jsonTokener = new JSONTokener(jsonStr);
         JSONObject json = JSONObject.fromObject(jsonTokener);
 
