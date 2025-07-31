@@ -37,7 +37,7 @@ import org.apache.commons.beanutils.DynaProperty;
 public final class MorphDynaBean implements DynaBean, Serializable {
     private static final long serialVersionUID = -605547389232706344L;
     private MorphDynaClass dynaClass;
-    private Map<String, Object> dynaValues = new HashMap();
+    private Map<String, Object> dynaValues = new HashMap<>();
     private MorpherRegistry morpherRegistry;
 
     public MorphDynaBean() {
