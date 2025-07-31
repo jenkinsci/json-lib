@@ -63,14 +63,6 @@
             </ul>
             </p>
          </subsection>
-         <subsection name="Web">
-            <p>The following options are configurable in WebUtils:
-            <ul>
-               <li>do not output quotes for object keys when its safe for JavaScript</li>
-               <li>two default strategies for preventing javascript hijacking, you can register your own</li>
-            </ul>
-            </p>
-         </subsection>
          <subsection name="JRuby">
             <ul>
                <li>JSONArray.empty? is an alias for JSONArray.isEmpty()</li>
