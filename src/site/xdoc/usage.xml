@@ -10,7 +10,6 @@
        <a href="#serializer">Using the JSONSerializer</a><br/>
        <a href="#arrays">Working with arrays and collections</a><br/>
        <a href="#objects">Working with objects</a><br/>
-       <a href="#xml">Working with XML</a><br/>
 
        <a name="serializer"/>
        <subsection name="Using the JSONSerializer">
@@ -162,85 +161,6 @@
    bean.setData( output );</textarea>
        <p>To learn more about Morphers, please visit <a href="http://ezmorph.sourceforge.net">EZMorph's project site</a>.
        </p>
-       </subsection>
-       </subsection>
-
-       <a name="xml"/>
-       <subsection name="Working with XML">
-       <p>Working with XML has become easier since version 1.1. Transforming JSONObjects and JSONArrays from and to XML 
-            is done through the XMLSerializer.</p>
-          <subsection name="From JSON to XML">
-            <p>Writing to JSON to XML is as simple as calling <code>XMLSerializer.write()</code>, but there are a lot 
-            of options that you may configure to get better control of the XML output. For example you may change the
-            default names for the root element ('o' if object, 'a' if array), the default name for object (an object inside
-            an array is "anonymous"), the default name for array (for the same reason as object), the default name for
-            element (array items have no name). If you'd like to output namescape information but your JSON does not
-            includes it, no problem, you have 8 methods that will let you register and manage namespaces; namespaces
-            defined this way have precedence on any namespace declaration that may be inside the JSON. By default
-            XMLSerializer will append special attributes to each xml element for easing the transformation back to JSON
-            but you may configure it to skip appending those attributes. Any property on a JSONObject that begins
-            with '@' will be treated as an attribute, any property named '#text' will be treated as a Text node.</p>
-            <p>Please review the javadoc for XMLSerializer to know more about the configurable options.</p>
-   <table>
-      <tr>
-         <th>Code</th>
-    <th>XML output</th>
-      </tr>
-      <tr>
-         <td valign="top">
-       <textarea cols="70" rows="2" class="java:nocontrols:nogutter" name="srccode">
-   JSONObject json = new JSONObject( true );
-   String xml = XMLSerializer.write( json );</textarea>
-         </td><td valign="top">
-       <textarea cols="70" rows="1" class="xml:nocontrols:nogutter" name="srccode">
-   &lt;o class="object" null="true"&gt;
-       </textarea>
-         </td>
-      </tr>
-      <tr>
-         <td valign="top">
-       <textarea cols="70" rows="2" class="java:nocontrols:nogutter" name="srccode">
-   JSONObject json = JSONObject.fromObject("{\"name\":\"json\",\"bool\":true,\"int\":1}");
-   String xml = XMLSerializer.write( json );</textarea>
-         </td><td valign="top">
-       <textarea cols="70" rows="5" class="xml:nocontrols:nogutter" name="srccode">
-   &lt;o class="object"&gt;
-      &lt;name type="string"&gt;json&lt;/name&gt;
-      &lt;bool type="boolean"&gt;true&lt;/bool&gt;
-      &lt;int type="number"&gt;1&lt;/int&gt;
-   &lt;/o&gt;
-   </textarea>
-         </td>
-      </tr>
-      <tr>
-         <td valign="top">
-       <textarea cols="70" rows="2" class="java:nocontrols:nogutter" name="srccode">
-   JSONArray json = JSONArray.fromObject("[1,2,3]");
-   String xml = XMLSerializer.write( json );</textarea>
-         </td><td valign="top">
-       <textarea cols="70" rows="5" class="xml:nocontrols:nogutter" name="srccode">
-   &lt;a class="array"&lt;
-      &lt;e type="number"&gt;1&lt;/e&gt;
-      &lt;e type="number"&gt;2&lt;/e&gt;
-      &lt;e type="number"&gt;3&lt;/e&gt;
-   &lt;/a&gt;
-   </textarea>
-         </td>
-      </tr>
-   </table>
-          </subsection>
-          <subsection name="From XML to JSON">
-             <p>XMLSerializer treats each element as a <code>string</code> unless a type parameter is specified.<br/>All xml attributes
-             will have the prefix '@' and text nodes will have the property name '#text'. XMLSerializer supports
-             the rules outlined at 
-             <a href="http://www.xml.com/pub/a/2006/05/31/converting-between-xml-and-json.html">Converting Between XML and JSON</a></p>
-          </subsection>
-
-     <p><center>
-     <table><td valign="middle"><img src="images/icon_warning_sml.gif"/></td><td><strong><font color="#FF0000">CAUTION:</font></strong>
-           when parsing, JSONObject and JSONArray will check for cycles in the hierarchy, throwing an exception
-	   if one is found. You can change this behavior by registering a CycleDetectionStrategy.</td><td valign="middle"><img src="images/icon_warning_sml.gif"/></td></table></center></p>
-
        </subsection>
      </section>
    </body>
