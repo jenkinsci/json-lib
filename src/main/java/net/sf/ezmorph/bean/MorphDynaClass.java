@@ -22,15 +22,13 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaClass;
 import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
-import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
@@ -107,18 +105,23 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         }
 
         MorphDynaClass other = (MorphDynaClass) obj;
-        EqualsBuilder builder =
-                new EqualsBuilder().append(this.name, other.name).append(this.type, other.type);
+
+        if (!Objects.equals(this.name, other.name) || !Objects.equals(this.type, other.type)) {
+            return false;
+        }
+
         if (dynaProperties.length != other.dynaProperties.length) {
             return false;
         }
+
         for (int i = 0; i < dynaProperties.length; i++) {
             DynaProperty a = this.dynaProperties[i];
             DynaProperty b = other.dynaProperties[i];
-            builder.append(a.getName(), b.getName());
-            builder.append(a.getType(), b.getType());
+            if (!Objects.equals(a.getName(), b.getName()) || !Objects.equals(a.getType(), b.getType())) {
+                return false;
+            }
         }
-        return builder.isEquals();
+        return true;
     }
 
     @Override
@@ -141,12 +144,13 @@ public final class MorphDynaClass implements DynaClass, Serializable {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder().append(name).append(type);
+        int result = Objects.hashCode(name);
+        result = 37 * result + Objects.hashCode(type);
         for (DynaProperty dynaProperty : dynaProperties) {
-            builder.append(dynaProperty.getName());
-            builder.append(dynaProperty.getType());
+            result = 37 * result + Objects.hashCode(dynaProperty.getName());
+            result = 37 * result + Objects.hashCode(dynaProperty.getType());
         }
-        return builder.toHashCode();
+        return result;
     }
 
     @Override
@@ -171,11 +175,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("name", this.name)
-                .append("type", this.type)
-                .append("attributes", this.attributes)
-                .toString();
+        return String.format("%s[name=%s, type=%s, attributes=%s]", getClass().getSimpleName(), name, type, attributes);
     }
 
     protected Class getBeanClass() {

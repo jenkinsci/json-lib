@@ -18,10 +18,10 @@ package net.sf.ezmorph.object;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.ObjectMorpher;
-import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * An all-purpose Morpher that can morph to several classes.<br>
@@ -74,13 +74,13 @@ public class SwitchingMorpher implements ObjectMorpher {
 
     @Override
     public int hashCode() {
-        HashCodeBuilder builder = new HashCodeBuilder();
+        int result = 17;
         for (Object o : classMap.entrySet()) {
             Map.Entry entry = (Map.Entry) o;
-            builder.append(entry.getKey());
-            builder.append(entry.getValue());
+            result = 37 * result + Objects.hashCode(entry.getKey());
+            result = 37 * result + Objects.hashCode(entry.getValue());
         }
-        return builder.toHashCode();
+        return result;
     }
 
     @Override
