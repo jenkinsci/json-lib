@@ -71,14 +71,6 @@
             </ul>
             </p>
          </subsection>
-         <subsection name="Groovy">
-            <ul>
-               <li>support for the leftshift ( &lt;&lt; ) operator in JSONObject</li>
-               <li>support for the spaceship ( &lt;=&gt; ) and its cousins</li>
-               <li>type conversion with the <code>as</code> keyword</li>
-               <li>a Groovy JSON builder</li>
-            </ul>
-         </subsection>
          <subsection name="JRuby">
             <ul>
                <li>JSONArray.empty? is an alias for JSONArray.isEmpty()</li>
