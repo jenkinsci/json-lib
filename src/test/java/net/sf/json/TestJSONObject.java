@@ -285,6 +285,36 @@ public class TestJSONObject extends TestCase {
         Assertions.assertEquals(JSONObject.fromObject(tok), jsonObject.getJSONObject("obj"));
     }
 
+    public void testJSONTokener_ParseNumber() {
+        String jsonStr = "{\"int\":42,\"negInt\":-17,\"long\":9223372036854775807,\"negLong\":-9223372036854775808,\"float\":3.1415,\"negFloat\":-0.01,\"exp\":1.23e4,\"negExp\":-1.23e4,\"expNeg\":1.23e-4,\"negExpNeg\":-1.23e-4,\"zero\":0}";
+        JSONTokener jsonTokener = new JSONTokener(jsonStr);
+        JSONObject json = JSONObject.fromObject(jsonTokener);
+
+        assertTrue(json.get("int") instanceof Integer);
+        assertTrue(json.get("negInt") instanceof Integer);
+        assertTrue(json.get("long") instanceof Long);
+        assertTrue(json.get("negLong") instanceof Long);
+        assertTrue(json.get("float") instanceof Double);
+        assertTrue(json.get("negFloat") instanceof Double);
+        assertTrue(json.get("exp") instanceof Double);
+        assertTrue(json.get("negExp") instanceof Double);
+        assertTrue(json.get("expNeg") instanceof Double);
+        assertTrue(json.get("negExpNeg") instanceof Double);
+        assertTrue(json.get("zero") instanceof Integer);
+
+        assertEquals(42, json.get("int"));
+        assertEquals(-17, json.get("negInt"));
+        assertEquals(9223372036854775807L, json.get("long"));
+        assertEquals(-9223372036854775808L, json.get("negLong"));
+        assertEquals(3.1415, (Double) json.get("float"), 1e-10);
+        assertEquals(-0.01, (Double) json.get("negFloat"), 1e-10);
+        assertEquals(1.23e4, (Double) json.get("exp"), 1e-10);
+        assertEquals(-1.23e4, (Double) json.get("negExp"), 1e-10);
+        assertEquals(1.23e-4, (Double) json.get("expNeg"), 1e-10);
+        assertEquals(-1.23e-4, (Double) json.get("negExpNeg"), 1e-10);
+        assertEquals(0, json.get("zero"));
+    }
+
     public void testElement_long() {
         JSONObject jsonObject = new JSONObject();
         jsonObject.element("long", 1L);
