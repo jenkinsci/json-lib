@@ -17,18 +17,15 @@
 package net.sf.json.util;
 
 import net.sf.json.JSONException;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * Transforms a string into a valid Java identifier.<br>
  * There are five predefined strategies:
  * <ul>
  * <li>NOOP: does not perform transformation.</li>
- * <li>CAMEL_CASE: follows the camel case convention, deletes non
- * JavaIndentifierPart chars.</li>
- * <li>UNDERSCORE: transform whitespace and non JavaIdentifierPart chars to
- * '_'.</li>
- * <li>WHITESPACE: deletes whitespace and non JavaIdentifierPart chars.</li>
+ * <li>CAMEL_CASE: follows the camel case convention, deletes non JavaIdentifierPart chars (including whitespace).</li>
+ * <li>UNDERSCORE: replaces sequences of non JavaIdentifierPart chars (including whitespace) with single '_' separators.</li>
+ * <li>WHITESPACE: deletes non JavaIdentifierPart chars (including whitespace).</li>
  * <li>STRICT: always throws a JSONException, does not perform transformation.</li>
  * </ul>
  *
@@ -60,7 +57,7 @@ public abstract class JavaIdentifierTransformer {
         while (!ready) {
             if (!Character.isJavaIdentifierStart(str2.charAt(0))) {
                 str2 = str2.substring(1);
-                if (str2.length() == 0) {
+                if (str2.isEmpty()) {
                     throw new JSONException("Can't convert '" + str + "' to a valid Java identifier");
                 }
             } else {
@@ -79,22 +76,19 @@ public abstract class JavaIdentifierTransformer {
 
             String str2 = shaveOffNonJavaIdentifierStartChars(str);
 
-            char[] chars = str2.toCharArray();
-            int pos = 0;
             StringBuilder sb = new StringBuilder();
             boolean toUpperCaseNextChar = false;
-            while (pos < chars.length) {
-                if (!Character.isJavaIdentifierPart(chars[pos]) || Character.isWhitespace(chars[pos])) {
+            for (char ch : str2.toCharArray()) {
+                if (!Character.isJavaIdentifierPart(ch) || Character.isWhitespace(ch)) {
                     toUpperCaseNextChar = true;
                 } else {
                     if (toUpperCaseNextChar) {
-                        sb.append(Character.toUpperCase(chars[pos]));
+                        sb.append(Character.toUpperCase(ch));
                         toUpperCaseNextChar = false;
                     } else {
-                        sb.append(chars[pos]);
+                        sb.append(ch);
                     }
                 }
-                pos++;
             }
             return sb.toString();
         }
@@ -122,21 +116,18 @@ public abstract class JavaIdentifierTransformer {
             }
             String str2 = shaveOffNonJavaIdentifierStartChars(str);
 
-            char[] chars = str2.toCharArray();
-            int pos = 0;
             StringBuilder sb = new StringBuilder();
             boolean toUnderScorePreviousChar = false;
-            while (pos < chars.length) {
-                if (!Character.isJavaIdentifierPart(chars[pos]) || Character.isWhitespace(chars[pos])) {
+            for (char ch : str2.toCharArray()) {
+                if (!Character.isJavaIdentifierPart(ch) || Character.isWhitespace(ch)) {
                     toUnderScorePreviousChar = true;
                 } else {
                     if (toUnderScorePreviousChar) {
                         sb.append("_");
                         toUnderScorePreviousChar = false;
                     }
-                    sb.append(chars[pos]);
+                    sb.append(ch);
                 }
-                pos++;
             }
             if (sb.charAt(sb.length() - 1) == '_') {
                 sb.deleteCharAt(sb.length() - 1);
@@ -152,15 +143,11 @@ public abstract class JavaIdentifierTransformer {
                 return null;
             }
             String str2 = shaveOffNonJavaIdentifierStartChars(str);
-            str2 = StringUtils.deleteWhitespace(str2);
-            char[] chars = str2.toCharArray();
-            int pos = 0;
             StringBuilder sb = new StringBuilder();
-            while (pos < chars.length) {
-                if (Character.isJavaIdentifierPart(chars[pos])) {
-                    sb.append(chars[pos]);
+            for (char ch : str2.toCharArray()) {
+                if (Character.isJavaIdentifierPart(ch)) {
+                    sb.append(ch);
                 }
-                pos++;
             }
             return sb.toString();
         }
