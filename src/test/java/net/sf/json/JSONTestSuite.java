@@ -27,7 +27,6 @@ public class JSONTestSuite extends TestSuite {
         suite.setName("json-lib");
 
         suite.addTest(net.sf.json.AllTests.suite());
-        suite.addTest(net.sf.json.regexp.AllTests.suite());
         suite.addTest(net.sf.json.filters.AllTests.suite());
         suite.addTest(net.sf.json.processors.AllTests.suite());
         suite.addTest(net.sf.json.util.AllTests.suite());

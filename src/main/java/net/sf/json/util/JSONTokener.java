@@ -15,12 +15,12 @@
  */
 package net.sf.json.util;
 
+import java.util.regex.Pattern;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-import net.sf.json.regexp.RegexpUtils;
 
 /**
  * A JSONTokener takes a source string and extracts characters and tokens from
@@ -106,7 +106,7 @@ public class JSONTokener {
 
     public boolean matches(String pattern) {
         String str = this.mySource.substring(this.myIndex);
-        return RegexpUtils.getMatcher(pattern).matches(str);
+        return Pattern.compile(pattern).matcher(str).matches();
     }
 
     public boolean startsWith(String prefix) {
