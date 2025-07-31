@@ -81,7 +81,11 @@ public final class MorphDynaBean implements DynaBean, Serializable {
 
         MorphDynaBean other = (MorphDynaBean) obj;
 
-        if (!Objects.equals(this.dynaClass, other.dynaClass)) {
+        if (!Objects.equals(dynaClass, other.dynaClass)) {
+            return false;
+        }
+
+        if (dynaClass.getDynaProperties().length != other.dynaClass.getDynaProperties().length) {
             return false;
         }
 
