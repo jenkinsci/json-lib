@@ -23,11 +23,9 @@ import net.sf.json.JSONException;
  * There are five predefined strategies:
  * <ul>
  * <li>NOOP: does not perform transformation.</li>
- * <li>CAMEL_CASE: follows the camel case convention, deletes non
- * JavaIdentifierPart chars.</li>
- * <li>UNDERSCORE: transform whitespace and non JavaIdentifierPart chars to
- * '_'.</li>
- * <li>WHITESPACE: deletes whitespace and non JavaIdentifierPart chars.</li>
+ * <li>CAMEL_CASE: follows the camel case convention, deletes non JavaIdentifierPart chars (including whitespace).</li>
+ * <li>UNDERSCORE: replaces sequences of non JavaIdentifierPart chars (including whitespace) with single '_' separators.</li>
+ * <li>WHITESPACE: deletes non JavaIdentifierPart chars (including whitespace).</li>
  * <li>STRICT: always throws a JSONException, does not perform transformation.</li>
  * </ul>
  *
@@ -147,7 +145,7 @@ public abstract class JavaIdentifierTransformer {
             String str2 = shaveOffNonJavaIdentifierStartChars(str);
             StringBuilder sb = new StringBuilder();
             for (char ch : str2.toCharArray()) {
-                if (Character.isJavaIdentifierPart(ch) && !Character.isWhitespace(ch)) {
+                if (Character.isJavaIdentifierPart(ch)) {
                     sb.append(ch);
                 }
             }
