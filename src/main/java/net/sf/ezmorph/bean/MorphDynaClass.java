@@ -106,7 +106,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
 
         MorphDynaClass other = (MorphDynaClass) obj;
 
-        if (!Objects.equals(this.name, other.name) || !Objects.equals(this.type, other.type)) {
+        if (!Objects.equals(name, other.name) || !Objects.equals(type, other.type)) {
             return false;
         }
 
@@ -115,7 +115,7 @@ public final class MorphDynaClass implements DynaClass, Serializable {
         }
 
         for (int i = 0; i < dynaProperties.length; i++) {
-            DynaProperty a = this.dynaProperties[i];
+            DynaProperty a = dynaProperties[i];
             DynaProperty b = other.dynaProperties[i];
             if (!Objects.equals(a.getName(), b.getName()) || !Objects.equals(a.getType(), b.getType())) {
                 return false;
