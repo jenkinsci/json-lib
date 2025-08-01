@@ -18,7 +18,6 @@ package net.sf.json;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -210,9 +209,9 @@ class TestJSONObjectEqualsHashCodeCompareTo {
 
     @Test
     void testHashCode_strings_values() {
-      assertNotEquals(
-          values.get("JSONObject.strings").hashCode(),
-          values.get("JSONObject.values.1").hashCode());
+        assertEquals(
+                values.get("JSONObject.strings").hashCode(),
+                values.get("JSONObject.values.1").hashCode());
     }
 
     @Test

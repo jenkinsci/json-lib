@@ -141,10 +141,7 @@ class TestJSONArrayAsList {
 
     @BeforeEach
     void setUp() {
-        jsonArray = new JSONArray()
-                .element("1")
-                .element("true")
-                .element("string")
-                .element("[1,2,3]");
+        jsonArray =
+                new JSONArray().element("1").element("true").element("string").element("[1,2,3]");
     }
 }

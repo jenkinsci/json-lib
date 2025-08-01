@@ -17,7 +17,6 @@
 package net.sf.json.util;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import net.sf.json.JSONObject;
 import org.junit.jupiter.api.Test;

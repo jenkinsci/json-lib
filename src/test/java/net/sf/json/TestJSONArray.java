@@ -46,11 +46,8 @@ class TestJSONArray {
 
     @Test
     void testDiscard() {
-        JSONArray jsonArray = new JSONArray()
-                .element("1")
-                .element("true")
-                .element("string")
-                .element("[1,2,3]");
+        JSONArray jsonArray =
+                new JSONArray().element("1").element("true").element("string").element("[1,2,3]");
         assertEquals(4, jsonArray.size());
         jsonArray.discard("string").discard(0);
         assertEquals(2, jsonArray.size());

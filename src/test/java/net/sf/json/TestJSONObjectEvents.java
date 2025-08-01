@@ -78,10 +78,8 @@ class TestJSONObjectEvents {
 
     @Test
     void testFromObject_JSONObject() {
-        JSONObject jsonObject = new JSONObject()
-                .element("name", "json")
-                .element("bool", true)
-                .element("int", 1);
+        JSONObject jsonObject =
+                new JSONObject().element("name", "json").element("bool", true).element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }

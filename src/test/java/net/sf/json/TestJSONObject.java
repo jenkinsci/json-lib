@@ -304,34 +304,34 @@ class TestJSONObject {
 
     @Test
     void testJSONTokener_ParseNumber() {
-      String jsonStr =
-          "{\"int\":42,\"negInt\":-17,\"long\":9223372036854775807,\"negLong\":-9223372036854775808,\"float\":3.1415,\"negFloat\":-0.01,\"exp\":1.23e4,\"negExp\":-1.23e4,\"expNeg\":1.23e-4,\"negExpNeg\":-1.23e-4,\"zero\":0}";
-      JSONTokener jsonTokener = new JSONTokener(jsonStr);
-      JSONObject json = JSONObject.fromObject(jsonTokener);
+        String jsonStr =
+                "{\"int\":42,\"negInt\":-17,\"long\":9223372036854775807,\"negLong\":-9223372036854775808,\"float\":3.1415,\"negFloat\":-0.01,\"exp\":1.23e4,\"negExp\":-1.23e4,\"expNeg\":1.23e-4,\"negExpNeg\":-1.23e-4,\"zero\":0}";
+        JSONTokener jsonTokener = new JSONTokener(jsonStr);
+        JSONObject json = JSONObject.fromObject(jsonTokener);
 
-      assertInstanceOf(Integer.class, json.get("int"));
-      assertInstanceOf(Integer.class, json.get("negInt"));
-      assertInstanceOf(Long.class, json.get("long"));
-      assertInstanceOf(Long.class, json.get("negLong"));
-      assertInstanceOf(Double.class, json.get("float"));
-      assertInstanceOf(Double.class, json.get("negFloat"));
-      assertInstanceOf(Double.class, json.get("exp"));
-      assertInstanceOf(Double.class, json.get("negExp"));
-      assertInstanceOf(Double.class, json.get("expNeg"));
-      assertInstanceOf(Double.class, json.get("negExpNeg"));
-      assertInstanceOf(Integer.class, json.get("zero"));
+        assertInstanceOf(Integer.class, json.get("int"));
+        assertInstanceOf(Integer.class, json.get("negInt"));
+        assertInstanceOf(Long.class, json.get("long"));
+        assertInstanceOf(Long.class, json.get("negLong"));
+        assertInstanceOf(Double.class, json.get("float"));
+        assertInstanceOf(Double.class, json.get("negFloat"));
+        assertInstanceOf(Double.class, json.get("exp"));
+        assertInstanceOf(Double.class, json.get("negExp"));
+        assertInstanceOf(Double.class, json.get("expNeg"));
+        assertInstanceOf(Double.class, json.get("negExpNeg"));
+        assertInstanceOf(Integer.class, json.get("zero"));
 
-      assertEquals(42, json.get("int"));
-      assertEquals(-17, json.get("negInt"));
-      assertEquals(9223372036854775807L, json.get("long"));
-      assertEquals(-9223372036854775808L, json.get("negLong"));
-      assertEquals(3.1415, (Double) json.get("float"), 1e-10);
-      assertEquals(-0.01, (Double) json.get("negFloat"), 1e-10);
-      assertEquals(1.23e4, (Double) json.get("exp"), 1e-10);
-      assertEquals(-1.23e4, (Double) json.get("negExp"), 1e-10);
-      assertEquals(1.23e-4, (Double) json.get("expNeg"), 1e-10);
-      assertEquals(-1.23e-4, (Double) json.get("negExpNeg"), 1e-10);
-      assertEquals(0, json.get("zero"));
+        assertEquals(42, json.get("int"));
+        assertEquals(-17, json.get("negInt"));
+        assertEquals(9223372036854775807L, json.get("long"));
+        assertEquals(-9223372036854775808L, json.get("negLong"));
+        assertEquals(3.1415, (Double) json.get("float"), 1e-10);
+        assertEquals(-0.01, (Double) json.get("negFloat"), 1e-10);
+        assertEquals(1.23e4, (Double) json.get("exp"), 1e-10);
+        assertEquals(-1.23e4, (Double) json.get("negExp"), 1e-10);
+        assertEquals(1.23e-4, (Double) json.get("expNeg"), 1e-10);
+        assertEquals(-1.23e-4, (Double) json.get("negExpNeg"), 1e-10);
+        assertEquals(0, json.get("zero"));
     }
 
     @Test
