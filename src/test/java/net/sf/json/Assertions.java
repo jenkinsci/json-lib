@@ -279,4 +279,12 @@ public class Assertions extends JSONAssert {
             }
         }
     }
+
+    private static void failNotEquals(String message, Object expected, Object actual) {
+        String formatted = "";
+        if (message != null && !message.isEmpty()) {
+            formatted = message + " ";
+        }
+        fail(formatted + "expected:<" + expected + "> but was:<" + actual + ">");
+    }
 }

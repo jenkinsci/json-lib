@@ -16,20 +16,20 @@
 
 package net.sf.json.processors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.HashSet;
 import java.util.Set;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJsonBeanProcessorMatcher extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJsonBeanProcessorMatcher.class);
-    }
+class TestJsonBeanProcessorMatcher {
 
-    public void testGetMatchUsingStartsWith() {
-        Set set = new HashSet();
+    @Test
+    void testGetMatchUsingStartsWith() {
+        Set<Class<?>> set = new HashSet<>();
         set.add(JsonBeanProcessorMatcher.class);
         set.add(JsonBeanProcessorMatcher.DEFAULT.getClass());
 

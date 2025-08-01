@@ -16,225 +16,172 @@
 
 package net.sf.ezmorph.test;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class CharArrayAssertionsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(CharArrayAssertionsTest.class);
-        suite.setName("CharArrayAssertions Tests");
-        return suite;
-    }
-
-    public CharArrayAssertionsTest(String name) {
-        super(name);
-    }
-
-    // -----------------------------------------------------------------------
-
-    public void testAssertEquals_char_char() {
+class CharArrayAssertionsTest {
+    @Test
+    void testAssertEquals_char_char() {
         char[] expecteds = new char[] {'A', 'B'};
         char[] actuals = new char[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_char_char_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_char_char_actuals_is_null() {
         char[] expecteds = new char[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (char[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (char[]) null));
     }
 
-    public void testAssertEquals_char_char_different_length() {
+    @Test
+    void testAssertEquals_char_char_different_length() {
         char[] expecteds = new char[] {'A'};
         char[] actuals = new char[] {'A', 'B'};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_char_char_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_char_char_expecteds_is_null() {
         char[] actuals = new char[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals((char[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((char[]) null, actuals));
     }
 
-    public void testAssertEquals_char_Character() {
+    @Test
+    void testAssertEquals_char_Character() {
         char[] expecteds = new char[] {'A', 'B'};
         Character[] actuals = new Character[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_char_Character_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_char_Character_actuals_is_null() {
         char[] expecteds = new char[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (Character[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (Character[]) null));
     }
 
-    public void testAssertEquals_char_Character_different_length() {
+    @Test
+    void testAssertEquals_char_Character_different_length() {
         char[] expecteds = new char[] {'A'};
         Character[] actuals = new Character[] {'A', 'B'};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_char_Character_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_char_Character_expecteds_is_null() {
         Character[] actuals = new Character[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals((char[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((char[]) null, actuals));
     }
 
-    public void testAssertEquals_Character_char() {
+    @Test
+    void testAssertEquals_Character_char() {
         Character[] expecteds = new Character[] {'A', 'B'};
         char[] actuals = new char[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Character_char_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Character_char_actuals_is_null() {
         Character[] expecteds = new Character[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (char[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (char[]) null));
     }
 
-    public void testAssertEquals_Character_char_different_length() {
+    @Test
+    void testAssertEquals_Character_char_different_length() {
         Character[] expecteds = new Character[] {'A'};
         char[] actuals = new char[] {'A', 'B'};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_Character_char_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Character_char_expecteds_is_null() {
         char[] actuals = new char[] {'A', 'B'};
-        try {
-            ArrayAssertions.assertEquals((Character[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((Character[]) null, actuals));
     }
 
-    public void testAssertEquals_Character_Character() {
+    @Test
+    void testAssertEquals_Character_Character() {
         Character[] expecteds = new Character[] {'A', 'B'};
         Character[] actuals = new Character[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_char_char() {
+    @Test
+    void testAssertEquals_multi_char_char() {
         char[][] expecteds = new char[][] {{'A', 'B'}, {'A', 'B'}};
         char[][] actuals = new char[][] {{'A', 'B'}, {'A', 'B'}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_char_Character() {
+    @Test
+    void testAssertEquals_multi_char_Character() {
         char[][] expecteds = new char[][] {{'A', 'B'}, {'A', 'B'}};
         Character[][] actuals = new Character[][] {{'A', 'B'}, {'A', 'B'}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Character_char() {
+    @Test
+    void testAssertEquals_multi_Character_char() {
         Character[][] expecteds = new Character[][] {{'A', 'B'}, {'A', 'B'}};
         char[][] actuals = new char[][] {{'A', 'B'}, {'A', 'B'}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Character_Character() {
+    @Test
+    void testAssertEquals_multi_Character_Character() {
         Character[][] expecteds = new Character[][] {{'A', 'B'}, {'A', 'B'}};
         Character[][] actuals = new Character[][] {{'A', 'B'}, {'A', 'B'}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_char_char() {
+    @Test
+    void testAssertEquals_OO_char_char() {
         Object expecteds = new char[] {'A', 'B'};
         Object actuals = new char[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_char_Character() {
+    @Test
+    void testAssertEquals_OO_char_Character() {
         Object expecteds = new char[] {'A', 'B'};
         Object actuals = new Character[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_char_double() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_OO_char_double() {
         Object expecteds = new char[] {'A', 'B'};
         Object actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_OO_char_Object_array() {
+    @Test
+    void testAssertEquals_OO_char_Object_array() {
         Object expecteds = new char[] {'A', 'B'};
         Object actuals = new Object[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Character_char() {
+    @Test
+    void testAssertEquals_OO_Character_char() {
         Object expecteds = new Character[] {'A', 'B'};
         Object actuals = new char[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_char() {
+    @Test
+    void testAssertEquals_OO_Object_array_char() {
         Object expecteds = new Object[] {'A', 'B'};
         Object actuals = new char[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_Object_array() {
+    @Test
+    void testAssertEquals_OO_Object_array_Object_array() {
         Object expecteds = new Object[] {'A', 'B'};
         Object actuals = new Object[] {'A', 'B'};
         ArrayAssertions.assertEquals(expecteds, actuals);

@@ -24,18 +24,11 @@ import net.sf.ezmorph.bean.MorphDynaClass;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayStaticBuilders_Array_DynaBean extends AbstractJSONArrayStaticBuildersTestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayStaticBuilders_Array_DynaBean.class);
-    }
-
-    public TestJSONArrayStaticBuilders_Array_DynaBean(String name) {
-        super(name);
-    }
+class TestJSONArrayStaticBuilders_Array_DynaBean extends AbstractJSONArrayStaticBuildersTestCase {
 
     @Override
     protected Object getSource() {
-        Map map = new HashMap();
+        Map<String, Class<?>> map = new HashMap<>();
         String[] props = getProperties();
         for (String prop : props) {
             map.put(prop, PropertyConstants.getPropertyClass(prop));
@@ -43,7 +36,7 @@ public class TestJSONArrayStaticBuilders_Array_DynaBean extends AbstractJSONArra
         map.put("class", Class.class);
         map.put("pexcluded", String.class);
         MorphDynaClass dynaClass = new MorphDynaClass(map);
-        MorphDynaBean dynaBean = null;
+        MorphDynaBean dynaBean;
         try {
             dynaBean = (MorphDynaBean) dynaClass.newInstance();
             for (String prop : props) {

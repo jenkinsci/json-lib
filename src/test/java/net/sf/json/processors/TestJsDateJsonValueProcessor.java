@@ -16,27 +16,24 @@
 
 package net.sf.json.processors;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.util.Calendar;
 import java.util.Date;
-import junit.framework.TestCase;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJsDateJsonValueProcessor extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJsDateJsonValueProcessor.class);
-    }
-
+class TestJsDateJsonValueProcessor {
     private JsDateJsonValueProcessor processor;
 
-    public TestJsDateJsonValueProcessor(String testName) {
-        super(testName);
-    }
-
-    public void testProcessBean() {
+    @Test
+    void testProcessBean() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2007);
         c.set(Calendar.MONTH, 5);
@@ -57,7 +54,8 @@ public class TestJsDateJsonValueProcessor extends TestCase {
         assertEquals(150, jsonObject.getInt("milliseconds"));
     }
 
-    public void testProcessBean_sqlDate() {
+    @Test
+    void testProcessBean_sqlDate() {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, 2007);
         c.set(Calendar.MONTH, 5);
@@ -79,8 +77,8 @@ public class TestJsDateJsonValueProcessor extends TestCase {
         assertEquals(150, jsonObject.getInt("milliseconds"));
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         processor = new JsDateJsonValueProcessor();
     }
 }

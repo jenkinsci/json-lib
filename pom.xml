@@ -180,11 +180,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
       <version>1.2.17</version>
@@ -195,6 +190,11 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.18.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -222,20 +222,6 @@
         <configuration>
           <templateDirectory>${basedir}/src/site</templateDirectory>
           <template>site.vm</template>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>**/Abstract*.java</exclude>
-            <exclude>**/AllTests.java</exclude>
-            <exclude>**/*closure*</exclude>
-          </excludes>
-          <includes>
-            <include>**/Test*.java</include>
-          </includes>
         </configuration>
       </plugin>
     </plugins>

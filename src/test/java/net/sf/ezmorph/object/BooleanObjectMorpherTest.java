@@ -16,81 +16,66 @@
 
 package net.sf.ezmorph.object;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class BooleanObjectMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(BooleanObjectMorpherTest.class);
-        suite.setName("BooleanObjectMorpher Tests");
-        return suite;
-    }
+class BooleanObjectMorpherTest extends AbstractObjectMorpherTestCase {
 
     private BooleanObjectMorpher anotherMorpher;
     private BooleanObjectMorpher anotherMorpherWithDefaultValue;
     private BooleanObjectMorpher morpher;
     private BooleanObjectMorpher morpherWithDefaultValue;
 
-    public BooleanObjectMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testBooleanMorph_noConversion() {
-        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(Boolean.TRUE);
+    @Test
+    void testBooleanMorph_noConversion() {
+        Boolean actual = (Boolean) morpherWithDefaultValue.morph(Boolean.TRUE);
         assertEquals(Boolean.TRUE, actual);
     }
 
-    public void testBooleanMorph_throwException() {
-        try {
-            new BooleanObjectMorpher().morph("A");
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBooleanMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testBooleanMorph_throwException_null() {
-        try {
-            new BooleanObjectMorpher().morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testBooleanMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testBooleanMorph_useDefault() {
-        String expected = String.valueOf("A");
-        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(expected);
+    @Test
+    void testBooleanMorph_useDefault() {
+        Boolean actual = (Boolean) morpherWithDefaultValue.morph("A");
         assertEquals(Boolean.TRUE, actual);
     }
 
-    public void testBooleanMorph_useDefault_null() {
-        Boolean actual = (Boolean) new BooleanObjectMorpher(Boolean.TRUE).morph(null);
+    @Test
+    void testBooleanMorph_useDefault_null() {
+        Boolean actual = (Boolean) morpherWithDefaultValue.morph(null);
         assertEquals(Boolean.TRUE, actual);
     }
 
-    public void testBooleanMorphStringValues_false() {
-        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("false"));
-        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("no"));
-        assertEquals(Boolean.FALSE, new BooleanObjectMorpher().morph("off"));
+    @Test
+    void testBooleanMorphStringValues_false() {
+        assertEquals(Boolean.FALSE, morpher.morph("false"));
+        assertEquals(Boolean.FALSE, morpher.morph("no"));
+        assertEquals(Boolean.FALSE, morpher.morph("off"));
     }
 
-    public void testBooleanMorphStringValues_true() {
-        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("true"));
-        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("yes"));
-        assertEquals(Boolean.TRUE, new BooleanObjectMorpher().morph("on"));
+    @Test
+    void testBooleanMorphStringValues_true() {
+        assertEquals(Boolean.TRUE, morpher.morph("true"));
+        assertEquals(Boolean.TRUE, morpher.morph("yes"));
+        assertEquals(Boolean.TRUE, morpher.morph("on"));
     }
 
     @Override
@@ -113,8 +98,8 @@ public class BooleanObjectMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new BooleanObjectMorpher();
         morpherWithDefaultValue = new BooleanObjectMorpher(Boolean.TRUE);
         anotherMorpher = new BooleanObjectMorpher();

@@ -15,6 +15,7 @@
  */
 package net.sf.json;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,387 +23,412 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import junit.framework.TestCase;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
 import net.sf.json.sample.BeanA;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayCollections extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayCollections.class);
-    }
+class TestJSONArrayCollections {
 
-    public TestJSONArrayCollections(String testName) {
-        super(testName);
-    }
-
-    public void testToList_bean_elements() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_bean_elements() {
+        List<BeanA> expected = new ArrayList<>();
         expected.add(new BeanA());
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray, BeanA.class);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray, BeanA.class);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_BigDecimal() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_BigDecimal() {
+        List<BigDecimal> expected = new ArrayList<>();
         expected.add(MorphUtils.BIGDECIMAL_ZERO);
         expected.add(MorphUtils.BIGDECIMAL_ONE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_BigInteger() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_BigInteger() {
+        List<BigInteger> expected = new ArrayList<>();
         expected.add(BigInteger.ZERO);
         expected.add(BigInteger.ONE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Boolean() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Boolean() {
+        List<Boolean> expected = new ArrayList<>();
         expected.add(Boolean.TRUE);
         expected.add(Boolean.FALSE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Byte() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Byte() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
-        List bytes = new ArrayList();
+        List<Byte> bytes = new ArrayList<>();
         bytes.add((byte) 1);
         bytes.add((byte) 2);
         JSONArray jsonArray = JSONArray.fromObject(bytes);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Character() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Character() {
+        List<String> expected = new ArrayList<>();
         expected.add("A");
         expected.add("B");
-        List chars = new ArrayList();
+        List<Character> chars = new ArrayList<>();
         chars.add('A');
         chars.add('B');
         JSONArray jsonArray = JSONArray.fromObject(chars);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Double() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Double() {
+        List<Double> expected = new ArrayList<>();
         expected.add(1d);
         expected.add(2d);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_dynaBean_elements() throws Exception {
-        List expected = new ArrayList();
+    @Test
+    void testToList_dynaBean_elements() throws Exception {
+        List<MorphDynaBean> expected = new ArrayList<>();
         expected.add(createDynaBean());
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Float() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Float() {
+        List<Double> expected = new ArrayList<>();
         expected.add(1d);
         expected.add(2d);
-        List floats = new ArrayList();
+        List<Float> floats = new ArrayList<>();
         floats.add(1f);
         floats.add(2f);
         JSONArray jsonArray = JSONArray.fromObject(floats);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Integer() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Integer() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Long() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Long() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
-        List longs = new ArrayList();
+        List<Long> longs = new ArrayList<>();
         longs.add(1L);
         longs.add(2L);
         JSONArray jsonArray = JSONArray.fromObject(longs);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Long2() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Long2() {
+        List<Long> expected = new ArrayList<>();
         expected.add(Integer.MAX_VALUE + 1L);
         expected.add(Integer.MAX_VALUE + 2L);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_null_elements() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_null_elements() {
+        List<Object> expected = new ArrayList<>();
         expected.add(null);
         expected.add(null);
         expected.add(null);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_Short() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_Short() {
+        List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
-        List shorts = new ArrayList();
+        List<Short> shorts = new ArrayList<>();
         shorts.add((short) 1);
         shorts.add((short) 2);
         JSONArray jsonArray = JSONArray.fromObject(shorts);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_String() {
-        List expected = new ArrayList();
+    @Test
+    void testToList_String() {
+        List<String> expected = new ArrayList<>();
         expected.add("A");
         expected.add("B");
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToList_String_multi() {
-        List a = new ArrayList();
+    @Test
+    void testToList_String_multi() {
+        List<String> a = new ArrayList<>();
         a.add("a");
         a.add("b");
-        List b = new ArrayList();
+        List<String> b = new ArrayList<>();
         b.add("1");
         b.add("2");
-        List expected = new ArrayList();
+        List<List<String>> expected = new ArrayList<>();
         expected.add(a);
         expected.add(b);
         JSONArray jsonArray = JSONArray.fromObject(expected);
-        List actual = (List) JSONArray.toCollection(jsonArray);
+        List<?> actual = (List<?>) JSONArray.toCollection(jsonArray);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_bean_elements() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_bean_elements() {
+        Set<BeanA> expected = new HashSet<>();
         expected.add(new BeanA());
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
         jsonConfig.setRootClass(BeanA.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_BigDecimal() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_BigDecimal() {
+        Set<BigDecimal> expected = new HashSet<>();
         expected.add(MorphUtils.BIGDECIMAL_ZERO);
         expected.add(MorphUtils.BIGDECIMAL_ONE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_BigInteger() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_BigInteger() {
+        Set<BigInteger> expected = new HashSet<>();
         expected.add(BigInteger.ZERO);
         expected.add(BigInteger.ONE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Boolean() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Boolean() {
+        Set<Boolean> expected = new HashSet<>();
         expected.add(Boolean.TRUE);
         expected.add(Boolean.FALSE);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Byte() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Byte() {
+        Set<Integer> expected = new HashSet<>();
         expected.add(1);
         expected.add(2);
-        Set bytes = new HashSet();
+        Set<Byte> bytes = new HashSet<>();
         bytes.add((byte) 1);
         bytes.add((byte) 2);
         JSONArray jsonArray = JSONArray.fromObject(bytes);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Character() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Character() {
+        Set<String> expected = new HashSet<>();
         expected.add("A");
         expected.add("B");
-        Set chars = new HashSet();
+        Set<Character> chars = new HashSet<>();
         chars.add('A');
         chars.add('B');
         JSONArray jsonArray = JSONArray.fromObject(chars);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Double() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Double() {
+        Set<Double> expected = new HashSet<>();
         expected.add(1d);
         expected.add(2d);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_dynaBean_elements() throws Exception {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_dynaBean_elements() throws Exception {
+        Set<MorphDynaBean> expected = new HashSet<>();
         expected.add(createDynaBean());
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Float() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Float() {
+        Set<Double> expected = new HashSet<>();
         expected.add(1d);
         expected.add(2d);
-        Set floats = new HashSet();
+        Set<Float> floats = new HashSet<>();
         floats.add(1f);
         floats.add(2f);
         JSONArray jsonArray = JSONArray.fromObject(floats);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Integer() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Integer() {
+        Set<Integer> expected = new HashSet<>();
         expected.add(1);
         expected.add(2);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Long() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Long() {
+        Set<Integer> expected = new HashSet<>();
         expected.add(1);
         expected.add(2);
-        Set longs = new HashSet();
+        Set<Long> longs = new HashSet<>();
         longs.add(1L);
         longs.add(2L);
         JSONArray jsonArray = JSONArray.fromObject(longs);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Long2() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Long2() {
+        Set<Long> expected = new HashSet<>();
         expected.add(Integer.MAX_VALUE + 1L);
         expected.add(Integer.MAX_VALUE + 2L);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_null_elements() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_null_elements() {
+        Set<Object> expected = new HashSet<>();
         expected.add(null);
         expected.add(null);
         expected.add(null);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_Short() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_Short() {
+        Set<Integer> expected = new HashSet<>();
         expected.add(1);
         expected.add(2);
-        Set shorts = new HashSet();
+        Set<Short> shorts = new HashSet<>();
         shorts.add((short) 1);
         shorts.add((short) 2);
         JSONArray jsonArray = JSONArray.fromObject(shorts);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_String() {
-        Set expected = new HashSet();
+    @Test
+    void testToSet_String() {
+        Set<String> expected = new HashSet<>();
         expected.add("A");
         expected.add("B");
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testToSet_String_multi() {
-        Set a = new HashSet();
+    @Test
+    void testToSet_String_multi() {
+        Set<String> a = new HashSet<>();
         a.add("a");
         a.add("b");
-        Set b = new HashSet();
+        Set<String> b = new HashSet<>();
         b.add("1");
         b.add("2");
-        Set expected = new HashSet();
+        Set<Set<String>> expected = new HashSet<>();
         expected.add(a);
         expected.add(b);
         JSONArray jsonArray = JSONArray.fromObject(expected);
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setCollectionType(Set.class);
-        Set actual = (Set) JSONArray.toCollection(jsonArray, jsonConfig);
+        Set<?> actual = (Set<?>) JSONArray.toCollection(jsonArray, jsonConfig);
         Assertions.assertEquals(expected, actual);
     }
 
     private MorphDynaBean createDynaBean() throws Exception {
-        Map properties = new HashMap();
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("name", String.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         MorphDynaBean dynaBean = (MorphDynaBean) dynaClass.newInstance();

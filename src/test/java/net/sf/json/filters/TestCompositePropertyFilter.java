@@ -16,31 +16,22 @@
 
 package net.sf.json.filters;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestCompositePropertyFilter extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestCompositePropertyFilter.class);
-    }
+class TestCompositePropertyFilter {
+    private CompositePropertyFilter filter = new CompositePropertyFilter();
 
-    private CompositePropertyFilter filter;
-
-    public TestCompositePropertyFilter(String testName) {
-        super(testName);
-    }
-
-    public void testApply_addFilter() {
+    @Test
+    void testApply_addFilter() {
         filter.addPropertyFilter(new FalsePropertyFilter());
         assertFalse(filter.apply(null, null, null));
         filter.addPropertyFilter(new TruePropertyFilter());
         assertTrue(filter.apply(null, null, null));
-    }
-
-    @Override
-    protected void setUp() throws Exception {
-        filter = new CompositePropertyFilter();
     }
 }

@@ -16,21 +16,16 @@
 
 package net.sf.json.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJavaIdentifierTransformer extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJavaIdentifierTransformer.class);
-    }
-
-    public TestJavaIdentifierTransformer(String testName) {
-        super(testName);
-    }
-
-    public void testCamelCase() {
+class TestJavaIdentifierTransformer {
+    @Test
+    void testCamelCase() {
         JavaIdentifierTransformer jit = JavaIdentifierTransformer.CAMEL_CASE;
         assertEquals("camelCase", jit.transformToJavaIdentifier("camel case"));
         assertEquals("camelCase", jit.transformToJavaIdentifier("@camel case"));
@@ -41,7 +36,8 @@ public class TestJavaIdentifierTransformer extends TestCase {
         assertEquals("camelCase", jit.transformToJavaIdentifier("camel@ @case"));
     }
 
-    public void testUnderscore() {
+    @Test
+    void testUnderscore() {
         JavaIdentifierTransformer jit = JavaIdentifierTransformer.UNDERSCORE;
         assertEquals("under_score", jit.transformToJavaIdentifier("under score"));
         assertEquals("under_score", jit.transformToJavaIdentifier("@under score"));
@@ -53,7 +49,8 @@ public class TestJavaIdentifierTransformer extends TestCase {
         assertEquals("under_score", jit.transformToJavaIdentifier("under score "));
     }
 
-    public void testWhitespace() {
+    @Test
+    void testWhitespace() {
         JavaIdentifierTransformer jit = JavaIdentifierTransformer.WHITESPACE;
         assertEquals("whitespace", jit.transformToJavaIdentifier("white space"));
         assertEquals("whitespace", jit.transformToJavaIdentifier("@white space"));

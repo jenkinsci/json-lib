@@ -16,52 +16,56 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectAsMap extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectAsMap.class);
-    }
+class TestJSONObjectAsMap {
 
     private JSONObject jsonObject;
 
-    public TestJSONObjectAsMap(String name) {
-        super(name);
-    }
-
-    public void testClear() {
+    @Test
+    void testClear() {
         assertEquals(5, jsonObject.size());
         jsonObject.clear();
         assertEquals(0, jsonObject.size());
     }
 
-    public void testContainsKey() {
+    @Test
+    void testContainsKey() {
         assertFalse(jsonObject.containsKey("bogus"));
     }
 
-    public void testContainsValue() {
+    @Test
+    void testContainsValue() {
         assertTrue(jsonObject.containsValue("string"));
     }
 
-    public void testIsEmpty() {
+    @Test
+    void testIsEmpty() {
         assertFalse(jsonObject.isEmpty());
     }
 
-    public void testPut() {
+    @Test
+    void testPut() {
         String key = "key";
         Object value = "value";
         jsonObject.put(key, value);
         assertEquals(value, jsonObject.get(key));
     }
 
-    public void testPutAll() {
+    @Test
+    void testPutAll() {
         JSONObject json = new JSONObject();
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         map.put("key", "value");
         json.putAll(map);
         assertEquals(1, json.size());
@@ -72,14 +76,15 @@ public class TestJSONObjectAsMap extends TestCase {
         assertEquals("value2", json.get("key"));
     }
 
-    public void testRemove() {
+    @Test
+    void testRemove() {
         assertTrue(jsonObject.has("array"));
         jsonObject.remove("array");
         assertFalse(jsonObject.has("array"));
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         jsonObject = new JSONObject()
                 .element("int", "1")
                 .element("long", "1")

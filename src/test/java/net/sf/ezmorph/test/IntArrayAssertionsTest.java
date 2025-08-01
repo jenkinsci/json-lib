@@ -16,225 +16,172 @@
 
 package net.sf.ezmorph.test;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class IntArrayAssertionsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IntArrayAssertionsTest.class);
-        suite.setName("IntArrayAssertions Tests");
-        return suite;
-    }
-
-    public IntArrayAssertionsTest(String name) {
-        super(name);
-    }
-
-    // -----------------------------------------------------------------------
-
-    public void testAssertEquals_int_int() {
+class IntArrayAssertionsTest {
+    @Test
+    void testAssertEquals_int_int() {
         int[] expecteds = new int[] {1, 2};
         int[] actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_int_int_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_int_int_actuals_is_null() {
         int[] expecteds = new int[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (int[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (int[]) null));
     }
 
-    public void testAssertEquals_int_int_different_length() {
+    @Test
+    void testAssertEquals_int_int_different_length() {
         int[] expecteds = new int[] {1};
         int[] actuals = new int[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_int_int_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_int_int_expecteds_is_null() {
         int[] actuals = new int[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((int[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((int[]) null, actuals));
     }
 
-    public void testAssertEquals_int_Integer() {
+    @Test
+    void testAssertEquals_int_Integer() {
         int[] expecteds = new int[] {1, 2};
         Integer[] actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_int_Integer_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_int_Integer_actuals_is_null() {
         int[] expecteds = new int[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (Integer[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (Integer[]) null));
     }
 
-    public void testAssertEquals_int_Integer_different_length() {
+    @Test
+    void testAssertEquals_int_Integer_different_length() {
         int[] expecteds = new int[] {1};
         Integer[] actuals = new Integer[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_int_Integer_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_int_Integer_expecteds_is_null() {
         Integer[] actuals = new Integer[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((int[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((int[]) null, actuals));
     }
 
-    public void testAssertEquals_Integer_int() {
+    @Test
+    void testAssertEquals_Integer_int() {
         Integer[] expecteds = new Integer[] {1, 2};
         int[] actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Integer_int_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Integer_int_actuals_is_null() {
         Integer[] expecteds = new Integer[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (int[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (int[]) null));
     }
 
-    public void testAssertEquals_Integer_int_different_length() {
+    @Test
+    void testAssertEquals_Integer_int_different_length() {
         Integer[] expecteds = new Integer[] {1};
         int[] actuals = new int[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_Integer_int_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Integer_int_expecteds_is_null() {
         int[] actuals = new int[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((Integer[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((Integer[]) null, actuals));
     }
 
-    public void testAssertEquals_Integer_Integer() {
+    @Test
+    void testAssertEquals_Integer_Integer() {
         Integer[] expecteds = new Integer[] {1, 2};
         Integer[] actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_int_int() {
+    @Test
+    void testAssertEquals_multi_int_int() {
         int[][] expecteds = new int[][] {{1, 2}, {1, 2}};
         int[][] actuals = new int[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_int_Integer() {
+    @Test
+    void testAssertEquals_multi_int_Integer() {
         int[][] expecteds = new int[][] {{1, 2}, {1, 2}};
         Integer[][] actuals = new Integer[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Integer_int() {
+    @Test
+    void testAssertEquals_multi_Integer_int() {
         Integer[][] expecteds = new Integer[][] {{1, 2}, {1, 2}};
         int[][] actuals = new int[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Integer_Integer() {
+    @Test
+    void testAssertEquals_multi_Integer_Integer() {
         Integer[][] expecteds = new Integer[][] {{1, 2}, {1, 2}};
         Integer[][] actuals = new Integer[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_int_double() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_OO_int_double() {
         Object expecteds = new int[] {1, 2};
         Object actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_OO_int_int() {
+    @Test
+    void testAssertEquals_OO_int_int() {
         Object expecteds = new int[] {1, 2};
         Object actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_int_Integer() {
+    @Test
+    void testAssertEquals_OO_int_Integer() {
         Object expecteds = new int[] {1, 2};
         Object actuals = new Integer[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_int_Object_array() {
+    @Test
+    void testAssertEquals_OO_int_Object_array() {
         Object expecteds = new int[] {1, 2};
         Object actuals = new Object[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Integer_int() {
+    @Test
+    void testAssertEquals_OO_Integer_int() {
         Object expecteds = new Integer[] {1, 2};
         Object actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_int() {
+    @Test
+    void testAssertEquals_OO_Object_array_int() {
         Object expecteds = new Object[] {1, 2};
         Object actuals = new int[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_Object_array() {
+    @Test
+    void testAssertEquals_OO_Object_array_Object_array() {
         Object expecteds = new Object[] {1, 2};
         Object actuals = new Object[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);

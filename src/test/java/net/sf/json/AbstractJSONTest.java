@@ -16,42 +16,46 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.io.StringWriter;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractJSONTest extends TestCase {
-    public AbstractJSONTest(String name) {
-        super(name);
-    }
+abstract class AbstractJSONTest {
 
-    public void testIsArray() {
+    @Test
+    void testIsArray() {
         boolean isArray = (Boolean) getIsArrayExpectations()[0];
         JSON json = (JSON) getIsArrayExpectations()[1];
         assertEquals(isArray, json.isArray());
     }
 
-    public void testToString() {
+    @Test
+    void testToString() {
         String expected = (String) getToStringExpectations1()[0];
         JSON json = (JSON) getToStringExpectations1()[1];
         assertEquals(expected, json.toString());
     }
 
-    public void testToString_indentFactor() {
+    @Test
+    void testToString_indentFactor() {
         String expected = (String) getToStringExpectations2()[0];
         JSON json = (JSON) getToStringExpectations2()[1];
         assertEquals(expected, json.toString(getIndentFactor()));
     }
 
-    public void testToString_indentFactor_indent() {
+    @Test
+    void testToString_indentFactor_indent() {
         String expected = (String) getToStringExpectations3()[0];
         JSON json = (JSON) getToStringExpectations3()[1];
         assertEquals(expected, json.toString(getIndentFactor(), getIndent()));
     }
 
-    public void testWrite() throws Exception {
+    @Test
+    void testWrite() throws Exception {
         StringWriter w = new StringWriter();
         String expected = (String) getWriteExpectations()[0];
         JSON json = (JSON) getWriteExpectations()[1];

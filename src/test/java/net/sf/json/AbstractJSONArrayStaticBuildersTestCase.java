@@ -16,26 +16,30 @@
 
 package net.sf.json;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractJSONArrayStaticBuildersTestCase extends TestCase {
-    public AbstractJSONArrayStaticBuildersTestCase(String testName) {
-        super(testName);
-    }
+abstract class AbstractJSONArrayStaticBuildersTestCase {
 
-    public void testFromObject() {
+    @Test
+    void testFromObject() {
         JSONArray jsonArray = JSONArray.fromObject(getSource());
         assertNotNull(jsonArray);
         assertEquals(1, jsonArray.size());
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         assertJSONObject(jsonObject, getProperties());
-        assertTrue(!jsonObject.has("class"));
+        assertFalse(jsonObject.has("class"));
     }
 
-    public void testFromObject_excludes() {
+    @Test
+    void testFromObject_excludes() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(getExclusions());
         JSONArray jsonArray = JSONArray.fromObject(getSource(), jsonConfig);
@@ -45,13 +49,14 @@ public abstract class AbstractJSONArrayStaticBuildersTestCase extends TestCase {
         assertJSONObject(jsonObject, getProperties());
         String[] excluded = getExclusions();
         for (String s : excluded) {
-            assertTrue(!jsonObject.has(s));
+            assertFalse(jsonObject.has(s));
         }
-        assertTrue(!jsonObject.has("class"));
-        assertTrue(!jsonObject.has("pexcluded"));
+        assertFalse(jsonObject.has("class"));
+        assertFalse(jsonObject.has("pexcluded"));
     }
 
-    public void testFromObject_excludes_ignoreDefaults() {
+    @Test
+    void testFromObject_excludes_ignoreDefaults() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(getExclusions());
         jsonConfig.setIgnoreDefaultExcludes(true);
@@ -61,7 +66,7 @@ public abstract class AbstractJSONArrayStaticBuildersTestCase extends TestCase {
         JSONObject jsonObject = jsonArray.getJSONObject(0);
         assertJSONObject(jsonObject, getProperties());
         assertTrue(jsonObject.has("class"));
-        assertTrue(!jsonObject.has("pexcluded"));
+        assertFalse(jsonObject.has("pexcluded"));
     }
 
     protected String[] getExclusions() {

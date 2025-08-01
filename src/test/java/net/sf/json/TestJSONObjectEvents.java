@@ -16,37 +16,36 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.TestCase;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
 import net.sf.json.sample.BeanA;
 import net.sf.json.sample.JsonEventAdpater;
 import net.sf.json.sample.PropertyBean;
 import org.apache.commons.beanutils.DynaBean;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectEvents extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectEvents.class);
-    }
-
+class TestJSONObjectEvents {
     private JsonConfig jsonConfig;
     private JsonEventAdpater jsonEventAdpater;
 
-    public TestJSONObjectEvents(String name) {
-        super(name);
-    }
-
-    public void testFromObject_bean() {
+    @Test
+    void testFromObject_bean() {
         JSONObject.fromObject(new BeanA(), jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_bean2() {
+    @Test
+    void testFromObject_bean2() {
         JSONObject.fromObject(new PropertyBean(), jsonConfig);
         assertEquals(0, jsonEventAdpater.getError());
         assertEquals(1, jsonEventAdpater.getWarning());
@@ -58,36 +57,36 @@ public class TestJSONObjectEvents extends TestCase {
         assertEquals(1, jsonEventAdpater.getPropertySet());
     }
 
-    public void testFromObject_dynaBean() throws Exception {
+    @Test
+    void testFromObject_dynaBean() throws Exception {
         JSONObject.fromObject(createDynaBean(), jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_error() {
-        try {
-            JSONObject.fromObject("[]", jsonConfig);
-            fail("A JSONException was expected");
-        } catch (JSONException expected) {
-            assertEquals(1, jsonEventAdpater.getError());
-            assertEquals(0, jsonEventAdpater.getWarning());
-            assertEquals(0, jsonEventAdpater.getArrayStart());
-            assertEquals(0, jsonEventAdpater.getArrayEnd());
-            assertEquals(0, jsonEventAdpater.getObjectStart());
-            assertEquals(0, jsonEventAdpater.getObjectEnd());
-            assertEquals(0, jsonEventAdpater.getElementAdded());
-            assertEquals(0, jsonEventAdpater.getPropertySet());
-        }
+    @Test
+    void testFromObject_error() {
+        assertThrows(JSONException.class, () -> JSONObject.fromObject("[]", jsonConfig));
+        assertEquals(1, jsonEventAdpater.getError());
+        assertEquals(0, jsonEventAdpater.getWarning());
+        assertEquals(0, jsonEventAdpater.getArrayStart());
+        assertEquals(0, jsonEventAdpater.getArrayEnd());
+        assertEquals(0, jsonEventAdpater.getObjectStart());
+        assertEquals(0, jsonEventAdpater.getObjectEnd());
+        assertEquals(0, jsonEventAdpater.getElementAdded());
+        assertEquals(0, jsonEventAdpater.getPropertySet());
     }
 
-    public void testFromObject_JSONObject() {
+    @Test
+    void testFromObject_JSONObject() {
         JSONObject jsonObject =
                 new JSONObject().element("name", "json").element("bool", true).element("int", 1);
         JSONObject.fromObject(jsonObject, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_map() {
-        Map map = new HashMap();
+    @Test
+    void testFromObject_map() {
+        Map<String, Object> map = new HashMap<>();
         map.put("name", "json");
         map.put("bool", true);
         map.put("int", 1);
@@ -95,21 +94,22 @@ public class TestJSONObjectEvents extends TestCase {
         assertEvents();
     }
 
-    public void testFromObject_string() {
+    @Test
+    void testFromObject_string() {
         JSONObject.fromObject("{name:'json',int:1,bool:true}", jsonConfig);
         assertEvents();
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         jsonEventAdpater = new JsonEventAdpater();
         jsonConfig = new JsonConfig();
         jsonConfig.addJsonEventListener(jsonEventAdpater);
         jsonConfig.enableEventTriggering();
     }
 
-    @Override
-    protected void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() {
         jsonEventAdpater.reset();
     }
 
@@ -125,7 +125,7 @@ public class TestJSONObjectEvents extends TestCase {
     }
 
     private DynaBean createDynaBean() throws Exception {
-        Map properties = new HashMap();
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("name", String.class);
         properties.put("bool", Boolean.class);
         properties.put("int", Integer.class);

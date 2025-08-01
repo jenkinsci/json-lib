@@ -16,22 +16,17 @@
 
 package net.sf.json.util;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import net.sf.json.JSONObject;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONStringer extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONStringer.class);
-    }
-
-    public TestJSONStringer(String testName) {
-        super(testName);
-    }
-
-    public void testCreateArray() {
+class TestJSONStringer {
+    @Test
+    void testCreateArray() {
         JSONBuilder b = new JSONStringer()
                 .array()
                 .value(true)
@@ -42,22 +37,26 @@ public class TestJSONStringer extends TestCase {
         assertEquals("[true,1.1,2,\"text\"]", b.toString());
     }
 
-    public void testCreateEmptyArray() {
+    @Test
+    void testCreateEmptyArray() {
         JSONBuilder b = new JSONStringer().array().endArray();
         assertEquals("[]", b.toString());
     }
 
-    public void testCreateEmptyArrayWithNullObjects() {
+    @Test
+    void testCreateEmptyArrayWithNullObjects() {
         JSONBuilder b = new JSONStringer().array().value(null).value(null).endArray();
         assertEquals("[null,null]", b.toString());
     }
 
-    public void testCreateEmptyObject() {
+    @Test
+    void testCreateEmptyObject() {
         JSONBuilder b = new JSONStringer().object().endObject();
         assertEquals("{}", b.toString());
     }
 
-    public void testCreateSimpleObject() {
+    @Test
+    void testCreateSimpleObject() {
         JSONBuilder b = new JSONStringer()
                 .object()
                 .key("bool")

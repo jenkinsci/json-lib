@@ -16,37 +16,27 @@
 
 package net.sf.ezmorph.array;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.lang.reflect.Array;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
 import net.sf.ezmorph.object.StringMorpher;
 import net.sf.ezmorph.test.ArrayAssertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ObjectArrayMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ObjectArrayMorpherTest.class);
-        suite.setName("ObjectListMorpher Tests");
-        return suite;
-    }
-
+class ObjectArrayMorpherTest {
     private ObjectArrayMorpher anotherMorpher;
     private ObjectArrayMorpher morpher;
-
-    public ObjectArrayMorpherTest(String name) {
-        super(name);
-    }
 
     // -----------------------------------------------------------------------
 
@@ -58,73 +48,81 @@ public class ObjectArrayMorpherTest extends TestCase {
         return morpher;
     }
 
-    public void testEquals_another_Morpher() {
-        assertFalse(getMorpher().equals(getAnotherMorpher()));
+    @Test
+    void testEquals_another_Morpher() {
+        assertNotEquals(getMorpher(), getAnotherMorpher());
     }
 
-    public void testEquals_different_morpher() {
-        assertFalse(getMorpher().equals(new Morpher() {
-            @Override
-            public Class morphsTo() {
-                return null;
-            }
+    @Test
+    void testEquals_different_morpher() {
+        assertNotEquals(
+                new Morpher() {
+                    @Override
+                    public Class morphsTo() {
+                        return null;
+                    }
 
-            @Override
-            public boolean supports(Class clazz) {
-                return false;
-            }
-        }));
+                    @Override
+                    public boolean supports(Class clazz) {
+                        return false;
+                    }
+                },
+                getMorpher());
     }
 
-    public void testEquals_null() {
-        assertFalse(getMorpher().equals(null));
+    @Test
+    void testEquals_null() {
+        assertNotNull(getMorpher());
     }
 
-    public void testEquals_same_morpher() {
-        assertTrue(getMorpher().equals(getMorpher()));
-        assertTrue(getAnotherMorpher().equals(getAnotherMorpher()));
+    @Test
+    void testEquals_same_morpher() {
+        assertEquals(getMorpher(), getMorpher());
+        assertEquals(getAnotherMorpher(), getAnotherMorpher());
     }
 
-    public void testHashCode_same_morpher() {
+    @Test
+    void testHashCode_same_morpher() {
         assertEquals(getMorpher().hashCode(), getMorpher().hashCode());
         assertEquals(getAnotherMorpher().hashCode(), getAnotherMorpher().hashCode());
     }
 
-    public void testMorph_illegalArgument() {
-        try {
-            // argument is not an array
-            morpher.morph("");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_illegalArgument() {
+        assertThrows(MorphException.class, () -> morpher.morph(""));
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_onedim() {
+    @Test
+    void testMorph_onedim() {
         Object[] input = new Object[] {1, Boolean.TRUE};
         String[] expected = new String[] {"1", "true"};
         String[] actual = (String[]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_threedims() {
+    @Test
+    void testMorph_threedims() {
         Object[][][] input = new Object[][][] {{{1, Boolean.TRUE}}, {{'A'}}};
         String[][][] expected = new String[][][] {{{"1", "true"}}, {{"A"}}};
         String[][][] actual = (String[][][]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_twodims() {
+    @Test
+    void testMorph_twodims() {
         Object[][] input = new Object[][] {{1, Boolean.TRUE}, {'A'}};
         String[][] expected = new String[][] {{"1", "true"}, {"A"}};
         String[][] actual = (String[][]) morpher.morph(input);
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorph_twodims_reflection() {
+    @Test
+    void testMorph_twodims_reflection() {
         Object input = Array.newInstance(Object.class, new int[] {2, 2});
         Object[] a = new Object[] {1, Boolean.TRUE};
         Object[] b = new Object[] {'A'};
@@ -136,56 +134,52 @@ public class ObjectArrayMorpherTest extends TestCase {
         ArrayAssertions.assertEquals(expected, actual);
     }
 
-    public void testMorphsTo() {
+    @Test
+    void testMorphsTo() {
         assertEquals(String[].class, getMorpher().morphsTo());
     }
 
-    public void testObjectArrayMorpher_illegalMorpher_noMorphMethod() {
-        try {
-            morpher = new ObjectArrayMorpher(new Morpher() {
-                @Override
-                public Class morphsTo() {
-                    return Object.class;
-                }
+    @Test
+    void testObjectArrayMorpher_illegalMorpher_noMorphMethod() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new ObjectArrayMorpher(new Morpher() {
+                    @Override
+                    public Class morphsTo() {
+                        return Object.class;
+                    }
 
-                @Override
-                public boolean supports(Class clazz) {
-                    return false;
-                }
-            });
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+                    @Override
+                    public boolean supports(Class clazz) {
+                        return false;
+                    }
+                }));
     }
 
-    public void testObjectArrayMorpher_illegalMorpher_nullMorpher() {
-        try {
-            morpher = new ObjectArrayMorpher(null);
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+    @Test
+    void testObjectArrayMorpher_illegalMorpher_nullMorpher() {
+        assertThrows(IllegalArgumentException.class, () -> new ObjectArrayMorpher(null));
     }
 
-    public void testObjectArrayMorpher_illegalMorpher_supportsArray() {
-        try {
-            morpher = new ObjectArrayMorpher(new Morpher() {
-                @Override
-                public Class morphsTo() {
-                    return Object[].class;
-                }
+    @Test
+    void testObjectArrayMorpher_illegalMorpher_supportsArray() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new ObjectArrayMorpher(new Morpher() {
+                    @Override
+                    public Class morphsTo() {
+                        return Object[].class;
+                    }
 
-                @Override
-                public boolean supports(Class clazz) {
-                    return false;
-                }
-            });
-        } catch (IllegalArgumentException expected) {
-            // ok
-        }
+                    @Override
+                    public boolean supports(Class clazz) {
+                        return false;
+                    }
+                }));
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new ObjectArrayMorpher(StringMorpher.getInstance());
         anotherMorpher = new ObjectArrayMorpher(IdentityObjectMorpher.getInstance());
     }

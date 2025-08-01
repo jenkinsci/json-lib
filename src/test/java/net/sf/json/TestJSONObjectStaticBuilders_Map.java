@@ -22,18 +22,11 @@ import java.util.Map;
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONObjectStaticBuilders_Map extends AbstractJSONObjectStaticBuildersTestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONObjectStaticBuilders_Map.class);
-    }
-
-    public TestJSONObjectStaticBuilders_Map(String name) {
-        super(name);
-    }
+class TestJSONObjectStaticBuilders_Map extends AbstractJSONObjectStaticBuildersTestCase {
 
     @Override
     protected Object getSource() {
-        Map map = new HashMap();
+        Map<String, Object> map = new HashMap<>();
         String[] props = getProperties();
         for (String prop : props) {
             map.put(prop, PropertyConstants.getPropertyValue(prop));

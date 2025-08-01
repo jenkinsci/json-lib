@@ -16,34 +16,22 @@
 
 package net.sf.ezmorph.object;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class IdentityObjectMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
+class IdentityObjectMorpherTest {
 
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IdentityObjectMorpherTest.class);
-        suite.setName("IdentityMorpher Tests");
-        return suite;
-    }
-
-    private IdentityObjectMorpher morpher = IdentityObjectMorpher.getInstance();
-
-    public IdentityObjectMorpherTest(String name) {
-        super(name);
-    }
+    private final IdentityObjectMorpher morpher = IdentityObjectMorpher.getInstance();
 
     // -----------------------------------------------------------------------
 
-    public void testMorph() {
+    @Test
+    void testMorph() {
         assertNull(morpher.morph(null));
         Object expected = new Object();
         assertSame(expected, morpher.morph(expected));

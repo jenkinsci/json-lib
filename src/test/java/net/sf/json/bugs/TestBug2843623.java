@@ -1,13 +1,16 @@
 package net.sf.json.bugs;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.TestCase;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
+import org.junit.jupiter.api.Test;
 
-public class TestBug2843623 extends TestCase {
-    public void testSample() {
+class TestBug2843623 {
+    @Test
+    void testSample() {
         Container orig = new Container();
         List<String> strings = new ArrayList<>();
         strings.add("one");
@@ -18,12 +21,12 @@ public class TestBug2843623 extends TestCase {
         JSONObject jobj = JSONObject.fromObject(orig);
         Container root = new Container();
         Container res = (Container) JSONObject.toBean(jobj, root, new JsonConfig());
-        assertTrue(res.getMyList().size() > 0);
-        assertTrue(root.getMyList().size() > 0);
+        assertFalse(res.getMyList().isEmpty());
+        assertFalse(root.getMyList().isEmpty());
     }
 
     public static class Container {
-        private List<String> myList = new ArrayList<>();
+        private final List<String> myList = new ArrayList<>();
 
         public List<String> getMyList() {
             return myList;

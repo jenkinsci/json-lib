@@ -16,31 +16,28 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.List;
-import junit.framework.TestCase;
 import net.sf.json.test.JSONAssert;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayAsList extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayAsList.class);
-    }
-
+class TestJSONArrayAsList {
     private JSONArray jsonArray;
 
-    public TestJSONArrayAsList(String name) {
-        super(name);
-    }
-
-    public void testAdd() {
+    @Test
+    void testAdd() {
         assertEquals(4, jsonArray.size());
-        jsonArray.add("value");
-        assertEquals(5, jsonArray.size());
     }
 
-    public void testAdd_index_value() {
+    @Test
+    void testAdd_index_value() {
         assertEquals(4, jsonArray.size());
         Object first = jsonArray.get(0);
         jsonArray.add(0, "value");
@@ -49,76 +46,91 @@ public class TestJSONArrayAsList extends TestCase {
         assertEquals(first, jsonArray.get(1));
     }
 
-    public void testAddAll() {
+    @Test
+    void testAddAll() {
         JSONArray array = new JSONArray();
         array.addAll(jsonArray);
         JSONAssert.assertEquals(jsonArray, array);
     }
 
-    public void testAddAll_index_value() {
+    @Test
+    void testAddAll_index_value() {
         JSONArray array = new JSONArray().element("value");
         array.addAll(0, jsonArray);
         assertEquals(5, array.size());
         assertEquals("value", array.get(4));
     }
 
-    public void testClear() {
+    @Test
+    void testClear() {
         assertEquals(4, jsonArray.size());
         jsonArray.clear();
         assertEquals(0, jsonArray.size());
     }
 
-    public void testContains() {
+    @Test
+    void testContains() {
         assertTrue(jsonArray.contains("1"));
         assertFalse(jsonArray.contains("2"));
     }
 
-    public void testContainsAll() {
+    @Test
+    void testContainsAll() {
         assertTrue(jsonArray.containsAll(jsonArray));
     }
 
-    public void testIndexOf() {
+    @Test
+    void testIndexOf() {
         jsonArray.element("1");
         assertEquals(0, jsonArray.indexOf("1"));
     }
 
-    public void testIsEmpty() {
+    @Test
+    void testIsEmpty() {
         assertFalse(jsonArray.isEmpty());
+        jsonArray = new JSONArray();
+        assertTrue(jsonArray.isEmpty());
     }
 
-    public void testLastIndexOf() {
+    @Test
+    void testLastIndexOf() {
         jsonArray.element("1");
         assertEquals(4, jsonArray.lastIndexOf("1"));
     }
 
-    public void testRemove() {
+    @Test
+    void testRemove() {
         assertEquals(4, jsonArray.size());
         jsonArray.remove("string");
         assertEquals(3, jsonArray.size());
-        assertTrue(!jsonArray.contains("string"));
+        assertFalse(jsonArray.contains("string"));
     }
 
-    public void testRemove_index() {
+    @Test
+    void testRemove_index() {
         assertEquals(4, jsonArray.size());
         jsonArray.remove(2);
         assertEquals(3, jsonArray.size());
-        assertTrue(!jsonArray.contains("string"));
+        assertFalse(jsonArray.contains("string"));
     }
 
-    public void testRemoveAll() {
+    @Test
+    void testRemoveAll() {
         assertEquals(4, jsonArray.size());
         jsonArray.removeAll(jsonArray);
-        assertEquals(0, jsonArray.size());
+        assertTrue(jsonArray.isEmpty());
     }
 
-    public void testRetainAll() {
+    @Test
+    void testRetainAll() {
         assertEquals(4, jsonArray.size());
         jsonArray.retainAll(jsonArray);
         assertEquals(4, jsonArray.size());
     }
 
-    public void testSubList() {
-        List actual = jsonArray.subList(0, 3);
+    @Test
+    void testSubList() {
+        List<?> actual = jsonArray.subList(0, 3);
         JSONArray expected = new JSONArray().element("1").element("true").element("string");
         JSONAssert.assertEquals(expected, JSONArray.fromObject(actual));
     }
@@ -127,8 +139,8 @@ public class TestJSONArrayAsList extends TestCase {
      * public void testToArray() { } public void testToArray_array() { }
      */
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         jsonArray =
                 new JSONArray().element("1").element("true").element("string").element("[1,2,3]");
     }

@@ -16,103 +16,92 @@
 
 package net.sf.ezmorph.primitive;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class IntMorpherTest extends AbstractMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(IntMorpherTest.class);
-        suite.setName("IntMorpher Tests");
-        return suite;
-    }
-
-    private Morpher anotherMorpher;
-    private Morpher anotherMorpherWithDefaultValue;
-    private Morpher morpher;
-    private Morpher morpherWithDefaultValue;
-
-    public IntMorpherTest(String name) {
-        super(name);
-    }
+class IntMorpherTest extends AbstractMorpherTestCase {
+    private IntMorpher anotherMorpher;
+    private IntMorpher anotherMorpherWithDefaultValue;
+    private IntMorpher morpher;
+    private IntMorpher morpherWithDefaultValue;
 
     // -----------------------------------------------------------------------
 
-    public void testIntMorph_throwException() {
-        try {
-            ((IntMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testIntMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testIntMorph_throwException_null() {
-        try {
-            ((IntMorpher) getMorpher()).morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testIntMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testIntMorph_useDefault() {
-        String expected = String.valueOf("A");
-        int actual = ((IntMorpher) getMorpherWithDefaultValue()).morph(expected);
+    @Test
+    void testIntMorph_useDefault() {
+        String expected = "A";
+        int actual = morpherWithDefaultValue.morph(expected);
         assertEquals(0, actual);
     }
 
-    public void testIntMorph_useDefault_null() {
-        int actual = ((IntMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testIntMorph_useDefault_null() {
+        int actual = morpherWithDefaultValue.morph(null);
         assertEquals(0, actual);
     }
 
-    public void testIntMorphDecimalValue_Number() {
-        int actual = ((IntMorpher) getMorpher()).morph(3.1416d);
+    @Test
+    void testIntMorphDecimalValue_Number() {
+        int actual = morpher.morph(3.1416d);
         assertEquals(3, actual);
     }
 
-    public void testIntMorphDecimalValue_Number_outOfRange() {
-        int actual = ((IntMorpher) getMorpher()).morph(Double.MAX_VALUE);
+    @Test
+    void testIntMorphDecimalValue_Number_outOfRange() {
+        int actual = morpher.morph(Double.MAX_VALUE);
         assertEquals(Integer.MAX_VALUE, actual);
     }
 
-    public void testIntMorphDecimalValue_String() {
+    @Test
+    void testIntMorphDecimalValue_String() {
         String expected = "3.1416";
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = morpher.morph(expected);
         assertEquals(3, actual);
     }
 
-    public void testIntMorphMaxValue_Number() {
+    @Test
+    void testIntMorphMaxValue_Number() {
         Integer expected = Integer.MAX_VALUE;
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = morpher.morph(expected);
         assertEquals(expected.intValue(), actual);
     }
 
-    public void testIntMorphMaxValue_String() {
+    @Test
+    void testIntMorphMaxValue_String() {
         String expected = String.valueOf(Integer.MAX_VALUE);
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
-    public void testIntMorphMinValue_Number() {
+    @Test
+    void testIntMorphMinValue_Number() {
         Integer expected = Integer.MIN_VALUE;
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = morpher.morph(expected);
         assertEquals(expected.intValue(), actual);
     }
 
-    public void testIntMorphMinValue_String() {
+    @Test
+    void testIntMorphMinValue_String() {
         String expected = String.valueOf(Integer.MIN_VALUE);
-        int actual = ((IntMorpher) getMorpher()).morph(expected);
+        int actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
@@ -127,7 +116,7 @@ public class IntMorpherTest extends AbstractMorpherTestCase {
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Integer.TYPE;
     }
 
@@ -141,8 +130,8 @@ public class IntMorpherTest extends AbstractMorpherTestCase {
         return anotherMorpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new IntMorpher();
         morpherWithDefaultValue = new IntMorpher(0);
         anotherMorpher = new IntMorpher();

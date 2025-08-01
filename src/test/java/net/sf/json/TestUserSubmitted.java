@@ -16,12 +16,19 @@
 
 package net.sf.json;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import junit.framework.TestCase;
 import net.sf.json.sample.ArrayBean;
 import net.sf.json.sample.BeanA;
 import net.sf.json.sample.BeanA1763699;
@@ -47,23 +54,18 @@ import net.sf.json.util.JavaIdentifierTransformer;
 import net.sf.json.util.JsonEventListener;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.PropertyUtils;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestUserSubmitted extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestUserSubmitted.class);
-    }
-
+class TestUserSubmitted {
     private JsonConfig jsonConfig;
 
-    public TestUserSubmitted(String name) {
-        super(name);
-    }
-
-    public void testPatch_2929940() {
-        Map classMap = new HashMap();
+    @Test
+    void testPatch_2929940() {
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("attributes", Long.class);
 
         ListingBean original = new ListingBean();
@@ -79,10 +81,11 @@ public class TestUserSubmitted extends TestCase {
 
         // toBean
         ListingBean bean = (ListingBean) JSONObject.toBean(jsonObject, jsonConfig);
-        assertTrue(bean.getAttributes().get(0) instanceof Long);
+        assertInstanceOf(Long.class, bean.getAttributes().get(0));
     }
 
-    public void testBug_1635890() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    @Test
+    void testBug_1635890() {
         // submited by arco.vandenheuvel[at]points[dot].com
 
         String TEST_JSON_STRING =
@@ -90,17 +93,18 @@ public class TestUserSubmitted extends TestCase {
 
         DynaBean jsonBean = (DynaBean) JSONObject.toBean(JSONObject.fromObject(TEST_JSON_STRING));
         assertNotNull(jsonBean);
-        assertEquals("wrong rate Type", "HOTRATE", jsonBean.get("rateType"));
-        assertNotNull("null rate breakdown", jsonBean.get("rateBreakdown"));
+        assertEquals("HOTRATE", jsonBean.get("rateType"), "wrong rate Type");
+        assertNotNull(jsonBean.get("rateBreakdown"), "null rate breakdown");
         DynaBean jsonRateBreakdownBean = (DynaBean) jsonBean.get("rateBreakdown");
-        assertNotNull("null rate breakdown ", jsonRateBreakdownBean);
+        assertNotNull(jsonRateBreakdownBean, "null rate breakdown ");
         Object jsonRateBean = jsonRateBreakdownBean.get("rate");
-        assertNotNull("null rate ", jsonRateBean);
-        assertTrue("list", jsonRateBean instanceof ArrayList);
-        assertNotNull("null rate ", jsonRateBreakdownBean.get("rate", 0));
+        assertNotNull(jsonRateBean, "null rate ");
+        assertInstanceOf(ArrayList.class, jsonRateBean, "list");
+        assertNotNull(jsonRateBreakdownBean.get("rate", 0), "null rate ");
     }
 
-    public void testBug_1650535_builders() {
+    @Test
+    void testBug_1650535_builders() {
         // submitted by Paul Field <paulfield[at]users[dot]sourceforge[dot]net>
 
         String json = "{\"obj\":\"{}\",\"array\":\"[]\"}";
@@ -109,9 +113,9 @@ public class TestUserSubmitted extends TestCase {
         assertTrue(object.has("obj"));
         assertTrue(object.has("array"));
         Object obj = object.get("obj");
-        assertTrue(obj instanceof String);
+        assertInstanceOf(String.class, obj);
         Object array = object.get("array");
-        assertTrue(array instanceof String);
+        assertInstanceOf(String.class, array);
 
         json = "{'obj':'{}','array':'[]'}";
         object = JSONObject.fromObject(json);
@@ -119,29 +123,29 @@ public class TestUserSubmitted extends TestCase {
         assertTrue(object.has("obj"));
         assertTrue(object.has("array"));
         obj = object.get("obj");
-        assertTrue(obj instanceof String);
+        assertInstanceOf(String.class, obj);
         array = object.get("array");
-        assertTrue(array instanceof String);
+        assertInstanceOf(String.class, array);
 
         json = "[\"{}\",\"[]\"]";
         JSONArray jarray = JSONArray.fromObject(json);
         assertNotNull(jarray);
         obj = jarray.get(0);
-        assertTrue(obj instanceof String);
+        assertInstanceOf(String.class, obj);
         array = jarray.get(1);
-        assertTrue(array instanceof String);
+        assertInstanceOf(String.class, array);
 
         json = "['{}','[]']";
         jarray = JSONArray.fromObject(json);
         assertNotNull(jarray);
         obj = jarray.get(0);
-        assertTrue(obj instanceof String);
+        assertInstanceOf(String.class, obj);
         array = jarray.get(1);
-        assertTrue(array instanceof String);
+        assertInstanceOf(String.class, array);
 
         // submitted by Elizabeth Keogh <ekeogh[at]thoughtworks[dot]com>
 
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<>();
         map.put("address", "1 The flats [Upper floor]");
         map.put("phoneNumber", "[+44] 582 401923");
         map.put("info1", "[Likes coffee]");
@@ -154,11 +158,11 @@ public class TestUserSubmitted extends TestCase {
         assertTrue(object.has("info1"));
         assertTrue(object.has("info2"));
         assertTrue(object.has("info3"));
-        assertTrue(object.get("address") instanceof String);
-        assertTrue(object.get("phoneNumber") instanceof String);
-        assertTrue(object.get("info1") instanceof String);
-        assertTrue(object.get("info2") instanceof String);
-        assertTrue(object.get("info3") instanceof String);
+        assertInstanceOf(String.class, object.get("address"));
+        assertInstanceOf(String.class, object.get("phoneNumber"));
+        assertInstanceOf(String.class, object.get("info1"));
+        assertInstanceOf(String.class, object.get("info2"));
+        assertInstanceOf(String.class, object.get("info3"));
     }
 
     /* I consider this behavior of "oh I added string but it's not really a string" very evil, as there's no way to add a String that really looks like "{}"
@@ -176,7 +180,8 @@ public class TestUserSubmitted extends TestCase {
           assertTrue( object.get( "str" ) instanceof String );
        }
     */
-    public void testBug_1753528_ArrayStringLiteralToString() {
+    @Test
+    void testBug_1753528_ArrayStringLiteralToString() {
         // submited bysckimos[at]gmail[dot]com
         BeanA bean = new BeanA();
         bean.setString("[1234]");
@@ -187,7 +192,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals("{'key':'1234'}", jsonObject.get("string"));
     }
 
-    public void testBug_1763699_toBean() {
+    @Test
+    void testBug_1763699_toBean() {
         JSONObject json = JSONObject.fromObject("{'bbeans':[{'str':'test'}]}");
         BeanA1763699 bean = (BeanA1763699) JSONObject.toBean(json, BeanA1763699.class);
         assertNotNull(bean);
@@ -197,9 +203,10 @@ public class TestUserSubmitted extends TestCase {
         assertEquals("test", bbeans[0].getStr());
     }
 
-    public void testBug_1764768_toBean() {
+    @Test
+    void testBug_1764768_toBean() {
         JSONObject json = JSONObject.fromObject("{'beanA':''}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("beanA", BeanA.class);
         BeanC bean = (BeanC) JSONObject.toBean(json, BeanC.class, classMap);
         assertNotNull(bean);
@@ -207,7 +214,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(new BeanA(), bean.getBeanA());
     }
 
-    public void testBug_1769559_array_conversion() {
+    @Test
+    void testBug_1769559_array_conversion() {
         JSONObject jsonObject = new JSONObject()
                 .element(
                         "beans", new JSONArray().element("{}").element("{'bool':false,'integer':216,'string':'JsOn'}"));
@@ -221,9 +229,10 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(new BeanA(false, 216, "JsOn"), beans[1]);
     }
 
-    public void testBug_1769578_array_conversion() {
+    @Test
+    void testBug_1769578_array_conversion() {
         JSONObject jsonObject = JSONObject.fromObject("{'media':[{'title':'Giggles'},{'title':'Dreamland?'}]}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("media", MediaBean.class);
         MediaListBean bean = (MediaListBean) JSONObject.toBean(jsonObject, MediaListBean.class, classMap);
         assertNotNull(bean);
@@ -232,11 +241,12 @@ public class TestUserSubmitted extends TestCase {
         Object[] media = (Object[]) bean.getMedia();
         assertEquals(2, media.length);
         Object mediaItem1 = media[0];
-        assertTrue(mediaItem1 instanceof MediaBean);
+        assertInstanceOf(MediaBean.class, mediaItem1);
         assertEquals("Giggles", ((MediaBean) mediaItem1).getTitle());
     }
 
-    public void testBug_1812682() {
+    @Test
+    void testBug_1812682() {
         int[] numbers = new int[] {1, 2, 3, 4, 5};
         JSONObject json = new JSONObject()
                 .element("bytes", numbers)
@@ -251,8 +261,9 @@ public class TestUserSubmitted extends TestCase {
         assertNotNull(bean);
     }
 
-    public void testBug_1813301() {
-        List list = new ArrayList();
+    @Test
+    void testBug_1813301() {
+        List<Object> list = new ArrayList<>();
         list.add("1");
         list.add("2");
         list.add("3");
@@ -265,28 +276,32 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals(list, bean.getList());
     }
 
-    public void testBug_1875600_1() {
+    @Test
+    void testBug_1875600_1() {
         JSONArray jArray = JSONArray.fromObject("[]");
         int[] iArray = (int[]) JSONArray.toArray(jArray, int.class);
         JSONArray actual = JSONArray.fromObject(iArray);
         Assertions.assertEquals(new JSONArray(), actual);
     }
 
-    public void testBug_1875600_2() {
+    @Test
+    void testBug_1875600_2() {
         JSONArray jArray = JSONArray.fromObject("[ [] ]");
         int[][] iArray = (int[][]) JSONArray.toArray(jArray, int.class);
         JSONArray actual = JSONArray.fromObject(iArray);
         Assertions.assertEquals(new JSONArray().element(new JSONArray()), actual);
     }
 
-    public void testConstructor_Object__nullArray() {
+    @Test
+    void testConstructor_Object__nullArray() {
         // submitted by Matt Small
         String[] strarr = null;
         JSONObject jsonObject = JSONObject.fromObject(strarr, jsonConfig);
         assertTrue(jsonObject.isNullObject());
     }
 
-    public void testConstructor_Object_EnclosedArray() {
+    @Test
+    void testConstructor_Object_EnclosedArray() {
         // submitted by Matt Small
         PrimitiveBean bean = new PrimitiveBean();
         bean.setOarray(new String[] {"hi", "bye"});
@@ -295,7 +310,8 @@ public class TestUserSubmitted extends TestCase {
         assertFalse(jsonObject.getJSONArray("oarray").isEmpty());
     }
 
-    public void testConstructor_Object_EnclosedNullArray() {
+    @Test
+    void testConstructor_Object_EnclosedNullArray() {
         // submitted by Matt Small
         PrimitiveBean bean = new PrimitiveBean();
         bean.setOarray(null);
@@ -304,7 +320,8 @@ public class TestUserSubmitted extends TestCase {
         assertTrue(jsonObject.getJSONArray("oarray").isEmpty());
     }
 
-    public void testConstructorAndToBean_Object_RoundTrip_EnclosedNullArray() {
+    @Test
+    void testConstructorAndToBean_Object_RoundTrip_EnclosedNullArray() {
 
         PrimitiveBean bean = new PrimitiveBean();
         bean.setOarray(null);
@@ -317,27 +334,28 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(0, bean2.getOarray().length);
     }
 
-    public void testDynaBeanAttributeMap()
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+    @Test
+    void testDynaBeanAttributeMap() {
         // submited by arco.vandenheuvel[at]points[dot].com
         JSONObject jsonObject = JSONObject.fromObject(new JSONTestBean());
         String jsonString = jsonObject.toString();
         DynaBean jsonBean = (DynaBean) JSONObject.toBean(JSONObject.fromObject(jsonString));
         assertNotNull(jsonBean);
-        assertEquals("wrong inventoryID", "", jsonBean.get("inventoryID"));
+        assertEquals("", jsonBean.get("inventoryID"), "wrong inventoryID");
     }
 
-    public void testFR_1768960_array_conversion() { // 2 items
+    @Test
+    void testFR_1768960_array_conversion() { // 2 items
         JSONObject jsonObject = JSONObject.fromObject("{'media2':[{'title':'Giggles'},{'title':'Dreamland?'}]}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("media2", MediaBean.class);
         MediaListBean bean = (MediaListBean) JSONObject.toBean(jsonObject, MediaListBean.class, classMap);
         assertNotNull(bean);
         assertNotNull(bean.getMedia2());
-        List media2 = bean.getMedia2();
+        List<?> media2 = bean.getMedia2();
         assertEquals(2, media2.size());
         Object mediaItem1 = media2.get(0);
-        assertTrue(mediaItem1 instanceof MediaBean);
+        assertInstanceOf(MediaBean.class, mediaItem1);
         assertEquals("Giggles", ((MediaBean) mediaItem1).getTitle()); // 1
         // item
         jsonObject = JSONObject.fromObject("{'media2':[{'title':'Giggles'}]}");
@@ -347,11 +365,12 @@ public class TestUserSubmitted extends TestCase {
         media2 = bean.getMedia2();
         assertEquals(1, media2.size());
         mediaItem1 = media2.get(0);
-        assertTrue(mediaItem1 instanceof MediaBean);
+        assertInstanceOf(MediaBean.class, mediaItem1);
         assertEquals("Giggles", ((MediaBean) mediaItem1).getTitle());
     }
 
-    public void testFR_1808430_newBeanInstance() {
+    @Test
+    void testFR_1808430_newBeanInstance() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setNewBeanInstanceStrategy(new UnstandardBeanInstanceStrategy());
         JSONObject jsonObject = new JSONObject();
@@ -363,7 +382,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(1, bean.getId());
     }
 
-    public void testFR_1832047_packageProtectedBean() {
+    @Test
+    void testFR_1832047_packageProtectedBean() {
         JSONObject jsonObject = new JSONObject().element("value", "42");
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setRootClass(PackageProtectedBean.class);
@@ -372,7 +392,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(42, bean.getValue());
     }
 
-    public void testFR_1832047_privateProtectedBean() {
+    @Test
+    void testFR_1832047_privateProtectedBean() {
         JSONObject jsonObject = new JSONObject().element("value", "42");
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setRootClass(PrivateConstructorBean.class);
@@ -381,7 +402,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(42, bean.getValue());
     }
 
-    public void testFR_1858073_preserveInsertionOrder() {
+    @Test
+    void testFR_1858073_preserveInsertionOrder() {
         JSONObject jsonObject =
                 new JSONObject().element("one", "one").element("two", "two").element("three", "three");
         JSONArray actual = jsonObject.names();
@@ -389,7 +411,8 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals(expected, actual);
     }
 
-    public void testFromObjectCurliesOnString() {
+    @Test
+    void testFromObjectCurliesOnString() {
         String json = "{'prop':'{value}'}";
         JSONObject jsonObject = JSONObject.fromObject(json);
         assertNotNull(jsonObject);
@@ -409,7 +432,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals("{{{value}}}", jsonObject.get("prop"));
     }
 
-    public void testHandleJettisonEmptyElement() {
+    @Test
+    void testHandleJettisonEmptyElement() {
         JSONObject jsonObject = JSONObject.fromObject("{'beanA':'','beanB':''}");
         jsonConfig.setHandleJettisonEmptyElement(true);
         jsonConfig.setRootClass(BeanC.class);
@@ -419,9 +443,10 @@ public class TestUserSubmitted extends TestCase {
         assertNull(bean.getBeanB());
     }
 
-    public void testHandleJettisonSingleElementArray() {
+    @Test
+    void testHandleJettisonSingleElementArray() {
         JSONObject jsonObject = JSONObject.fromObject("{'media2':{'title':'Giggles'}}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("media2", MediaBean.class);
         jsonConfig.setHandleJettisonSingleElementArray(true);
         jsonConfig.setRootClass(MediaListBean.class);
@@ -429,16 +454,17 @@ public class TestUserSubmitted extends TestCase {
         MediaListBean bean = (MediaListBean) JSONObject.toBean(jsonObject, jsonConfig);
         assertNotNull(bean);
         assertNotNull(bean.getMedia2());
-        List media2 = bean.getMedia2();
+        List<?> media2 = bean.getMedia2();
         assertEquals(1, media2.size());
         Object mediaItem1 = media2.get(0);
-        assertTrue(mediaItem1 instanceof MediaBean);
+        assertInstanceOf(MediaBean.class, mediaItem1);
         assertEquals("Giggles", ((MediaBean) mediaItem1).getTitle());
     }
 
-    public void testHandleJettisonSingleElementArray2() {
+    @Test
+    void testHandleJettisonSingleElementArray2() {
         JSONObject jsonObject = JSONObject.fromObject("{'mediaList':{'media':{'title':'Giggles'}}}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("media", Media.class);
         classMap.put("mediaList", MediaList.class);
         jsonConfig.setHandleJettisonSingleElementArray(true);
@@ -449,13 +475,14 @@ public class TestUserSubmitted extends TestCase {
         assertNotNull(bean.getMediaList());
         MediaList mediaList = bean.getMediaList();
         assertNotNull(mediaList.getMedia());
-        ArrayList medias = mediaList.getMedia();
+        ArrayList<?> medias = mediaList.getMedia();
         assertEquals("Giggles", ((Media) medias.get(0)).getTitle());
     }
 
-    public void testHandleJettisonSingleElementArray3() {
+    @Test
+    void testHandleJettisonSingleElementArray3() {
         JSONObject jsonObject = JSONObject.fromObject("{'player':{'mediaList':{'media':{'title':'Giggles'}}}}");
-        Map classMap = new HashMap();
+        Map<String, Class<?>> classMap = new HashMap<>();
         classMap.put("media", Media.class);
         classMap.put("mediaList", MediaList.class);
         classMap.put("player", Player.class);
@@ -465,18 +492,19 @@ public class TestUserSubmitted extends TestCase {
         PlayerList bean = (PlayerList) JSONObject.toBean(jsonObject, jsonConfig);
         assertNotNull(bean);
         assertNotNull(bean.getPlayer());
-        ArrayList players = bean.getPlayer();
+        ArrayList<?> players = bean.getPlayer();
         assertNotNull(players);
         assertNotNull(players.get(0));
         Player player = (Player) players.get(0);
         assertNotNull(player.getMediaList());
         MediaList mediaList = player.getMediaList();
         assertNotNull(mediaList.getMedia());
-        ArrayList medias = mediaList.getMedia();
+        ArrayList<?> medias = mediaList.getMedia();
         assertEquals("Giggles", ((Media) medias.get(0)).getTitle());
     }
 
-    public void testJsonWithNamespaceToDynaBean() throws Exception {
+    @Test
+    void testJsonWithNamespaceToDynaBean() throws Exception {
         // submited by Girish Ipadi
 
         jsonConfig.setJavaIdentifierTransformer(JavaIdentifierTransformer.NOOP);
@@ -489,7 +517,7 @@ public class TestUserSubmitted extends TestCase {
         JSONObject json = JSONObject.fromObject(str, jsonConfig);
         Object bean = JSONObject.toBean((JSONObject) json);
         assertNotNull(bean);
-        List params = (List) PropertyUtils.getProperty(bean, "params");
+        List<?> params = (List<?>) PropertyUtils.getProperty(bean, "params");
         DynaBean param0 = (DynaBean) params.get(0);
         DynaBean itemLookup = (DynaBean) param0.get("ns:ItemLookup");
         assertNotNull(itemLookup);
@@ -615,35 +643,28 @@ public class TestUserSubmitted extends TestCase {
           }
     */
 
-    public void testJsonWithNullKeys() {
-        Map map = new HashMap();
+    @Test
+    void testJsonWithNullKeys() {
+        Map<String, Object> map = new HashMap<>();
         map.put("key", "value");
         map.put(null, "value2");
 
         Object[] obj = {map};
 
-        try {
-            JSONSerializer.toJSON(obj);
-            fail("Should have thrown a ClassCastException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        assertThrows(JSONException.class, () -> JSONSerializer.toJSON(obj));
     }
 
-    public void testJsonWithNullKeys2() {
-        Map map = new HashMap();
+    @Test
+    void testJsonWithNullKeys2() {
+        Map<String, Object> map = new HashMap<>();
         map.put("key", "value");
         map.put(null, "value2");
 
-        try {
-            System.err.println(JSONSerializer.toJSON(map));
-            fail("Should have thrown a ClassCastException");
-        } catch (JSONException expected) {
-            // ok
-        }
+        assertThrows(JSONException.class, () -> JSONSerializer.toJSON(map));
     }
 
-    public void testJSONArray_JavascriptCompliant() {
+    @Test
+    void testJSONArray_JavascriptCompliant() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setJavascriptCompliant(true);
         String json = "[null, undefined]";
@@ -652,7 +673,8 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals(JSONNull.getInstance(), array.get(1));
     }
 
-    public void testJSONArray_JavascriptComplian2t() {
+    @Test
+    void testJSONArray_JavascriptComplian2t() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setJavascriptCompliant(true);
         JSONArray array = new JSONArray();
@@ -663,7 +685,8 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals("undefined", array.get(1));
     }
 
-    public void testJSONObject_JavascriptCompliant() {
+    @Test
+    void testJSONObject_JavascriptCompliant() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setJavascriptCompliant(true);
         String json = "{key1: null, key2: undefined}";
@@ -672,7 +695,8 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals(JSONNull.getInstance(), object.get("key2"));
     }
 
-    public void testJSONObject_JavascriptCompliant2() {
+    @Test
+    void testJSONObject_JavascriptCompliant2() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setJavascriptCompliant(true);
         JSONObject object = new JSONObject();
@@ -682,7 +706,8 @@ public class TestUserSubmitted extends TestCase {
         Assertions.assertEquals("undefined", object.get("key2"));
     }
 
-    public void testJSONObject_fromObject_FieldBean() {
+    @Test
+    void testJSONObject_fromObject_FieldBean() {
         JsonConfig jsonConfig = new JsonConfig();
         FieldBean bean = new FieldBean();
         bean.setValue(42);
@@ -701,7 +726,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals("stringy", jsonObject.getString("string"));
     }
 
-    public void testJSONObject_toBean_FieldBean() {
+    @Test
+    void testJSONObject_toBean_FieldBean() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setRootClass(FieldBean.class);
 
@@ -721,7 +747,8 @@ public class TestUserSubmitted extends TestCase {
         assertEquals("stringy", bean2.string);
     }
 
-    public void testBug_2692698() {
+    @Test
+    void testBug_2692698() {
         String input =
                 "[\"{'selectedOperatorIndex':2,'leftSideValue':'report.field9','rightSideValue':'2009-3-1'}\",\"all\"]";
         JSON json = JSONArray.fromObject(input);
@@ -729,101 +756,76 @@ public class TestUserSubmitted extends TestCase {
         assertEquals(input, output);
     }
 
-    public void testWithoutAnyTroubleTheyMayBeAlreadyDoneByOtherTest() {
+    @Test
+    void testWithoutAnyTroubleTheyMayBeAlreadyDoneByOtherTest() {
         JsonConfig tConfig = new JsonConfig();
         tConfig.enableEventTriggering();
         tConfig.addJsonEventListener(new JsonErrorDetector());
 
         // String
         JSONObject jsonObject = JSONObject.fromObject("{\"string\":\"aString\"}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"string\"", jsonObject.containsKey("string"));
-        assertNotNull("Le membre \"string\" doit être une String", jsonObject.optString("string"));
-        assertEquals("Le membre \"string\" doit être égal a \"aString\"", "aString", jsonObject.get("string"));
+        assertTrue(jsonObject.containsKey("string"), "L'objet doit contenir une clef \"string\"");
+        assertNotNull(jsonObject.optString("string"), "Le membre \"string\" doit être une String");
+        assertEquals("aString", jsonObject.get("string"), "Le membre \"string\" doit être égal a \"aString\"");
 
         // int
         jsonObject = JSONObject.fromObject("{\"integer\":10}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"integer\"", jsonObject.containsKey("integer"));
-        assertEquals("Le membre \"integer\" doit être égal a 10", 10, jsonObject.optInt("integer"));
+        assertTrue(jsonObject.containsKey("integer"), "L'objet doit contenir une clef \"integer\"");
+        assertEquals(10, jsonObject.optInt("integer"), "Le membre \"integer\" doit être égal a 10");
 
         // boolean
         jsonObject = JSONObject.fromObject("{\"double\":2.02}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"double\"", jsonObject.containsKey("double"));
-        assertEquals("Le membre \"double\" doit être égal a 2.02", 2.02d, jsonObject.optDouble("double"), 0.0001);
+        assertTrue(jsonObject.containsKey("double"), "L'objet doit contenir une clef \"double\"");
+        assertEquals(2.02d, jsonObject.optDouble("double"), 0.0001, "Le membre \"double\" doit être égal a 2.02");
 
         // double
         jsonObject = JSONObject.fromObject("{\"boolean\":true}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"boolean\"", jsonObject.containsKey("boolean"));
-        assertEquals("Le membre \"boolean\" doit être égal a true", true, jsonObject.optBoolean("boolean"));
+        assertTrue(jsonObject.containsKey("boolean"), "L'objet doit contenir une clef \"boolean\"");
+        assertTrue(jsonObject.optBoolean("boolean"), "Le membre \"boolean\" doit être égal a true");
 
         // String array
         jsonObject = JSONObject.fromObject("{\"strArray\":[\"a\",\"b\",\"c\"]}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"strArray\"", jsonObject.containsKey("strArray"));
-        assertNotNull("Le membre \"strArray\" doit être une Array", jsonObject.optJSONArray("strArray"));
-        assertEquals(
-                "L'element 0 de \"strArray\" doit être égal a \"a\"",
-                "a",
-                jsonObject.optJSONArray("strArray").optString(0));
-        assertEquals(
-                "L'element 1 de \"strArray\" doit être égal a \"b\"",
-                "b",
-                jsonObject.optJSONArray("strArray").optString(1));
-        assertEquals(
-                "L'element 2 de \"strArray\" doit être égal a \"c\"",
-                "c",
-                jsonObject.optJSONArray("strArray").optString(2));
+        assertTrue(jsonObject.containsKey("strArray"), "L'objet doit contenir une clef \"strArray\"");
+        JSONArray strArray = jsonObject.optJSONArray("strArray");
+        assertNotNull(strArray, "Le membre \"strArray\" doit être une Array");
+        assertEquals("a", strArray.optString(0), "L'element 0 de \"strArray\" doit être égal a \"a\"");
+        assertEquals("b", strArray.optString(1), "L'element 1 de \"strArray\" doit être égal a \"b\"");
+        assertEquals("c", strArray.optString(2), "L'element 2 de \"strArray\" doit être égal a \"c\"");
 
         // int array
         jsonObject = JSONObject.fromObject("{\"intArray\":[1,2,3]}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"intArray\"", jsonObject.containsKey("intArray"));
-        assertNotNull("Le membre \"intArray\" doit être une Array", jsonObject.optJSONArray("intArray"));
-        assertEquals(
-                "L'element 0 de \"intArray\" doit être égal a 1",
-                1,
-                jsonObject.optJSONArray("intArray").optInt(0));
-        assertEquals(
-                "L'element 1 de \"intArray\" doit être égal a 2",
-                2,
-                jsonObject.optJSONArray("intArray").optInt(1));
-        assertEquals(
-                "L'element 2 de \"intArray\" doit être égal a 3",
-                3,
-                jsonObject.optJSONArray("intArray").optInt(2));
+        assertTrue(jsonObject.containsKey("intArray"), "L'objet doit contenir une clef \"intArray\"");
+        JSONArray intArray = jsonObject.optJSONArray("intArray");
+        assertNotNull(intArray, "Le membre \"intArray\" doit être une Array");
+        assertEquals(1, intArray.optInt(0), "L'element 0 de \"intArray\" doit être égal a 1");
+        assertEquals(2, intArray.optInt(1), "L'element 1 de \"intArray\" doit être égal a 2");
+        assertEquals(3, intArray.optInt(2), "L'element 2 de \"intArray\" doit être égal a 3");
 
         // boolean array
         jsonObject = JSONObject.fromObject("{\"booleanArray\":[true, false, true]}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"booleanArray\"", jsonObject.containsKey("booleanArray"));
-        assertNotNull("Le membre \"strArray\" doit être une booleanArray", jsonObject.optJSONArray("booleanArray"));
-        assertEquals(
-                "L'element 0 de \"booleanArray\" doit être égal a true",
-                true,
-                jsonObject.optJSONArray("booleanArray").optBoolean(0));
-        assertEquals(
-                "L'element 1 de \"booleanArray\" doit être égal a false",
-                false,
-                jsonObject.optJSONArray("booleanArray").optBoolean(1));
-        assertEquals(
-                "L'element 2 de \"booleanArray\" doit être égal a true",
-                true,
-                jsonObject.optJSONArray("booleanArray").optBoolean(2));
+        assertTrue(jsonObject.containsKey("booleanArray"), "L'objet doit contenir une clef \"booleanArray\"");
+        JSONArray booleanArray = jsonObject.optJSONArray("booleanArray");
+        assertNotNull(booleanArray, "Le membre \"strArray\" doit être une booleanArray");
+        assertTrue(booleanArray.optBoolean(0), "L'element 0 de \"booleanArray\" doit être égal a true");
+        assertFalse(booleanArray.optBoolean(1), "L'element 1 de \"booleanArray\" doit être égal a false");
+        assertTrue(booleanArray.optBoolean(2), "L'element 2 de \"booleanArray\" doit être égal a true");
 
         // double array
         jsonObject = JSONObject.fromObject("{\"doubleArray\":[\"a\",\"b\",\"c\"]}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"doubleArray\"", jsonObject.containsKey("doubleArray"));
-        assertNotNull("Le membre \"doubleArray\" doit être une Array", jsonObject.optJSONArray("doubleArray"));
-        assertEquals(
-                "L'element 0 de \"doubleArray\" doit être égal a \"a\"",
-                "a",
-                jsonObject.optJSONArray("doubleArray").optString(0));
+        assertTrue(jsonObject.containsKey("doubleArray"), "L'objet doit contenir une clef \"doubleArray\"");
+        JSONArray doubleArray = jsonObject.optJSONArray("doubleArray");
+        assertNotNull(doubleArray, "Le membre \"doubleArray\" doit être une Array");
+        assertEquals("a", doubleArray.optString(0), "L'element 0 de \"doubleArray\" doit être égal a \"a\"");
 
         jsonObject = JSONObject.fromObject("{\"weirdString\":\"[Hello]\"}", tConfig);
-        assertTrue("L'objet doit contenir une clef \"weirdString\"", jsonObject.containsKey("weirdString"));
-        assertNotNull("Le membre \"weirdString\" doit être une String", jsonObject.optString("weirdString"));
+        assertTrue(jsonObject.containsKey("weirdString"), "L'objet doit contenir une clef \"weirdString\"");
+        assertNotNull(jsonObject.optString("weirdString"), "Le membre \"weirdString\" doit être une String");
         assertEquals(
-                "Le membre \"weirdString\" doit être égal a \"[Hello]\"", "[Hello]", jsonObject.get("weirdString"));
+                "[Hello]", jsonObject.get("weirdString"), "Le membre \"weirdString\" doit être égal a \"[Hello]\"");
         jsonObject = JSONObject.fromObject("{\"weirdString\":\"{912}\"}");
-        assertTrue("L'objet doit contenir une clef \"weirdString\"", jsonObject.containsKey("weirdString"));
-        assertNotNull("Le membre \"weirdString\" doit être une String", jsonObject.optString("weirdString"));
-        assertEquals("Le membre \"weirdString\" doit être égal a \"{912}\"", "{912}", jsonObject.get("weirdString"));
+        assertTrue(jsonObject.containsKey("weirdString"), "L'objet doit contenir une clef \"weirdString\"");
+        assertNotNull(jsonObject.optString("weirdString"), "Le membre \"weirdString\" doit être une String");
+        assertEquals("{912}", jsonObject.get("weirdString"), "Le membre \"weirdString\" doit être égal a \"{912}\"");
     }
     /*
     public void testDifferenceBetweenStringSerialisationWithJSONObjectAndJSONArray() {
@@ -873,17 +875,19 @@ public class TestUserSubmitted extends TestCase {
     }
     */
 
-    public void testBug_2893329() {
+    @Test
+    void testBug_2893329() {
         String jsonStr = "{x:\"\\'hello\\'\"}";
         JSONObject json = JSONObject.fromObject(jsonStr);
         assertEquals("'hello'", json.getString("x"));
     }
 
-    public void testBug_3047519() {
+    @Test
+    void testBug_3047519() {
         String jsonStr = "{data:\"[1,2,3]\"}";
         JSONObject json = JSONObject.fromObject(jsonStr);
         Object data = json.get("data");
-        assertTrue(data instanceof String);
+        assertInstanceOf(String.class, data);
         assertEquals("[1,2,3]", data);
     }
     /*
@@ -930,9 +934,8 @@ public class TestUserSubmitted extends TestCase {
         public void onWarning(String warning) {}
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        super.setUp();
+    @BeforeEach
+    void setUp() {
         jsonConfig = new JsonConfig();
     }
 }

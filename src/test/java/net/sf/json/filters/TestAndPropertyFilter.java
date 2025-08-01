@@ -16,37 +16,37 @@
 
 package net.sf.json.filters;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import net.sf.json.util.PropertyFilter;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestAndPropertyFilter extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestAndPropertyFilter.class);
-    }
+class TestAndPropertyFilter {
 
-    public TestAndPropertyFilter(String testName) {
-        super(testName);
-    }
-
-    public void testApply_false_false() {
+    @Test
+    void testApply_false_false() {
         PropertyFilter filter = new AndPropertyFilter(new FalsePropertyFilter(), new FalsePropertyFilter());
         assertFalse(filter.apply(null, null, null));
     }
 
-    public void testApply_false_true() {
+    @Test
+    void testApply_false_true() {
         PropertyFilter filter = new AndPropertyFilter(new FalsePropertyFilter(), new TruePropertyFilter());
         assertFalse(filter.apply(null, null, null));
     }
 
-    public void testApply_true_false() {
+    @Test
+    void testApply_true_false() {
         PropertyFilter filter = new AndPropertyFilter(new TruePropertyFilter(), new FalsePropertyFilter());
         assertFalse(filter.apply(null, null, null));
     }
 
-    public void testApply_true_true() {
+    @Test
+    void testApply_true_true() {
         PropertyFilter filter = new AndPropertyFilter(new TruePropertyFilter(), new TruePropertyFilter());
         assertTrue(filter.apply(null, null, null));
     }

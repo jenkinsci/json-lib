@@ -16,227 +16,174 @@
 
 package net.sf.ezmorph.test;
 
-import junit.framework.AssertionFailedError;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ShortArrayAssertionsTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(ShortArrayAssertionsTest.class);
-        suite.setName("ShortArrayAssertions Tests");
-        return suite;
-    }
-
-    public ShortArrayAssertionsTest(String name) {
-        super(name);
-    }
-
-    // -----------------------------------------------------------------------
-
-    public void testAssertEquals_multi_short_short() {
+class ShortArrayAssertionsTest {
+    @Test
+    void testAssertEquals_multi_short_short() {
         short[][] expecteds = new short[][] {{1, 2}, {1, 2}};
         short[][] actuals = new short[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_short_Short() {
+    @Test
+    void testAssertEquals_multi_short_Short() {
         short[][] expecteds = new short[][] {{1, 2}, {1, 2}};
         Short[][] actuals = new Short[][] {{(short) 1, (short) 2}, {(short) 1, (short) 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Short_short() {
+    @Test
+    void testAssertEquals_multi_Short_short() {
         Short[][] expecteds = new Short[][] {{(short) 1, (short) 2}, {(short) 1, (short) 2}};
         short[][] actuals = new short[][] {{1, 2}, {1, 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_multi_Short_Short() {
+    @Test
+    void testAssertEquals_multi_Short_Short() {
         Short[][] expecteds = new Short[][] {{(short) 1, (short) 2}, {(short) 1, (short) 2}};
         Short[][] actuals = new Short[][] {{(short) 1, (short) 2}, {(short) 1, (short) 2}};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_Object_array() {
+    @Test
+    void testAssertEquals_OO_Object_array_Object_array() {
         Object expecteds = new Object[] {(short) 1, (short) 2};
         Object actuals = new Object[] {(short) 1, (short) 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Object_array_short() {
+    @Test
+    void testAssertEquals_OO_Object_array_short() {
         Object expecteds = new Object[] {(short) 1, (short) 2};
         Object actuals = new short[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_short_double() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_OO_short_double() {
         Object expecteds = new short[] {1, 2};
         Object actuals = new double[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_OO_short_Object_array() {
+    @Test
+    void testAssertEquals_OO_short_Object_array() {
         Object expecteds = new short[] {1, 2};
         Object actuals = new Object[] {(short) 1, (short) 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_short_short() {
+    @Test
+    void testAssertEquals_OO_short_short() {
         Object expecteds = new short[] {1, 2};
         Object actuals = new short[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_short_Short() {
+    @Test
+    void testAssertEquals_OO_short_Short() {
         Object expecteds = new short[] {1, 2};
         Object actuals = new Short[] {(short) 1, (short) 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_OO_Short_short() {
+    @Test
+    void testAssertEquals_OO_Short_short() {
         Object expecteds = new Short[] {(short) 1, (short) 2};
         Object actuals = new short[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_short_short() {
+    @Test
+    void testAssertEquals_short_short() {
         short[] expecteds = new short[] {1, 2};
         short[] actuals = new short[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_short_Short() {
+    @Test
+    void testAssertEquals_short_Short() {
         short[] expecteds = new short[] {1, 2};
         Short[] actuals = new Short[] {(short) 1, (short) 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Short_short() {
+    @Test
+    void testAssertEquals_Short_short() {
         Short[] expecteds = new Short[] {(short) 1, (short) 2};
         short[] actuals = new short[] {1, 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_Short_Short() {
+    @Test
+    void testAssertEquals_Short_Short() {
         Short[] expecteds = new Short[] {(short) 1, (short) 2};
         Short[] actuals = new Short[] {(short) 1, (short) 2};
         ArrayAssertions.assertEquals(expecteds, actuals);
     }
 
-    public void testAssertEquals_short_short_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_short_short_actuals_is_null() {
         short[] expecteds = new short[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (short[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (short[]) null));
     }
 
-    public void testAssertEquals_short_Short_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_short_Short_actuals_is_null() {
         short[] expecteds = new short[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (Short[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (Short[]) null));
     }
 
-    public void testAssertEquals_Short_short_actuals_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Short_short_actuals_is_null() {
         Short[] expecteds = new Short[] {(short) 1, (short) 2};
-        try {
-            ArrayAssertions.assertEquals(expecteds, (short[]) null);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, (short[]) null));
     }
 
-    public void testAssertEquals_short_short_different_length() {
+    @Test
+    void testAssertEquals_short_short_different_length() {
         short[] expecteds = new short[] {1};
         short[] actuals = new short[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_short_Short_different_length() {
+    @Test
+    void testAssertEquals_short_Short_different_length() {
         short[] expecteds = new short[] {1};
         Short[] actuals = new Short[] {(short) 1, (short) 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_Short_short_different_length() {
+    @Test
+    void testAssertEquals_Short_short_different_length() {
         Short[] expecteds = new Short[] {(short) 1};
         short[] actuals = new short[] {1, 2};
-        boolean errorThrown = false;
-        try {
-            ArrayAssertions.assertEquals(expecteds, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals(expecteds, actuals));
     }
 
-    public void testAssertEquals_short_short_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_short_short_expecteds_is_null() {
         short[] actuals = new short[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((short[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((short[]) null, actuals));
     }
 
-    public void testAssertEquals_short_Short_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_short_Short_expecteds_is_null() {
         Short[] actuals = new Short[] {(short) 1, (short) 2};
-        try {
-            ArrayAssertions.assertEquals((short[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((short[]) null, actuals));
     }
 
-    public void testAssertEquals_Short_short_expecteds_is_null() {
-        boolean errorThrown = false;
+    @Test
+    void testAssertEquals_Short_short_expecteds_is_null() {
         short[] actuals = new short[] {1, 2};
-        try {
-            ArrayAssertions.assertEquals((Short[]) null, actuals);
-        } catch (AssertionFailedError expected) {
-            errorThrown = true;
-        }
-        assertTrue("Expected a failure", errorThrown);
+        assertThrows(AssertionFailedError.class, () -> ArrayAssertions.assertEquals((Short[]) null, actuals));
     }
 }

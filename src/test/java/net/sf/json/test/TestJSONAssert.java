@@ -16,28 +16,25 @@
 
 package net.sf.json.test;
 
-import java.util.HashMap;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.Map;
-import junit.framework.AssertionFailedError;
-import junit.framework.TestCase;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
+import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONAssert extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONAssert.class);
-    }
+class TestJSONAssert {
 
-    public TestJSONAssert(String testName) {
-        super(testName);
-    }
-
-    public void testArrayWithNullsShouldFail() {
+    @Test
+    void testArrayWithNullsShouldFail() {
         JSONArray one = new JSONArray();
         one.element("hello");
         one.element((Object) null);
@@ -48,15 +45,12 @@ public class TestJSONAssert extends TestCase {
         two.element((Object) null);
         two.element("world!");
 
-        try {
-            JSONAssert.assertEquals(one, two);
-            fail("Did not throw an AssertionFailedError");
-        } catch (AssertionFailedError e) {
-            assertTrue(e.getMessage().startsWith("arrays first differed at element [2]"));
-        }
+        AssertionFailedError e = assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(one, two));
+        assertEquals("arrays first differed at element [2]; ==> expected: <world> but was: <world!>", e.getMessage());
     }
 
-    public void testArrayWithNullsShouldPass() {
+    @Test
+    void testArrayWithNullsShouldPass() {
         JSONArray one = new JSONArray();
         one.element("hello");
         one.element((Object) null);
@@ -70,87 +64,73 @@ public class TestJSONAssert extends TestCase {
         JSONAssert.assertEquals(one, two);
     }
 
-    public void testAssertEquals_JSON_JSON__actual_null() {
-        try {
-            JSON expected = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals(expected, null);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual was null");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__actual_null() {
+        JSON expected = JSONArray.fromObject("[1,2,3]");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, null));
+        assertEquals("actual was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSON_JSON__expected_null() {
-        try {
-            JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSONAssert.assertEquals(null, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected was null");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__expected_null() {
+        JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
+        AssertionFailedError e = assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(null, actual));
+        assertEquals("expected was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSON_JSON__JSONArray_JSONArray() {
-        try {
-            JSON expected = JSONArray.fromObject("[1,2,3]");
-            JSON actual = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Arrays should be equal");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__JSONArray_JSONArray() {
+        JSON expected = JSONArray.fromObject("[1,2,3]");
+        JSON actual = JSONArray.fromObject("[1,2,3]");
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Arrays should be equal");
     }
 
-    public void testAssertEquals_JSON_JSON__JSONArray_JSONObject() {
-        try {
-            JSON expected = JSONArray.fromObject("[1,2,3]");
-            JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a JSONArray");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__JSONArray_JSONObject() {
+        JSON expected = JSONArray.fromObject("[1,2,3]");
+        JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a JSONArray", e.getMessage());
     }
 
-    public void testAssertEquals_JSON_JSON__JSONNull_JSONArray() {
-        try {
-            JSON expected = JSONNull.getInstance();
-            JSON actual = JSONArray.fromObject("[1,2,3]");
-
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a JSONNull");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__JSONNull_JSONArray() {
+        JSON expected = JSONNull.getInstance();
+        JSON actual = JSONArray.fromObject("[1,2,3]");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a JSONNull", e.getMessage());
     }
 
-    public void testAssertEquals_JSON_JSON__JSONNull_JSONNull() {
-        try {
-            JSON expected = JSONNull.getInstance();
-            JSON actual = JSONNull.getInstance();
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("JSONNull should be equal to itself");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__JSONNull_JSONNull() {
+        JSON expected = JSONNull.getInstance();
+        JSON actual = JSONNull.getInstance();
+
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "JSONNull should be equal to itself");
     }
 
-    public void testAssertEquals_JSON_JSON__JSONObject_JSONArray() {
-        try {
-            JSON expected = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSON actual = JSONArray.fromObject("[1,2,3]");
+    @Test
+    void testAssertEquals_JSON_JSON__JSONObject_JSONArray() {
+        JSON expected = JSONObject.fromObject("{\"str\":\"json\"}");
+        JSON actual = JSONArray.fromObject("[1,2,3]");
 
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a JSONObject");
-        }
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a JSONObject", e.getMessage());
     }
 
-    public void testAssertEquals_JSON_JSON__JSONObject_JSONObject() {
-        try {
-            JSON expected = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Objects should be equal");
-        }
+    @Test
+    void testAssertEquals_JSON_JSON__JSONObject_JSONObject() {
+        JSON expected = JSONObject.fromObject("{\"str\":\"json\"}");
+        JSON actual = JSONObject.fromObject("{\"str\":\"json\"}");
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Objects should be equal");
     }
 
-    public void testAssertEquals_JSONArray_JSONArray() {
+    @Test
+    void testAssertEquals_JSONArray_JSONArray() {
         Object[] values = new Object[] {
             Boolean.TRUE,
             Integer.MAX_VALUE,
@@ -167,388 +147,304 @@ public class TestJSONAssert extends TestCase {
         JSONArray expected = JSONArray.fromObject(values);
         JSONArray actual = JSONArray.fromObject(values);
 
-        try {
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Arrays should be equal");
-        }
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Arrays should be equal");
     }
 
-    public void testAssertEquals_JSONArray_JSONArray__actual_null() {
-        try {
-            JSONArray expected = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals(expected, (JSONArray) null);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual array was null");
-        }
+    @Test
+    void testAssertEquals_JSONArray_JSONArray__actual_null() {
+        JSONArray expected = JSONArray.fromObject("[1,2,3]");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, (JSONArray) null));
+        assertEquals("actual array was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSONArray_JSONArray__different_length() {
-        try {
-            JSONArray expected = JSONArray.fromObject("[1]");
-            JSONArray actual = new JSONArray();
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "arrays sizes differed, expected.length()=1 actual.length()=0");
-        }
+    @Test
+    void testAssertEquals_JSONArray_JSONArray__different_length() {
+        JSONArray expected = JSONArray.fromObject("[1]");
+        JSONArray actual = new JSONArray();
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("arrays sizes differed, expected.length()=1 actual.length()=0", e.getMessage());
     }
 
-    public void testAssertEquals_JSONArray_JSONArray__expected_null() {
-        try {
-            JSONArray actual = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals((JSONArray) null, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected array was null");
-        }
+    @Test
+    void testAssertEquals_JSONArray_JSONArray__expected_null() {
+        JSONArray actual = JSONArray.fromObject("[1,2,3]");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals((JSONArray) null, actual));
+        assertEquals("expected array was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSONArray_JSONArray__nulls() {
-        try {
+    @Test
+    void testAssertEquals_JSONArray_JSONArray__nulls() {
+        {
             JSONArray expected = JSONArray.fromObject("[1]");
             JSONArray actual = new JSONArray().element(JSONNull.getInstance());
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "arrays first differed at element [0];");
+            AssertionFailedError e =
+                    assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+            assertEquals("arrays first differed at element [0];", e.getMessage());
         }
-
-        try {
+        {
             JSONArray expected = new JSONArray().element(JSONNull.getInstance());
             JSONArray actual = JSONArray.fromObject("[1]");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "arrays first differed at element [0];");
+            AssertionFailedError e =
+                    assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+            assertEquals("arrays first differed at element [0];", e.getMessage());
         }
     }
 
-    public void testAssertEquals_JSONArray_String() {
-        try {
-            JSONArray expected = JSONArray.fromObject("[1,2,3]");
-            String actual = "[1,2,3]";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Arrays should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONArray_String() {
+        JSONArray expected = JSONArray.fromObject("[1,2,3]");
+        String actual = "[1,2,3]";
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Arrays should be equal");
     }
 
-    public void testAssertEquals_JSONArray_String_fail() {
-        try {
-            JSONArray expected = JSONArray.fromObject("[1,2,3]");
-            String actual = "{1,2,3}";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a JSONArray");
-        }
+    @Test
+    void testAssertEquals_JSONArray_String_fail() {
+        JSONArray expected = JSONArray.fromObject("[1,2,3]");
+        String actual = "{1,2,3}";
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a JSONArray", e.getMessage());
     }
 
-    public void testAssertEquals_JSONNull_String() {
-        try {
-            JSONNull expected = JSONNull.getInstance();
-            String actual = "null";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONNull_String() {
+        JSONNull expected = JSONNull.getInstance();
+        String actual = "null";
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Should be equal");
     }
 
-    public void testAssertEquals_JSONNull_String__actual_null() {
-        try {
-            JSONNull expected = JSONNull.getInstance();
-            JSONAssert.assertEquals(expected, (String) null);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual string was null");
-        }
+    @Test
+    void testAssertEquals_JSONNull_String__actual_null() {
+        JSONNull expected = JSONNull.getInstance();
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, (String) null));
+        assertEquals("actual string was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSONNull_String__expected_null() {
-        try {
-            JSONAssert.assertEquals((JSONNull) null, "null");
-        } catch (AssertionFailedError e) {
-            fail("Should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONNull_String__expected_null() {
+        assertDoesNotThrow(() -> JSONAssert.assertEquals((JSONNull) null, "null"), "Should be equal");
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_() {
-        try {
-            String[] names = new String[] {"b", "i", "l", "f", "d", "s", "a1", "o1", "o2", "o3"};
-            Object[] values = new Object[] {
-                Boolean.TRUE,
-                Integer.MAX_VALUE,
-                Long.MAX_VALUE,
-                Float.MAX_VALUE,
-                Double.MAX_VALUE,
-                "json",
-                new JSONArray(),
-                new JSONObject(true),
-                new JSONObject(),
-                new JSONObject().element("str", "json"),
-            };
-            Map map = new HashMap();
-            for (int i = 0; i < names.length; i++) {
-                map.put(names[i], values[i]);
-            }
-            JSONObject expected = JSONObject.fromObject(map);
-            JSONObject actual = JSONObject.fromObject(map);
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Objects should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_() {
+        Map<String, Object> map = Map.ofEntries(
+                Map.entry("b", true),
+                Map.entry("i", Integer.MAX_VALUE),
+                Map.entry("l", Long.MAX_VALUE),
+                Map.entry("f", Float.MAX_VALUE),
+                Map.entry("d", Double.MAX_VALUE),
+                Map.entry("s", "json"),
+                Map.entry("a1", new JSONArray()),
+                Map.entry("o1", new JSONObject(true)),
+                Map.entry("o2", new JSONObject()),
+                Map.entry("o3", new JSONObject().element("str", "json")));
+        JSONObject expected = JSONObject.fromObject(map);
+        JSONObject actual = JSONObject.fromObject(map);
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Objects should be equal");
     }
 
-    public void testAssertEquals_JSONObject_JSONObject__actual_null() {
-        try {
-            JSONObject expected = JSONObject.fromObject("{}");
-            JSONAssert.assertEquals(expected, (JSONObject) null);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual object was null");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject__actual_null() {
+        JSONObject expected = JSONObject.fromObject("{}");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, (JSONObject) null));
+        assertEquals("actual object was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject__expected_null() {
-        try {
-            JSONObject actual = JSONObject.fromObject("{}");
-            JSONAssert.assertEquals((JSONObject) null, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected object was null");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject__expected_null() {
+        JSONObject actual = JSONObject.fromObject("{}");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals((JSONObject) null, actual));
+        assertEquals("expected object was null", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_missingExpectedNamesAreGivenInErrorMessage() {
-        try {
-            JSONObject expected = new JSONObject().element("foo", "fooValue");
-            JSONObject actual = new JSONObject();
-            JSONAssert.assertEquals(expected, actual);
-            fail("Expected AssertionFailedError");
-        } catch (AssertionFailedError e) {
-            assertEquals("missing expected names: [foo]", e.getMessage());
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_missingExpectedNamesAreGivenInErrorMessage() {
+        JSONObject expected = new JSONObject().element("foo", "fooValue");
+        JSONObject actual = new JSONObject();
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("missing expected names: [foo]", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_unexpectedNamesAreGivenInErrorMessage() {
-        try {
-            JSONObject expected = new JSONObject();
-            JSONObject actual = new JSONObject().element("foo", "fooValue");
-            JSONAssert.assertEquals(expected, actual);
-            fail("Expected AssertionFailedError");
-        } catch (AssertionFailedError e) {
-            assertEquals("unexpected names: [foo]", e.getMessage());
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_unexpectedNamesAreGivenInErrorMessage() {
+        JSONObject expected = new JSONObject();
+        JSONObject actual = new JSONObject().element("foo", "fooValue");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("unexpected names: [foo]", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_missingExpectedAnUnexpectedNamesAreBothGivenInErrorMessage() {
-        try {
-            JSONObject expected = new JSONObject().element("foo", "fooValue").element("baz", "bazValue");
-            JSONObject actual = new JSONObject().element("bar", "barValue");
-            JSONAssert.assertEquals(expected, actual);
-            fail("Expected AssertionFailedError");
-        } catch (AssertionFailedError e) {
-            assertEquals("missing expected names: [baz, foo], unexpected names: [bar]", e.getMessage());
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_missingExpectedAnUnexpectedNamesAreBothGivenInErrorMessage() {
+        JSONObject expected = new JSONObject().element("foo", "fooValue").element("baz", "bazValue");
+        JSONObject actual = new JSONObject().element("bar", "barValue");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("missing expected names: [baz, foo], unexpected names: [bar]", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_nullObjects() {
-        try {
-            JSONObject expected = new JSONObject(true);
-            JSONObject actual = new JSONObject(true);
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Objects should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_nullObjects() {
+        JSONObject expected = new JSONObject(true);
+        JSONObject actual = new JSONObject(true);
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Objects should be equal");
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_nullObjects_fail1() {
-        try {
-            JSONObject expected = new JSONObject();
-            JSONObject actual = new JSONObject(true);
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is a null JSONObject");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_nullObjects_fail1() {
+        JSONObject expected = new JSONObject();
+        JSONObject actual = new JSONObject(true);
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is a null JSONObject", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_JSONObject_nullObjects_fail2() {
-        try {
-            JSONObject expected = new JSONObject(true);
-            JSONObject actual = new JSONObject();
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a null JSONObject");
-        }
+    @Test
+    void testAssertEquals_JSONObject_JSONObject_nullObjects_fail2() {
+        JSONObject expected = new JSONObject(true);
+        JSONObject actual = new JSONObject();
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a null JSONObject", e.getMessage());
     }
 
-    public void testAssertEquals_JSONObject_String() {
-        try {
-            JSONObject expected = JSONObject.fromObject("{\"str\":\"json\"}");
-            String actual = "{\"str\":\"json\"}";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Objects should be equal");
-        }
+    @Test
+    void testAssertEquals_JSONObject_String() {
+        JSONObject expected = JSONObject.fromObject("{\"str\":\"json\"}");
+        String actual = "{\"str\":\"json\"}";
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Objects should be equal");
     }
 
-    public void testAssertEquals_JSONObject_String_fail() {
-        try {
-            JSONObject expected = JSONObject.fromObject("{\"str\":\"json\"}");
-            String actual = "[1,2,3]";
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a JSONObject");
-        }
+    @Test
+    void testAssertEquals_JSONObject_String_fail() {
+        JSONObject expected = JSONObject.fromObject("{\"str\":\"json\"}");
+        String actual = "[1,2,3]";
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("actual is not a JSONObject", e.getMessage());
     }
 
-    public void testAssertEquals_String_JSONArray() {
-        try {
-            String expected = "[1,2,3]";
-            JSONArray actual = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Arrays should be equal");
-        }
+    @Test
+    void testAssertEquals_String_JSONArray() {
+        String expected = "[1,2,3]";
+        JSONArray actual = JSONArray.fromObject("[1,2,3]");
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Arrays should be equal");
     }
 
-    public void testAssertEquals_String_JSONArray_fail() {
-        try {
-            String expected = "{1,2,3}";
-            JSONArray actual = JSONArray.fromObject("[1,2,3]");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected is not a JSONArray");
-        }
+    @Test
+    void testAssertEquals_String_JSONArray_fail() {
+        String expected = "{1,2,3}";
+        JSONArray actual = JSONArray.fromObject("[1,2,3]");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("expected is not a JSONArray", e.getMessage());
     }
 
-    public void testAssertEquals_String_JSONNull() {
-        try {
-            String expected = "null";
-            JSONNull actual = JSONNull.getInstance();
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Should be equal");
-        }
+    @Test
+    void testAssertEquals_String_JSONNull() {
+        String expected = "null";
+        JSONNull actual = JSONNull.getInstance();
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Should be equal");
     }
 
-    public void testAssertEquals_String_JSONObject() {
-        try {
-            String expected = "{\"str\":\"json\"}";
-            JSONObject actual = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Objects should be equal");
-        }
+    @Test
+    void testAssertEquals_String_JSONObject() {
+        String expected = "{\"str\":\"json\"}";
+        JSONObject actual = JSONObject.fromObject("{\"str\":\"json\"}");
+        assertDoesNotThrow(() -> JSONAssert.assertEquals(expected, actual), "Objects should be equal");
     }
 
-    public void testAssertEquals_String_JSONObject_fail() {
-        try {
-            String expected = "[1,2,3]";
-            JSONObject actual = JSONObject.fromObject("{\"str\":\"json\"}");
-            JSONAssert.assertEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected is not a JSONObject");
-        }
+    @Test
+    void testAssertEquals_String_JSONObject_fail() {
+        String expected = "[1,2,3]";
+        JSONObject actual = JSONObject.fromObject("{\"str\":\"json\"}");
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(expected, actual));
+        assertEquals("expected is not a JSONObject", e.getMessage());
     }
 
-    public void testAssertJsonEquals_garbage_json() {
-        try {
-            String expected = "garbage";
-            String actual = "null";
-            JSONAssert.assertJsonEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "expected is not a valid JSON string");
-        }
+    @Test
+    void testAssertJsonEquals_garbage_json() {
+        String expected = "garbage";
+        String actual = "null";
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertJsonEquals(expected, actual));
+        assertEquals("expected is not a valid JSON string", e.getMessage());
     }
 
-    public void testAssertJsonEquals_json_garbage() {
-        try {
-            String expected = "null";
-            String actual = "garbage";
-            JSONAssert.assertJsonEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            assertEquals(e.getMessage(), "actual is not a valid JSON string");
-        }
+    @Test
+    void testAssertJsonEquals_json_garbage() {
+        String expected = "null";
+        String actual = "garbage";
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertJsonEquals(expected, actual));
+        assertEquals("actual is not a valid JSON string", e.getMessage());
     }
 
-    public void testAssertJsonEquals_jsonArray_jsonArray() {
-        try {
-            String expected = "[1,2,3]";
-            String actual = "[1,2,3]";
-            JSONAssert.assertJsonEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Strings should be valid JSON and equal");
-        }
+    @Test
+    void testAssertJsonEquals_jsonArray_jsonArray() {
+        String expected = "[1,2,3]";
+        String actual = "[1,2,3]";
+        assertDoesNotThrow(
+                () -> JSONAssert.assertJsonEquals(expected, actual), "Strings should be valid JSON and equal");
     }
 
-    public void testAssertJsonEquals_jsonNull_jsonNull() {
-        try {
-            String expected = "null";
-            String actual = "null";
-            JSONAssert.assertJsonEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Strings should be valid JSON and equal");
-        }
+    @Test
+    void testAssertJsonEquals_jsonNull_jsonNull() {
+        String expected = "null";
+        String actual = "null";
+        assertDoesNotThrow(
+                () -> JSONAssert.assertJsonEquals(expected, actual), "Strings should be valid JSON and equal");
     }
 
-    public void testAssertJsonEquals_jsonObject_jsonObject() {
-        try {
-            String expected = "{\"str\":\"json\"}";
-            String actual = "{\"str\":\"json\"}";
-            JSONAssert.assertJsonEquals(expected, actual);
-        } catch (AssertionFailedError e) {
-            fail("Strings should be valid JSON and equal");
-        }
+    @Test
+    void testAssertJsonEquals_jsonObject_jsonObject() {
+        String expected = "{\"str\":\"json\"}";
+        String actual = "{\"str\":\"json\"}";
+        assertDoesNotThrow(
+                () -> JSONAssert.assertJsonEquals(expected, actual), "Strings should be valid JSON and equal");
     }
 
-    public void testAssertNotNull_JSONNull() {
-        try {
-            JSONAssert.assertNotNull(JSONNull.getInstance());
-            fail("Parameter is null and assertion did not fail");
-        } catch (AssertionFailedError e) {
-            if (!e.getMessage().equals("Object is null")) {
-                fail("Parameter is null and assertion did not fail");
-            }
-        }
+    @Test
+    void testAssertNotNull_JSONNull() {
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertNotNull(JSONNull.getInstance()));
+        assertEquals("Object is null", e.getMessage());
     }
 
-    public void testAssertNotNull_jsonObject_null() {
-        try {
-            JSONAssert.assertNotNull(new JSONObject(true));
-            fail("Parameter is null and assertion did not fail");
-        } catch (AssertionFailedError e) {
-            if (!e.getMessage().equals("Object is null")) {
-                fail("Parameter is null and assertion did not fail");
-            }
-        }
+    @Test
+    void testAssertNotNull_jsonObject_null() {
+        AssertionFailedError e =
+                assertThrows(AssertionFailedError.class, () -> JSONAssert.assertNotNull(new JSONObject(true)));
+        assertEquals("Object is null ==> expected: <false> but was: <true>", e.getMessage());
     }
 
-    public void testAssertNotNull_null() {
-        try {
-            JSONAssert.assertNotNull(null);
-            fail("Parameter is null and assertion did not fail");
-        } catch (AssertionFailedError e) {
-            if (!e.getMessage().equals("Object is null")) {
-                fail("Parameter is null and assertion did not fail");
-            }
-        }
+    @Test
+    void testAssertNotNull_null() {
+        AssertionFailedError e = assertThrows(AssertionFailedError.class, () -> JSONAssert.assertNotNull(null));
+        assertEquals("Object is null", e.getMessage());
     }
 
-    public void testAssertNull_JSONNull() {
-        try {
-            JSONAssert.assertNull(JSONNull.getInstance());
-        } catch (AssertionFailedError e) {
-            fail("Parameter is null and assertion failed");
-        }
+    @Test
+    void testAssertNull_JSONNull() {
+        assertDoesNotThrow(
+                () -> JSONAssert.assertNull(JSONNull.getInstance()), "Parameter is null and assertion failed");
     }
 
-    public void testAssertNull_jsonObject_null() {
-        try {
-            JSONAssert.assertNull(new JSONObject(true));
-        } catch (AssertionFailedError e) {
-            fail("Parameter is null and assertion failed");
-        }
+    @Test
+    void testAssertNull_jsonObject_null() {
+        assertDoesNotThrow(() -> JSONAssert.assertNull(new JSONObject(true)), "Parameter is null and assertion failed");
     }
 
-    public void testAssertNull_null() {
-        try {
-            JSONAssert.assertNull(null);
-        } catch (AssertionFailedError e) {
-            fail("Parameter is null and assertion failed");
-        }
+    @Test
+    void testAssertNull_null() {
+        assertDoesNotThrow(() -> JSONAssert.assertNull(null), "Parameter is null and assertion failed");
     }
 }

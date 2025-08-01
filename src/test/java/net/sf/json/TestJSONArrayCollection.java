@@ -15,20 +15,10 @@
  */
 package net.sf.json;
 
-import junit.framework.TestCase;
-
 /**
  * @author Matt Small <msmall@wavemaker.com>
  */
-public class TestJSONArrayCollection extends TestCase {
-
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayCollection.class);
-    }
-
-    public TestJSONArrayCollection(String testName) {
-        super(testName);
-    }
+class TestJSONArrayCollection {
 
     /*
     public void testErrorInList() throws Exception {

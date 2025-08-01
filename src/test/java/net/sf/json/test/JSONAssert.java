@@ -19,7 +19,6 @@ package net.sf.json.test;
 import java.util.Iterator;
 import java.util.SortedSet;
 import java.util.TreeSet;
-import junit.framework.Assert;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
 import net.sf.json.JSON;
@@ -29,13 +28,14 @@ import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 import net.sf.json.util.JSONUtils;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Provides assertions on equality for JSON strings and JSON types.
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class JSONAssert extends Assert {
+public class JSONAssert extends Assertions {
     /**
      * Asserts that two JSON values are equal.
      */
@@ -171,29 +171,24 @@ public class JSONAssert extends Assert {
                             header + "arrays first differed at element [" + i + "];", (JSONArray) o1, (JSONArray) o2);
                 } else {
                     if (o1 instanceof String) {
-                        assertEquals(
-                                header + "arrays first differed at element [" + i + "];",
-                                (String) o1,
-                                String.valueOf(o2));
+                        assertEquals(o1, String.valueOf(o2), header + "arrays first differed at element [" + i + "];");
                     } else if (o2 instanceof String) {
-                        assertEquals(
-                                header + "arrays first differed at element [" + i + "];", String.valueOf(o1), (String)
-                                        o2);
+                        assertEquals(String.valueOf(o1), o2, header + "arrays first differed at element [" + i + "];");
                     } else {
                         Morpher m1 = JSONUtils.getMorpherRegistry().getMorpherFor(o1.getClass());
                         Morpher m2 = JSONUtils.getMorpherRegistry().getMorpherFor(o2.getClass());
                         if (m1 != null && m1 != IdentityObjectMorpher.getInstance()) {
                             assertEquals(
-                                    header + "arrays first differed at element [" + i + "];",
                                     o1,
-                                    JSONUtils.getMorpherRegistry().morph(o1.getClass(), o2));
+                                    JSONUtils.getMorpherRegistry().morph(o1.getClass(), o2),
+                                    header + "arrays first differed at element [" + i + "];");
                         } else if (m2 != null && m2 != IdentityObjectMorpher.getInstance()) {
                             assertEquals(
-                                    header + "arrays first differed at element [" + i + "];",
                                     JSONUtils.getMorpherRegistry().morph(o1.getClass(), o1),
-                                    o2);
+                                    o2,
+                                    header + "arrays first differed at element [" + i + "];");
                         } else {
-                            assertEquals(header + "arrays first differed at element [" + i + "];", o1, o2);
+                            assertEquals(o1, o2, header + "arrays first differed at element [" + i + "];");
                         }
                     }
                 }
@@ -228,9 +223,9 @@ public class JSONAssert extends Assert {
         if (actual == null) {
             fail(header + "actual string was null");
         } else if (expected == null) {
-            assertEquals(header, "null", actual);
+            assertEquals("null", actual, header);
         } else {
-            assertEquals(header, expected.toString(), actual);
+            assertEquals(expected.toString(), actual, header);
         }
     }
 
@@ -290,29 +285,29 @@ public class JSONAssert extends Assert {
             }
 
             if (o1 instanceof JSONObject && o2 instanceof JSONObject) {
-                assertEquals(header + "objects differed at key [" + key + "];", (JSONObject) o1, (JSONObject) o2);
+                assertEquals(o1, o2, header + "objects differed at key [" + key + "];");
             } else if (o1 instanceof JSONArray && o2 instanceof JSONArray) {
-                assertEquals(header + "objects differed at key [" + key + "];", (JSONArray) o1, (JSONArray) o2);
+                assertEquals(o1, o2, header + "objects differed at key [" + key + "];");
             } else {
                 if (o1 instanceof String) {
-                    assertEquals(header + "objects differed at key [" + key + "];", (String) o1, String.valueOf(o2));
+                    assertEquals(o1, String.valueOf(o2), header + "objects differed at key [" + key + "];");
                 } else if (o2 instanceof String) {
-                    assertEquals(header + "objects differed at key [" + key + "];", String.valueOf(o1), (String) o2);
+                    assertEquals(String.valueOf(o1), o2, header + "objects differed at key [" + key + "];");
                 } else {
                     Morpher m1 = JSONUtils.getMorpherRegistry().getMorpherFor(o1.getClass());
                     Morpher m2 = JSONUtils.getMorpherRegistry().getMorpherFor(o2.getClass());
                     if (m1 != null && m1 != IdentityObjectMorpher.getInstance()) {
                         assertEquals(
-                                header + "objects differed at key [" + key + "];",
                                 o1,
-                                JSONUtils.getMorpherRegistry().morph(o1.getClass(), o2));
+                                JSONUtils.getMorpherRegistry().morph(o1.getClass(), o2),
+                                header + "objects differed at key [" + key + "];");
                     } else if (m2 != null && m2 != IdentityObjectMorpher.getInstance()) {
                         assertEquals(
-                                header + "objects differed at key [" + key + "];",
                                 JSONUtils.getMorpherRegistry().morph(o1.getClass(), o1),
-                                o2);
+                                o2,
+                                header + "objects differed at key [" + key + "];");
                     } else {
-                        assertEquals(header + "objects differed at key [" + key + "];", o1, o2);
+                        assertEquals(o1, o2, header + "objects differed at key [" + key + "];");
                     }
                 }
             }
@@ -383,9 +378,9 @@ public class JSONAssert extends Assert {
         if (expected == null) {
             fail(header + "expected was null");
         } else if (actual == null) {
-            assertEquals(header, expected, "null");
+            assertEquals(expected, "null", header);
         } else {
-            assertEquals(header, expected, actual.toString());
+            assertEquals(expected, actual.toString(), header);
         }
     }
 
@@ -458,7 +453,7 @@ public class JSONAssert extends Assert {
     public static void assertNotNull(String message, JSON json) {
         String header = message == null ? "" : message + ": ";
         if (json instanceof JSONObject) {
-            assertFalse(header + "Object is null", ((JSONObject) json).isNullObject());
+            assertFalse(((JSONObject) json).isNullObject(), header + "Object is null");
         } else if (JSONNull.getInstance().equals(json)) {
             fail(header + "Object is null");
         }
@@ -487,7 +482,7 @@ public class JSONAssert extends Assert {
     public static void assertNull(String message, JSON json) {
         String header = message == null ? "" : message + ": ";
         if (json instanceof JSONObject) {
-            assertTrue(header + "Object is not null", ((JSONObject) json).isNullObject());
+            assertTrue(((JSONObject) json).isNullObject(), header + "Object is not null");
         } else if (!JSONNull.getInstance().equals(json)) {
             fail(header + "Object is not null");
         }

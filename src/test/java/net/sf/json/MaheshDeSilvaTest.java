@@ -1,7 +1,11 @@
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Arrays;
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 /**
  * This came via e-mail.
@@ -29,8 +33,9 @@ import junit.framework.TestCase;
  *
  * @author Mahesh De Silva
  */
-public class MaheshDeSilvaTest extends TestCase {
-    public void testShouldHandleNullStringInJsonFormattedString() {
+class MaheshDeSilvaTest {
+    @Test
+    void testShouldHandleNullStringInJsonFormattedString() {
         String jsonTest = "[\"null\",\"aValue\"]";
         assertTrue(jsonTest.contains("\"null\""));
         assertFalse(jsonTest.contains("\"\\\"null\\\"\""));
@@ -38,7 +43,8 @@ public class MaheshDeSilvaTest extends TestCase {
         assertFalse(convertedBack.contains("\"\\\"null\\\"\""));
     }
 
-    public void testShouldHandleNullStringLiteral() {
+    @Test
+    void testShouldHandleNullStringLiteral() {
         JSONArray jsonArray1 = JSONArray.fromObject(Arrays.asList(null, "b"));
         JSONArray jsonArray2 = JSONArray.fromObject(Arrays.asList(JSONNull.getInstance(), "b"));
         JSONArray jsonArray3 = JSONArray.fromObject(Arrays.asList("null", "b"));

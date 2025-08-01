@@ -16,43 +16,34 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MapToDateMorpherTest extends AbstractObjectMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(MapToDateMorpherTest.class);
-        suite.setName("MapToDateMorpher Tests");
-        return suite;
-    }
-
+class MapToDateMorpherTest extends AbstractObjectMorpherTestCase {
     private MapToDateMorpher anotherMorpher;
     private MapToDateMorpher anotherMorpherWithDefaultValue;
     private MapToDateMorpher morpher;
     private MapToDateMorpher morpherWithDefaultValue;
 
-    public MapToDateMorpherTest(String name) {
-        super(name);
-    }
-
     // -----------------------------------------------------------------------
 
-    public void testMorph() {
-        Map map = new HashMap();
+    @Test
+    void testMorph() {
+        Map<String, Integer> map = new HashMap<>();
         map.put("year", 2007);
         map.put("month", 5);
         map.put("day", 17);
@@ -74,30 +65,29 @@ public class MapToDateMorpherTest extends AbstractObjectMorpherTestCase {
         assertEquals(150, c.get(Calendar.MILLISECOND));
     }
 
-    public void testMorph_noConversion() {
+    @Test
+    void testMorph_noConversion() {
         Date expected = new Date();
         Date actual = (Date) morpher.morph(expected);
         assertEquals(expected, actual);
     }
 
-    public void testMorph_notSupported() {
-        try {
-            morpher.morph(new Object[0]);
-            fail("Should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testMorph_notSupported() {
+        Assertions.assertThrows(MorphException.class, () -> morpher.morph(new Object[0]));
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    public void testMorph_useDefault() {
+    @Test
+    void testMorph_useDefault() {
         Date expected = new Date();
         morpher.setDefaultValue(expected);
         morpher.setUseDefault(true);
-        Date actual = (Date) morpher.morph(new HashMap());
+        Date actual = (Date) morpher.morph(new HashMap<>());
         assertEquals(expected, actual);
     }
 
@@ -121,8 +111,8 @@ public class MapToDateMorpherTest extends AbstractObjectMorpherTestCase {
         return morpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new MapToDateMorpher();
         morpherWithDefaultValue = new MapToDateMorpher(new Date());
         anotherMorpher = new MapToDateMorpher();

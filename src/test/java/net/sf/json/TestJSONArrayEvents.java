@@ -16,55 +16,52 @@
 
 package net.sf.json;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.util.ArrayList;
 import java.util.List;
-import junit.framework.TestCase;
 import net.sf.json.sample.JsonEventAdpater;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONArrayEvents extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONArrayEvents.class);
-    }
+class TestJSONArrayEvents {
 
     private JsonConfig jsonConfig;
     private JsonEventAdpater jsonEventAdpater;
 
-    public TestJSONArrayEvents(String name) {
-        super(name);
-    }
-
-    public void testFromObject_array() {
+    @Test
+    void testFromObject_array() {
         JSONArray.fromObject(new Object[] {"1", "2", "3"}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_error() {
-        try {
-            JSONArray.fromObject("{}", jsonConfig);
-            fail("A JSONException was expected");
-        } catch (JSONException expected) {
-            assertEquals(1, jsonEventAdpater.getError());
-            assertEquals(0, jsonEventAdpater.getWarning());
-            assertEquals(0, jsonEventAdpater.getArrayStart());
-            assertEquals(0, jsonEventAdpater.getArrayEnd());
-            assertEquals(0, jsonEventAdpater.getObjectStart());
-            assertEquals(0, jsonEventAdpater.getObjectEnd());
-            assertEquals(0, jsonEventAdpater.getElementAdded());
-            assertEquals(0, jsonEventAdpater.getPropertySet());
-        }
+    @Test
+    void testFromObject_error() {
+        assertThrows(JSONException.class, () -> JSONArray.fromObject("{}", jsonConfig));
+        assertEquals(1, jsonEventAdpater.getError());
+        assertEquals(0, jsonEventAdpater.getWarning());
+        assertEquals(0, jsonEventAdpater.getArrayStart());
+        assertEquals(0, jsonEventAdpater.getArrayEnd());
+        assertEquals(0, jsonEventAdpater.getObjectStart());
+        assertEquals(0, jsonEventAdpater.getObjectEnd());
+        assertEquals(0, jsonEventAdpater.getElementAdded());
+        assertEquals(0, jsonEventAdpater.getPropertySet());
     }
 
-    public void testFromObject_JSONArray() {
+    @Test
+    void testFromObject_JSONArray() {
         JSONArray array = new JSONArray().element("1").element("2").element("3");
         JSONArray.fromObject(array, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_list() {
-        List list = new ArrayList();
+    @Test
+    void testFromObject_list() {
+        List<String> list = new ArrayList<>();
         list.add("1");
         list.add("2");
         list.add("3");
@@ -72,48 +69,56 @@ public class TestJSONArrayEvents extends TestCase {
         assertEvents();
     }
 
-    public void testFromObject_primitive_boolean() {
+    @Test
+    void testFromObject_primitive_boolean() {
         JSONArray.fromObject(new boolean[] {true, false, true}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_byte() {
+    @Test
+    void testFromObject_primitive_byte() {
         JSONArray.fromObject(new byte[] {(byte) 1, (byte) 2, (byte) 3}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_double() {
+    @Test
+    void testFromObject_primitive_double() {
         JSONArray.fromObject(new double[] {1d, 2d, 3d}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_float() {
+    @Test
+    void testFromObject_primitive_float() {
         JSONArray.fromObject(new float[] {1f, 2f, 3f}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_int() {
+    @Test
+    void testFromObject_primitive_int() {
         JSONArray.fromObject(new int[] {1, 2, 3}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_long() {
+    @Test
+    void testFromObject_primitive_long() {
         JSONArray.fromObject(new long[] {1L, 2L, 3L}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_primitive_short() {
+    @Test
+    void testFromObject_primitive_short() {
         JSONArray.fromObject(new short[] {(short) 1, (short) 2, (short) 3}, jsonConfig);
         assertEvents();
     }
 
-    public void testFromObject_string() {
+    @Test
+    void testFromObject_string() {
         JSONArray.fromObject("[1,2,3]", jsonConfig);
         assertEvents();
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         jsonEventAdpater = new JsonEventAdpater();
         jsonConfig = new JsonConfig();
         jsonConfig.addJsonEventListener(jsonEventAdpater);

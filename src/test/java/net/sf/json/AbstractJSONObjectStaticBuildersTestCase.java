@@ -16,43 +16,47 @@
 
 package net.sf.json;
 
-import junit.framework.TestCase;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public abstract class AbstractJSONObjectStaticBuildersTestCase extends TestCase {
-    public AbstractJSONObjectStaticBuildersTestCase(String testName) {
-        super(testName);
-    }
+abstract class AbstractJSONObjectStaticBuildersTestCase {
 
-    public void testFromObject() {
+    @Test
+    void testFromObject() {
         JSONObject json = JSONObject.fromObject(getSource());
         assertJSONObject(json, getProperties());
-        assertTrue(!json.has("class"));
+        assertFalse(json.has("class"));
     }
 
-    public void testFromObject_excludes() {
+    @Test
+    void testFromObject_excludes() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(getExclusions());
         JSONObject json = JSONObject.fromObject(getSource(), jsonConfig);
         assertJSONObject(json, getProperties());
         String[] excluded = getExclusions();
         for (String s : excluded) {
-            assertTrue(!json.has(s));
+            assertFalse(json.has(s));
         }
-        assertTrue(!json.has("class"));
-        assertTrue(!json.has("pexcluded"));
+        assertFalse(json.has("class"));
+        assertFalse(json.has("pexcluded"));
     }
 
-    public void testFromObject_excludes_ignoreDefaults() {
+    @Test
+    void testFromObject_excludes_ignoreDefaults() {
         JsonConfig jsonConfig = new JsonConfig();
         jsonConfig.setExcludes(getExclusions());
         jsonConfig.setIgnoreDefaultExcludes(true);
         JSONObject json = JSONObject.fromObject(getSource(), jsonConfig);
         assertJSONObject(json, getProperties());
-        assertTrue(!json.has("class"));
-        assertTrue(!json.has("pexcluded"));
+        assertFalse(json.has("class"));
+        assertFalse(json.has("pexcluded"));
     }
 
     protected String[] getExclusions() {

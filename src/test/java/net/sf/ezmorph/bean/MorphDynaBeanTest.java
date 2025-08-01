@@ -16,96 +16,76 @@
 
 package net.sf.ezmorph.bean;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphException;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class MorphDynaBeanTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(MorphDynaBeanTest.class);
-        suite.setName("MorphDynaBean Tests");
-        return suite;
-    }
+class MorphDynaBeanTest {
 
     private MorphDynaBean dynaBean;
     private MorphDynaBean primitiveDynaBean;
 
-    public MorphDynaBeanTest(String name) {
-        super(name);
+    @Test
+    void testConstructor_fail_Exception() {
+        dynaBean = new MorphDynaBean();
+        assertThrows(
+                MorphException.class, () -> dynaBean.setDynaBeanClass(new MorphDynaClass("J", String.class, null)));
     }
 
-    public void testConstructor_fail_Exception() {
-        try {
-            dynaBean = new MorphDynaBean();
-            dynaBean.setDynaBeanClass(new MorphDynaClass("J", String.class, null));
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testConstructor_fail_invalidPropertyClass() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("object", new Object());
+        dynaBean = new MorphDynaBean();
+        assertThrows(MorphException.class, () -> dynaBean.setDynaBeanClass(new MorphDynaClass(properties)));
     }
 
-    public void testConstructor_fail_invalidPropertyClass() {
-        try {
-            Map properties = new HashMap();
-            properties.put("object", new Object());
-            dynaBean = new MorphDynaBean();
-            dynaBean.setDynaBeanClass(new MorphDynaClass(properties));
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testConstructor_fail_unknownClass() {
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("object", "java.lang.Unknown");
+        dynaBean = new MorphDynaBean();
+        assertThrows(MorphException.class, () -> dynaBean.setDynaBeanClass(new MorphDynaClass(properties)));
     }
 
-    public void testConstructor_fail_unkownClass() {
-        try {
-            Map properties = new HashMap();
-            properties.put("object", "java.lang.Unknown");
-            dynaBean = new MorphDynaBean();
-            dynaBean.setDynaBeanClass(new MorphDynaClass(properties));
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
-    }
-
-    public void testContains() {
+    @Test
+    void testContains() {
         assertFalse(dynaBean.contains("map", "key"));
         dynaBean.set("map", "key", "value");
         assertTrue(dynaBean.contains("map", "key"));
     }
 
-    public void testContains_fail_Exception() {
-        try {
-            dynaBean.contains("byte", "key");
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testContains_fail_Exception() {
+        assertThrows(MorphException.class, () -> dynaBean.contains("byte", "key"));
     }
 
-    public void testEquals() {
-        assertTrue(dynaBean.equals(dynaBean));
-        assertFalse(dynaBean.equals(null));
-        assertFalse(dynaBean.equals(primitiveDynaBean));
-        assertFalse(dynaBean.equals(new Object()));
+    @Test
+    void testEquals() {
+        assertEquals(dynaBean, dynaBean);
+        assertNotEquals(null, dynaBean);
+        assertNotEquals(dynaBean, primitiveDynaBean);
+        assertNotEquals(dynaBean, new Object());
     }
 
-    public void testGet_simple_nullValue() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testGet_simple_nullValue() throws Exception {
+        Map<String, Object> properties = new HashMap<>();
         properties.put("int", Integer.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         dynaBean = (MorphDynaBean) dynaClass.newInstance();
@@ -118,42 +98,32 @@ public class MorphDynaBeanTest extends TestCase {
         assertEquals(0, ((Integer) dynaBean.get("int")).intValue());
     }
 
-    public void testGet_mapped_nullValue() throws Exception {
-        Map properties = new HashMap();
+    @Test
+    void testGet_mapped_nullValue() throws Exception {
+        Map<String, Object> properties = new HashMap<>();
         properties.put("map", Map.class);
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         dynaBean = (MorphDynaBean) dynaClass.newInstance();
         assertNull(dynaBean.get("map", "key"));
     }
 
-    public void testGet_unindexed() {
-        try {
-            dynaBean.get("byte", 0);
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testGet_unindexed() {
+        assertThrows(MorphException.class, () -> dynaBean.get("byte", 0));
     }
 
-    public void testGet_unknownProperty() {
-        try {
-            dynaBean.get("unknown");
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testGet_unknownProperty() {
+        assertThrows(MorphException.class, () -> dynaBean.get("unknown"));
     }
 
-    public void testGet_unmapped() {
-        try {
-            dynaBean.get("byte", "key");
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testGet_unmapped() {
+        assertThrows(MorphException.class, () -> dynaBean.get("byte", "key"));
     }
 
-    public void testGetSet() {
+    @Test
+    void testGetSet() {
         dynaBean.set("byte", Byte.valueOf("1"));
         dynaBean.set("short", Short.valueOf("1"));
         dynaBean.set("int", Integer.valueOf("1"));
@@ -177,7 +147,8 @@ public class MorphDynaBeanTest extends TestCase {
         assertEquals('a', dynaBean.get("char"));
     }
 
-    public void testGetSet_primitives() {
+    @Test
+    void testGetSet_primitives() {
         primitiveDynaBean.set("byte", Byte.valueOf("1"));
         primitiveDynaBean.set("short", Short.valueOf("1"));
         primitiveDynaBean.set("int", Integer.valueOf("1"));
@@ -197,7 +168,8 @@ public class MorphDynaBeanTest extends TestCase {
         assertEquals('a', primitiveDynaBean.get("char"));
     }
 
-    public void testGetSetIndexed_Array() {
+    @Test
+    void testGetSetIndexed_Array() {
         dynaBean.set("strs", 0, "hello");
         dynaBean.set("strs", 1, "world");
 
@@ -205,7 +177,8 @@ public class MorphDynaBeanTest extends TestCase {
         assertEquals("world", dynaBean.get("strs", 1));
     }
 
-    public void testGetSetIndexed_List() {
+    @Test
+    void testGetSetIndexed_List() {
         dynaBean.set("list", 0, "hello");
         dynaBean.set("list", 1, "world");
 
@@ -213,53 +186,44 @@ public class MorphDynaBeanTest extends TestCase {
         assertEquals("world", dynaBean.get("list", 1));
     }
 
-    public void testGetSetMapped() {
+    @Test
+    void testGetSetMapped() {
         dynaBean.set("map", "key", "value");
         assertEquals("value", dynaBean.get("map", "key"));
     }
 
-    public void testHashcode() {
+    @Test
+    void testHashcode() {
         assertEquals(dynaBean.hashCode(), dynaBean.hashCode());
         assertTrue(dynaBean.hashCode() != primitiveDynaBean.hashCode());
     }
 
-    public void testRemove() {
+    @Test
+    void testRemove() {
         dynaBean.set("map", "key", "value");
         assertTrue(dynaBean.contains("map", "key"));
         dynaBean.remove("map", "key");
         assertFalse(dynaBean.contains("map", "key"));
     }
 
-    public void testRemove_fail_Exception() {
-        try {
-            dynaBean.remove("byte", "key");
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testRemove_fail_Exception() {
+        assertThrows(MorphException.class, () -> dynaBean.remove("byte", "key"));
     }
 
-    public void testSet_unindexed() {
-        try {
-            dynaBean.set("byte", 0, null);
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testSet_unindexed() {
+        assertThrows(MorphException.class, () -> dynaBean.set("byte", 0, null));
     }
 
-    public void testSet_unmapped() {
-        try {
-            dynaBean.set("byte", "key", null);
-            fail("should have thrown a MorphException");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testSet_unmapped() {
+        assertThrows(MorphException.class, () -> dynaBean.set("byte", "key", null));
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        Map properties = new HashMap();
+    @BeforeEach
+    void setUp() throws Exception {
+        Map<String, Class<?>> properties = new HashMap<>();
         properties.put("byte", Byte.class);
         properties.put("short", Short.class);
         properties.put("int", Integer.class);
@@ -276,7 +240,7 @@ public class MorphDynaBeanTest extends TestCase {
         MorphDynaClass dynaClass = new MorphDynaClass(properties);
         dynaBean = (MorphDynaBean) dynaClass.newInstance();
 
-        properties = new HashMap();
+        properties = new HashMap<>();
         properties.put("byte", byte.class);
         properties.put("short", short.class);
         properties.put("int", int.class);

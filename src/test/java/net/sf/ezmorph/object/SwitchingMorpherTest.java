@@ -16,12 +16,11 @@
 
 package net.sf.ezmorph.object;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 import java.util.HashMap;
 import java.util.Map;
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.bean.BeanMorpher;
@@ -29,30 +28,19 @@ import net.sf.ezmorph.object.sample.BeanA;
 import net.sf.ezmorph.object.sample.BeanB;
 import net.sf.ezmorph.object.sample.WrapperA;
 import net.sf.ezmorph.object.sample.WrapperB;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class SwitchingMorpherTest extends TestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(SwitchingMorpherTest.class);
-        suite.setName("SwitchingMorpher Tests");
-        return suite;
-    }
-
+class SwitchingMorpherTest {
     private SwitchingMorpher morpher;
-
-    public SwitchingMorpherTest(String name) {
-        super(name);
-    }
 
     // -----------------------------------------------------------------------
 
-    public void testMorphWrapperAToBeanA() {
+    @Test
+    void testMorphWrapperAToBeanA() {
         WrapperA wrapper = new WrapperA();
         wrapper.setInteger("12");
         BeanA actual = (BeanA) morpher.morph(wrapper);
@@ -61,7 +49,8 @@ public class SwitchingMorpherTest extends TestCase {
         assertEquals(expected, actual);
     }
 
-    public void testMorphWrapperBToBeanB() {
+    @Test
+    void testMorphWrapperBToBeanB() {
         WrapperB wrapper = new WrapperB();
         wrapper.setBool("false");
         BeanB actual = (BeanB) morpher.morph(wrapper);
@@ -70,13 +59,14 @@ public class SwitchingMorpherTest extends TestCase {
         assertEquals(expected, actual);
     }
 
-    public void testMorph_null() {
+    @Test
+    void testMorph_null() {
         assertNull(morpher.morph(null));
     }
 
-    @Override
-    protected void setUp() throws Exception {
-        Map classMap = new HashMap();
+    @BeforeEach
+    void setUp() {
+        Map<Class<?>, Class<?>> classMap = new HashMap<>();
         classMap.put(WrapperA.class, BeanA.class);
         classMap.put(WrapperB.class, BeanB.class);
         MorpherRegistry morpherRegistry = new MorpherRegistry();

@@ -16,103 +16,92 @@
 
 package net.sf.ezmorph.primitive;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
-import junit.textui.TestRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.Morpher;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class FloatMorpherTest extends AbstractMorpherTestCase {
-    public static void main(String[] args) {
-        TestRunner.run(suite());
-    }
-
-    public static Test suite() {
-        TestSuite suite = new TestSuite(FloatMorpherTest.class);
-        suite.setName("FloatMorpher Tests");
-        return suite;
-    }
-
-    private Morpher anotherMorpher;
-    private Morpher anotherMorpherWithDefaultValue;
-    private Morpher morpher;
-    private Morpher morpherWithDefaultValue;
-
-    public FloatMorpherTest(String name) {
-        super(name);
-    }
+class FloatMorpherTest extends AbstractMorpherTestCase {
+    private FloatMorpher anotherMorpher;
+    private FloatMorpher anotherMorpherWithDefaultValue;
+    private FloatMorpher morpher;
+    private FloatMorpher morpherWithDefaultValue;
 
     // -----------------------------------------------------------------------
 
-    public void testFloatMorph_throwException() {
-        try {
-            ((FloatMorpher) getMorpher()).morph(String.valueOf("A"));
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testFloatMorph_throwException() {
+        assertThrows(MorphException.class, () -> morpher.morph("A"));
     }
 
-    public void testFloatMorph_throwException_null() {
-        try {
-            ((FloatMorpher) getMorpher()).morph(null);
-            fail("Should have thrown an Exception");
-        } catch (MorphException expected) {
-            // ok
-        }
+    @Test
+    void testFloatMorph_throwException_null() {
+        assertThrows(MorphException.class, () -> morpher.morph(null));
     }
 
-    public void testFloatMorph_useDefault() {
+    @Test
+    void testFloatMorph_useDefault() {
         String expected = String.valueOf("A");
-        float actual = ((FloatMorpher) getMorpherWithDefaultValue()).morph(expected);
+        float actual = morpherWithDefaultValue.morph(expected);
         assertEquals(0f, actual, 0f);
     }
 
-    public void testFloatMorph_useDefault_null() {
-        float actual = ((FloatMorpher) getMorpherWithDefaultValue()).morph(null);
+    @Test
+    void testFloatMorph_useDefault_null() {
+        float actual = morpherWithDefaultValue.morph(null);
         assertEquals(0f, actual, 0f);
     }
 
-    public void testFloatMorphDecimalValue_Number() {
-        float actual = ((FloatMorpher) getMorpher()).morph(3.1416d);
+    @Test
+    void testFloatMorphDecimalValue_Number() {
+        float actual = morpher.morph(3.1416d);
         assertEquals(3.1416f, actual, 0f);
     }
 
-    public void testFloatMorphDecimalValue_Number_outOfRange() {
-        float actual = ((FloatMorpher) getMorpher()).morph(Double.MAX_VALUE);
+    @Test
+    void testFloatMorphDecimalValue_Number_outOfRange() {
+        float actual = morpher.morph(Double.MAX_VALUE);
         assertEquals(Float.POSITIVE_INFINITY, actual, 0f);
     }
 
-    public void testFloatMorphDecimalValue_String() {
+    @Test
+    void testFloatMorphDecimalValue_String() {
         String expected = "3.1416";
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = morpher.morph(expected);
         assertEquals(3.1416f, actual, 0f);
     }
 
-    public void testFloatMorphMaxValue_Number() {
+    @Test
+    void testFloatMorphMaxValue_Number() {
         float expected = Float.MAX_VALUE;
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = morpher.morph(expected);
         assertEquals(expected, actual, 0f);
     }
 
-    public void testFloatMorphMaxValue_String() {
+    @Test
+    void testFloatMorphMaxValue_String() {
         String expected = String.valueOf(Float.MAX_VALUE);
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
-    public void testFloatMorphMinValue_Number() {
+    @Test
+    void testFloatMorphMinValue_Number() {
         float expected = Float.MIN_VALUE;
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = morpher.morph(expected);
         assertEquals(expected, actual, 0f);
     }
 
-    public void testFloatMorphMinValue_String() {
+    @Test
+    void testFloatMorphMinValue_String() {
         String expected = String.valueOf(Float.MIN_VALUE);
-        float actual = ((FloatMorpher) getMorpher()).morph(expected);
+        float actual = morpher.morph(expected);
         assertEquals(expected, String.valueOf(actual));
     }
 
@@ -127,7 +116,7 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
     }
 
     @Override
-    protected Class getMorphsToClass() {
+    protected Class<?> getMorphsToClass() {
         return Float.TYPE;
     }
 
@@ -141,8 +130,8 @@ public class FloatMorpherTest extends AbstractMorpherTestCase {
         return anotherMorpherWithDefaultValue;
     }
 
-    @Override
-    protected void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         morpher = new FloatMorpher();
         morpherWithDefaultValue = new FloatMorpher(0);
         anotherMorpher = new FloatMorpher();

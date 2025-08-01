@@ -16,36 +16,36 @@
 
 package net.sf.json.util;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Collections;
-import junit.framework.TestCase;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class TestJSONUtils extends TestCase {
-    public static void main(String[] args) {
-        junit.textui.TestRunner.run(TestJSONUtils.class);
-    }
-
-    public TestJSONUtils(String name) {
-        super(name);
-    }
-
-    public void testDoubleToString_infinite() {
+public class TestJSONUtils {
+    @Test
+    void testDoubleToString_infinite() {
         assertEquals("null", JSONUtils.doubleToString(Double.POSITIVE_INFINITY));
     }
 
-    public void testDoubleToString_nan() {
+    @Test
+    void testDoubleToString_nan() {
         assertEquals("null", JSONUtils.doubleToString(Double.NaN));
     }
 
-    public void testDoubleToString_trailingZeros() {
+    @Test
+    void testDoubleToString_trailingZeros() {
         assertEquals("200", JSONUtils.doubleToString(200.00000));
     }
 
-    public void testIsArray() {
+    @Test
+    void testIsArray() {
         assertTrue(JSONUtils.isArray(new Object[0]));
         assertTrue(JSONUtils.isArray(new boolean[0]));
         assertTrue(JSONUtils.isArray(new byte[0]));
@@ -75,84 +75,71 @@ public class TestJSONUtils extends TestCase {
         assertTrue(JSONUtils.isArray(new JSONArray()));
     }
 
-    public void testNumberToString_null() {
-        try {
-            JSONUtils.numberToString(null);
-            fail("Should have thrown a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testNumberToString_null() {
+        assertThrows(JSONException.class, () -> JSONUtils.numberToString(null));
     }
 
-    public void testQuote_emptyString() {
+    @Test
+    void testQuote_emptyString() {
         assertEquals("\"\"", JSONUtils.quote(""));
     }
 
-    public void testQuote_escapeChars() {
+    @Test
+    void testQuote_escapeChars() {
         assertEquals("\"\\b\\t\\n\\r\\f\"", JSONUtils.quote("\b\t\n\r\f"));
     }
 
-    public void testQuote_nullString() {
+    @Test
+    void testQuote_nullString() {
         assertEquals("\"\"", JSONUtils.quote(null));
     }
 
-    public void testStripQuotes_singleChar_doubleeQuote() {
+    @Test
+    void testStripQuotes_singleChar_doubleQuote() {
         String quoted = "\"";
         String actual = JSONUtils.stripQuotes(quoted);
         assertEquals(quoted, actual);
     }
 
-    public void testStripQuotes_singleChar_singleQuote() {
+    @Test
+    void testStripQuotes_singleChar_singleQuote() {
         String quoted = "'";
         String actual = JSONUtils.stripQuotes(quoted);
         assertEquals(quoted, actual);
     }
 
-    public void testStripQuotes_twoChars_doubleeQuote() {
+    @Test
+    void testStripQuotes_twoChars_doubleQuote() {
         String quoted = "\"\"";
         String actual = JSONUtils.stripQuotes(quoted);
         assertEquals("", actual);
     }
 
-    public void testStripQuotes_twoChars_singleQuote() {
+    @Test
+    void testStripQuotes_twoChars_singleQuote() {
         String quoted = "''";
         String actual = JSONUtils.stripQuotes(quoted);
         assertEquals("", actual);
     }
 
-    public void testValidity_inifiniteDouble() {
-        try {
-            JSONUtils.testValidity(Double.POSITIVE_INFINITY);
-            fail("Should have thrown a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testValidity_inifiniteDouble() {
+        assertThrows(JSONException.class, () -> JSONUtils.testValidity(Double.POSITIVE_INFINITY));
     }
 
-    public void testValidity_inifiniteFloat() {
-        try {
-            JSONUtils.testValidity(Float.POSITIVE_INFINITY);
-            fail("Should have thrown a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testValidity_inifiniteFloat() {
+        assertThrows(JSONException.class, () -> JSONUtils.testValidity(Float.POSITIVE_INFINITY));
     }
 
-    public void testValidity_nanDouble() {
-        try {
-            JSONUtils.testValidity(Double.NaN);
-            fail("Should have thrown a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testValidity_nanDouble() {
+        assertThrows(JSONException.class, () -> JSONUtils.testValidity(Double.NaN));
     }
 
-    public void testValidity_nanFloat() {
-        try {
-            JSONUtils.testValidity(Float.NaN);
-            fail("Should have thrown a JSONException");
-        } catch (JSONException expected) {
-            // ok
-        }
+    @Test
+    void testValidity_nanFloat() {
+        assertThrows(JSONException.class, () -> JSONUtils.testValidity(Float.NaN));
     }
 }
