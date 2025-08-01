@@ -17,7 +17,7 @@
 package net.sf.ezmorph.test;
 
 import java.util.List;
-import junit.framework.Assert;
+import org.junit.jupiter.api.Assertions;
 
 /**
  * Provides assertions on arrays (primitive and objects).<br>
@@ -25,7 +25,7 @@ import junit.framework.Assert;
  *
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
-public class ArrayAssertions extends Assert {
+public class ArrayAssertions extends Assertions {
     /**
      * Asserts that two boolean[] are equal.<br>
      *
@@ -480,7 +480,7 @@ public class ArrayAssertions extends Assert {
         }
 
         for (int i = 0; i < expecteds.length; i++) {
-            assertEquals(header + "arrays first differed at element [" + i + "];", expecteds[i], actuals[i], 0d);
+            assertEquals(expecteds[i], actuals[i], 0d, header + "arrays first differed at element [" + i + "];");
         }
     }
 
@@ -533,7 +533,7 @@ public class ArrayAssertions extends Assert {
         }
 
         for (int i = 0; i < expecteds.length; i++) {
-            assertEquals(header + "arrays first differed at element [" + i + "];", expecteds[i], actuals[i], 0f);
+            assertEquals(expecteds[i], actuals[i], 0f, header + "arrays first differed at element [" + i + "];");
         }
     }
 
@@ -751,6 +751,14 @@ public class ArrayAssertions extends Assert {
         } else {
             failNotEquals(message, expected, actual);
         }
+    }
+
+    private static void failNotEquals(String message, Object expected, Object actual) {
+        String formatted = "";
+        if (message != null && !message.isEmpty()) {
+            formatted = message + " ";
+        }
+        fail(formatted + "expected:<" + expected + "> but was:<" + actual + ">");
     }
 
     /**

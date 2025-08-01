@@ -21,12 +21,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
-import junit.framework.AssertionFailedError;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
@@ -46,7 +46,7 @@ class TestJSONAssert {
         two.element("world!");
 
         AssertionFailedError e = assertThrows(AssertionFailedError.class, () -> JSONAssert.assertEquals(one, two));
-        assertEquals("arrays first differed at element [2]; expected:<world[]> but was:<world[!]>", e.getMessage());
+        assertEquals("arrays first differed at element [2]; ==> expected: <world> but was: <world!>", e.getMessage());
     }
 
     @Test
@@ -423,7 +423,7 @@ class TestJSONAssert {
     void testAssertNotNull_jsonObject_null() {
         AssertionFailedError e =
                 assertThrows(AssertionFailedError.class, () -> JSONAssert.assertNotNull(new JSONObject(true)));
-        assertEquals("Object is null", e.getMessage());
+        assertEquals("Object is null ==> expected: <false> but was: <true>", e.getMessage());
     }
 
     @Test

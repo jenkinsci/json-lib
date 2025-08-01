@@ -18,8 +18,8 @@ package net.sf.ezmorph.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import junit.framework.AssertionFailedError;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
