@@ -34,6 +34,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.array.ObjectArrayMorpher;
@@ -52,8 +54,6 @@ import net.sf.json.util.PropertySetStrategy;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external
@@ -112,7 +112,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class JSONObject extends AbstractJSON implements JSON, Map<String, Object>, Comparable {
 
-    private static final Log log = LogFactory.getLog(JSONObject.class);
+    private static final Logger logger = Logger.getLogger(JSONObject.class.getName());
 
     /**
      * Creates a JSONObject.<br>
@@ -201,7 +201,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                 } else {
                     if (type.isPrimitive()) {
                         // assume assigned default value
-                        log.warn("Tried to assign null value to " + key + ":" + type.getName());
+                        logger.log(Level.WARNING, "Tried to assign null value to " + key + ":" + type.getName());
                         dynaBean.set(key, JSONUtils.getMorpherRegistry().morph(type, null));
                     } else {
                         dynaBean.set(key, null);
@@ -475,7 +475,9 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                 Property pd = getProperty(rootClass, bean, key, jsonConfig);
                 if (pd != null) {
                     if (!pd.isWritable()) {
-                        log.info("Property '" + key + "' of " + bean.getClass() + " has no write method. SKIPPED.");
+                        logger.log(
+                                Level.INFO,
+                                "Property '" + key + "' of " + bean.getClass() + " has no write method. SKIPPED.");
                         continue;
                     }
                     if (jsonConfig.getPropertySetStrategy() != null) {
@@ -518,8 +520,10 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                             } else if (beanClass == null || bean instanceof Map) {
                                 pd.set(bean, value, jsonConfig);
                             } else {
-                                log.warn("Tried to assign property " + key + ":" + type.getName() + " to bean of class "
-                                        + bean.getClass().getName());
+                                logger.log(
+                                        Level.WARNING,
+                                        "Tried to assign property " + key + ":" + type.getName() + " to bean of class "
+                                                + bean.getClass().getName());
                             }
                         } else {
                             if (jsonConfig.isHandleJettisonSingleElementArray()) {
@@ -557,7 +561,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     } else {
                         if (type.isPrimitive()) {
                             // assume assigned default value
-                            log.warn("Tried to assign null value to " + key + ":" + type.getName());
+                            logger.log(Level.WARNING, "Tried to assign null value to " + key + ":" + type.getName());
                             pd.set(bean, JSONUtils.getMorpherRegistry().morph(type, null), jsonConfig);
                         } else {
                             pd.set(bean, null, jsonConfig);
@@ -582,8 +586,10 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                                     || !jsonConfig.isIgnorePublicFields()) {
                                 setProperty(bean, name, value, jsonConfig);
                             } else {
-                                log.warn("Tried to assign property " + key + ":" + type.getName() + " to bean of class "
-                                        + bean.getClass().getName());
+                                logger.log(
+                                        Level.WARNING,
+                                        "Tried to assign property " + key + ":" + type.getName() + " to bean of class "
+                                                + bean.getClass().getName());
                             }
                         } else {
                             if (jsonConfig.isHandleJettisonSingleElementArray()) {
@@ -599,7 +605,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     } else {
                         if (type.isPrimitive()) {
                             // assume assigned default value
-                            log.warn("Tried to assign null value to " + key + ":" + type.getName());
+                            logger.log(Level.WARNING, "Tried to assign null value to " + key + ":" + type.getName());
                             setProperty(
                                     bean, name, JSONUtils.getMorpherRegistry().morph(type, null), jsonConfig);
                         } else {
@@ -702,7 +708,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     // bug 2565295
                     String warning = "Property '" + key + "' of " + beanClass + " has no read method. SKIPPED";
                     fireWarnEvent(warning, jsonConfig);
-                    log.info(warning);
+                    logger.log(Level.INFO, warning);
                     continue;
                 }
                 if (pd.getReadMethod() != null) {
@@ -742,7 +748,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                 } else {
                     String warning = "Property '" + key + "' of " + beanClass + " has no read method. SKIPPED";
                     fireWarnEvent(warning, jsonConfig);
-                    log.info(warning);
+                    logger.log(Level.INFO, warning);
                 }
             }
             // inspect public fields, this operation may fail under
@@ -786,7 +792,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     }
                 }
             } catch (Exception e) {
-                log.trace("Couldn't read public fields.", e);
+                logger.log(Level.FINEST, "Couldn't read public fields.", e);
             }
         } catch (JSONException jsone) {
             removeInstance(bean);
@@ -1225,7 +1231,8 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
         try {
             return isTransientField(beanClass.getDeclaredField(name), jsonConfig);
         } catch (Exception e) {
-            log.info("Error while inspecting field " + beanClass + "." + name + " for transient status.", e);
+            logger.log(
+                    Level.INFO, "Error while inspecting field " + beanClass + "." + name + " for transient status.", e);
         }
         return false;
     }
@@ -1237,7 +1244,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
             }
             return isTransient(field, jsonConfig);
         } catch (Exception e) {
-            log.info("Error while inspecting field " + field + " for transient status.", e);
+            logger.log(Level.INFO, "Error while inspecting field " + field + " for transient status.", e);
         }
         return false;
     }
@@ -1250,7 +1257,7 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
                     return true;
                 }
             } catch (Exception e) {
-                log.info("Error while inspecting " + element + " for transient status.", e);
+                logger.log(Level.INFO, "Error while inspecting " + element + " for transient status.", e);
             }
         }
         return false;
@@ -1259,8 +1266,10 @@ public final class JSONObject extends AbstractJSON implements JSON, Map<String, 
     private static Object morphPropertyValue(String key, Object value, Class type, Class targetType) {
         Morpher morpher = JSONUtils.getMorpherRegistry().getMorpherFor(targetType);
         if (IdentityObjectMorpher.getInstance().equals(morpher)) {
-            log.warn("Can't transform property '" + key + "' from " + type.getName() + " into " + targetType.getName()
-                    + ". Will register a default Morpher");
+            logger.log(
+                    Level.WARNING,
+                    "Can't transform property '" + key + "' from " + type.getName() + " into " + targetType.getName()
+                            + ". Will register a default Morpher");
             if (Enum.class.isAssignableFrom(targetType)) {
                 JSONUtils.getMorpherRegistry().registerMorpher(new EnumMorpher(targetType));
             } else {

@@ -23,10 +23,10 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.json.util.JSONUtils;
 import net.sf.json.util.JsonEventListener;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Base class for JSONObject and JSONArray.
@@ -52,7 +52,7 @@ abstract class AbstractJSON implements JSON {
 
     private static CycleSet cycleSet = new CycleSet();
 
-    private static final Log log = LogFactory.getLog(AbstractJSON.class);
+    private static final Logger logger = Logger.getLogger(AbstractJSON.class.getName());
 
     /**
      * Adds a reference for cycle detection check.
@@ -75,7 +75,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onArrayEnd();
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -91,7 +91,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onArrayStart();
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -110,7 +110,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onElementAdded(index, element);
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -128,7 +128,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onError(jsone);
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -144,7 +144,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onObjectEnd();
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -160,7 +160,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onObjectStart();
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -180,7 +180,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onPropertySet(key, value, accumulated);
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
@@ -198,7 +198,7 @@ abstract class AbstractJSON implements JSON {
                 try {
                     listener.onWarning(warning);
                 } catch (RuntimeException e) {
-                    log.warn(e);
+                    logger.log(Level.WARNING, e.getMessage(), e);
                 }
             }
         }
