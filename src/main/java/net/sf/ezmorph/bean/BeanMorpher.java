@@ -20,6 +20,8 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.ObjectMorpher;
@@ -27,8 +29,6 @@ import net.sf.ezmorph.object.IdentityObjectMorpher;
 import org.apache.commons.beanutils.DynaBean;
 import org.apache.commons.beanutils.DynaProperty;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Converts a JavaBean into another JavaBean or DynaBean.<br>
@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
  */
 public final class BeanMorpher implements ObjectMorpher {
-    private static final Log log = LogFactory.getLog(BeanMorpher.class);
+    private static final Logger logger = Logger.getLogger(BeanMorpher.class.getName());
     private final Class beanClass;
     private boolean lenient;
     private final MorpherRegistry morpherRegistry;
@@ -89,7 +89,9 @@ public final class BeanMorpher implements ObjectMorpher {
             for (PropertyDescriptor targetPd : targetPds) {
                 String name = targetPd.getName();
                 if (targetPd.getWriteMethod() == null) {
-                    log.info("Property '" + beanClass.getName() + "." + name + "' has no write method. SKIPPED.");
+                    logger.log(
+                            Level.INFO,
+                            "Property '" + beanClass.getName() + "." + name + "' has no write method. SKIPPED.");
                     continue;
                 }
 
@@ -98,19 +100,23 @@ public final class BeanMorpher implements ObjectMorpher {
                     DynaBean dynaBean = (DynaBean) sourceBean;
                     DynaProperty dynaProperty = dynaBean.getDynaClass().getDynaProperty(name);
                     if (dynaProperty == null) {
-                        log.warn("DynaProperty '" + name + "' does not exist. SKIPPED.");
+                        logger.log(Level.WARNING, "DynaProperty '" + name + "' does not exist. SKIPPED.");
                         continue;
                     }
                     sourceType = dynaProperty.getType();
                 } else {
                     PropertyDescriptor sourcePd = PropertyUtils.getPropertyDescriptor(sourceBean, name);
                     if (sourcePd == null) {
-                        log.warn("Property '" + sourceBean.getClass().getName() + "." + name
-                                + "' does not exist. SKIPPED.");
+                        logger.log(
+                                Level.WARNING,
+                                "Property '" + sourceBean.getClass().getName() + "." + name
+                                        + "' does not exist. SKIPPED.");
                         continue;
                     } else if (sourcePd.getReadMethod() == null) {
-                        log.warn("Property '" + sourceBean.getClass().getName() + "." + name
-                                + "' has no read method. SKIPPED.");
+                        logger.log(
+                                Level.WARNING,
+                                "Property '" + sourceBean.getClass().getName() + "." + name
+                                        + "' has no read method. SKIPPED.");
                         continue;
                     }
                     sourceType = sourcePd.getPropertyType();
@@ -161,8 +167,10 @@ public final class BeanMorpher implements ObjectMorpher {
                             throw new MorphException("Can't find a morpher for target class " + targetType.getName()
                                     + " (" + name + ")");
                         } else {
-                            log.info("Can't find a morpher for target class " + targetType.getName() + " (" + name
-                                    + ") SKIPPED");
+                            logger.log(
+                                    Level.INFO,
+                                    "Can't find a morpher for target class " + targetType.getName() + " (" + name
+                                            + ") SKIPPED");
                         }
                     } else {
                         PropertyUtils.setProperty(targetBean, name, morpherRegistry.morph(targetType, value));
