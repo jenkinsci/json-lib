@@ -54,7 +54,6 @@
       <p>Json-lib requires (at least) the following dependencies in your classpath:
          <ul>
             <li>jakarta commons-beanutils 1.8.0</li>
-            <li>jakarta commons-collections 3.2.1</li>
             <li>ezmorph 1.0.6</li>
          </ul>
       </p>

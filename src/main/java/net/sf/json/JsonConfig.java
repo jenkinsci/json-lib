@@ -40,7 +40,6 @@ import net.sf.json.util.NewBeanInstanceStrategy;
 import net.sf.json.util.PropertyExclusionClassMatcher;
 import net.sf.json.util.PropertyFilter;
 import net.sf.json.util.PropertySetStrategy;
-import org.apache.commons.collections.map.MultiKeyMap;
 
 /**
  * Utility class that helps configuring the serialization process.
@@ -71,9 +70,9 @@ public class JsonConfig {
     /** Array conversion mode */
     private int arrayMode = MODE_LIST;
 
-    private MultiKeyMap beanKeyMap = new MultiKeyMap();
+    private Map<Class<?>, Map<String, JsonValueProcessor>> beanKeyMap = new HashMap<>();
     private Map beanProcessorMap = new HashMap();
-    private MultiKeyMap beanTypeMap = new MultiKeyMap();
+    private Map<Class<?>, Map<Class<?>, JsonValueProcessor>> beanTypeMap = new HashMap<>();
     /** Map of attribute/class */
     private Map classMap;
 
@@ -198,8 +197,12 @@ public class JsonConfig {
 
     public JsonConfig copy() {
         JsonConfig jsc = new JsonConfig();
-        jsc.beanKeyMap.putAll(beanKeyMap);
-        jsc.beanTypeMap.putAll(beanTypeMap);
+        for (Map.Entry<Class<?>, Map<String, JsonValueProcessor>> e : beanKeyMap.entrySet()) {
+            jsc.beanKeyMap.put(e.getKey(), new HashMap<>(e.getValue()));
+        }
+        for (Map.Entry<Class<?>, Map<Class<?>, JsonValueProcessor>> e : beanTypeMap.entrySet()) {
+            jsc.beanTypeMap.put(e.getKey(), new HashMap<>(e.getValue()));
+        }
         jsc.classMap = new HashMap();
         if (classMap != null) {
             jsc.classMap.putAll(classMap);
@@ -392,14 +395,20 @@ public class JsonConfig {
      */
     public JsonValueProcessor findJsonValueProcessor(Class beanClass, Class propertyType, String key) {
         JsonValueProcessor jsonValueProcessor = null;
-        jsonValueProcessor = (JsonValueProcessor) beanKeyMap.get(beanClass, key);
-        if (jsonValueProcessor != null) {
-            return jsonValueProcessor;
+        Map<String, JsonValueProcessor> innerKeyMap = beanKeyMap.get(beanClass);
+        if (innerKeyMap != null) {
+            jsonValueProcessor = innerKeyMap.get(key);
+            if (jsonValueProcessor != null) {
+                return jsonValueProcessor;
+            }
         }
 
-        jsonValueProcessor = (JsonValueProcessor) beanTypeMap.get(beanClass, propertyType);
-        if (jsonValueProcessor != null) {
-            return jsonValueProcessor;
+        Map<Class<?>, JsonValueProcessor> innerTypeMap = beanTypeMap.get(beanClass);
+        if (innerTypeMap != null) {
+            jsonValueProcessor = innerTypeMap.get(propertyType);
+            if (jsonValueProcessor != null) {
+                return jsonValueProcessor;
+            }
         }
 
         jsonValueProcessor = (JsonValueProcessor) keyMap.get(key);
@@ -846,7 +855,9 @@ public class JsonConfig {
      */
     public void registerJsonValueProcessor(Class beanClass, Class propertyType, JsonValueProcessor jsonValueProcessor) {
         if (beanClass != null && propertyType != null && jsonValueProcessor != null) {
-            beanTypeMap.put(beanClass, propertyType, jsonValueProcessor);
+            Map<Class<?>, JsonValueProcessor> innerTypeMap =
+                    beanTypeMap.computeIfAbsent(beanClass, unused -> new HashMap<>());
+            innerTypeMap.put(propertyType, jsonValueProcessor);
         }
     }
 
@@ -873,7 +884,9 @@ public class JsonConfig {
      */
     public void registerJsonValueProcessor(Class beanClass, String key, JsonValueProcessor jsonValueProcessor) {
         if (beanClass != null && key != null && jsonValueProcessor != null) {
-            beanKeyMap.put(beanClass, key, jsonValueProcessor);
+            Map<String, JsonValueProcessor> innerKeyMap =
+                    beanKeyMap.computeIfAbsent(beanClass, unused -> new HashMap<>());
+            innerKeyMap.put(key, jsonValueProcessor);
         }
     }
 
@@ -1409,7 +1422,10 @@ public class JsonConfig {
      */
     public void unregisterJsonValueProcessor(Class beanClass, Class propertyType) {
         if (beanClass != null && propertyType != null) {
-            beanTypeMap.remove(beanClass, propertyType);
+            Map<Class<?>, JsonValueProcessor> innerTypeMap = beanTypeMap.get(beanClass);
+            if (innerTypeMap != null) {
+                innerTypeMap.remove(propertyType);
+            }
         }
     }
 
@@ -1422,7 +1438,10 @@ public class JsonConfig {
      */
     public void unregisterJsonValueProcessor(Class beanClass, String key) {
         if (beanClass != null && key != null) {
-            beanKeyMap.remove(beanClass, key);
+            Map<String, JsonValueProcessor> innerKeyMap = beanKeyMap.get(beanClass);
+            if (innerKeyMap != null) {
+                innerKeyMap.remove(key);
+            }
         }
     }
 
