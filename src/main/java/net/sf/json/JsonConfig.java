@@ -16,6 +16,7 @@
 
 package net.sf.json;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -1029,6 +1030,7 @@ public class JsonConfig {
      *
      * @param arrayMode array mode for conversion
      */
+    @SuppressFBWarnings(value = "UC_USELESS_CONDITION", justification = "TODO needs triage")
     public void setArrayMode(int arrayMode) {
         if (arrayMode == MODE_OBJECT_ARRAY) {
             this.arrayMode = arrayMode;
