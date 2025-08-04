@@ -16,6 +16,7 @@
 
 package net.sf.json;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Writer;
 
@@ -49,6 +50,7 @@ public final class JSONNull implements JSON {
      * @return true if the object parameter is the JSONObject.NULL object or
      *         null.
      */
+    @SuppressFBWarnings(value = "EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS", justification = "TODO needs triage")
     @Override
     public boolean equals(Object object) {
         return object == null

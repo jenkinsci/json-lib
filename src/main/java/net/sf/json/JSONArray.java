@@ -15,6 +15,7 @@
  */
 package net.sf.json;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.io.Writer;
@@ -1602,6 +1603,7 @@ public final class JSONArray extends AbstractJSON implements JSON, List<Object>,
      * @param value A String value.
      * @return this.
      */
+    @SuppressFBWarnings(value = "EC_UNRELATED_TYPES", justification = "TODO needs triage")
     public JSONArray element(String value, JsonConfig jsonConfig) {
         if (value == null) {
             this.elements.add("");

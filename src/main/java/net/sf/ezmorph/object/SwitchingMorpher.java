@@ -52,7 +52,7 @@ public class SwitchingMorpher implements ObjectMorpher {
             return false;
         }
 
-        if (!(obj instanceof NumberMorpher)) {
+        if (!(obj instanceof SwitchingMorpher)) {
             return false;
         }
 
