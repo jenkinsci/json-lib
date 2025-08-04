@@ -591,7 +591,7 @@ public class JsonConfig {
      * [Java -&gt; JSON]
      */
     public PropertyNameProcessorMatcher getJsonPropertyNameProcessorMatcher() {
-        return javaPropertyNameProcessorMatcher;
+        return jsonPropertyNameProcessorMatcher;
     }
 
     /**
@@ -1065,7 +1065,7 @@ public class JsonConfig {
             }
             this.collectionType = collectionType;
         } else {
-            collectionType = DEFAULT_COLLECTION_TYPE;
+            this.collectionType = DEFAULT_COLLECTION_TYPE;
         }
     }
 
