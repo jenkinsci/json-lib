@@ -37,7 +37,7 @@ public interface DynaBean {
      *
      * @param name Name of the property to check
      * @param key Name of the key to check
-     * @return <code>true<code> if the mapped property contains a value for
+     * @return <code>true</code> if the mapped property contains a value for
      * the specified key, otherwise <code>false</code>
      *
      * @throws IllegalArgumentException if there is no property
@@ -116,8 +116,6 @@ public interface DynaBean {
      * @param name Name of the property whose value is to be set
      * @param value Value to which this property is to be set
      *
-     * @throws ConversionException if the specified value cannot be
-     *  converted to the type required for this property
      * @throws IllegalArgumentException if there is no property
      *  of the specified name
      * @throws NullPointerException if an attempt is made to set a
@@ -132,8 +130,6 @@ public interface DynaBean {
      * @param index Index of the property to be set
      * @param value Value to which this property is to be set
      *
-     * @throws ConversionException if the specified value cannot be
-     *  converted to the type required for this property
      * @throws IllegalArgumentException if there is no property
      *  of the specified name
      * @throws IllegalArgumentException if the specified property
@@ -150,8 +146,6 @@ public interface DynaBean {
      * @param key Key of the property to be set
      * @param value Value to which this property is to be set
      *
-     * @throws ConversionException if the specified value cannot be
-     *  converted to the type required for this property
      * @throws IllegalArgumentException if there is no property
      *  of the specified name
      * @throws IllegalArgumentException if the specified property
