@@ -27,6 +27,7 @@ import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
+import net.sf.ezmorph.beanutils.DynaBean;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
@@ -34,7 +35,6 @@ import net.sf.json.JSONNull;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONString;
 import net.sf.json.JsonConfig;
-import org.apache.commons.beanutils.DynaBean;
 
 /**
  * Provides useful methods on java objects and JSON values.

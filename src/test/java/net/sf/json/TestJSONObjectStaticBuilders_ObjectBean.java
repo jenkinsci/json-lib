@@ -16,8 +16,8 @@
 
 package net.sf.json;
 
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.json.sample.ObjectBean;
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
