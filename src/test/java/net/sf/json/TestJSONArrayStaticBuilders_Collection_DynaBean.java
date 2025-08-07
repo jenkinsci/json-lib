@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
-import org.apache.commons.beanutils.DynaBean;
+import net.sf.ezmorph.beanutils.DynaBean;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>
