@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import net.sf.ezmorph.beanutils.DynaBean;
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.json.sample.ArrayBean;
 import net.sf.json.sample.BeanA;
 import net.sf.json.sample.BeanA1763699;
@@ -52,8 +54,6 @@ import net.sf.json.sample.UnstandardBean;
 import net.sf.json.sample.UnstandardBeanInstanceStrategy;
 import net.sf.json.util.JavaIdentifierTransformer;
 import net.sf.json.util.JsonEventListener;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

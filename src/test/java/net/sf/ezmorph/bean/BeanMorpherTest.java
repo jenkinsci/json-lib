@@ -36,8 +36,8 @@ import net.sf.ezmorph.bean.sample.BeanD;
 import net.sf.ezmorph.bean.sample.ObjectBean;
 import net.sf.ezmorph.bean.sample.PrimitiveBean;
 import net.sf.ezmorph.bean.sample.TypedBean;
+import net.sf.ezmorph.beanutils.DynaBean;
 import net.sf.ezmorph.test.ArrayAssertions;
-import org.apache.commons.beanutils.DynaBean;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

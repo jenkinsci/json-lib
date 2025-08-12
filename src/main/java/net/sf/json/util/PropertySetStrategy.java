@@ -18,9 +18,9 @@ package net.sf.json.util;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.json.JSONException;
 import net.sf.json.JsonConfig;
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Defines a custom setter to be used when setting object values.<br>

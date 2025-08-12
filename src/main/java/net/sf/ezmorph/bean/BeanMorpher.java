@@ -25,10 +25,10 @@ import java.util.logging.Logger;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorpherRegistry;
 import net.sf.ezmorph.ObjectMorpher;
+import net.sf.ezmorph.beanutils.DynaBean;
+import net.sf.ezmorph.beanutils.DynaProperty;
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * Converts a JavaBean into another JavaBean or DynaBean.<br>
