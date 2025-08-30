@@ -33,10 +33,10 @@ import java.util.Map;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
+import net.sf.ezmorph.beanutils.DynaBean;
 import net.sf.json.sample.ArrayJSONStringBean;
 import net.sf.json.sample.BeanA;
 import net.sf.json.util.JSONTokener;
-import org.apache.commons.beanutils.DynaBean;
 import org.junit.jupiter.api.Test;
 
 /**

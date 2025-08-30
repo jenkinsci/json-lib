@@ -27,9 +27,9 @@ import java.util.StringJoiner;
 import net.sf.ezmorph.MorphException;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.MorpherRegistry;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaClass;
-import org.apache.commons.beanutils.DynaProperty;
+import net.sf.ezmorph.beanutils.DynaBean;
+import net.sf.ezmorph.beanutils.DynaClass;
+import net.sf.ezmorph.beanutils.DynaProperty;
 
 /**
  * @author Andres Almiray <a href="mailto:aalmiray@users.sourceforge.net">aalmiray@users.sourceforge.net</a>

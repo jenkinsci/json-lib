@@ -37,6 +37,7 @@ import java.util.Set;
 import net.sf.ezmorph.MorphUtils;
 import net.sf.ezmorph.bean.MorphDynaBean;
 import net.sf.ezmorph.bean.MorphDynaClass;
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.ezmorph.test.ArrayAssertions;
 import net.sf.json.processors.DefaultValueProcessor;
 import net.sf.json.processors.DefaultValueProcessorMatcher;
@@ -67,7 +68,6 @@ import net.sf.json.util.JavaIdentifierTransformer;
 import net.sf.json.util.PropertyExclusionClassMatcher;
 import net.sf.json.util.PropertyFilter;
 import net.sf.json.util.PropertySetStrategy;
-import org.apache.commons.beanutils.PropertyUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

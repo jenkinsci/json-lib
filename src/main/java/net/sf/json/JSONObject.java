@@ -40,6 +40,9 @@ import java.util.regex.Pattern;
 import net.sf.ezmorph.Morpher;
 import net.sf.ezmorph.array.ObjectArrayMorpher;
 import net.sf.ezmorph.bean.BeanMorpher;
+import net.sf.ezmorph.beanutils.DynaBean;
+import net.sf.ezmorph.beanutils.DynaProperty;
+import net.sf.ezmorph.beanutils.PropertyUtils;
 import net.sf.ezmorph.object.IdentityObjectMorpher;
 import net.sf.json.processors.JsonBeanProcessor;
 import net.sf.json.processors.JsonValueProcessor;
@@ -51,9 +54,6 @@ import net.sf.json.util.JSONTokener;
 import net.sf.json.util.JSONUtils;
 import net.sf.json.util.PropertyFilter;
 import net.sf.json.util.PropertySetStrategy;
-import org.apache.commons.beanutils.DynaBean;
-import org.apache.commons.beanutils.DynaProperty;
-import org.apache.commons.beanutils.PropertyUtils;
 
 /**
  * A JSONObject is an unordered collection of name/value pairs. Its external
